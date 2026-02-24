@@ -87,6 +87,16 @@
             100% { transform: translate(0); }
         }
 
+        /* Footer Ghost Walk Animation */
+        @keyframes ghost-walk {
+            0% { transform: translateX(-20px) translateY(0px) rotate(-5deg); }
+            50% { transform: translateX(20px) translateY(-5px) rotate(5deg); }
+            100% { transform: translateX(-20px) translateY(0px) rotate(-5deg); }
+        }
+        .animate-ghost-walk {
+            animation: ghost-walk 4s ease-in-out infinite;
+        }
+
         /* Typewriter Cursor */
         @keyframes pulse-border {
             0%, 100% { border-color: transparent; }
@@ -235,7 +245,8 @@
             </div>
 
             <div class="text-center space-y-6">
-                <h1 id="main-title" class="text-white text-6xl md:text-9xl font-black tracking-tighter uppercase italic leading-none cursor-default transition-all duration-300">
+                <!-- Se agregó la clase section-title para el glitch universal -->
+                <h1 id="main-title" class="section-title text-white text-6xl md:text-9xl font-black tracking-tighter uppercase italic leading-none cursor-default transition-all duration-300">
                     ESTUDIO <span class="text-red-600">XIDITO</span>
                 </h1>
                 
@@ -259,7 +270,7 @@
 
         <!-- SECCIÓN: SERVICIOS -->
         <section id="sec-servicios" class="section-container hidden max-w-6xl mx-auto px-6 py-16">
-            <h2 class="text-4xl md:text-5xl font-black uppercase italic text-center mb-16 underline decoration-red-600 decoration-4 underline-offset-8 text-white">
+            <h2 class="section-title text-4xl md:text-5xl font-black uppercase italic text-center mb-16 underline decoration-red-600 decoration-4 underline-offset-8 text-white transition-all duration-300 cursor-default">
                 ¿Qué podemos crear para ti?
             </h2>
             
@@ -301,7 +312,7 @@
 
         <!-- SECCIÓN: PROCESO -->
         <section id="sec-proceso" class="section-container hidden max-w-5xl mx-auto px-6 py-20">
-            <h2 class="text-4xl md:text-5xl font-black uppercase italic text-center mb-6 leading-tight text-white">
+            <h2 class="section-title text-4xl md:text-5xl font-black uppercase italic text-center mb-6 leading-tight text-white transition-all duration-300 cursor-default">
                 ¿Cómo <span class="text-red-600">Trabajamos?</span>
             </h2>
             <p class="text-center text-gray-400 mb-20 max-w-2xl mx-auto font-medium italic">
@@ -348,16 +359,16 @@
                 </div>
             </div>
 
-            <div class="mt-20 text-center flex justify-center group">
-                <button onclick="navigate('contacto')" class="btn-3d bg-gradient-to-r from-gray-200 via-white to-gray-300 border-gray-500 text-black animate-gradient">
-                    Iniciar Proyecto
+            <div class="mt-24 text-center flex justify-center group animate-bounce">
+                <button onclick="navigate('contacto')" class="btn-3d px-12 py-6 text-2xl md:text-3xl bg-gradient-to-r from-[#00f2fe] via-[#4facfe] to-[#b224ef] border-[#002f6c] text-white animate-gradient shadow-[0_20px_50px_rgba(79,172,254,0.4)]">
+                    <i data-lucide="zap" class="mr-3 w-8 h-8 group-hover:scale-125 transition-transform"></i> Iniciar Proyecto
                 </button>
             </div>
         </section>
 
         <!-- SECCIÓN: PORTAFOLIO -->
         <section id="sec-portafolio" class="section-container hidden max-w-[1400px] mx-auto px-6 py-20 overflow-hidden">
-            <h2 class="text-4xl md:text-5xl font-black uppercase italic text-center mb-16 leading-tight text-white">
+            <h2 class="section-title text-4xl md:text-5xl font-black uppercase italic text-center mb-16 leading-tight text-white transition-all duration-300 cursor-default">
                 Un poco de lo que hacemos en <br/><span class="text-red-600 underline decoration-white decoration-2 underline-offset-8">Estudio Xidito</span>
             </h2>
             
@@ -387,7 +398,9 @@
 
         <!-- SECCIÓN: CONTACTO -->
         <section id="sec-contacto" class="section-container hidden max-w-6xl mx-auto px-6 py-20">
-            <h2 class="text-5xl font-black uppercase italic text-center mb-20 leading-tight text-white">Hagamos realidad <br/><span class="text-red-600">esa gran idea</span></h2>
+            <h2 class="section-title text-5xl font-black uppercase italic text-center mb-20 leading-tight text-white transition-all duration-300 cursor-default">
+                Hagamos realidad <br/><span class="text-red-600">esa gran idea</span>
+            </h2>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
                 <div class="space-y-8">
@@ -447,7 +460,9 @@
         <section id="sec-taller" class="section-container hidden max-w-6xl mx-auto px-6 py-20 flex flex-col items-center">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
                 <div class="space-y-10">
-                    <h2 class="text-6xl font-black uppercase italic leading-none text-white">El <span class="text-red-600 text-7xl block">Taller</span></h2>
+                    <h2 class="section-title text-6xl font-black uppercase italic leading-none text-white transition-all duration-300 cursor-default">
+                        El <span class="text-red-600 text-7xl block">Taller</span>
+                    </h2>
                     <p class="text-xl text-gray-300 leading-relaxed font-medium italic">
                         "Nuestro espacio creativo en Querétaro. Aquí convergen la tecnología, el diseño y la manufactura para materializar desde proyectos corporativos hasta detalles inolvidables."
                     </p>
@@ -479,7 +494,9 @@
         <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
             <div class="text-center md:text-left space-y-8">
                 <div class="flex items-center justify-center md:justify-start space-x-3">
-                    <i data-lucide="ghost" class="text-red-600 w-10 h-10"></i>
+                    <div class="animate-ghost-walk">
+                        <i data-lucide="ghost" class="text-red-600 w-10 h-10"></i>
+                    </div>
                     <span class="font-black italic tracking-tighter text-3xl uppercase leading-none text-white">ESTUDIO <span class="text-red-600">XIDITO</span></span>
                 </div>
                 <p class="text-gray-500 max-w-sm text-sm uppercase font-bold tracking-[0.2em] leading-loose italic">
@@ -562,21 +579,21 @@
             lucide.createIcons();
         }
 
-        // 2. EFECTO GLITCH (Cada 10 seg)
+        // 2. EFECTO GLITCH (Cada 4 seg para todos los títulos)
         setInterval(() => {
-            const title = document.getElementById('main-title');
-            if(title) {
+            const titles = document.querySelectorAll('.section-title');
+            titles.forEach(title => {
                 title.classList.add('glitch-active');
                 setTimeout(() => title.classList.remove('glitch-active'), 500);
-            }
-        }, 10000);
+            });
+        }, 4000);
 
         // Hover glitch manual
-        const mainTitle = document.getElementById('main-title');
-        if(mainTitle) {
-            mainTitle.addEventListener('mouseenter', () => mainTitle.classList.add('glitch-active'));
-            mainTitle.addEventListener('mouseleave', () => mainTitle.classList.remove('glitch-active'));
-        }
+        const allTitles = document.querySelectorAll('.section-title');
+        allTitles.forEach(title => {
+            title.addEventListener('mouseenter', () => title.classList.add('glitch-active'));
+            title.addEventListener('mouseleave', () => title.classList.remove('glitch-active'));
+        });
 
         // 3. TYPEWRITER EFFECT
         const texts = ["Diseño para tu Negocio", "Producción de Eventos", "Fotografía Profesional"];
@@ -678,12 +695,12 @@
             modal.classList.remove('flex');
         }
 
-        // 6. RENDERIZAR PORTAFOLIO (Imágenes de muestra)
+        // 6. RENDERIZAR PORTAFOLIO (Imágenes locales)
         const portfolioImages = [
-            '1550745165-9bc0b252726f', '1558655146-d09347e92766', '1626785774573-4b799315345d',
-            '1516035069371-29a1b244cc32', '1506157786151-b8491531f063', '1614850523296-d8c1af93d400',
-            '1534670007418-fbb7f6cf32c3', '1542744094-24638eff58bb', '1561070791-2526d30994b5',
-            '1513364776144-60967b0f800f', '1524758631624-e2822e304c36', '1502691876148-a84978e59af8'
+            'portafolio1.jpg', 'portafolio2.jpg', 'portafolio3.jpg',
+            'portafolio4.jpg', 'portafolio5.jpg', 'portafolio6.jpg',
+            'portafolio7.jpg', 'portafolio8.jpg', 'portafolio9.jpg',
+            'portafolio10.jpg', 'portafolio11.jpg', 'portafolio12.jpg'
         ];
 
         function renderMarquee(containerId, images) {
@@ -691,7 +708,7 @@
             if(!container) return;
             const html = images.map(img => `
                 <div class="w-[300px] md:w-[450px] h-[200px] md:h-[300px] flex-shrink-0 rounded-[2rem] border-2 border-white/10 overflow-hidden shadow-2xl group relative hover:border-red-600 transition-colors">
-                    <img src="https://images.unsplash.com/photo-${img}?w=600&q=80" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 transform group-hover:scale-105" alt="Xidito Work">
+                    <img src="${img}" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 transform group-hover:scale-105" alt="Xidito Work">
                     <div class="absolute inset-0 bg-red-900/60 mix-blend-multiply opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 </div>
             `).join('');
