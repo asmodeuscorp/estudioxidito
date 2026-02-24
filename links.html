@@ -1,0 +1,259 @@
+import React from 'react';
+import { 
+  Instagram, 
+  Facebook, 
+  MessageCircle, 
+  MapPin, 
+  ExternalLink, 
+  Camera, 
+  Palette, 
+  PenTool, 
+  Ghost, 
+  Layout, 
+  Zap, 
+  Scissors, 
+  Brush, 
+  Globe 
+} from 'lucide-react';
+
+// Componente para los elementos flotantes del fondo - Rápidos, grandes y nítidos
+const FloatingBackground = () => {
+  const icons = [
+    { Icon: Ghost, size: 80, top: '5%', left: '10%', duration: '7s' },
+    { Icon: Camera, size: 65, top: '20%', left: '80%', duration: '9s' },
+    { Icon: Palette, size: 70, top: '50%', left: '5%', duration: '11s' },
+    { Icon: PenTool, size: 60, top: '75%', left: '85%', duration: '6s' },
+    { Icon: Zap, size: 75, top: '85%', left: '15%', duration: '8s' },
+    { Icon: Scissors, size: 60, top: '40%', left: '70%', duration: '10s' },
+    { Icon: Brush, size: 65, top: '60%', left: '40%', duration: '12s' },
+  ];
+
+  return (
+    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden bg-[#030303]">
+      {/* Capa de textura metálica */}
+      <div className="absolute inset-0 opacity-40 mix-blend-overlay bg-[url('https://www.transparenttextures.com/patterns/brushed-alum.png')]"></div>
+      
+      {icons.map((item, index) => (
+        <div
+          key={index}
+          className="absolute text-red-600/40" 
+          style={{
+            top: item.top,
+            left: item.left,
+            animation: `floatAround ${item.duration} linear infinite`
+          }}
+        >
+          <item.Icon size={item.size} strokeWidth={2} />
+        </div>
+      ))}
+      <style>{`
+        @keyframes floatAround {
+          0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+          33% { transform: translate(60px, 90px) rotate(15deg) scale(1.1); }
+          66% { transform: translate(-50px, 50px) rotate(-15deg) scale(0.95); }
+          100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+        }
+        @keyframes marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        /* Animación para el degradado de los botones */
+        @keyframes gradient-shift {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+        .animate-gradient {
+          background-size: 200% auto;
+        }
+        .animate-gradient:hover {
+          animation: gradient-shift 3s linear infinite;
+        }
+      `}</style>
+    </div>
+  );
+};
+
+const App = () => {
+  // Carrusel limitado a 8 imágenes de alta calidad
+  const sampleImages = [
+    "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=600&q=80", 
+    "https://images.unsplash.com/photo-1558655146-d09347e92766?w=600&q=80", 
+    "https://images.unsplash.com/photo-1626785774573-4b799315345d?w=600&q=80", 
+    "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=600&q=80", 
+    "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=600&q=80", 
+    "https://images.unsplash.com/photo-1614850523296-d8c1af93d400?w=600&q=80", 
+    "https://images.unsplash.com/photo-1534670007418-fbb7f6cf32c3?w=600&q=80", 
+    "https://images.unsplash.com/photo-1542744094-24638eff58bb?w=600&q=80",
+  ];
+
+  const infiniteImages = [...sampleImages, ...sampleImages];
+
+  return (
+    <div className="min-h-screen text-gray-100 flex flex-col items-center py-10 font-sans selection:bg-red-600 relative overflow-hidden">
+      <FloatingBackground />
+      
+      {/* HALO DE LUZ EXTENDIDO - Más grande y con más alcance */}
+      <div className="fixed top-[-10%] left-1/2 -translate-x-1/2 w-[900px] h-[900px] bg-red-600/15 blur-[160px] rounded-full pointer-events-none z-0 animate-pulse"></div>
+
+      <div className="max-w-md w-full z-10 flex flex-col items-center px-4">
+        
+        {/* Header - Calavera Confirmada */}
+        <div className="relative mb-8 flex flex-col items-center w-full">
+          <div className="relative">
+            <div className="absolute -inset-10 bg-red-600/25 rounded-full blur-[80px]"></div>
+            <div className="relative w-40 h-40 rounded-full border-4 border-red-600 bg-black flex items-center justify-center shadow-[0_0_60px_rgba(220,38,38,0.4)] overflow-hidden">
+              <svg viewBox="0 0 100 100" className="w-28 h-28 fill-white drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]">
+                <path d="M50 15C32 15 18 28 18 45C18 53 21 60 26 66C26 68 25 72 23 76C22 78 24 81 27 80C33 78 38 75 42 73C45 74 47 75 50 75C53 75 55 74 58 73C62 75 67 78 73 80C76 81 78 78 77 76C75 72 74 68 74 66C79 60 82 53 82 45C82 28 68 15 50 15ZM35 48C31 48 28 44 28 40C28 36 31 32 35 32C39 32 42 36 42 40C42 44 39 48 35 48ZM65 48C61 48 58 44 58 40C58 36 61 32 65 32C69 32 72 36 72 40C72 44 69 48 65 48Z" />
+              </svg>
+            </div>
+          </div>
+
+          <div className="mt-8 text-center">
+            <h1 className="text-5xl font-black tracking-tighter text-white uppercase italic drop-shadow-2xl">
+              STUDIO <span className="text-red-600">XIDITO</span>
+            </h1>
+            <p className="mt-3 text-[12px] tracking-[0.5em] text-gray-300 font-black uppercase py-1.5 bg-black/60 px-6 rounded-full border border-white/5">
+              DISEÑO • PRODUCCIÓN • BRANDING
+            </p>
+          </div>
+          
+          <div className="mt-6 mb-8">
+            <div className="flex items-center px-6 py-2.5 bg-red-600 border-t border-white/30 rounded-full text-[12px] text-white uppercase tracking-widest font-black shadow-[0_8px_20px_rgba(220,38,38,0.4)]">
+              <MapPin className="w-4 h-4 mr-2" />
+              Zona Centro-Sur (Punto de Entrega)
+            </div>
+          </div>
+        </div>
+
+        {/* Mensaje de Bienvenida Creativo */}
+        <div className="w-full px-6 mb-10 text-center relative">
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-0.5 bg-red-600/50"></div>
+          <p className="pt-6 text-sm sm:text-base text-gray-300 font-medium leading-relaxed italic">
+            "Dicen que las mejores cosas se recomiendan solas. Si buscas algo <span className="text-red-600 font-black">fuera de serie</span> para tu negocio o evento, llegaste al origen. Te invitamos a explorar nuestro universo visual y descubrir el poder de una gran idea bien ejecutada."
+          </p>
+          <div className="mt-6 flex justify-center space-x-2">
+            <div className="w-1.5 h-1.5 rounded-full bg-red-600"></div>
+            <div className="w-1.5 h-1.5 rounded-full bg-red-600/40"></div>
+            <div className="w-1.5 h-1.5 rounded-full bg-red-600/20"></div>
+          </div>
+        </div>
+
+        {/* Botones - ESTILO 3D FUTURISTA, ELEGANTE Y CON DEGRADADOS ANIMADOS */}
+        <div className="w-full space-y-6 mb-14">
+          
+          {/* Website - Degradado Rojo 3D Animado */}
+          <a
+            href="https://asmodeuscorp.github.io/estudioxidito/"
+            target="_blank"
+            className="group relative flex items-center p-5 rounded-2xl 
+                       bg-gradient-to-r from-red-600 via-red-500 to-red-700 animate-gradient text-white 
+                       border-b-[6px] border-r-2 border-red-900 shadow-[0_15px_30px_rgba(0,0,0,0.5),inset_0_2px_4px_rgba(255,255,255,0.3)] 
+                       transition-all active:translate-y-1 active:border-b-[2px] active:shadow-none overflow-hidden"
+          >
+            <div className="p-3 bg-black/30 rounded-xl mr-4 shadow-inner"><Ghost className="w-8 h-8" /></div>
+            <div className="flex-1 text-left">
+              <div className="font-black text-lg tracking-widest uppercase italic leading-none">Nuestro Website</div>
+              <div className="text-[11px] font-bold uppercase opacity-80 mt-1">Explora Studio Xidito</div>
+            </div>
+            <ExternalLink className="w-5 h-5 opacity-50" />
+          </a>
+
+          {/* Instagram - Degradado Insta 3D Animado */}
+          <a
+            href="https://www.instagram.com/estudio.xidito/"
+            target="_blank"
+            className="group relative flex items-center p-5 rounded-2xl 
+                       bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] animate-gradient text-white 
+                       border-b-[6px] border-r-2 border-[#b91c1c] shadow-[0_15px_30px_rgba(0,0,0,0.5),inset_0_2px_4px_rgba(255,255,255,0.3)] 
+                       transition-all active:translate-y-1 active:border-b-[2px] active:shadow-none overflow-hidden"
+          >
+            <div className="p-3 bg-black/30 rounded-xl mr-4 shadow-inner"><Instagram className="w-8 h-8" /></div>
+            <div className="flex-1 text-left">
+              <div className="font-black text-lg tracking-widest uppercase italic leading-none">Nuestro Instagram</div>
+              <div className="text-[11px] font-bold uppercase opacity-80 mt-1">Estudio Xidito</div>
+            </div>
+            <ExternalLink className="w-5 h-5 opacity-50" />
+          </a>
+
+          {/* Facebook - Degradado Azul 3D Animado */}
+          <a
+            href="https://www.facebook.com/profile.php?id=61579203017269"
+            target="_blank"
+            className="group relative flex items-center p-5 rounded-2xl 
+                       bg-gradient-to-r from-[#1877F2] via-[#4267B2] to-[#0056b3] animate-gradient text-white 
+                       border-b-[6px] border-r-2 border-[#1154a8] shadow-[0_15px_30px_rgba(0,0,0,0.5),inset_0_2px_4px_rgba(255,255,255,0.3)] 
+                       transition-all active:translate-y-1 active:border-b-[2px] active:shadow-none overflow-hidden"
+          >
+            <div className="p-3 bg-black/30 rounded-xl mr-4 shadow-inner"><Facebook className="w-8 h-8" /></div>
+            <div className="flex-1 text-left">
+              <div className="font-black text-lg tracking-widest uppercase italic leading-none">Facebook Oficial</div>
+              <div className="text-[11px] font-bold uppercase opacity-80 mt-1">Nuestro espacio creativo</div>
+            </div>
+            <ExternalLink className="w-5 h-5 opacity-50" />
+          </a>
+
+          {/* WhatsApp - Degradado Verde 3D Animado */}
+          <a
+            href="https://wa.me/52442?text=Hola%20Estudio%20Xidito,%20me%20gustaría%20cotizar%20un%20proyecto"
+            target="_blank"
+            className="group relative flex items-center p-5 rounded-2xl 
+                       bg-gradient-to-r from-[#25D366] via-[#128C7E] to-[#075E54] animate-gradient text-white 
+                       border-b-[6px] border-r-2 border-[#1a9447] shadow-[0_15px_30px_rgba(0,0,0,0.5),inset_0_2px_4px_rgba(255,255,255,0.3)] 
+                       transition-all active:translate-y-1 active:border-b-[2px] active:shadow-none overflow-hidden"
+          >
+            <div className="p-3 bg-black/30 rounded-xl mr-4 shadow-inner"><MessageCircle className="w-8 h-8" /></div>
+            <div className="flex-1 text-left">
+              <div className="font-black text-lg tracking-widest uppercase italic leading-none">Mándanos un WhatsApp</div>
+              <div className="text-[11px] font-bold uppercase opacity-80 mt-1">Atención Inmediata</div>
+            </div>
+            <ExternalLink className="w-5 h-5 opacity-50" />
+          </a>
+        </div>
+
+        {/* Carrusel Automático - 8 Fotos más grandes */}
+        <div className="w-full mb-16 overflow-hidden relative px-2">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-[13px] font-black uppercase tracking-[0.4em] text-red-600">Portafolio Visual</h2>
+            <div className="h-px flex-1 bg-red-600/30 mx-6"></div>
+            <Zap className="w-5 h-5 text-red-600 animate-bounce" />
+          </div>
+          
+          <div className="relative w-full overflow-hidden rounded-3xl border border-white/10 bg-black/40 p-3 shadow-2xl">
+            <div 
+              className="flex gap-4 w-max"
+              style={{ animation: 'marquee 18s linear infinite' }}
+            >
+              {infiniteImages.map((src, index) => (
+                <div 
+                  key={index} 
+                  className="w-56 h-56 flex-shrink-0 rounded-2xl border-2 border-white/5 overflow-hidden shadow-2xl group relative"
+                >
+                  <img 
+                    src={src} 
+                    alt="Trabajo de Studio Xidito" 
+                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 transform group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-red-600/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Footer */}
+        <footer className="mt-4 mb-20 text-center space-y-5">
+          <p className="text-[11px] text-gray-500 uppercase tracking-[0.6em] font-black italic">
+            © 2026 Studio Xidito | Querétaro
+          </p>
+          <div className="flex items-center justify-center space-x-3 text-sm text-gray-400 font-bold bg-white/5 py-3 px-8 rounded-full border border-white/10 shadow-lg">
+            <span>Rocko, Mamba & Goldie</span>
+            <span className="text-red-600 animate-pulse text-lg">🐾</span>
+          </div>
+        </footer>
+      </div>
+    </div>
+  );
+};
+
+export default App;
