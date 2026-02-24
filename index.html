@@ -163,6 +163,33 @@
             border-bottom-width: 2px;
             box-shadow: none;
         }
+
+        /* ESTILOS INTERACTIVOS PARA PORTAFOLIO (NUEVO) */
+        .marquee-item {
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .marquee-item img {
+            filter: grayscale(100%);
+            transition: filter 0.4s ease, transform 0.7s ease;
+        }
+        .marquee-item:hover img {
+            filter: grayscale(0%);
+            transform: scale(1.05);
+        }
+        /* Cuando la imagen pasa por el centro */
+        .marquee-item.is-center {
+            transform: scale(1.1) translateY(-15px);
+            border-color: #dc2626;
+            z-index: 40;
+            box-shadow: 0 25px 50px -12px rgba(220, 38, 38, 0.6);
+        }
+        .marquee-item.is-center img {
+            filter: grayscale(0%);
+        }
+        .marquee-item.is-center .marquee-text-bg {
+            background-color: rgba(220, 38, 38, 0.9);
+            border-color: transparent;
+        }
     </style>
 </head>
 <body class="selection-bg font-sans">
@@ -373,8 +400,7 @@
             </h2>
             
             <div class="space-y-8 relative">
-                <div class="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#030303] to-transparent z-20 pointer-events-none"></div>
-                <div class="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#030303] to-transparent z-20 pointer-events-none"></div>
+                <!-- Se retiraron los blur oscuros laterales a petición del usuario para mejor visualización en móvil -->
 
                 <!-- Fila 1 -->
                 <div class="flex w-max" style="animation: marqueeLeft 40s linear infinite;">
@@ -383,7 +409,7 @@
                 </div>
 
                 <!-- Fila 2 -->
-                <div class="flex w-max" style="animation: marqueeRight 45s linear infinite;">
+                <div class="flex w-max mt-4" style="animation: marqueeRight 45s linear infinite;">
                     <div id="marquee-row-2" class="flex gap-8 pr-8 w-max"></div>
                     <div id="marquee-row-2-clone" class="flex gap-8 pr-8 w-max"></div>
                 </div>
@@ -695,30 +721,76 @@
             modal.classList.remove('flex');
         }
 
-        // 6. RENDERIZAR PORTAFOLIO (Imágenes locales)
-        const portfolioImages = [
-            'portafolio1.jpg', 'portafolio2.jpg', 'portafolio3.jpg',
-            'portafolio4.jpg', 'portafolio5.jpg', 'portafolio6.jpg',
-            'portafolio7.jpg', 'portafolio8.jpg', 'portafolio9.jpg',
-            'portafolio10.jpg', 'portafolio11.jpg', 'portafolio12.jpg'
+        // 6. RENDERIZAR PORTAFOLIO ANIMADO Y TEXTOS
+        const portfolioData = [
+            { img: 'portafolio1.jpg', title: 'Rotulación de Fachadas' },
+            { img: 'portafolio2.jpg', title: 'Rotulación Vehicular' },
+            { img: 'portafolio3.jpg', title: 'Letreros LED' },
+            { img: 'portafolio4.jpg', title: 'Piñatas Personalizadas' },
+            { img: 'portafolio5.jpg', title: 'Decoración de Eventos' },
+            { img: 'portafolio6.jpg', title: 'Invitaciones Personalizadas' },
+            { img: 'portafolio7.jpg', title: 'Etiquetas y Stickers' },
+            { img: 'portafolio8.jpg', title: 'Cake Toppers' },
+            { img: 'portafolio9.jpg', title: 'Branding' },
+            { img: 'portafolio10.jpg', title: 'Vinil de Corte' },
+            { img: 'portafolio11.jpg', title: 'Instalación Artesanal' },
+            { img: 'portafolio12.jpg', title: 'Estamos Trabajando' }
         ];
 
-        function renderMarquee(containerId, images) {
+        function renderMarquee(containerId, items) {
             const container = document.getElementById(containerId);
             if(!container) return;
-            const html = images.map(img => `
-                <div class="w-[300px] md:w-[450px] h-[200px] md:h-[300px] flex-shrink-0 rounded-[2rem] border-2 border-white/10 overflow-hidden shadow-2xl group relative hover:border-red-600 transition-colors">
-                    <img src="${img}" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 transform group-hover:scale-105" alt="Xidito Work">
-                    <div class="absolute inset-0 bg-red-900/60 mix-blend-multiply opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            const html = items.map(item => `
+                <div class="marquee-item w-[300px] md:w-[450px] h-[200px] md:h-[300px] flex-shrink-0 rounded-[2rem] border-2 border-white/10 overflow-hidden shadow-2xl group relative cursor-pointer">
+                    <img src="${item.img}" class="w-full h-full object-cover" alt="${item.title}">
+                    
+                    <!-- Sombra para legibilidad del texto -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity"></div>
+                    
+                    <!-- Texto de Categoría -->
+                    <div class="marquee-text-bg absolute bottom-6 left-6 right-6 border-l-4 border-red-600 bg-black/60 backdrop-blur-sm p-3 rounded-r-xl transition-colors duration-300">
+                        <span class="text-white font-black uppercase italic tracking-widest text-sm md:text-lg block truncate">
+                            ${item.title}
+                        </span>
+                    </div>
                 </div>
             `).join('');
             container.innerHTML = html;
         }
 
-        renderMarquee('marquee-row-1', portfolioImages.slice(0,6));
-        renderMarquee('marquee-row-1-clone', portfolioImages.slice(0,6));
-        renderMarquee('marquee-row-2', portfolioImages.slice(6,12));
-        renderMarquee('marquee-row-2-clone', portfolioImages.slice(6,12));
+        renderMarquee('marquee-row-1', portfolioData.slice(0,6));
+        renderMarquee('marquee-row-1-clone', portfolioData.slice(0,6));
+        renderMarquee('marquee-row-2', portfolioData.slice(6,12));
+        renderMarquee('marquee-row-2-clone', portfolioData.slice(6,12));
+
+        // Animación dinámica de Salto en el Centro para el Portafolio
+        let marqueeItems = [];
+        function startMarqueeAnimation() {
+            marqueeItems = document.querySelectorAll('.marquee-item');
+            animateCenterJump();
+        }
+
+        function animateCenterJump() {
+            const screenCenter = window.innerWidth / 2;
+            
+            marqueeItems.forEach(item => {
+                const rect = item.getBoundingClientRect();
+                const itemCenter = rect.left + rect.width / 2;
+                
+                // Si el centro de la imagen está cerca del centro de la pantalla
+                if (Math.abs(screenCenter - itemCenter) < (rect.width / 2.5)) {
+                    item.classList.add('is-center');
+                } else {
+                    item.classList.remove('is-center');
+                }
+            });
+            
+            // Repetir ciclo constantemente
+            requestAnimationFrame(animateCenterJump);
+        }
+
+        // Arrancar animación de salto
+        startMarqueeAnimation();
 
         // Inicializar iconos de Lucide (por si algo se renderizó dinámicamente al inicio)
         lucide.createIcons();
