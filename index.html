@@ -1,636 +1,717 @@
-import React, { useState, useEffect } from 'react';
-import { 
-  Instagram, 
-  Facebook, 
-  MessageCircle, 
-  MapPin, 
-  ExternalLink, 
-  Camera, 
-  Palette, 
-  PenTool, 
-  Ghost, 
-  Zap, 
-  Scissors, 
-  Brush, 
-  Globe,
-  Menu,
-  X,
-  ChevronRight,
-  Heart,
-  Monitor,
-  Layers,
-  Sparkles,
-  ShoppingBag,
-  Smartphone,
-  ChevronLeft,
-  Mail,
-  Clock,
-  CheckCircle,
-  Lightbulb,
-  Rocket,
-  Target,
-  Phone
-} from 'lucide-react';
-
-// --- ANIMATED BACKGROUND CONTINUOUS FLOAT ---
-const FloatingBackground = () => {
-  const icons = [
-    { Icon: Ghost, size: 80, top: '10%', left: '15%', delay: '0s', duration: '25s' },
-    { Icon: Camera, size: 65, top: '25%', left: '80%', delay: '-5s', duration: '20s' },
-    { Icon: Palette, size: 70, top: '55%', left: '8%', delay: '-10s', duration: '22s' },
-    { Icon: PenTool, size: 60, top: '75%', left: '85%', delay: '-2s', duration: '18s' },
-    { Icon: Zap, size: 75, top: '85%', left: '20%', delay: '-15s', duration: '24s' },
-    { Icon: Scissors, size: 60, top: '35%', left: '65%', delay: '-8s', duration: '19s' },
-    { Icon: Brush, size: 65, top: '65%', left: '45%', delay: '-12s', duration: '21s' },
-  ];
-
-  return (
-    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden bg-[#030303]">
-      <div className="absolute inset-0 opacity-40 mix-blend-overlay bg-[url('https://www.transparenttextures.com/patterns/brushed-alum.png')]"></div>
-      {icons.map((item, index) => (
-        <div
-          key={index}
-          className="absolute text-red-600/20" 
-          style={{
-            top: item.top,
-            left: item.left,
-            animation: `continuousFloat ${item.duration} ease-in-out infinite alternate`,
-            animationDelay: item.delay
-          }}
-        >
-          <item.Icon size={item.size} strokeWidth={1} />
-        </div>
-      ))}
-      <style>{`
-        @keyframes continuousFloat {
-          0% { transform: translate(0px, 0px) rotate(0deg); }
-          33% { transform: translate(30px, -40px) rotate(10deg); }
-          66% { transform: translate(-20px, 20px) rotate(-5deg); }
-          100% { transform: translate(40px, 30px) rotate(15deg); }
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estudio Xidito | Soluciones Creativas</title>
+    
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto+Condensed:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Roboto Condensed"', 'sans-serif'],
+                    },
+                    colors: {
+                        red: {
+                            600: '#dc2626',
+                            800: '#991b1b',
+                            900: '#7f1d1d',
+                            950: '#450a0a',
+                        }
+                    }
+                }
+            }
         }
+    </script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body {
+            background-color: #030303;
+            color: #f3f4f6;
+            margin: 0;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+        
+        .selection-bg::selection {
+            background-color: #dc2626;
+            color: white;
+        }
+
+        /* Background Animations */
+        @keyframes continuousFloat {
+            0% { transform: translate(0px, 0px) rotate(0deg); }
+            33% { transform: translate(30px, -40px) rotate(10deg); }
+            66% { transform: translate(-20px, 20px) rotate(-5deg); }
+            100% { transform: translate(40px, 30px) rotate(15deg); }
+        }
+        .parallax-icon {
+            transition: transform 0.3s ease-out;
+        }
+
+        /* Marquee Animations */
         @keyframes marqueeLeft {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
         @keyframes marqueeRight {
-          0% { transform: translateX(-50%); }
-          100% { transform: translateX(0); }
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(0); }
         }
+
+        /* Glitch Animation */
         .glitch-active {
-          animation: glitch 0.4s cubic-bezier(.25,.46,.45,.94) both;
-          text-shadow: 3px 0 #ff0000, -3px 0 #00ffff;
+            animation: glitch 0.4s cubic-bezier(.25,.46,.45,.94) both;
+            text-shadow: 3px 0 #ff0000, -3px 0 #00ffff;
         }
         @keyframes glitch {
-          0% { transform: translate(0); }
-          20% { transform: translate(-3px, 3px); }
-          40% { transform: translate(-3px, -3px); }
-          60% { transform: translate(3px, 3px); }
-          80% { transform: translate(3px, -3px); }
-          100% { transform: translate(0); }
+            0% { transform: translate(0); }
+            20% { transform: translate(-3px, 3px); }
+            40% { transform: translate(-3px, -3px); }
+            60% { transform: translate(3px, 3px); }
+            80% { transform: translate(3px, -3px); }
+            100% { transform: translate(0); }
         }
-      `}</style>
-    </div>
-  );
-};
 
-// --- TYPEWRITER EFFECT ---
-const Typewriter = ({ texts }) => {
-  const [index, setIndex] = useState(0);
-  const [subIndex, setSubIndex] = useState(0);
-  const [reverse, setReverse] = useState(false);
+        /* Typewriter Cursor */
+        @keyframes pulse-border {
+            0%, 100% { border-color: transparent; }
+            50% { border-color: #dc2626; }
+        }
+        .typewriter-cursor {
+            border-right-width: 4px;
+            animation: pulse-border 1s infinite;
+            padding-right: 4px;
+        }
 
-  useEffect(() => {
-    if (subIndex === texts[index].length + 1 && !reverse) {
-      const timeout = setTimeout(() => setReverse(true), 2000);
-      return () => clearTimeout(timeout);
-    }
-    if (subIndex === 0 && reverse) {
-      setReverse(false);
-      setIndex((prev) => (prev + 1) % texts.length);
-      return;
-    }
-    const timeout = setTimeout(() => {
-      setSubIndex((prev) => prev + (reverse ? -1 : 1));
-    }, reverse ? 50 : 100);
-    return () => clearTimeout(timeout);
-  }, [subIndex, index, reverse, texts]);
+        /* Gradient Shift for Buttons */
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .animate-gradient {
+            background-size: 200% auto;
+            animation: gradient-shift 3s ease infinite;
+        }
 
-  return (
-    <span className="text-red-600 border-r-4 border-red-600 pr-1 animate-[pulse_1s_infinite]">
-      {texts[index].substring(0, subIndex)}
-    </span>
-  );
-};
-
-// --- STYLED 3D BUTTON COMPONENT ---
-const Button3D = ({ children, onClick, href, colorClass = "bg-gradient-to-r from-red-800 via-red-600 to-red-900 border-red-950 text-white", className = "animate-[gradient-shift_3s_ease_infinite] bg-[length:200%_auto]" }) => {
-  const content = (
-    <div className={`
-      relative px-8 py-5 rounded-2xl font-black uppercase italic tracking-widest text-lg md:text-xl
-      transition-all duration-75 transform active:translate-y-1.5 active:shadow-none
-      border-b-[8px] border-r-2 shadow-[0_12px_25px_rgba(0,0,0,0.5)]
-      flex items-center justify-center gap-3 group
-      ${colorClass} ${className}
-    `}>
-      {children}
-    </div>
-  );
-
-  if (href) {
-    return (
-      <a href={href} target="_blank" rel="noopener noreferrer" className="block w-full">
-        {content}
-      </a>
-    );
-  }
-
-  return (
-    <button onClick={onClick} className="block w-full">
-      {content}
-    </button>
-  );
-};
-
-// --- NAV COMPONENT ---
-const Nav = ({ activeSection, setActiveSection }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const menuItems = [
-    { id: 'inicio', label: 'Inicio' },
-    { id: 'servicios', label: 'Servicios' },
-    { id: 'proceso', label: 'Proceso' },
-    { id: 'portafolio', label: 'Portafolio' },
-    { id: 'contacto', label: 'Contacto' },
-    { id: 'taller', label: 'Taller' }
-  ];
-
-  return (
-    <nav className="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-white/5">
-      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        <div className="flex items-center space-x-2 group cursor-pointer" onClick={() => setActiveSection('inicio')}>
-          <Ghost className="text-red-600 w-6 h-6 group-hover:animate-bounce" />
-          <span className="font-black italic tracking-tighter text-lg uppercase">Estudio <span className="text-red-600">Xidito</span></span>
-        </div>
+        /* Modal Transitions */
+        .modal-enter {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+        .modal-enter-active {
+            opacity: 1;
+            transform: scale(1);
+            transition: opacity 300ms, transform 300ms;
+        }
         
-        <div className="hidden md:flex space-x-6">
-          {menuItems.map(item => (
-            <button 
-              key={item.id}
-              onClick={() => setActiveSection(item.id)}
-              className={`text-[11px] font-black uppercase tracking-widest transition-all hover:tracking-[0.2em] ${activeSection === item.id ? 'text-red-600' : 'text-gray-400 hover:text-white'}`}
-            >
-              {item.label}
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Base Button 3D Class */
+        .btn-3d {
+            position: relative;
+            padding: 1.25rem 2rem;
+            border-radius: 1rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            font-style: italic;
+            letter-spacing: 0.1em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            transition: all 0.075s;
+            border-bottom-width: 8px;
+            border-right-width: 2px;
+            box-shadow: 0 12px 25px rgba(0,0,0,0.5);
+            text-align: center;
+            cursor: pointer;
+        }
+        .btn-3d:active {
+            transform: translateY(6px);
+            border-bottom-width: 2px;
+            box-shadow: none;
+        }
+    </style>
+</head>
+<body class="selection-bg font-sans">
+
+    <!-- FLOATING BACKGROUND -->
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden bg-[#030303]">
+        <div class="absolute inset-0 opacity-40 mix-blend-overlay" style="background-image: url('https://www.transparenttextures.com/patterns/brushed-alum.png');"></div>
+        
+        <div class="parallax-icon absolute text-red-600/20" style="top: 10%; left: 15%; animation: continuousFloat 25s ease-in-out infinite alternate; animation-delay: 0s;" data-speed="0.8">
+            <i data-lucide="ghost" style="width: 80px; height: 80px; stroke-width: 1;"></i>
+        </div>
+        <div class="parallax-icon absolute text-red-600/20" style="top: 25%; left: 80%; animation: continuousFloat 20s ease-in-out infinite alternate; animation-delay: -5s;" data-speed="1.2">
+            <i data-lucide="camera" style="width: 65px; height: 65px; stroke-width: 1;"></i>
+        </div>
+        <div class="parallax-icon absolute text-red-600/20" style="top: 55%; left: 8%; animation: continuousFloat 22s ease-in-out infinite alternate; animation-delay: -10s;" data-speed="0.5">
+            <i data-lucide="palette" style="width: 70px; height: 70px; stroke-width: 1;"></i>
+        </div>
+        <div class="parallax-icon absolute text-red-600/20" style="top: 75%; left: 85%; animation: continuousFloat 18s ease-in-out infinite alternate; animation-delay: -2s;" data-speed="1.5">
+            <i data-lucide="pen-tool" style="width: 60px; height: 60px; stroke-width: 1;"></i>
+        </div>
+        <div class="parallax-icon absolute text-red-600/20" style="top: 85%; left: 20%; animation: continuousFloat 24s ease-in-out infinite alternate; animation-delay: -15s;" data-speed="0.9">
+            <i data-lucide="zap" style="width: 75px; height: 75px; stroke-width: 1;"></i>
+        </div>
+        <div class="parallax-icon absolute text-red-600/20" style="top: 35%; left: 65%; animation: continuousFloat 19s ease-in-out infinite alternate; animation-delay: -8s;" data-speed="1.1">
+            <i data-lucide="scissors" style="width: 60px; height: 60px; stroke-width: 1;"></i>
+        </div>
+        <div class="parallax-icon absolute text-red-600/20" style="top: 65%; left: 45%; animation: continuousFloat 21s ease-in-out infinite alternate; animation-delay: -12s;" data-speed="0.7">
+            <i data-lucide="brush" style="width: 65px; height: 65px; stroke-width: 1;"></i>
+        </div>
+    </div>
+
+    <!-- HALO CENTRAL -->
+    <div class="fixed top-[-5%] left-1/2 -translate-x-1/2 w-[1100px] h-[1100px] bg-red-600/15 blur-[200px] rounded-full pointer-events-none z-0"></div>
+
+    <!-- NAVEGACIÓN -->
+    <nav class="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-white/5">
+        <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-2 group cursor-pointer" onclick="navigate('inicio')">
+                <i data-lucide="ghost" class="text-red-600 w-6 h-6 group-hover:animate-bounce"></i>
+                <span class="font-black italic tracking-tighter text-lg uppercase text-white">Estudio <span class="text-red-600">Xidito</span></span>
+            </div>
+            
+            <div class="hidden md:flex space-x-6">
+                <button onclick="navigate('inicio')" class="nav-link text-red-600 text-[11px] font-black uppercase tracking-widest transition-all hover:tracking-[0.2em] hover:text-white" data-target="inicio">Inicio</button>
+                <button onclick="navigate('servicios')" class="nav-link text-gray-400 text-[11px] font-black uppercase tracking-widest transition-all hover:tracking-[0.2em] hover:text-white" data-target="servicios">Servicios</button>
+                <button onclick="navigate('proceso')" class="nav-link text-gray-400 text-[11px] font-black uppercase tracking-widest transition-all hover:tracking-[0.2em] hover:text-white" data-target="proceso">Proceso</button>
+                <button onclick="navigate('portafolio')" class="nav-link text-gray-400 text-[11px] font-black uppercase tracking-widest transition-all hover:tracking-[0.2em] hover:text-white" data-target="portafolio">Portafolio</button>
+                <button onclick="navigate('contacto')" class="nav-link text-gray-400 text-[11px] font-black uppercase tracking-widest transition-all hover:tracking-[0.2em] hover:text-white" data-target="contacto">Contacto</button>
+                <button onclick="navigate('taller')" class="nav-link text-gray-400 text-[11px] font-black uppercase tracking-widest transition-all hover:tracking-[0.2em] hover:text-white" data-target="taller">Taller</button>
+            </div>
+
+            <button class="md:hidden text-white" onclick="toggleMenu()">
+                <i data-lucide="menu" id="menu-icon"></i>
             </button>
-          ))}
         </div>
 
-        <button className="md:hidden text-white" onClick={() => setIsOpen(!isOpen)}>
-          {isOpen ? <X /> : <Menu />}
-        </button>
-      </div>
-
-      {isOpen && (
-        <div className="md:hidden bg-black/95 absolute w-full p-6 space-y-4 border-b border-red-600/20 shadow-2xl">
-          {menuItems.map(item => (
-            <button 
-              key={item.id}
-              onClick={() => { setActiveSection(item.id); setIsOpen(false); }}
-              className="block w-full text-left text-xl font-black uppercase italic text-gray-300 hover:text-red-600"
-            >
-              {item.label}
-            </button>
-          ))}
+        <!-- Menú Móvil -->
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 absolute w-full p-6 space-y-4 border-b border-red-600/20 shadow-2xl">
+            <button onclick="navigate('inicio')" class="block w-full text-left text-xl font-black uppercase italic text-gray-300 hover:text-red-600">Inicio</button>
+            <button onclick="navigate('servicios')" class="block w-full text-left text-xl font-black uppercase italic text-gray-300 hover:text-red-600">Servicios</button>
+            <button onclick="navigate('proceso')" class="block w-full text-left text-xl font-black uppercase italic text-gray-300 hover:text-red-600">Proceso</button>
+            <button onclick="navigate('portafolio')" class="block w-full text-left text-xl font-black uppercase italic text-gray-300 hover:text-red-600">Portafolio</button>
+            <button onclick="navigate('contacto')" class="block w-full text-left text-xl font-black uppercase italic text-gray-300 hover:text-red-600">Contacto</button>
+            <button onclick="navigate('taller')" class="block w-full text-left text-xl font-black uppercase italic text-gray-300 hover:text-red-600">Taller</button>
         </div>
-      )}
     </nav>
-  );
-};
 
-const App = () => {
-  const [activeSection, setActiveSection] = useState('inicio');
-  const [glitch, setGlitch] = useState(false);
-  
-  const services = [
-    { 
-      id: 'formato', 
-      label: 'Gran Formato', 
-      icon: <Layers size={32} />, 
-      desc: 'Impresiones y rotulación a gran escala.',
-      details: ['Impresión de lona', 'Vinil brillante/mate', 'Corte de vinil', 'Microperforados', 'Rotulación interior', 'Rotulación exterior', 'Rotulación vehicular'] 
-    },
-    { 
-      id: 'fiestas', 
-      label: 'Eventos y Fiestas', 
-      icon: <Zap size={32} />, 
-      desc: 'Escenografías y decoración temática.',
-      details: ['Sets fotográficos', 'Montaje de mesas', 'Decoración temática', 'Estructuras de coroplast', 'Escenarios personalizados'] 
-    },
-    { 
-      id: 'digital', 
-      label: 'Artículos Digitales', 
-      icon: <Smartphone size={32} />, 
-      desc: 'Presencia e invitaciones modernas.',
-      details: ['Invitaciones digitales interactivas', 'Menús QR para restaurantes', 'Tarjetas digitales', 'Social Media Branding', 'Filtros AR'] 
-    },
-    { 
-      id: 'artesania', 
-      label: 'Artesanías de Fiesta', 
-      icon: <Scissors size={32} />, 
-      desc: 'Detalles únicos elaborados a mano.',
-      details: ['Piñatas de autor (Piezas únicas)', 'Cake toppers personalizados', 'Banners de papel calado', 'Stickers premium', 'Cajas dulceras de lujo'] 
-    },
-    { 
-      id: 'foto', 
-      label: 'Fotografía', 
-      icon: <Camera size={32} />, 
-      desc: 'Capturamos la esencia de tu producto.',
-      details: ['Fotografía de Producto', 'Sesiones en Set', 'Cobertura de Eventos', 'Edición profesional', 'Retoque industrial'] 
-    },
-    { 
-      id: 'negocio', 
-      label: 'Para tu Negocio', 
-      icon: <ShoppingBag size={32} />, 
-      desc: 'Identidad que transmite profesionalismo.',
-      details: ['Diseño de Logotipo', 'Identidad Corporativa', 'Flyers y Folletería', 'Uniformes personalizados', 'Señalética industrial'] 
-    }
-  ];
-
-  const [activeService, setActiveService] = useState(null);
-
-  // Efecto Glitch Seguro
-  useEffect(() => {
-    let timeoutId;
-    const interval = setInterval(() => {
-      setGlitch(true);
-      timeoutId = setTimeout(() => setGlitch(false), 500);
-    }, 10000);
-    
-    return () => {
-      clearInterval(interval);
-      clearTimeout(timeoutId);
-    };
-  }, []);
-
-  // Imágenes para el portafolio (simuladas con Unsplash para previsualización)
-  const row1Images = Array.from({ length: 6 }).map((_, i) => 
-    `https://images.unsplash.com/photo-${[
-      '1550745165-9bc0b252726f', '1558655146-d09347e92766', '1626785774573-4b799315345d',
-      '1516035069371-29a1b244cc32', '1506157786151-b8491531f063', '1614850523296-d8c1af93d400'
-    ][i]}?w=600&q=80`
-  );
-  
-  const row2Images = Array.from({ length: 6 }).map((_, i) => 
-    `https://images.unsplash.com/photo-${[
-      '1534670007418-fbb7f6cf32c3', '1542744094-24638eff58bb', '1561070791-2526d30994b5',
-      '1513364776144-60967b0f800f', '1524758631624-e2822e304c36', '1502691876148-a84978e59af8'
-    ][i]}?w=600&q=80`
-  );
-
-  const MarqueeRow = ({ images }) => (
-    <div className="flex gap-8 pr-8 w-max">
-      {images.map((src, index) => (
-        <div key={`img-${index}`} className="w-[300px] md:w-[450px] h-[200px] md:h-[300px] flex-shrink-0 rounded-[2rem] border-2 border-white/10 overflow-hidden shadow-2xl group relative hover:border-red-600 transition-colors">
-          <img src={src} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 transform group-hover:scale-105" alt="Xidito Work" />
-          <div className="absolute inset-0 bg-red-900/60 mix-blend-multiply opacity-0 group-hover:opacity-100 transition-opacity"></div>
-        </div>
-      ))}
-    </div>
-  );
-
-  return (
-    <div className="min-h-screen text-gray-100 font-sans selection:bg-red-600 relative overflow-x-hidden">
-      <FloatingBackground />
-      <Nav activeSection={activeSection} setActiveSection={setActiveSection} />
-      
-      {/* Halo de Poder Central */}
-      <div className="fixed top-[-5%] left-1/2 -translate-x-1/2 w-[1100px] h-[1100px] bg-red-600/15 blur-[200px] rounded-full pointer-events-none z-0"></div>
-
-      <main className="relative z-10 pt-16 pb-20">
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="relative z-10 pt-16 pb-20">
         
-        {/* --- SECTION: INICIO --- */}
-        {activeSection === 'inicio' && (
-          <div className="max-w-5xl mx-auto px-6 py-20 flex flex-col items-center animate-in fade-in duration-700">
-            <div className="relative mb-16 group">
-              <div className="absolute -inset-10 bg-red-600/30 rounded-full blur-[90px] animate-pulse"></div>
-              <div className="relative w-48 h-48 rounded-full border-4 border-red-600 bg-black flex items-center justify-center shadow-[0_0_60px_rgba(220,38,38,0.6)]">
-                <svg viewBox="0 0 100 100" className="w-32 h-32 fill-white drop-shadow-[0_0_15px_rgba(255,255,255,0.4)]">
-                  <path d="M50 15C32 15 18 28 18 45C18 53 21 60 26 66C26 68 25 72 23 76C22 78 24 81 27 80C33 78 38 75 42 73C45 74 47 75 50 75C53 75 55 74 58 73C62 75 67 78 73 80C76 81 78 78 77 76C75 72 74 68 74 66C79 60 82 53 82 45C82 28 68 15 50 15ZM35 48C31 48 28 44 28 40C28 36 31 32 35 32C39 32 42 36 42 40C42 44 39 48 35 48ZM65 48C61 48 58 44 58 40C58 36 61 32 65 32C69 32 72 36 72 40C72 44 69 48 65 48Z" />
-                </svg>
-              </div>
-            </div>
-
-            <div className="text-center space-y-6">
-              <h1 
-                onMouseEnter={() => setGlitch(true)}
-                onMouseLeave={() => setGlitch(false)}
-                className={`text-6xl md:text-9xl font-black tracking-tighter uppercase italic leading-none cursor-default transition-all duration-300 ${glitch ? 'glitch-active' : ''}`}
-              >
-                ESTUDIO <span className="text-red-600">XIDITO</span>
-              </h1>
-              
-              <div className="text-xl md:text-3xl font-black uppercase tracking-[0.2em] text-gray-300 h-10">
-                <Typewriter texts={["Diseño para tu Negocio", "Producción de Eventos", "Fotografía Profesional"]} />
-              </div>
-            </div>
-
-            <div className="mt-16 w-full max-w-2xl text-center relative p-8 md:p-10 rounded-[3rem] bg-black/70 border border-white/10 backdrop-blur-md shadow-2xl">
-              <p className="text-lg md:text-xl text-gray-200 font-medium leading-relaxed italic">
-                Ya sea que busques darle una imagen profesional a tu negocio, capturar momentos únicos o crear la fiesta más espectacular, <span className="text-red-600 font-black">llegaste al lugar indicado.</span> Aquí las buenas ideas se hacen realidad.
-              </p>
-            </div>
-
-            <div className="mt-16 w-full max-w-sm">
-              <Button3D onClick={() => setActiveSection('contacto')}>
-                <MessageCircle className="group-hover:rotate-12 transition-transform" /> Contáctanos
-              </Button3D>
-            </div>
-          </div>
-        )}
-
-        {/* --- SECTION: SERVICIOS (GRID Y MODAL) --- */}
-        {activeSection === 'servicios' && (
-          <div className="max-w-6xl mx-auto px-6 py-16 animate-in fade-in duration-500">
-            <h2 className="text-4xl md:text-5xl font-black uppercase italic text-center mb-16 underline decoration-red-600 decoration-4 underline-offset-8">
-              ¿Qué podemos crear para ti?
-            </h2>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {services.map((service) => (
-                <div 
-                  key={service.id}
-                  onClick={() => setActiveService(service)}
-                  className="group cursor-pointer bg-[#111] border-2 border-white/5 hover:border-red-600/60 rounded-[2.5rem] p-8 transition-all duration-300 transform hover:-translate-y-2 shadow-xl hover:shadow-[0_15px_30px_rgba(220,38,38,0.2)]"
-                >
-                  <div className="w-16 h-16 bg-red-600/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-red-600 text-red-600 group-hover:text-white transition-colors duration-300">
-                    {service.icon}
-                  </div>
-                  <h3 className="text-2xl font-black uppercase italic text-white mb-3">{service.label}</h3>
-                  <p className="text-gray-400 text-sm mb-6">{service.desc}</p>
-                  <span className="text-xs font-bold uppercase tracking-widest text-red-600 group-hover:text-white transition-colors flex items-center">
-                    Ver detalles <ChevronRight className="w-4 h-4 ml-1 group-hover:translate-x-2 transition-transform" />
-                  </span>
+        <!-- SECCIÓN: INICIO -->
+        <section id="sec-inicio" class="section-container block max-w-5xl mx-auto px-6 py-20 flex flex-col items-center animate-[fadeIn_0.7s_ease-out]">
+            <div class="relative mb-16 group">
+                <div class="absolute -inset-10 bg-red-600/30 rounded-full blur-[90px] animate-pulse"></div>
+                <div class="relative w-48 h-48 rounded-full border-4 border-red-600 bg-black flex items-center justify-center shadow-[0_0_60px_rgba(220,38,38,0.6)]">
+                    <svg viewBox="0 0 100 100" class="w-32 h-32 fill-white drop-shadow-[0_0_15px_rgba(255,255,255,0.4)]">
+                        <path d="M50 15C32 15 18 28 18 45C18 53 21 60 26 66C26 68 25 72 23 76C22 78 24 81 27 80C33 78 38 75 42 73C45 74 47 75 50 75C53 75 55 74 58 73C62 75 67 78 73 80C76 81 78 78 77 76C75 72 74 68 74 66C79 60 82 53 82 45C82 28 68 15 50 15ZM35 48C31 48 28 44 28 40C28 36 31 32 35 32C39 32 42 36 42 40C42 44 39 48 35 48ZM65 48C61 48 58 44 58 40C58 36 61 32 65 32C69 32 72 36 72 40C72 44 69 48 65 48Z" />
+                    </svg>
                 </div>
-              ))}
             </div>
 
-            {/* Modal de Servicio */}
-            {activeService && (
-              <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-300">
-                <div className="relative w-full max-w-3xl bg-[#0a0a0a] border-2 border-red-600/50 rounded-[3rem] p-8 md:p-12 shadow-[0_0_80px_rgba(220,38,38,0.3)] animate-in zoom-in-95 duration-300 max-h-[90vh] overflow-y-auto">
-                  
-                  <button 
-                    onClick={() => setActiveService(null)}
-                    className="absolute top-6 right-6 p-2 bg-white/5 hover:bg-red-600 rounded-full transition-colors text-gray-400 hover:text-white"
-                  >
-                    <X size={24} />
-                  </button>
-
-                  <div className="flex flex-col md:flex-row items-center md:items-start gap-6 mb-10 text-center md:text-left">
-                    <div className="p-6 bg-gradient-to-br from-red-600 to-red-900 rounded-3xl text-white shadow-lg shrink-0">
-                      {activeService.icon}
-                    </div>
-                    <div className="mt-2">
-                      <h3 className="text-3xl md:text-4xl font-black uppercase italic text-white">{activeService.label}</h3>
-                      <p className="text-red-600 font-bold uppercase tracking-[0.2em] text-[10px] mt-2 bg-red-600/10 inline-block px-3 py-1 rounded-full border border-red-600/20">
-                        Catálogo de Soluciones
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
-                    {activeService.details.map((detail, idx) => (
-                      <div 
-                        key={idx} 
-                        className="flex items-center gap-4 p-4 bg-white/5 rounded-2xl border border-white/5 hover:border-red-600/50 transition-colors group animate-in slide-in-from-bottom-4 fade-in duration-500 fill-mode-both"
-                        style={{ animationDelay: `${idx * 150}ms` }}
-                      >
-                        <CheckCircle className="text-red-600 w-5 h-5 shrink-0 group-hover:scale-110 transition-transform" />
-                        <span className="text-sm font-bold uppercase tracking-widest text-gray-300">{detail}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="flex justify-center md:justify-start">
-                    <Button3D href={`https://wa.me/52442?text=Hola,%20me%20interesa%20el%20servicio%20de%20${activeService.label}`} colorClass="bg-gradient-to-r from-gray-200 via-white to-gray-300 border-gray-500 text-black w-full md:w-auto">
-                      Cotizar este servicio <MessageCircle className="ml-2 w-5 h-5 group-hover:scale-125 transition-transform" />
-                    </Button3D>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-        )}
-
-        {/* --- NUEVA SECTION: PROCESO (CÓMO TRABAJAMOS) --- */}
-        {activeSection === 'proceso' && (
-          <div className="max-w-5xl mx-auto px-6 py-20 animate-in slide-in-from-bottom-10 duration-500">
-            <h2 className="text-4xl md:text-5xl font-black uppercase italic text-center mb-6 leading-tight">
-              ¿Cómo <span className="text-red-600">Trabajamos?</span>
-            </h2>
-            <p className="text-center text-gray-400 mb-20 max-w-2xl mx-auto font-medium italic">
-              Hacer realidad tu proyecto es muy sencillo. Te acompañamos paso a paso para que el resultado final sea exactamente lo que imaginaste (o mucho mejor).
-            </p>
-
-            <div className="relative">
-              {/* Línea conectora (solo desktop) */}
-              <div className="hidden md:block absolute top-1/2 left-0 w-full h-1 bg-gradient-to-r from-transparent via-red-600/30 to-transparent -translate-y-1/2 z-0"></div>
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-12 relative z-10">
-                {[
-                  { icon: <Target size={40} />, step: "01", title: "Platiquemos", desc: "Mándanos un mensajito contándonos qué necesitas. Escuchamos tus ideas y te enviamos una propuesta clara y sin enredos." },
-                  { icon: <Lightbulb size={40} />, step: "02", title: "Manos a la obra", desc: "Aquí entra la magia del taller. Empezamos a diseñar y armar tu proyecto cuidando cada detalle para que quede perfecto." },
-                  { icon: <Rocket size={40} />, step: "03", title: "Listo para brillar", desc: "¡Tu proyecto cobra vida! Ya sea la nueva imagen de tu negocio o la piñata de tus sueños, te lo entregamos listo para presumir." }
-                ].map((item, idx) => (
-                  <div key={idx} className="bg-[#111] p-8 rounded-[3rem] border-2 border-white/5 hover:border-red-600/50 transition-all transform hover:-translate-y-2 shadow-2xl relative group">
-                    <div className="absolute -top-6 -right-6 text-7xl font-black italic text-white/5 group-hover:text-red-600/10 transition-colors z-0">
-                      {item.step}
-                    </div>
-                    <div className="relative z-10">
-                      <div className="w-20 h-20 bg-black border border-white/10 rounded-full flex items-center justify-center text-red-600 mb-6 group-hover:bg-red-600 group-hover:text-white transition-colors shadow-lg">
-                        {item.icon}
-                      </div>
-                      <h3 className="text-2xl font-black uppercase italic text-white mb-4">{item.title}</h3>
-                      <p className="text-gray-400 text-sm leading-relaxed font-medium">{item.desc}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="mt-20 text-center flex justify-center">
-              <Button3D onClick={() => setActiveSection('contacto')} colorClass="bg-gradient-to-r from-gray-200 via-white to-gray-300 border-gray-500 text-black">
-                Iniciar Proyecto
-              </Button3D>
-            </div>
-          </div>
-        )}
-
-        {/* --- SECTION: PORTAFOLIO --- */}
-        {activeSection === 'portafolio' && (
-          <div className="max-w-[1400px] mx-auto px-6 py-20 overflow-hidden animate-in fade-in duration-500">
-            <h2 className="text-4xl md:text-5xl font-black uppercase italic text-center mb-16 leading-tight">
-              Un poco de lo que hacemos en <br/><span className="text-red-600 underline decoration-white decoration-2 underline-offset-8">Estudio Xidito</span>
-            </h2>
-            
-            <div className="space-y-8 relative">
-              <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#030303] to-transparent z-20 pointer-events-none"></div>
-              <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#030303] to-transparent z-20 pointer-events-none"></div>
-
-              <div className="flex w-max" style={{ animation: 'marqueeLeft 40s linear infinite' }}>
-                <MarqueeRow images={row1Images} />
-                <MarqueeRow images={row1Images} />
-              </div>
-
-              <div className="flex w-max" style={{ animation: 'marqueeRight 45s linear infinite' }}>
-                <MarqueeRow images={row2Images} />
-                <MarqueeRow images={row2Images} />
-              </div>
-            </div>
-            
-            <div className="mt-20 flex justify-center">
-              <Button3D href="https://www.instagram.com/estudio.xidito/" colorClass="bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] border-[#b91c1c] text-white">
-                <Instagram className="mr-2 group-hover:rotate-12 transition-transform" /> Visita nuestro Instagram
-              </Button3D>
-            </div>
-          </div>
-        )}
-
-        {/* --- SECTION: CONTACTO --- */}
-        {activeSection === 'contacto' && (
-          <div className="max-w-6xl mx-auto px-6 py-20 animate-in slide-in-from-right-10 duration-500">
-            <h2 className="text-5xl font-black uppercase italic text-center mb-20 leading-tight">Hagamos realidad <br/><span className="text-red-600">esa gran idea</span></h2>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-              <div className="space-y-8">
-                <div className="p-8 rounded-[2.5rem] bg-black border-2 border-white/5 shadow-2xl">
-                  <h3 className="text-2xl font-black uppercase italic mb-8 text-red-600">Canales Directos</h3>
-                  <div className="space-y-6">
-                    <div className="relative group">
-                      {/* Anillo de luz palpitante para llamar la atención */}
-                      <div className="absolute -inset-1 bg-gradient-to-r from-[#25D366] to-[#128C7E] rounded-2xl blur opacity-40 group-hover:opacity-100 transition duration-500 animate-pulse"></div>
-                      <Button3D 
-                        href="https://wa.me/524421260133?text=Hola%2C%20te%20contacto%20desde%20tu%20p%C3%A1gina" 
-                        colorClass="bg-gradient-to-r from-[#25D366] via-[#128C7E] to-[#075E54] border-[#054c44] text-white"
-                        className="animate-[gradient-shift_3s_ease_infinite] bg-[length:200%_auto]"
-                      >
-                        <MessageCircle className="animate-bounce" /> WhatsApp Directo
-                      </Button3D>
-                    </div>
-                    
-                    <Button3D 
-                      href="tel:+524421260133" 
-                      colorClass="bg-gradient-to-r from-[#00E1FD] via-[#0052FF] to-[#001D93] border-[#001155] text-white"
-                      className="animate-[gradient-shift_4s_ease_infinite] bg-[length:200%_auto]"
-                    >
-                      <Phone className="text-white group-hover:rotate-12 transition-transform" /> Tel: 442 126 01 33
-                    </Button3D>
-                  </div>
-                </div>
-
-                <div className="p-10 rounded-[2.5rem] bg-gradient-to-br from-[#151515] to-[#0a0a0a] border-t border-l border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative overflow-hidden group">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-red-600/10 rounded-full blur-[50px] group-hover:bg-red-600/20 transition-all duration-700"></div>
-                  <h3 className="text-sm font-black uppercase tracking-[0.4em] text-gray-500 mb-8 flex items-center gap-4">
-                    <div className="w-10 h-[2px] bg-red-600"></div>
-                    Horarios del Taller
-                  </h3>
-                  <div className="flex flex-col gap-4 relative z-10">
-                    <div className="flex items-center justify-between text-gray-300 border-b border-white/5 pb-4">
-                      <span className="font-bold uppercase tracking-widest text-sm flex items-center gap-3">
-                        <Clock className="text-red-600 w-5 h-5" /> Lunes a Viernes
-                      </span>
-                      <span className="font-black text-white bg-white/10 px-4 py-1.5 rounded-lg shadow-inner">09:00 - 18:00</span>
-                    </div>
-                    <div className="flex items-center justify-between text-gray-500 pt-2">
-                      <span className="font-bold uppercase tracking-widest text-xs flex items-center gap-3 ml-8">
-                        Fines de semana
-                      </span>
-                      <span className="font-black text-xs uppercase tracking-widest text-red-500">Previa Cita</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="p-8 md:p-12 rounded-[3rem] bg-[#111] border-2 border-white/5 shadow-inner flex flex-col">
-                <h3 className="text-2xl font-black uppercase italic mb-6">Ubicación Estratégica</h3>
-                <div className="flex-1 bg-black rounded-3xl mb-8 flex flex-col items-center justify-center border border-white/10 group overflow-hidden min-h-[250px] relative">
-                  <MapPin size={60} className="text-red-600 group-hover:scale-125 transition-transform duration-500 mb-4 z-10" />
-                  <p className="text-center text-gray-500 font-bold uppercase tracking-widest text-xs px-6 z-10">
-                    Atención presencial únicamente con previa cita.
-                  </p>
-                  <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1524661135-423995f22d0b?w=600&q=80')] opacity-20 mix-blend-overlay group-hover:opacity-40 transition-opacity"></div>
-                </div>
-                <Button3D href="https://maps.app.goo.gl/ND74azWAr35eCKHz7" colorClass="bg-gradient-to-r from-gray-800 via-gray-700 to-black border-red-600 text-white">
-                  Abrir en Google Maps
-                </Button3D>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* --- SECTION: EL TALLER --- */}
-        {activeSection === 'taller' && (
-          <div className="max-w-6xl mx-auto px-6 py-20 flex flex-col items-center animate-in slide-in-from-bottom-10 duration-500">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
-              <div className="space-y-10">
-                <h2 className="text-6xl font-black uppercase italic leading-none">El <span className="text-red-600 text-7xl block">Taller</span></h2>
-                <p className="text-xl text-gray-300 leading-relaxed font-medium italic">
-                  "Nuestro espacio creativo en Querétaro. Aquí convergen la tecnología, el diseño y la manufactura para materializar desde proyectos corporativos hasta detalles inolvidables."
-                </p>
+            <div class="text-center space-y-6">
+                <h1 id="main-title" class="text-white text-6xl md:text-9xl font-black tracking-tighter uppercase italic leading-none cursor-default transition-all duration-300">
+                    ESTUDIO <span class="text-red-600">XIDITO</span>
+                </h1>
                 
-                <div className="p-10 bg-black/80 rounded-[3rem] border-2 border-white/5 relative overflow-hidden group shadow-2xl">
-                  <h4 className="flex items-center font-black uppercase italic text-red-600 text-2xl mb-8">
-                    <Heart className="w-6 h-6 mr-3 fill-red-600 animate-pulse" /> Soporte de Élite
-                  </h4>
-                  <div className="grid grid-cols-3 gap-6">
-                    {['Rocko', 'Mamba', 'Goldie'].map(name => (
-                      <div key={name} className="p-5 bg-white/5 rounded-2xl text-center border-b-4 border-transparent hover:border-red-600 hover:bg-white/10 transition-all transform hover:-translate-y-2">
-                        <p className="font-black uppercase italic text-sm text-white">{name}</p>
-                        <p className="text-[9px] font-bold text-gray-500 uppercase tracking-widest">Soporte Emocional</p>
-                      </div>
-                    ))}
-                  </div>
+                <div class="text-xl md:text-3xl font-black uppercase tracking-[0.2em] text-gray-300 h-10">
+                    <span id="typewriter" class="text-red-600 typewriter-cursor border-red-600"></span>
                 </div>
-              </div>
-              <div className="aspect-square bg-[#111] rounded-[4rem] border-8 border-white/5 flex items-center justify-center overflow-hidden grayscale hover:grayscale-0 transition-all duration-1000 shadow-[0_0_50px_rgba(220,38,38,0.2)]">
-                {/* Puedes reemplazar Ghost por una foto real tuya o del taller */}
-                <Ghost size={200} className="text-red-600/15" />
-              </div>
             </div>
-          </div>
-        )}
 
-      </main>
-
-      {/* --- FOOTER --- */}
-      <footer className="relative z-10 py-24 bg-[#050505] border-t border-white/5 mt-20">
-        <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-          <div className="text-center md:text-left space-y-8">
-            <div className="flex items-center justify-center md:justify-start space-x-3">
-              <Ghost className="text-red-600 w-10 h-10" />
-              <span className="font-black italic tracking-tighter text-3xl uppercase leading-none">ESTUDIO <span className="text-red-600">XIDITO</span></span>
+            <div class="mt-16 w-full max-w-2xl text-center relative p-8 md:p-10 rounded-[3rem] bg-black/70 border border-white/10 backdrop-blur-md shadow-2xl">
+                <p class="text-lg md:text-xl text-gray-200 font-medium leading-relaxed italic">
+                    Ya sea que busques darle una imagen profesional a tu negocio, capturar momentos únicos o crear la fiesta más espectacular, <span class="text-red-600 font-black">llegaste al lugar indicado.</span> Aquí las buenas ideas se hacen realidad.
+                </p>
             </div>
-            <p className="text-gray-500 max-w-sm text-sm uppercase font-bold tracking-[0.2em] leading-loose italic">
-              Dando vida a tus ideas con creatividad y diseño de alto impacto. Desde Querétaro para el mundo.
+
+            <div class="mt-16 w-full max-w-sm group">
+                <button onclick="navigate('contacto')" class="btn-3d w-full bg-gradient-to-r from-red-800 via-red-600 to-red-900 border-red-950 text-white animate-gradient">
+                    <i data-lucide="message-circle" class="group-hover:rotate-12 transition-transform"></i> Contáctanos
+                </button>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: SERVICIOS -->
+        <section id="sec-servicios" class="section-container hidden max-w-6xl mx-auto px-6 py-16">
+            <h2 class="text-4xl md:text-5xl font-black uppercase italic text-center mb-16 underline decoration-red-600 decoration-4 underline-offset-8 text-white">
+                ¿Qué podemos crear para ti?
+            </h2>
+            
+            <div id="services-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Se inyecta con JS -->
+            </div>
+
+            <!-- Modal de Servicio -->
+            <div id="service-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+                <div class="relative w-full max-w-3xl bg-[#0a0a0a] border-2 border-red-600/50 rounded-[3rem] p-8 md:p-12 shadow-[0_0_80px_rgba(220,38,38,0.3)] max-h-[90vh] overflow-y-auto">
+                    <button onclick="closeModal()" class="absolute top-6 right-6 p-2 bg-white/5 hover:bg-red-600 rounded-full transition-colors text-gray-400 hover:text-white">
+                        <i data-lucide="x"></i>
+                    </button>
+
+                    <div class="flex flex-col md:flex-row items-center md:items-start gap-6 mb-10 text-center md:text-left">
+                        <div id="modal-icon-container" class="p-6 bg-gradient-to-br from-red-600 to-red-900 rounded-3xl text-white shadow-lg shrink-0">
+                            <!-- Icon -->
+                        </div>
+                        <div class="mt-2">
+                            <h3 id="modal-title" class="text-3xl md:text-4xl font-black uppercase italic text-white"></h3>
+                            <p class="text-red-600 font-bold uppercase tracking-[0.2em] text-[10px] mt-2 bg-red-600/10 inline-block px-3 py-1 rounded-full border border-red-600/20">
+                                Catálogo de Soluciones
+                            </p>
+                        </div>
+                    </div>
+
+                    <div id="modal-details" class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
+                        <!-- Detalles -->
+                    </div>
+
+                    <div class="flex justify-center md:justify-start group">
+                        <a id="modal-cta" href="#" target="_blank" class="btn-3d w-full md:w-auto bg-gradient-to-r from-gray-200 via-white to-gray-300 border-gray-500 text-black animate-gradient">
+                            Cotizar este servicio <i data-lucide="message-circle" class="ml-2 w-5 h-5 group-hover:scale-125 transition-transform text-black"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: PROCESO -->
+        <section id="sec-proceso" class="section-container hidden max-w-5xl mx-auto px-6 py-20">
+            <h2 class="text-4xl md:text-5xl font-black uppercase italic text-center mb-6 leading-tight text-white">
+                ¿Cómo <span class="text-red-600">Trabajamos?</span>
+            </h2>
+            <p class="text-center text-gray-400 mb-20 max-w-2xl mx-auto font-medium italic">
+                Hacer realidad tu proyecto es muy sencillo. Te acompañamos paso a paso para que el resultado final sea exactamente lo que imaginaste (o mucho mejor).
             </p>
-          </div>
-          
-          <div className="flex flex-col items-center md:items-end space-y-10">
-            <div className="flex space-x-8">
-              {[
-                { Icon: Instagram, url: "https://www.instagram.com/estudio.xidito/" },
-                { Icon: Facebook, url: "https://www.facebook.com/profile.php?id=61579203017269" },
-                { Icon: MessageCircle, url: "https://wa.me/52442" }
-              ].map((social, idx) => (
-                <a key={idx} href={social.url} target="_blank" rel="noopener noreferrer" className="p-5 bg-white/5 rounded-full text-gray-400 hover:text-red-600 transition-all border border-white/10 shadow-lg hover:-translate-y-2">
-                  <social.Icon size={28}/>
-                </a>
-              ))}
-            </div>
-            <p className="text-[10px] tracking-[0.6em] text-gray-700 font-black uppercase italic">© 2026 Estudio Xidito</p>
-          </div>
-        </div>
-      </footer>
-    </div>
-  );
-};
 
-export default App;
+            <div class="relative">
+                <div class="hidden md:block absolute top-1/2 left-0 w-full h-1 bg-gradient-to-r from-transparent via-red-600/30 to-transparent -translate-y-1/2 z-0"></div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12 relative z-10">
+                    <!-- Paso 1 -->
+                    <div class="bg-[#111] p-8 rounded-[3rem] border-2 border-white/5 hover:border-red-600/50 transition-all transform hover:-translate-y-2 shadow-2xl relative group">
+                        <div class="absolute -top-6 -right-6 text-7xl font-black italic text-white/5 group-hover:text-red-600/10 transition-colors z-0">01</div>
+                        <div class="relative z-10">
+                            <div class="w-20 h-20 bg-black border border-white/10 rounded-full flex items-center justify-center text-red-600 mb-6 group-hover:bg-red-600 group-hover:text-white transition-colors shadow-lg">
+                                <i data-lucide="target" class="w-10 h-10"></i>
+                            </div>
+                            <h3 class="text-2xl font-black uppercase italic text-white mb-4">Platiquemos</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed font-medium">Mándanos un mensajito contándonos qué necesitas. Escuchamos tus ideas y te enviamos una propuesta clara y sin enredos.</p>
+                        </div>
+                    </div>
+                    <!-- Paso 2 -->
+                    <div class="bg-[#111] p-8 rounded-[3rem] border-2 border-white/5 hover:border-red-600/50 transition-all transform hover:-translate-y-2 shadow-2xl relative group">
+                        <div class="absolute -top-6 -right-6 text-7xl font-black italic text-white/5 group-hover:text-red-600/10 transition-colors z-0">02</div>
+                        <div class="relative z-10">
+                            <div class="w-20 h-20 bg-black border border-white/10 rounded-full flex items-center justify-center text-red-600 mb-6 group-hover:bg-red-600 group-hover:text-white transition-colors shadow-lg">
+                                <i data-lucide="lightbulb" class="w-10 h-10"></i>
+                            </div>
+                            <h3 class="text-2xl font-black uppercase italic text-white mb-4">Manos a la obra</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed font-medium">Aquí entra la magia del taller. Empezamos a diseñar y armar tu proyecto cuidando cada detalle para que quede perfecto.</p>
+                        </div>
+                    </div>
+                    <!-- Paso 3 -->
+                    <div class="bg-[#111] p-8 rounded-[3rem] border-2 border-white/5 hover:border-red-600/50 transition-all transform hover:-translate-y-2 shadow-2xl relative group">
+                        <div class="absolute -top-6 -right-6 text-7xl font-black italic text-white/5 group-hover:text-red-600/10 transition-colors z-0">03</div>
+                        <div class="relative z-10">
+                            <div class="w-20 h-20 bg-black border border-white/10 rounded-full flex items-center justify-center text-red-600 mb-6 group-hover:bg-red-600 group-hover:text-white transition-colors shadow-lg">
+                                <i data-lucide="rocket" class="w-10 h-10"></i>
+                            </div>
+                            <h3 class="text-2xl font-black uppercase italic text-white mb-4">Listo para brillar</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed font-medium">¡Tu proyecto cobra vida! Ya sea la nueva imagen de tu negocio o la piñata de tus sueños, te lo entregamos listo para presumir.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-20 text-center flex justify-center group">
+                <button onclick="navigate('contacto')" class="btn-3d bg-gradient-to-r from-gray-200 via-white to-gray-300 border-gray-500 text-black animate-gradient">
+                    Iniciar Proyecto
+                </button>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: PORTAFOLIO -->
+        <section id="sec-portafolio" class="section-container hidden max-w-[1400px] mx-auto px-6 py-20 overflow-hidden">
+            <h2 class="text-4xl md:text-5xl font-black uppercase italic text-center mb-16 leading-tight text-white">
+                Un poco de lo que hacemos en <br/><span class="text-red-600 underline decoration-white decoration-2 underline-offset-8">Estudio Xidito</span>
+            </h2>
+            
+            <div class="space-y-8 relative">
+                <div class="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#030303] to-transparent z-20 pointer-events-none"></div>
+                <div class="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#030303] to-transparent z-20 pointer-events-none"></div>
+
+                <!-- Fila 1 -->
+                <div class="flex w-max" style="animation: marqueeLeft 40s linear infinite;">
+                    <div id="marquee-row-1" class="flex gap-8 pr-8 w-max"></div>
+                    <div id="marquee-row-1-clone" class="flex gap-8 pr-8 w-max"></div>
+                </div>
+
+                <!-- Fila 2 -->
+                <div class="flex w-max" style="animation: marqueeRight 45s linear infinite;">
+                    <div id="marquee-row-2" class="flex gap-8 pr-8 w-max"></div>
+                    <div id="marquee-row-2-clone" class="flex gap-8 pr-8 w-max"></div>
+                </div>
+            </div>
+            
+            <div class="mt-20 flex justify-center group">
+                <a href="https://www.instagram.com/estudio.xidito/" target="_blank" class="btn-3d bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] border-[#b91c1c] text-white animate-gradient">
+                    <i data-lucide="instagram" class="mr-2 group-hover:rotate-12 transition-transform"></i> Visita nuestro Instagram
+                </a>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: CONTACTO -->
+        <section id="sec-contacto" class="section-container hidden max-w-6xl mx-auto px-6 py-20">
+            <h2 class="text-5xl font-black uppercase italic text-center mb-20 leading-tight text-white">Hagamos realidad <br/><span class="text-red-600">esa gran idea</span></h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div class="space-y-8">
+                    <div class="p-8 rounded-[2.5rem] bg-black border-2 border-white/5 shadow-2xl">
+                        <h3 class="text-2xl font-black uppercase italic mb-8 text-red-600">Canales Directos</h3>
+                        <div class="space-y-6">
+                            <div class="relative group">
+                                <div class="absolute -inset-1 bg-gradient-to-r from-[#25D366] to-[#128C7E] rounded-2xl blur opacity-40 group-hover:opacity-100 transition duration-500 animate-pulse"></div>
+                                <a href="https://wa.me/524421260133?text=Hola%2C%20te%20contacto%20desde%20tu%20p%C3%A1gina" target="_blank" class="btn-3d w-full bg-gradient-to-r from-[#25D366] via-[#128C7E] to-[#075E54] border-[#054c44] text-white animate-gradient">
+                                    <i data-lucide="message-circle" class="animate-bounce mr-2"></i> WhatsApp Directo
+                                </a>
+                            </div>
+                            
+                            <div class="group">
+                                <a href="tel:+524421260133" class="btn-3d w-full bg-gradient-to-r from-[#00E1FD] via-[#0052FF] to-[#001D93] border-[#001155] text-white animate-gradient">
+                                    <i data-lucide="phone" class="text-white group-hover:rotate-12 transition-transform mr-2"></i> Tel: 442 126 01 33
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-10 rounded-[2.5rem] bg-gradient-to-br from-[#151515] to-[#0a0a0a] border-t border-l border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-red-600/10 rounded-full blur-[50px] group-hover:bg-red-600/20 transition-all duration-700"></div>
+                        <h3 class="text-sm font-black uppercase tracking-[0.4em] text-gray-500 mb-8 flex items-center gap-4">
+                            <div class="w-10 h-[2px] bg-red-600"></div>
+                            Horarios del Taller
+                        </h3>
+                        <div class="flex flex-col gap-4 relative z-10">
+                            <div class="flex items-center justify-between text-gray-300 border-b border-white/5 pb-4">
+                                <span class="font-bold uppercase tracking-widest text-sm flex items-center gap-3">
+                                    <i data-lucide="clock" class="text-red-600 w-5 h-5"></i> Lunes a Viernes
+                                </span>
+                                <span class="font-black text-white bg-white/10 px-4 py-1.5 rounded-lg shadow-inner">09:00 - 18:00</span>
+                            </div>
+                            <div class="flex items-center justify-between text-gray-500 pt-2">
+                                <span class="font-bold uppercase tracking-widest text-xs flex items-center gap-3 ml-8">Fines de semana</span>
+                                <span class="font-black text-xs uppercase tracking-widest text-red-500">Previa Cita</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-8 md:p-12 rounded-[3rem] bg-[#111] border-2 border-white/5 shadow-inner flex flex-col group">
+                    <h3 class="text-2xl font-black uppercase italic mb-6 text-white">Ubicación Estratégica</h3>
+                    <div class="flex-1 bg-black rounded-3xl mb-8 flex flex-col items-center justify-center border border-white/10 overflow-hidden min-h-[250px] relative">
+                        <i data-lucide="map-pin" style="width: 60px; height: 60px;" class="text-red-600 group-hover:scale-125 transition-transform duration-500 mb-4 z-10"></i>
+                        <p class="text-center text-gray-500 font-bold uppercase tracking-widest text-xs px-6 z-10">
+                            Atención presencial únicamente con previa cita.
+                        </p>
+                        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1524661135-423995f22d0b?w=600&q=80')] opacity-20 mix-blend-overlay group-hover:opacity-40 transition-opacity"></div>
+                    </div>
+                    <a href="https://maps.app.goo.gl/ND74azWAr35eCKHz7" target="_blank" class="btn-3d w-full bg-gradient-to-r from-gray-800 via-gray-700 to-black border-red-600 text-white animate-gradient">
+                        Abrir en Google Maps
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: EL TALLER -->
+        <section id="sec-taller" class="section-container hidden max-w-6xl mx-auto px-6 py-20 flex flex-col items-center">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
+                <div class="space-y-10">
+                    <h2 class="text-6xl font-black uppercase italic leading-none text-white">El <span class="text-red-600 text-7xl block">Taller</span></h2>
+                    <p class="text-xl text-gray-300 leading-relaxed font-medium italic">
+                        "Nuestro espacio creativo en Querétaro. Aquí convergen la tecnología, el diseño y la manufactura para materializar desde proyectos corporativos hasta detalles inolvidables."
+                    </p>
+                    
+                    <div class="p-10 bg-black/80 rounded-[3rem] border-2 border-white/5 relative overflow-hidden group shadow-2xl">
+                        <h4 class="flex items-center font-black uppercase italic text-red-600 text-2xl mb-8">
+                            <i data-lucide="heart" class="w-6 h-6 mr-3 fill-red-600 animate-pulse text-red-600"></i> Soporte de Élite
+                        </h4>
+                        <div class="grid grid-cols-3 gap-6">
+                            <div class="p-5 bg-white/5 rounded-2xl text-center border-b-4 border-transparent hover:border-red-600 hover:bg-white/10 transition-all transform hover:-translate-y-2">
+                                <p class="font-black uppercase italic text-sm text-white">Rocko</p>
+                                <p class="text-[9px] font-bold text-gray-500 uppercase tracking-widest">Soporte Emocional</p>
+                            </div>
+                            <div class="p-5 bg-white/5 rounded-2xl text-center border-b-4 border-transparent hover:border-red-600 hover:bg-white/10 transition-all transform hover:-translate-y-2">
+                                <p class="font-black uppercase italic text-sm text-white">Mamba</p>
+                                <p class="text-[9px] font-bold text-gray-500 uppercase tracking-widest">Soporte Emocional</p>
+                            </div>
+                            <div class="p-5 bg-white/5 rounded-2xl text-center border-b-4 border-transparent hover:border-red-600 hover:bg-white/10 transition-all transform hover:-translate-y-2">
+                                <p class="font-black uppercase italic text-sm text-white">Goldie</p>
+                                <p class="text-[9px] font-bold text-gray-500 uppercase tracking-widest">Soporte Emocional</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="aspect-square bg-[#111] rounded-[4rem] border-8 border-white/5 flex items-center justify-center overflow-hidden grayscale hover:grayscale-0 transition-all duration-1000 shadow-[0_0_50px_rgba(220,38,38,0.2)]">
+                    <i data-lucide="ghost" style="width: 200px; height: 200px;" class="text-red-600/15"></i>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="relative z-10 py-24 bg-[#050505] border-t border-white/5 mt-20">
+        <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <div class="text-center md:text-left space-y-8">
+                <div class="flex items-center justify-center md:justify-start space-x-3">
+                    <i data-lucide="ghost" class="text-red-600 w-10 h-10"></i>
+                    <span class="font-black italic tracking-tighter text-3xl uppercase leading-none text-white">ESTUDIO <span class="text-red-600">XIDITO</span></span>
+                </div>
+                <p class="text-gray-500 max-w-sm text-sm uppercase font-bold tracking-[0.2em] leading-loose italic">
+                    Dando vida a tus ideas con creatividad y diseño de alto impacto. Desde Querétaro para el mundo.
+                </p>
+            </div>
+            
+            <div class="flex flex-col items-center md:items-end space-y-10">
+                <div class="flex space-x-8">
+                    <a href="https://www.instagram.com/estudio.xidito/" target="_blank" rel="noopener noreferrer" class="p-5 bg-white/5 rounded-full text-gray-400 hover:text-red-600 transition-all border border-white/10 shadow-lg hover:-translate-y-2">
+                        <i data-lucide="instagram" style="width: 28px; height: 28px;"></i>
+                    </a>
+                    <a href="https://www.facebook.com/profile.php?id=61579203017269" target="_blank" rel="noopener noreferrer" class="p-5 bg-white/5 rounded-full text-gray-400 hover:text-red-600 transition-all border border-white/10 shadow-lg hover:-translate-y-2">
+                        <i data-lucide="facebook" style="width: 28px; height: 28px;"></i>
+                    </a>
+                    <a href="https://wa.me/524421260133" target="_blank" rel="noopener noreferrer" class="p-5 bg-white/5 rounded-full text-gray-400 hover:text-red-600 transition-all border border-white/10 shadow-lg hover:-translate-y-2">
+                        <i data-lucide="message-circle" style="width: 28px; height: 28px;"></i>
+                    </a>
+                </div>
+                <p class="text-[10px] tracking-[0.6em] text-gray-700 font-black uppercase italic">© 2026 Estudio Xidito</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Botón Flotante WhatsApp -->
+    <div class="fixed bottom-10 right-10 z-[100] group">
+        <a href="https://wa.me/524421260133" target="_blank" class="btn-3d !p-4 !rounded-full bg-gradient-to-r from-[#25D366] via-[#128C7E] to-[#075E54] border-[#054c44] text-white animate-gradient flex items-center justify-center">
+            <i data-lucide="message-circle" style="width: 28px; height: 28px;" class="fill-current"></i>
+        </a>
+    </div>
+
+    <!-- SCRIPT PRINCIPAL -->
+    <script>
+        // Inicializar iconos de Lucide
+        lucide.createIcons();
+
+        // 1. NAVEGACIÓN
+        function navigate(sectionId) {
+            // Ocultar todas las secciones
+            document.querySelectorAll('.section-container').forEach(el => {
+                el.classList.remove('block');
+                el.classList.add('hidden');
+            });
+            // Mostrar la seleccionada
+            document.getElementById('sec-' + sectionId).classList.remove('hidden');
+            document.getElementById('sec-' + sectionId).classList.add('block');
+
+            // Actualizar menú activo
+            document.querySelectorAll('.nav-link').forEach(el => {
+                if(el.dataset.target === sectionId) {
+                    el.classList.remove('text-gray-400');
+                    el.classList.add('text-red-600');
+                } else {
+                    el.classList.add('text-gray-400');
+                    el.classList.remove('text-red-600');
+                }
+            });
+
+            // Cerrar menú móvil si está abierto
+            const mobileMenu = document.getElementById('mobile-menu');
+            if(!mobileMenu.classList.contains('hidden')) {
+                toggleMenu();
+            }
+
+            // Scroll arriba
+            window.scrollTo(0,0);
+        }
+
+        // Menú Móvil
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('menu-icon');
+            if(menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                icon.setAttribute('data-lucide', 'x');
+            } else {
+                menu.classList.add('hidden');
+                icon.setAttribute('data-lucide', 'menu');
+            }
+            lucide.createIcons();
+        }
+
+        // 2. EFECTO GLITCH (Cada 10 seg)
+        setInterval(() => {
+            const title = document.getElementById('main-title');
+            if(title) {
+                title.classList.add('glitch-active');
+                setTimeout(() => title.classList.remove('glitch-active'), 500);
+            }
+        }, 10000);
+
+        // Hover glitch manual
+        const mainTitle = document.getElementById('main-title');
+        if(mainTitle) {
+            mainTitle.addEventListener('mouseenter', () => mainTitle.classList.add('glitch-active'));
+            mainTitle.addEventListener('mouseleave', () => mainTitle.classList.remove('glitch-active'));
+        }
+
+        // 3. TYPEWRITER EFFECT
+        const texts = ["Diseño para tu Negocio", "Producción de Eventos", "Fotografía Profesional"];
+        let textIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typeEl = document.getElementById('typewriter');
+        
+        function type() {
+            const current = texts[textIndex];
+            if (isDeleting) {
+                charIndex--;
+            } else {
+                charIndex++;
+            }
+            typeEl.textContent = current.substring(0, charIndex);
+            
+            let speed = isDeleting ? 50 : 100;
+            if (!isDeleting && charIndex === current.length) {
+                speed = 2000;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+                speed = 500;
+            }
+            setTimeout(type, speed);
+        }
+        if(typeEl) type();
+
+        // 4. PARALLAX BACKGROUND
+        const parallaxIcons = document.querySelectorAll('.parallax-icon');
+        window.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth - 0.5) * 40;
+            const y = (e.clientY / window.innerHeight - 0.5) * 40;
+            parallaxIcons.forEach(icon => {
+                const speed = icon.dataset.speed;
+                icon.style.transform = `translate(${-x * speed}px, ${-y * speed}px) rotate(${x * 0.1}deg)`;
+            });
+        });
+
+        // 5. DATOS DE SERVICIOS
+        const services = [
+            { id: 'formato', label: 'Gran Formato', icon: 'layers', desc: 'Impresiones y rotulación a gran escala.', details: ['Impresión de lona', 'Vinil brillante/mate', 'Corte de vinil', 'Microperforados', 'Rotulación interior', 'Rotulación exterior', 'Rotulación vehicular'] },
+            { id: 'fiestas', label: 'Eventos y Fiestas', icon: 'zap', desc: 'Escenografías y decoración temática.', details: ['Sets fotográficos', 'Montaje de mesas', 'Decoración temática', 'Estructuras de coroplast', 'Escenarios personalizados'] },
+            { id: 'digital', label: 'Artículos Digitales', icon: 'smartphone', desc: 'Presencia e invitaciones modernas.', details: ['Invitaciones digitales interactivas', 'Menús QR para restaurantes', 'Tarjetas digitales', 'Social Media Branding', 'Filtros AR'] },
+            { id: 'artesania', label: 'Artesanías de Fiesta', icon: 'scissors', desc: 'Detalles únicos elaborados a mano.', details: ['Piñatas de autor (Piezas únicas)', 'Cake toppers personalizados', 'Banners de papel calado', 'Stickers premium', 'Cajas dulceras de lujo'] },
+            { id: 'foto', label: 'Fotografía', icon: 'camera', desc: 'Capturamos la esencia de tu producto.', details: ['Fotografía de Producto', 'Sesiones en Set', 'Cobertura de Eventos', 'Edición profesional', 'Retoque industrial'] },
+            { id: 'negocio', label: 'Para tu Negocio', icon: 'shopping-bag', desc: 'Identidad que transmite profesionalismo.', details: ['Diseño de Logotipo', 'Identidad Corporativa', 'Flyers y Folletería', 'Uniformes personalizados', 'Señalética industrial'] }
+        ];
+
+        // Renderizar Grid de Servicios
+        const grid = document.getElementById('services-grid');
+        if(grid) {
+            services.forEach(s => {
+                grid.innerHTML += `
+                    <div onclick="openModal('${s.id}')" class="group cursor-pointer bg-[#111] border-2 border-white/5 hover:border-red-600/60 rounded-[2.5rem] p-8 transition-all duration-300 transform hover:-translate-y-2 shadow-xl hover:shadow-[0_15px_30px_rgba(220,38,38,0.2)]">
+                        <div class="w-16 h-16 bg-red-600/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-red-600 text-red-600 group-hover:text-white transition-colors duration-300">
+                            <i data-lucide="${s.icon}"></i>
+                        </div>
+                        <h3 class="text-2xl font-black uppercase italic text-white mb-3">${s.label}</h3>
+                        <p class="text-gray-400 text-sm mb-6">${s.desc}</p>
+                        <span class="text-xs font-bold uppercase tracking-widest text-red-600 group-hover:text-white transition-colors flex items-center">
+                            Ver detalles <i data-lucide="chevron-right" class="w-4 h-4 ml-1 group-hover:translate-x-2 transition-transform"></i>
+                        </span>
+                    </div>
+                `;
+            });
+        }
+
+        // Lógica Modal
+        function openModal(id) {
+            const service = services.find(s => s.id === id);
+            if(!service) return;
+
+            document.getElementById('modal-title').innerText = service.label;
+            document.getElementById('modal-icon-container').innerHTML = `<i data-lucide="${service.icon}" style="width: 32px; height: 32px;"></i>`;
+            
+            const detailsHtml = service.details.map(d => `
+                <div class="flex items-center gap-4 p-4 bg-white/5 rounded-2xl border border-white/5 hover:border-red-600/50 transition-colors group">
+                    <i data-lucide="check-circle" class="text-red-600 w-5 h-5 shrink-0 group-hover:scale-110 transition-transform"></i>
+                    <span class="text-sm font-bold uppercase tracking-widest text-gray-300">${d}</span>
+                </div>
+            `).join('');
+            document.getElementById('modal-details').innerHTML = detailsHtml;
+            
+            document.getElementById('modal-cta').href = `https://wa.me/524421260133?text=Hola,%20me%20interesa%20el%20servicio%20de%20${service.label}`;
+
+            const modal = document.getElementById('service-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            
+            lucide.createIcons(); // Recargar iconos inyectados
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('service-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // 6. RENDERIZAR PORTAFOLIO (Imágenes de muestra)
+        const portfolioImages = [
+            '1550745165-9bc0b252726f', '1558655146-d09347e92766', '1626785774573-4b799315345d',
+            '1516035069371-29a1b244cc32', '1506157786151-b8491531f063', '1614850523296-d8c1af93d400',
+            '1534670007418-fbb7f6cf32c3', '1542744094-24638eff58bb', '1561070791-2526d30994b5',
+            '1513364776144-60967b0f800f', '1524758631624-e2822e304c36', '1502691876148-a84978e59af8'
+        ];
+
+        function renderMarquee(containerId, images) {
+            const container = document.getElementById(containerId);
+            if(!container) return;
+            const html = images.map(img => `
+                <div class="w-[300px] md:w-[450px] h-[200px] md:h-[300px] flex-shrink-0 rounded-[2rem] border-2 border-white/10 overflow-hidden shadow-2xl group relative hover:border-red-600 transition-colors">
+                    <img src="https://images.unsplash.com/photo-${img}?w=600&q=80" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 transform group-hover:scale-105" alt="Xidito Work">
+                    <div class="absolute inset-0 bg-red-900/60 mix-blend-multiply opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                </div>
+            `).join('');
+            container.innerHTML = html;
+        }
+
+        renderMarquee('marquee-row-1', portfolioImages.slice(0,6));
+        renderMarquee('marquee-row-1-clone', portfolioImages.slice(0,6));
+        renderMarquee('marquee-row-2', portfolioImages.slice(6,12));
+        renderMarquee('marquee-row-2-clone', portfolioImages.slice(6,12));
+
+        // Inicializar iconos de Lucide (por si algo se renderizó dinámicamente al inicio)
+        lucide.createIcons();
+
+    </script>
+</body>
+</html>
