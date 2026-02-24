@@ -97,9 +97,10 @@
             animation: ghost-walk 4s ease-in-out infinite;
         }
 
-        /* Animaciones Secuenciales del Proceso */
+        /* Animaciones Secuenciales del Proceso Optimizadas para Móvil */
         .animate-target-seq {
             animation: anim-target 6s infinite;
+            transform-origin: center;
         }
         @keyframes anim-target {
             0%, 33%, 100% { transform: scale(1) rotate(0); }
@@ -112,18 +113,38 @@
 
         .animate-bulb-seq {
             animation: anim-bulb 6s infinite;
+            transform-origin: center;
         }
         @keyframes anim-bulb {
-            0%, 33%, 66%, 100% { transform: scale(1) translateY(0); filter: drop-shadow(0 0 0 transparent); color: inherit; }
-            40% { transform: scale(1.2) translateY(-5px) rotate(10deg); filter: drop-shadow(0 0 8px #dc2626); color: #fff; }
-            45% { transform: scale(1.2) translateY(-5px) rotate(-10deg); filter: drop-shadow(0 0 12px #dc2626); color: #fff; }
-            50% { transform: scale(1.2) translateY(-5px) rotate(10deg); filter: drop-shadow(0 0 8px #dc2626); color: #fff; }
-            55% { transform: scale(1.2) translateY(-5px) rotate(-10deg); filter: drop-shadow(0 0 12px #dc2626); color: #fff; }
-            60% { transform: scale(1.1) translateY(-2px) rotate(0deg); filter: drop-shadow(0 0 4px #dc2626); color: #fff; }
+            0%, 33%, 66%, 100% { 
+                transform: scale(1) translateY(0); 
+                filter: drop-shadow(0 0 0 transparent); 
+            }
+            40% { 
+                transform: scale(1.2) translateY(-5px) rotate(10deg); 
+                filter: drop-shadow(0 0 8px rgba(220,38,38,0.8)); 
+            }
+            45% { 
+                transform: scale(1.2) translateY(-5px) rotate(-10deg); 
+                filter: drop-shadow(0 0 12px rgba(220,38,38,1)); 
+            }
+            50% { 
+                transform: scale(1.2) translateY(-5px) rotate(10deg); 
+                filter: drop-shadow(0 0 8px rgba(220,38,38,0.8)); 
+            }
+            55% { 
+                transform: scale(1.2) translateY(-5px) rotate(-10deg); 
+                filter: drop-shadow(0 0 12px rgba(220,38,38,1)); 
+            }
+            60% { 
+                transform: scale(1.1) translateY(-2px) rotate(0deg); 
+                filter: drop-shadow(0 0 4px rgba(220,38,38,0.5)); 
+            }
         }
 
         .animate-rocket-seq {
             animation: anim-rocket 6s infinite;
+            transform-origin: center;
         }
         @keyframes anim-rocket {
             0%, 66%, 100% { transform: translate(0, 0) scale(1); opacity: 1; }
@@ -201,7 +222,7 @@
             box-shadow: none;
         }
 
-        /* ESTILOS INTERACTIVOS PARA PORTAFOLIO (NUEVO) */
+        /* ESTILOS INTERACTIVOS PARA PORTAFOLIO */
         .marquee-item {
             transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
@@ -426,7 +447,7 @@
                     <div class="bg-[#111] p-8 rounded-[3rem] border-2 border-white/5 hover:border-red-600/50 transition-all transform hover:-translate-y-2 shadow-2xl relative group">
                         <div class="absolute -top-6 -right-6 text-7xl font-black italic text-white/5 group-hover:text-red-600/10 transition-colors z-0">02</div>
                         <div class="relative z-10">
-                            <div class="w-20 h-20 bg-black border border-white/10 rounded-full flex items-center justify-center text-red-600 mb-6 group-hover:bg-red-600 transition-colors shadow-lg">
+                            <div class="w-20 h-20 bg-black border border-white/10 rounded-full flex items-center justify-center text-red-600 mb-6 group-hover:bg-red-600 group-hover:text-white transition-colors shadow-lg">
                                 <i data-lucide="lightbulb" class="w-10 h-10 animate-bulb-seq"></i>
                             </div>
                             <h3 class="text-2xl font-black uppercase italic text-white mb-4">Manos a la obra</h3>
@@ -513,7 +534,7 @@
                         <div class="absolute top-0 right-0 w-32 h-32 bg-red-600/10 rounded-full blur-[50px] group-hover:bg-red-600/20 transition-all duration-700"></div>
                         <h3 class="text-sm font-black uppercase tracking-[0.4em] text-gray-500 mb-8 flex items-center gap-4">
                             <div class="w-10 h-[2px] bg-red-600"></div>
-                            Horarios del Taller para entregas (previa cita)
+                            Horarios del Taller PREVIA CITA
                         </h3>
                         <div class="flex flex-col gap-4 relative z-10">
                             <div class="flex items-center justify-between text-gray-300 border-b border-white/5 pb-4">
