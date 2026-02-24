@@ -97,6 +97,43 @@
             animation: ghost-walk 4s ease-in-out infinite;
         }
 
+        /* Animaciones Secuenciales del Proceso */
+        .animate-target-seq {
+            animation: anim-target 6s infinite;
+        }
+        @keyframes anim-target {
+            0%, 33%, 100% { transform: scale(1) rotate(0); }
+            5% { transform: scale(1.2) rotate(-10deg); }
+            10% { transform: scale(1.3) rotate(10deg); }
+            15% { transform: scale(1.2) rotate(-10deg); }
+            20% { transform: scale(1.3) rotate(10deg); }
+            25% { transform: scale(1.1) rotate(0); }
+        }
+
+        .animate-bulb-seq {
+            animation: anim-bulb 6s infinite;
+        }
+        @keyframes anim-bulb {
+            0%, 33%, 66%, 100% { transform: scale(1) translateY(0); filter: drop-shadow(0 0 0 transparent); color: inherit; }
+            40% { transform: scale(1.2) translateY(-5px) rotate(10deg); filter: drop-shadow(0 0 8px #dc2626); color: #fff; }
+            45% { transform: scale(1.2) translateY(-5px) rotate(-10deg); filter: drop-shadow(0 0 12px #dc2626); color: #fff; }
+            50% { transform: scale(1.2) translateY(-5px) rotate(10deg); filter: drop-shadow(0 0 8px #dc2626); color: #fff; }
+            55% { transform: scale(1.2) translateY(-5px) rotate(-10deg); filter: drop-shadow(0 0 12px #dc2626); color: #fff; }
+            60% { transform: scale(1.1) translateY(-2px) rotate(0deg); filter: drop-shadow(0 0 4px #dc2626); color: #fff; }
+        }
+
+        .animate-rocket-seq {
+            animation: anim-rocket 6s infinite;
+        }
+        @keyframes anim-rocket {
+            0%, 66%, 100% { transform: translate(0, 0) scale(1); opacity: 1; }
+            75% { transform: translate(25px, -25px) scale(1.2); opacity: 0; }
+            76% { transform: translate(-25px, 25px) scale(0.5); opacity: 0; }
+            85% { transform: translate(0, 0) scale(1); opacity: 1; }
+            90% { transform: translate(0, -5px) scale(1.1); }
+            95% { transform: translate(0, 0) scale(1); }
+        }
+
         /* Typewriter Cursor */
         @keyframes pulse-border {
             0%, 100% { border-color: transparent; }
@@ -189,6 +226,24 @@
         .marquee-item.is-center .marquee-text-bg {
             background-color: rgba(220, 38, 38, 0.9);
             border-color: transparent;
+        }
+
+        /* Animaciones para los Servicios */
+        @keyframes floatCard {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        .card-float { 
+            animation: floatCard 4s ease-in-out infinite; 
+        }
+        
+        @keyframes slideInUpFade {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-stagger-item {
+            opacity: 0;
+            animation: slideInUpFade 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
     </style>
 </head>
@@ -305,34 +360,40 @@
                 <!-- Se inyecta con JS -->
             </div>
 
-            <!-- Modal de Servicio -->
-            <div id="service-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-                <div class="relative w-full max-w-3xl bg-[#0a0a0a] border-2 border-red-600/50 rounded-[3rem] p-8 md:p-12 shadow-[0_0_80px_rgba(220,38,38,0.3)] max-h-[90vh] overflow-y-auto">
-                    <button onclick="closeModal()" class="absolute top-6 right-6 p-2 bg-white/5 hover:bg-red-600 rounded-full transition-colors text-gray-400 hover:text-white">
+            <!-- Modal de Servicio (Ahora es una caja Roja impactante) -->
+            <div id="service-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 bg-black/90 backdrop-blur-xl">
+                <div class="relative w-full max-w-3xl bg-gradient-to-br from-red-950 via-red-900 to-[#1a0505] border-4 border-red-500 rounded-[3rem] p-8 md:p-12 shadow-[0_0_100px_rgba(220,38,38,0.6)] max-h-[90vh] overflow-y-auto">
+                    <button onclick="closeModal()" class="absolute top-6 right-6 p-2 bg-white/10 hover:bg-black rounded-full transition-colors text-white hover:text-red-500 z-10">
                         <i data-lucide="x"></i>
                     </button>
 
-                    <div class="flex flex-col md:flex-row items-center md:items-start gap-6 mb-10 text-center md:text-left">
-                        <div id="modal-icon-container" class="p-6 bg-gradient-to-br from-red-600 to-red-900 rounded-3xl text-white shadow-lg shrink-0">
+                    <div class="flex flex-col md:flex-row items-center md:items-start gap-6 mb-10 text-center md:text-left relative z-10">
+                        <div id="modal-icon-container" class="p-6 bg-black border border-red-500/50 rounded-3xl text-red-500 shadow-[0_0_30px_rgba(0,0,0,0.8)] shrink-0 transform hover:scale-110 transition-transform duration-300">
                             <!-- Icon -->
                         </div>
                         <div class="mt-2">
-                            <h3 id="modal-title" class="text-3xl md:text-4xl font-black uppercase italic text-white"></h3>
-                            <p class="text-red-600 font-bold uppercase tracking-[0.2em] text-[10px] mt-2 bg-red-600/10 inline-block px-3 py-1 rounded-full border border-red-600/20">
-                                Catálogo de Soluciones
+                            <h3 id="modal-title" class="text-3xl md:text-5xl font-black uppercase italic text-white drop-shadow-lg"></h3>
+                            <p class="text-yellow-400 font-bold uppercase tracking-[0.3em] text-[11px] md:text-xs mt-3 bg-black/40 inline-block px-4 py-1.5 rounded-full border border-yellow-400/30">
+                                Despliegue de Soluciones
                             </p>
                         </div>
                     </div>
 
-                    <div id="modal-details" class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
-                        <!-- Detalles -->
+                    <div id="modal-details" class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-12 relative z-10">
+                        <!-- Detalles con animación escalonada -->
                     </div>
 
-                    <div class="flex justify-center md:justify-start group">
-                        <a id="modal-cta" href="#" target="_blank" class="btn-3d w-full md:w-auto bg-gradient-to-r from-gray-200 via-white to-gray-300 border-gray-500 text-black animate-gradient">
-                            Cotizar este servicio <i data-lucide="message-circle" class="ml-2 w-5 h-5 group-hover:scale-125 transition-transform text-black"></i>
+                    <div class="flex justify-center mt-8 w-full group relative z-10">
+                        <!-- Botón 3D Ancho y Eléctrico -->
+                        <a id="modal-cta" href="#" target="_blank" class="btn-3d w-full py-6 md:py-8 text-2xl md:text-3xl bg-gradient-to-r from-yellow-300 via-yellow-400 to-orange-500 border-orange-700 text-black shadow-[0_20px_50px_rgba(250,204,21,0.4)] hover:shadow-[0_20px_60px_rgba(250,204,21,0.7)] transform hover:-translate-y-2 transition-all duration-300">
+                            <span class="animate-pulse flex items-center justify-center gap-3 font-black">
+                                ¡COTIZAR ESTE SERVICIO! <i data-lucide="zap" class="w-8 h-8 md:w-10 md:h-10"></i>
+                            </span>
                         </a>
                     </div>
+                    
+                    <!-- Brillo de fondo del modal -->
+                    <div class="absolute bottom-0 right-0 w-64 h-64 bg-red-500/20 rounded-full blur-[80px] pointer-events-none"></div>
                 </div>
             </div>
         </section>
@@ -355,7 +416,7 @@
                         <div class="absolute -top-6 -right-6 text-7xl font-black italic text-white/5 group-hover:text-red-600/10 transition-colors z-0">01</div>
                         <div class="relative z-10">
                             <div class="w-20 h-20 bg-black border border-white/10 rounded-full flex items-center justify-center text-red-600 mb-6 group-hover:bg-red-600 group-hover:text-white transition-colors shadow-lg">
-                                <i data-lucide="target" class="w-10 h-10"></i>
+                                <i data-lucide="target" class="w-10 h-10 animate-target-seq"></i>
                             </div>
                             <h3 class="text-2xl font-black uppercase italic text-white mb-4">Platiquemos</h3>
                             <p class="text-gray-400 text-sm leading-relaxed font-medium">Mándanos un mensajito contándonos qué necesitas. Escuchamos tus ideas y te enviamos una propuesta clara y sin enredos.</p>
@@ -365,8 +426,8 @@
                     <div class="bg-[#111] p-8 rounded-[3rem] border-2 border-white/5 hover:border-red-600/50 transition-all transform hover:-translate-y-2 shadow-2xl relative group">
                         <div class="absolute -top-6 -right-6 text-7xl font-black italic text-white/5 group-hover:text-red-600/10 transition-colors z-0">02</div>
                         <div class="relative z-10">
-                            <div class="w-20 h-20 bg-black border border-white/10 rounded-full flex items-center justify-center text-red-600 mb-6 group-hover:bg-red-600 group-hover:text-white transition-colors shadow-lg">
-                                <i data-lucide="lightbulb" class="w-10 h-10"></i>
+                            <div class="w-20 h-20 bg-black border border-white/10 rounded-full flex items-center justify-center text-red-600 mb-6 group-hover:bg-red-600 transition-colors shadow-lg">
+                                <i data-lucide="lightbulb" class="w-10 h-10 animate-bulb-seq"></i>
                             </div>
                             <h3 class="text-2xl font-black uppercase italic text-white mb-4">Manos a la obra</h3>
                             <p class="text-gray-400 text-sm leading-relaxed font-medium">Aquí entra la magia del taller. Empezamos a diseñar y armar tu proyecto cuidando cada detalle para que quede perfecto.</p>
@@ -377,7 +438,7 @@
                         <div class="absolute -top-6 -right-6 text-7xl font-black italic text-white/5 group-hover:text-red-600/10 transition-colors z-0">03</div>
                         <div class="relative z-10">
                             <div class="w-20 h-20 bg-black border border-white/10 rounded-full flex items-center justify-center text-red-600 mb-6 group-hover:bg-red-600 group-hover:text-white transition-colors shadow-lg">
-                                <i data-lucide="rocket" class="w-10 h-10"></i>
+                                <i data-lucide="rocket" class="w-10 h-10 animate-rocket-seq"></i>
                             </div>
                             <h3 class="text-2xl font-black uppercase italic text-white mb-4">Listo para brillar</h3>
                             <p class="text-gray-400 text-sm leading-relaxed font-medium">¡Tu proyecto cobra vida! Ya sea la nueva imagen de tu negocio o la piñata de tus sueños, te lo entregamos listo para presumir.</p>
@@ -661,47 +722,53 @@
             });
         });
 
-        // 5. DATOS DE SERVICIOS
+        // 5. DATOS DE SERVICIOS ACTUALIZADOS
         const services = [
             { id: 'formato', label: 'Gran Formato', icon: 'layers', desc: 'Impresiones y rotulación a gran escala.', details: ['Impresión de lona', 'Vinil brillante/mate', 'Corte de vinil', 'Microperforados', 'Rotulación interior', 'Rotulación exterior', 'Rotulación vehicular'] },
-            { id: 'fiestas', label: 'Eventos y Fiestas', icon: 'zap', desc: 'Escenografías y decoración temática.', details: ['Sets fotográficos', 'Montaje de mesas', 'Decoración temática', 'Estructuras de coroplast', 'Escenarios personalizados'] },
-            { id: 'digital', label: 'Artículos Digitales', icon: 'smartphone', desc: 'Presencia e invitaciones modernas.', details: ['Invitaciones digitales interactivas', 'Menús QR para restaurantes', 'Tarjetas digitales', 'Social Media Branding', 'Filtros AR'] },
-            { id: 'artesania', label: 'Artesanías de Fiesta', icon: 'scissors', desc: 'Detalles únicos elaborados a mano.', details: ['Piñatas de autor (Piezas únicas)', 'Cake toppers personalizados', 'Banners de papel calado', 'Stickers premium', 'Cajas dulceras de lujo'] },
-            { id: 'foto', label: 'Fotografía', icon: 'camera', desc: 'Capturamos la esencia de tu producto.', details: ['Fotografía de Producto', 'Sesiones en Set', 'Cobertura de Eventos', 'Edición profesional', 'Retoque industrial'] },
-            { id: 'negocio', label: 'Para tu Negocio', icon: 'shopping-bag', desc: 'Identidad que transmite profesionalismo.', details: ['Diseño de Logotipo', 'Identidad Corporativa', 'Flyers y Folletería', 'Uniformes personalizados', 'Señalética industrial'] }
+            { id: 'fiestas', label: 'Eventos y Fiestas', icon: 'zap', desc: 'Escenografías y decoración temática.', details: ['Sets fotográficos', 'Decoración temática', 'Estructuras de coroplast', 'Escenarios personalizados', 'Mamparas personalizadas', 'Arcos de bienvenida'] },
+            { id: 'digital', label: 'Artículos Digitales', icon: 'smartphone', desc: 'Presencia e invitaciones modernas.', details: ['Invitaciones digitales interactivas', 'Menús QR para restaurantes', 'Tarjetas digitales', 'Social Media Branding', 'Websites', 'Producción de podcast'] },
+            { id: 'artesania', label: 'Artesanías de Fiesta', icon: 'scissors', desc: 'Detalles únicos elaborados a mano.', details: ['Piñatas de autor (Piezas únicas)', 'Cake toppers personalizados', 'Banners de papel calado', 'Stickers premium', 'Cajas dulceras de lujo', '¡Cualquier cosa que imagines!'] },
+            { id: 'foto', label: 'Fotografía', icon: 'camera', desc: 'Capturamos la esencia de tu producto.', details: ['Fotografía de Producto', 'Sesiones en Set', 'Cobertura de Eventos', 'Edición profesional', 'Retoque industrial', 'Inteligencia Artificial'] },
+            { id: 'negocio', label: 'Para tu Negocio', icon: 'shopping-bag', desc: 'Identidad que transmite profesionalismo.', details: ['Diseño de Logotipo', 'Identidad Corporativa', 'Flyers y Folletería', 'Uniformes personalizados', 'Señalética industrial', 'Toldos', 'Estructuras publicitarias'] }
         ];
 
-        // Renderizar Grid de Servicios
+        // Renderizar Grid de Servicios con Animaciones Extra
         const grid = document.getElementById('services-grid');
         if(grid) {
-            services.forEach(s => {
+            services.forEach((s, index) => {
+                // Generar un delay aleatorio para que floten asíncronamente
+                const delay = (Math.random() * 2).toFixed(2);
                 grid.innerHTML += `
-                    <div onclick="openModal('${s.id}')" class="group cursor-pointer bg-[#111] border-2 border-white/5 hover:border-red-600/60 rounded-[2.5rem] p-8 transition-all duration-300 transform hover:-translate-y-2 shadow-xl hover:shadow-[0_15px_30px_rgba(220,38,38,0.2)]">
-                        <div class="w-16 h-16 bg-red-600/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-red-600 text-red-600 group-hover:text-white transition-colors duration-300">
+                    <div onclick="openModal('${s.id}')" class="group cursor-pointer bg-[#111] border-2 border-white/5 hover:border-red-500 rounded-[2.5rem] p-8 transition-all duration-500 transform hover:-translate-y-4 shadow-xl hover:shadow-[0_20px_40px_rgba(220,38,38,0.3)] card-float relative overflow-hidden" style="animation-delay: ${delay}s">
+                        <!-- Brillo rojo interno en hover -->
+                        <div class="absolute inset-0 bg-gradient-to-b from-red-600/0 to-red-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        
+                        <div class="w-16 h-16 bg-red-600/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-red-600 text-red-600 group-hover:text-white transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 relative z-10">
                             <i data-lucide="${s.icon}"></i>
                         </div>
-                        <h3 class="text-2xl font-black uppercase italic text-white mb-3">${s.label}</h3>
-                        <p class="text-gray-400 text-sm mb-6">${s.desc}</p>
-                        <span class="text-xs font-bold uppercase tracking-widest text-red-600 group-hover:text-white transition-colors flex items-center">
-                            Ver detalles <i data-lucide="chevron-right" class="w-4 h-4 ml-1 group-hover:translate-x-2 transition-transform"></i>
+                        <h3 class="text-2xl font-black uppercase italic text-white mb-3 relative z-10">${s.label}</h3>
+                        <p class="text-gray-400 text-sm mb-6 relative z-10">${s.desc}</p>
+                        <span class="text-xs font-bold uppercase tracking-widest text-red-600 group-hover:text-yellow-400 transition-colors flex items-center relative z-10">
+                            Descubrir más <i data-lucide="chevron-right" class="w-4 h-4 ml-1 group-hover:translate-x-3 transition-transform"></i>
                         </span>
                     </div>
                 `;
             });
         }
 
-        // Lógica Modal
+        // Lógica Modal con animaciones inyectadas
         function openModal(id) {
             const service = services.find(s => s.id === id);
             if(!service) return;
 
             document.getElementById('modal-title').innerText = service.label;
-            document.getElementById('modal-icon-container').innerHTML = `<i data-lucide="${service.icon}" style="width: 32px; height: 32px;"></i>`;
+            document.getElementById('modal-icon-container').innerHTML = `<i data-lucide="${service.icon}" style="width: 40px; height: 40px;"></i>`;
             
-            const detailsHtml = service.details.map(d => `
-                <div class="flex items-center gap-4 p-4 bg-white/5 rounded-2xl border border-white/5 hover:border-red-600/50 transition-colors group">
-                    <i data-lucide="check-circle" class="text-red-600 w-5 h-5 shrink-0 group-hover:scale-110 transition-transform"></i>
-                    <span class="text-sm font-bold uppercase tracking-widest text-gray-300">${d}</span>
+            // Inyectar el listado con stagger delays para que entren en cascada
+            const detailsHtml = service.details.map((d, index) => `
+                <div class="animate-stagger-item flex items-center gap-4 p-4 bg-black/40 rounded-2xl border border-red-500/30 hover:bg-black/80 hover:border-yellow-400 hover:-translate-y-1 transition-all duration-300 group" style="animation-delay: ${index * 120}ms">
+                    <i data-lucide="check-circle" class="text-white w-6 h-6 shrink-0 group-hover:scale-125 group-hover:text-yellow-400 transition-all duration-300"></i>
+                    <span class="text-sm md:text-base font-bold uppercase tracking-widest text-white group-hover:text-yellow-400 transition-colors">${d}</span>
                 </div>
             `).join('');
             document.getElementById('modal-details').innerHTML = detailsHtml;
