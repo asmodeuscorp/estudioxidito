@@ -393,25 +393,27 @@
                 <!-- Se inyecta con JS -->
             </div>
 
-            <!-- Modal de Servicio Digital Zen - ESTRUCTURA CORREGIDA PARA MÓVIL -->
-            <div id="service-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 md:p-6 bg-navy/60 backdrop-blur-sm">
-                <!-- El contenedor principal es un flex-col con overflow-hidden -->
-                <div class="w-full max-w-3xl bg-white border border-cloud rounded-[2rem] shadow-2xl flex flex-col max-h-[90vh] overflow-hidden relative">
-                    
-                    <!-- Header estático: El botón de cerrar SIEMPRE visible -->
-                    <div class="flex justify-end p-4 md:p-6 bg-white z-20 shrink-0">
-                        <button onclick="closeModal()" class="p-2 bg-cloud hover:bg-navy rounded-full transition-colors text-navy hover:text-white shadow-sm border border-gray-200">
-                            <i data-lucide="x"></i>
-                        </button>
-                    </div>
+            <!-- Modal de Servicio Digital Zen - ESTRUCTURA 100% RESPONSIVA -->
+            <div id="service-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 md:p-6 bg-navy/80 backdrop-blur-md">
+                
+                <!-- Fondo clickeable para cerrar al tocar fuera de la caja -->
+                <div class="absolute inset-0 cursor-pointer" onclick="closeModal()"></div>
 
-                    <!-- Contenedor interno deslizable (scrollable) -->
-                    <div class="px-6 pb-6 pt-2 md:px-12 md:pb-12 overflow-y-auto hide-scrollbar flex-1">
+                <!-- Caja principal de la tarjeta -->
+                <div class="w-full max-w-3xl bg-white border border-cloud rounded-[2rem] shadow-2xl flex flex-col max-h-[85vh] md:max-h-[90vh] relative z-10 overflow-hidden">
+                    
+                    <!-- Botón de cerrar Fijo a la tarjeta (Siempre visible encima del contenido) -->
+                    <button onclick="closeModal()" class="absolute top-4 right-4 md:top-6 md:right-6 p-2 md:p-3 bg-cloud/90 backdrop-blur hover:bg-navy rounded-full transition-colors text-navy hover:text-white z-50 shadow-sm border border-gray-200">
+                        <i data-lucide="x" class="w-5 h-5 md:w-6 md:h-6"></i>
+                    </button>
+
+                    <!-- Contenedor con scroll interno independiente -->
+                    <div class="p-6 md:p-12 pt-16 md:pt-12 overflow-y-auto hide-scrollbar w-full h-full">
                         <div class="flex flex-col md:flex-row items-center md:items-start gap-6 mb-10 text-center md:text-left">
                             <div id="modal-icon-container" class="w-20 h-20 bg-cyan/10 border border-cyan/20 rounded-2xl flex items-center justify-center text-cyanDark shrink-0">
                                 <!-- Icon -->
                             </div>
-                            <div class="mt-2">
+                            <div class="mt-2 w-full pr-0 md:pr-12">
                                 <h3 id="modal-title" class="text-3xl md:text-4xl font-heading font-black text-navy tracking-tight"></h3>
                                 <p class="text-cyanDark font-bold uppercase tracking-widest text-[11px] mt-2">
                                     Catálogo de Soluciones
@@ -423,7 +425,7 @@
                             <!-- Detalles inyectados -->
                         </div>
 
-                        <div class="flex justify-center mt-8 w-full group">
+                        <div class="flex justify-center mt-8 w-full group pb-2">
                             <a id="modal-cta" href="#" target="_blank" class="btn-zen btn-cyan w-full md:w-auto text-lg py-4">
                                 <span class="flex items-center justify-center gap-3">
                                     ¡COTIZAR ESTE SERVICIO! <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-2 transition-transform"></i>
