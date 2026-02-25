@@ -393,7 +393,7 @@
                 <!-- Se inyecta con JS -->
             </div>
 
-            <!-- Modal de Servicio Digital Zen - ESTRUCTURA 100% RESPONSIVA -->
+            <!-- Modal de Servicio Digital Zen - BOTÓN REGRESAR INTEGRADO -->
             <div id="service-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 md:p-6 bg-navy/80 backdrop-blur-md">
                 
                 <!-- Fondo clickeable para cerrar al tocar fuera de la caja -->
@@ -402,22 +402,29 @@
                 <!-- Caja principal de la tarjeta -->
                 <div class="w-full max-w-3xl bg-white border border-cloud rounded-[2rem] shadow-2xl flex flex-col max-h-[85vh] md:max-h-[90vh] relative z-10 overflow-hidden">
                     
-                    <!-- Botón de cerrar Fijo a la tarjeta (Siempre visible encima del contenido) -->
-                    <button onclick="closeModal()" class="absolute top-4 right-4 md:top-6 md:right-6 p-2 md:p-3 bg-cloud/90 backdrop-blur hover:bg-navy rounded-full transition-colors text-navy hover:text-white z-50 shadow-sm border border-gray-200">
-                        <i data-lucide="x" class="w-5 h-5 md:w-6 md:h-6"></i>
-                    </button>
-
                     <!-- Contenedor con scroll interno independiente -->
-                    <div class="p-6 md:p-12 pt-16 md:pt-12 overflow-y-auto hide-scrollbar w-full h-full">
-                        <div class="flex flex-col md:flex-row items-center md:items-start gap-6 mb-10 text-center md:text-left">
-                            <div id="modal-icon-container" class="w-20 h-20 bg-cyan/10 border border-cyan/20 rounded-2xl flex items-center justify-center text-cyanDark shrink-0">
-                                <!-- Icon -->
+                    <div class="p-6 md:p-12 overflow-y-auto hide-scrollbar w-full h-full">
+                        
+                        <!-- Header del Modal con el Botón Regresar alineado -->
+                        <div class="flex flex-col md:flex-row items-center justify-between gap-6 mb-10 border-b border-cloud pb-6">
+                            
+                            <div class="flex flex-col md:flex-row items-center md:items-start gap-6 text-center md:text-left w-full">
+                                <div id="modal-icon-container" class="w-20 h-20 bg-cyan/10 border border-cyan/20 rounded-2xl flex items-center justify-center text-cyanDark shrink-0">
+                                    <!-- Icon -->
+                                </div>
+                                <div class="mt-2 flex-1">
+                                    <h3 id="modal-title" class="text-3xl md:text-4xl font-heading font-black text-navy tracking-tight"></h3>
+                                    <p class="text-cyanDark font-bold uppercase tracking-widest text-[11px] mt-2">
+                                        Catálogo de Soluciones
+                                    </p>
+                                </div>
                             </div>
-                            <div class="mt-2 w-full pr-0 md:pr-12">
-                                <h3 id="modal-title" class="text-3xl md:text-4xl font-heading font-black text-navy tracking-tight"></h3>
-                                <p class="text-cyanDark font-bold uppercase tracking-widest text-[11px] mt-2">
-                                    Catálogo de Soluciones
-                                </p>
+
+                            <!-- Botón de Regresar (Fijo al lado del header) -->
+                            <div class="shrink-0 w-full md:w-auto flex justify-center md:justify-end">
+                                <button onclick="closeModal()" class="flex items-center justify-center gap-2 px-5 py-3 bg-cloud hover:bg-navy text-navy hover:text-white rounded-xl font-bold uppercase tracking-widest text-xs transition-colors shadow-sm border border-navy/10 w-full md:w-auto">
+                                    <i data-lucide="arrow-left" class="w-4 h-4"></i> Regresar
+                                </button>
                             </div>
                         </div>
 
