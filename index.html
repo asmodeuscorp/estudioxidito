@@ -393,18 +393,21 @@
                 <!-- Se inyecta con JS -->
             </div>
 
-            <!-- Modal de Servicio Digital Zen Corrección Móvil -->
-            <div id="service-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 bg-navy/60 backdrop-blur-sm">
-                <div class="relative w-full max-w-3xl bg-white border border-cloud rounded-[2rem] shadow-2xl flex flex-col max-h-[90vh]">
+            <!-- Modal de Servicio Digital Zen - ESTRUCTURA CORREGIDA PARA MÓVIL -->
+            <div id="service-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 md:p-6 bg-navy/60 backdrop-blur-sm">
+                <!-- El contenedor principal es un flex-col con overflow-hidden -->
+                <div class="w-full max-w-3xl bg-white border border-cloud rounded-[2rem] shadow-2xl flex flex-col max-h-[90vh] overflow-hidden relative">
                     
-                    <!-- Botón de cerrar Fijo a la caja -->
-                    <button onclick="closeModal()" class="absolute top-4 right-4 md:top-6 md:right-6 p-2 bg-cloud hover:bg-navy rounded-full transition-colors text-navy hover:text-white z-50 shadow-md border border-gray-200">
-                        <i data-lucide="x"></i>
-                    </button>
+                    <!-- Header estático: El botón de cerrar SIEMPRE visible -->
+                    <div class="flex justify-end p-4 md:p-6 bg-white z-20 shrink-0">
+                        <button onclick="closeModal()" class="p-2 bg-cloud hover:bg-navy rounded-full transition-colors text-navy hover:text-white shadow-sm border border-gray-200">
+                            <i data-lucide="x"></i>
+                        </button>
+                    </div>
 
-                    <!-- Contenedor Interno con Scroll -->
-                    <div class="p-6 md:p-12 overflow-y-auto hide-scrollbar rounded-[2rem]">
-                        <div class="flex flex-col md:flex-row items-center md:items-start gap-6 mb-10 text-center md:text-left pt-8 md:pt-0">
+                    <!-- Contenedor interno deslizable (scrollable) -->
+                    <div class="px-6 pb-6 pt-2 md:px-12 md:pb-12 overflow-y-auto hide-scrollbar flex-1">
+                        <div class="flex flex-col md:flex-row items-center md:items-start gap-6 mb-10 text-center md:text-left">
                             <div id="modal-icon-container" class="w-20 h-20 bg-cyan/10 border border-cyan/20 rounded-2xl flex items-center justify-center text-cyanDark shrink-0">
                                 <!-- Icon -->
                             </div>
