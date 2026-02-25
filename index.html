@@ -63,12 +63,12 @@
             z-index: -1;
             background-color: #F0EEE9;
             background-image: 
-                linear-gradient(rgba(17, 28, 51, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(17, 28, 51, 0.05) 1px, transparent 1px),
+                linear-gradient(rgba(17, 28, 51, 0.12) 1px, transparent 1px), /* Opacidad aumentada para que resalte más */
+                linear-gradient(90deg, rgba(17, 28, 51, 0.12) 1px, transparent 1px), /* Opacidad aumentada para que resalte más */
                 linear-gradient(135deg, #fdfcfb 0%, #e2e2e2 50%, #fdfcfb 100%);
             background-size: 40px 40px, 40px 40px, 100% 100%;
             background-position: 0 0, 0 0, 0 0;
-            animation: gridDiagonal 20s linear infinite;
+            animation: gridDiagonal 8s linear infinite; /* Velocidad aumentada de 20s a 8s */
         }
 
         @keyframes gridDiagonal {
@@ -286,6 +286,16 @@
         }
         .card-float { 
             animation: floatCard 5s ease-in-out infinite; 
+        }
+
+        /* Animación caminata/flotante para el Logo del Footer */
+        @keyframes logo-walk {
+            0% { transform: translateX(-15px) rotate(-5deg); }
+            50% { transform: translateX(15px) rotate(5deg); }
+            100% { transform: translateX(-15px) rotate(-5deg); }
+        }
+        .animate-logo-walk {
+            animation: logo-walk 4s ease-in-out infinite;
         }
     </style>
 </head>
@@ -614,7 +624,9 @@
         <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center reveal">
             <div class="text-center md:text-left space-y-6">
                 <div class="flex items-center justify-center md:justify-start space-x-3">
-                    <img src="logo.png" alt="Logo Flat" class="w-10 h-10 object-contain">
+                    <div class="animate-logo-walk">
+                        <img src="logo.png" alt="Logo Flat" class="w-10 h-10 object-contain">
+                    </div>
                     <span class="font-heading font-black tracking-tight text-2xl uppercase">ESTUDIO <span class="text-cyan">XIDITO</span></span>
                 </div>
                 <p class="text-cloud/60 max-w-sm text-sm leading-relaxed font-medium">
