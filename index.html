@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Estudio Xidito | Diseño & Producción</title>
     
-    <!-- Favicon Adaptado (Ahora jala directamente tu archivo logo.png) -->
+    <!-- Favicon Adaptado -->
     <link rel="icon" type="image/png" href="logo.png">
     
     <!-- Fuentes Google: Poppins para títulos y Inter para cuerpo -->
@@ -63,12 +63,12 @@
             z-index: -1;
             background-color: #F0EEE9;
             background-image: 
-                linear-gradient(rgba(17, 28, 51, 0.12) 1px, transparent 1px), /* Opacidad aumentada para que resalte más */
-                linear-gradient(90deg, rgba(17, 28, 51, 0.12) 1px, transparent 1px), /* Opacidad aumentada para que resalte más */
+                linear-gradient(rgba(17, 28, 51, 0.12) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(17, 28, 51, 0.12) 1px, transparent 1px),
                 linear-gradient(135deg, #fdfcfb 0%, #e2e2e2 50%, #fdfcfb 100%);
             background-size: 40px 40px, 40px 40px, 100% 100%;
             background-position: 0 0, 0 0, 0 0;
-            animation: gridDiagonal 8s linear infinite; /* Velocidad aumentada de 20s a 8s */
+            animation: gridDiagonal 8s linear infinite;
         }
 
         @keyframes gridDiagonal {
@@ -211,7 +211,7 @@
             border-left-color: #00D4FF;
         }
         .marquee-item.is-center .marquee-text-bg span {
-            color: #FFFFFF; /* Cambia el texto a blanco para contrastar con el fondo azul oscuro */
+            color: #FFFFFF;
         }
         
         /* Typewriter Cursor */
@@ -225,9 +225,7 @@
             padding-right: 4px;
         }
 
-        /* --- ANIMACIONES SECUENCIALES DEL PROCESO CORREGIDAS --- */
-        
-        /* 1. Platiquemos (Chat Bubble) */
+        /* --- ANIMACIONES SECUENCIALES DEL PROCESO --- */
         .animate-chat-seq {
             animation: anim-chat 6s infinite;
             transform-origin: bottom left;
@@ -241,7 +239,6 @@
             25% { transform: scale(1.1) rotate(0); }
         }
 
-        /* 2. Manos a la obra (Foco con Halo Cian) */
         .animate-bulb-seq {
             animation: anim-bulb 6s infinite;
             transform-origin: center;
@@ -255,7 +252,6 @@
             60% { transform: scale(1.1) translateY(-2px) rotate(0deg); filter: drop-shadow(0 0 5px rgba(0,212,255,0.5)); }
         }
 
-        /* 3. Listo para brillar (Cohete) */
         .animate-rocket-seq {
             animation: anim-rocket 6s infinite;
             transform-origin: center;
@@ -279,16 +275,14 @@
             animation: slideInUpFade 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
         
-        /* Animación suave flotante general */
+        .card-float { 
+            animation: floatCard 5s ease-in-out infinite; 
+        }
         @keyframes floatCard {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-6px); }
         }
-        .card-float { 
-            animation: floatCard 5s ease-in-out infinite; 
-        }
 
-        /* Animación caminata/flotante para el Logo del Footer */
         @keyframes logo-walk {
             0% { transform: translateX(-15px) rotate(-5deg); }
             50% { transform: translateX(15px) rotate(5deg); }
@@ -318,7 +312,7 @@
                 <button onclick="navigate('proceso')" class="nav-link text-navy/60 font-heading font-semibold text-sm tracking-wide transition-colors hover:text-cyanDark" data-target="proceso">Proceso</button>
                 <button onclick="navigate('portafolio')" class="nav-link text-navy/60 font-heading font-semibold text-sm tracking-wide transition-colors hover:text-cyanDark" data-target="portafolio">Portafolio</button>
                 <button onclick="navigate('contacto')" class="nav-link text-navy/60 font-heading font-semibold text-sm tracking-wide transition-colors hover:text-cyanDark" data-target="contacto">Contacto</button>
-                <button onclick="navigate('taller')" class="nav-link text-navy/60 font-heading font-semibold text-sm tracking-wide transition-colors hover:text-cyanDark" data-target="taller">Taller</button>
+                <button onclick="navigate('novedades')" class="nav-link text-navy/60 font-heading font-semibold text-sm tracking-wide transition-colors hover:text-cyanDark" data-target="novedades">Novedades</button>
             </div>
 
             <button class="md:hidden text-navy p-2 bg-white rounded-lg shadow-sm border border-navy/5" onclick="toggleMenu()">
@@ -333,7 +327,7 @@
             <button onclick="navigate('proceso')" class="block w-full text-left text-lg font-heading font-semibold text-navy hover:text-cyanDark">Proceso</button>
             <button onclick="navigate('portafolio')" class="block w-full text-left text-lg font-heading font-semibold text-navy hover:text-cyanDark">Portafolio</button>
             <button onclick="navigate('contacto')" class="block w-full text-left text-lg font-heading font-semibold text-navy hover:text-cyanDark">Contacto</button>
-            <button onclick="navigate('taller')" class="block w-full text-left text-lg font-heading font-semibold text-navy hover:text-cyanDark">Taller</button>
+            <button onclick="navigate('novedades')" class="block w-full text-left text-lg font-heading font-semibold text-navy hover:text-cyanDark">Novedades</button>
         </div>
     </nav>
 
@@ -344,7 +338,7 @@
         <section id="sec-inicio" class="section-container block max-w-6xl mx-auto px-6 py-12 md:py-24 flex items-center justify-center min-h-[75vh]">
             <div class="reveal active grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-center w-full">
                 
-                <!-- Columna Izquierda: Personaje Héroe -->
+                <!-- Columna Izquierda: Personaje Héroe Estático -->
                 <div class="flex justify-center order-2 md:order-1">
                     <div class="relative group">
                         <div class="absolute inset-0 bg-cyan rounded-full blur-[60px] opacity-20 group-hover:opacity-40 transition-opacity duration-700"></div>
@@ -374,6 +368,20 @@
                         <button onclick="navigate('servicios')" class="btn-zen btn-navy w-full sm:w-auto">
                             Ver Catálogo
                         </button>
+                    </div>
+
+                    <!-- Burbuja de Última Novedad -->
+                    <div class="pt-8 w-full md:w-auto">
+                        <div onclick="navigate('novedades')" class="cursor-pointer group flex items-center gap-4 bg-white/70 backdrop-blur-sm hover:bg-white border border-cyan/30 p-3 pr-5 rounded-2xl shadow-sm hover:shadow-zen transition-all duration-300">
+                            <div class="bg-cyan/20 text-cyanDark p-2 rounded-xl group-hover:bg-cyan group-hover:text-navy transition-colors">
+                                <i data-lucide="bell-ring" class="w-5 h-5 animate-pulse"></i>
+                            </div>
+                            <div class="text-left flex-1">
+                                <p class="text-[10px] font-bold text-cyanDark uppercase tracking-widest">Última Novedad</p>
+                                <p class="text-sm font-heading font-semibold text-navy mt-0.5">🎂 Topper-Manía: Diseño de autor por $180</p>
+                            </div>
+                            <i data-lucide="chevron-right" class="w-5 h-5 text-navy/30 group-hover:text-cyanDark group-hover:translate-x-1 transition-all"></i>
+                        </div>
                     </div>
                 </div>
 
@@ -599,33 +607,74 @@
             </div>
         </section>
 
-        <!-- SECCIÓN: EL TALLER -->
-        <section id="sec-taller" class="section-container hidden max-w-6xl mx-auto px-6 py-20 flex flex-col items-center">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center reveal">
-                <div class="space-y-8">
-                    <h2 class="font-heading font-black text-5xl md:text-6xl text-navy tracking-tight leading-tight">
-                        El Taller
-                    </h2>
-                    <div class="w-24 h-1 bg-cyan rounded-full"></div>
-                    <p class="text-lg text-navy/80 leading-relaxed font-medium">
-                        "Nuestro espacio creativo en Querétaro. Aquí convergen la tecnología, el diseño y la manufactura para materializar desde proyectos corporativos hasta detalles inolvidables."
-                    </p>
-                    
-                    <div class="bg-white rounded-3xl border border-navy/5 shadow-zen p-3 group">
-                        <div class="relative overflow-hidden rounded-[1.5rem]">
-                            <img src="ceo.jpg" alt="Rocko CEO, Mamba Designer & Style, Goldie Customer Service" class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-700">
-                            <div class="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/20 to-transparent flex flex-col justify-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                <h4 class="flex items-center font-heading font-bold text-white text-xl mb-1">
-                                    <i data-lucide="heart" class="w-5 h-5 mr-2 text-cyan"></i> La Directiva
-                                </h4>
-                                <p class="text-xs font-medium text-cloud">Rocko (CEO) • Mamba (Design) • Goldie (CS)</p>
-                            </div>
+        <!-- SECCIÓN: NOVEDADES (Reemplaza a Taller) -->
+        <section id="sec-novedades" class="section-container hidden max-w-6xl mx-auto px-6 py-20">
+            <div class="text-center mb-16 reveal">
+                <h2 class="font-heading font-black text-4xl md:text-5xl text-navy tracking-tight">
+                    Novedades y Promos
+                </h2>
+                <div class="w-24 h-1 bg-cyan mx-auto mt-6 rounded-full"></div>
+                <p class="text-navy/70 mt-6 max-w-2xl mx-auto text-lg font-medium">
+                    Entérate de nuestros últimos proyectos, descuentos exclusivos y lo que pasa dentro del taller de Estudio Xidito.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 reveal">
+                
+                <!-- Tarjeta 1 (Topper-Manía) -->
+                <div class="bg-white rounded-[2rem] border border-navy/5 shadow-zen hover:shadow-zen-hover transition-all duration-300 overflow-hidden group flex flex-col cursor-pointer" onclick="window.open('https://wa.me/524421260133?text=Hola,%20quiero%20aprovechar%20la%20promo%20de%20Topper-Man%C3%ADa', '_blank')">
+                    <div class="h-48 overflow-hidden relative">
+                        <img src="topper.jpg" alt="Cake Topper Multicapa" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute top-4 left-4 bg-cyan text-navy text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full shadow-md">
+                            OFERTA 🎂
                         </div>
                     </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <p class="text-xs text-navy/50 font-bold mb-3 flex items-center gap-1"><i data-lucide="star" class="w-3 h-3 text-cyanDark"></i> Producto Estrella</p>
+                        <h3 class="text-xl font-heading font-bold text-navy mb-3">Topper-Manía: ¡Dale vida a tu pastel!</h3>
+                        <p class="text-navy/70 text-sm mb-6 flex-1 leading-relaxed">Crea un impacto visual único con nuestros Cake Toppers multicapa personalizados. Calidad premium y diseño de autor por solo $180 MXN. ¡Haz tu pedido hoy!</p>
+                        <span class="text-cyanDark font-bold text-sm flex items-center group-hover:text-navy transition-colors">
+                            Quiero mi Topper <i data-lucide="arrow-right" class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform"></i>
+                        </span>
+                    </div>
                 </div>
-                <div class="aspect-square bg-white rounded-[3rem] border-8 border-white shadow-zen flex items-center justify-center overflow-hidden relative group">
-                    <img src="taller.jpg" alt="Instalaciones del Taller Estudio Xidito" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+
+                <!-- Tarjeta 2 (Menú Digital) -->
+                <div class="bg-white rounded-[2rem] border border-navy/5 shadow-zen hover:shadow-zen-hover transition-all duration-300 overflow-hidden group flex flex-col cursor-pointer" onclick="window.open('https://wa.me/524421260133?text=Hola,%20me%20interesa%20la%20promo%20del%20Men%C3%BA%20Digital', '_blank')">
+                    <div class="h-48 overflow-hidden relative">
+                        <img src="menu_digital.jpg" alt="Menú Digital en Smartphone" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute top-4 left-4 bg-navy text-white text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full shadow-md">
+                            DIGITAL 🍔
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <p class="text-xs text-navy/50 font-bold mb-3 flex items-center gap-1"><i data-lucide="smartphone" class="w-3 h-3 text-cyanDark"></i> Innovación</p>
+                        <h3 class="text-xl font-heading font-bold text-navy mb-3">Menú Digital: Moderniza tu negocio por $500</h3>
+                        <p class="text-navy/70 text-sm mb-6 flex-1 leading-relaxed">¡Adiós a los menús de papel! Creamos tu página de menú profesional con tus fotos y textos. Rápido, tecnológico y fácil de usar por solo $500 MXN.</p>
+                        <span class="text-cyanDark font-bold text-sm flex items-center group-hover:text-navy transition-colors">
+                            Ver demostración <i data-lucide="arrow-right" class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform"></i>
+                        </span>
+                    </div>
                 </div>
+
+                <!-- Tarjeta 3 (Sticker Slap) -->
+                <div class="bg-white rounded-[2rem] border border-navy/5 shadow-zen hover:shadow-zen-hover transition-all duration-300 overflow-hidden group flex flex-col cursor-pointer" onclick="window.open('https://wa.me/524421260133?text=Hola,%20me%20interesan%20los%20paquetes%20de%20Sticker%20Slap', '_blank')">
+                    <div class="h-48 overflow-hidden relative">
+                        <img src="stickers.jpg" alt="Planillas de Stickers" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute top-4 left-4 bg-[#25D366] text-white text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full shadow-md">
+                            PROMO 🏷️
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <p class="text-xs text-navy/50 font-bold mb-3 flex items-center gap-1"><i data-lucide="tag" class="w-3 h-3 text-cyanDark"></i> Más Vendidos</p>
+                        <h3 class="text-xl font-heading font-bold text-navy mb-3">Sticker Slap: ¡Tu marca en todos lados!</h3>
+                        <p class="text-navy/70 text-sm mb-6 flex-1 leading-relaxed">Llévate 10 planillas (1/4 de carta) con tus diseños favoritos y corte a contorno por solo $250 MXN. ¡Calidad profesional lista para pegar!</p>
+                        <span class="text-cyanDark font-bold text-sm flex items-center group-hover:text-navy transition-colors">
+                            Ver paquetes <i data-lucide="arrow-right" class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform"></i>
+                        </span>
+                    </div>
+                </div>
+
             </div>
         </section>
 
