@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Estudio Xidito | Diseño & Producción</title>
+    <title>Estudio Xidito | Diseño & Producción</title>      <!-- Google Analytics 4 - Estudio Xidito -->     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>     <script>       window.dataLayer = window.dataLayer || [];       function gtag(){dataLayer.push(arguments);}       gtag('js', new Date());       gtag('config', 'G-XXXXXXXXXX');     </script>
     
     <!-- Favicon Adaptado -->
     <link rel="icon" type="image/png" href="logo.png">
@@ -622,7 +622,7 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 reveal">
                 
                 <!-- Tarjeta 1 (Topper-Manía) -->
-                <div class="bg-white rounded-[2rem] border border-navy/5 shadow-zen hover:shadow-zen-hover transition-all duration-300 overflow-hidden group flex flex-col cursor-pointer" onclick="window.open('https://wa.me/524421260133?text=Hola,%20quiero%20aprovechar%20la%20promo%20de%20Topper-Man%C3%ADa', '_blank')">
+                <div class="bg-white rounded-[2rem] border border-navy/5 shadow-zen hover:shadow-zen-hover transition-all duration-300 overflow-hidden group flex flex-col cursor-pointer" id="btn-whatsapp-topper" onclick="window.open('https://wa.me/524421260133?text=Hola,%20quiero%20aprovechar%20la%20promo%20de%20Topper-Man%C3%ADa', '_blank'); if(typeof gtag!=='undefined') gtag('event','whatsapp_cotizar_180',{event_category:'WhatsApp',event_label:'Promo Topper 180'});">
                     <div class="h-48 overflow-hidden relative">
                         <img src="topper.jpg" alt="Cake Topper Multicapa" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
                         <div class="absolute top-4 left-4 bg-cyan text-navy text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full shadow-md">
