@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo Cake Toppers | Estudio Xidito</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="logo.png">
+    
+    <!-- Fuentes Google: Poppins para títulos y Inter para cuerpo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        cloud: '#F0EEE9',
+                        navy: '#111C33',
+                        cyan: '#00D4FF',
+                        cyanDark: '#00A8CC',
+                    },
+                    boxShadow: {
+                        'zen': '0 10px 40px -10px rgba(17, 28, 51, 0.08)',
+                        'zen-hover': '0 20px 50px -10px rgba(17, 28, 51, 0.15)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* Fondo de Acero Inoxidable con Cuadrícula en Movimiento Diagonal */
+        .metallic-grid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-color: #F0EEE9;
+            background-image: 
+                linear-gradient(rgba(17, 28, 51, 0.12) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(17, 28, 51, 0.12) 1px, transparent 1px),
+                linear-gradient(135deg, #fdfcfb 0%, #e2e2e2 50%, #fdfcfb 100%);
+            background-size: 40px 40px, 40px 40px, 100% 100%;
+            background-position: 0 0, 0 0, 0 0;
+            animation: gridDiagonal 8s linear infinite;
+        }
+
+        @keyframes gridDiagonal {
+            0% { background-position: 0 0, 0 0, 0 0; }
+            100% { background-position: 40px 40px, 40px 40px, 0 0; }
+        }
+
+        body {
+            color: #111C33;
+            margin: 0;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+        
+        .selection-bg::selection {
+            background-color: #00D4FF;
+            color: #111C33;
+        }
+
+        /* --- BOTONES 3D DEGRADADOS PROFESIONALES --- */
+        .btn-zen {
+            position: relative;
+            padding: 1rem 2.5rem;
+            border-radius: 9999px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            z-index: 1;
+            border-bottom-width: 4px;
+        }
+        
+        .btn-cyan {
+            background: linear-gradient(135deg, #00D4FF 0%, #00A8CC 100%);
+            color: #111C33;
+            border-color: #0087A3;
+            box-shadow: 0 8px 20px -5px rgba(0, 212, 255, 0.5), inset 0 -2px 0 rgba(0, 0, 0, 0.1);
+        }
+        .btn-cyan:hover {
+            background: linear-gradient(135deg, #111C33 0%, #0A1121 100%);
+            color: #00D4FF;
+            border-color: #000000;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px -5px rgba(17, 28, 51, 0.5), inset 0 -2px 0 rgba(0, 0, 0, 0.2);
+        }
+        .btn-cyan:active {
+            transform: translateY(4px);
+            border-bottom-width: 0px;
+            margin-top: 4px;
+            box-shadow: 0 2px 5px -2px rgba(0, 212, 255, 0.5);
+        }
+
+        .btn-navy {
+            background: linear-gradient(135deg, #111C33 0%, #1A2B4C 100%);
+            color: #FFFFFF;
+            border-color: #0A1121;
+            box-shadow: 0 8px 20px -5px rgba(17, 28, 51, 0.5), inset 0 -2px 0 rgba(0,0,0,0.2);
+        }
+        .btn-navy:hover {
+            background: linear-gradient(135deg, #00D4FF 0%, #00A8CC 100%);
+            color: #111C33;
+            border-color: #0087A3;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px -5px rgba(0, 212, 255, 0.5), inset 0 -2px 0 rgba(0,0,0,0.1);
+        }
+        .btn-navy:active {
+            transform: translateY(4px);
+            border-bottom-width: 0px;
+            margin-top: 4px;
+            box-shadow: 0 2px 5px -2px rgba(17, 28, 51, 0.5);
+        }
+
+        /* Animación Footer */
+        @keyframes logo-walk {
+            0% { transform: translateX(-15px) rotate(-5deg); }
+            50% { transform: translateX(15px) rotate(5deg); }
+            100% { transform: translateX(-15px) rotate(-5deg); }
+        }
+        .animate-logo-walk {
+            animation: logo-walk 4s ease-in-out infinite;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Animación para los elementos de la galería al paginar */
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .gallery-item-enter {
+            animation: fadeInScale 0.5s ease-out forwards;
+        }
+
+        /* Animación Lightbox */
+        @keyframes zoomInLightbox {
+            from { opacity: 0; transform: scale(0.9) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .lightbox-enter {
+            animation: zoomInLightbox 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+    </style>
+</head>
+<body class="selection-bg font-sans">
+
+    <!-- FONDO METÁLICO ANIMADO -->
+    <div class="metallic-grid-bg"></div>
+
+    <!-- NAVEGACIÓN -->
+    <nav class="fixed top-0 w-full z-50 bg-cloud/90 backdrop-blur-lg border-b border-navy/5 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="index.html" class="flex items-center space-x-3 cursor-pointer group">
+                <img src="logo.png" alt="Logo Estudio Xidito" class="w-10 h-10 object-contain group-hover:scale-110 transition-transform">
+                <span class="font-heading font-extrabold tracking-tight text-xl uppercase text-navy">Estudio <span class="text-cyanDark">Xidito</span></span>
+            </a>
+            
+            <div>
+                <a href="index.html" class="flex items-center gap-2 text-navy font-heading font-bold text-sm tracking-wide transition-colors hover:text-cyanDark bg-white px-4 py-2 rounded-full shadow-sm border border-navy/5">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i> Volver al Inicio
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="relative z-10 pt-32 pb-20">
+        
+        <section class="max-w-7xl mx-auto px-6" id="gallery-header">
+            <div class="text-center mb-12 reveal active">
+                <p class="text-cyanDark font-bold uppercase tracking-widest text-sm mb-2 flex items-center justify-center gap-2">
+                    <i data-lucide="party-popper" class="w-4 h-4"></i> Para fiestas chiditas
+                </p>
+                <h1 class="font-heading font-black text-5xl md:text-7xl text-navy tracking-tight">
+                    Catálogo de Cake Toppers
+                </h1>
+                <div class="w-24 h-1 bg-cyan mx-auto mt-6 rounded-full mb-6"></div>
+                <p class="text-navy/70 max-w-2xl mx-auto text-lg md:text-xl font-medium">
+                    Explora nuestros diseños multicapa de autor. Calidad premium desde $180 MXN. ¿No encuentras el tema que buscas? ¡Nosotros lo diseñamos!
+                </p>
+                
+                <div class="mt-8 flex flex-col sm:flex-row justify-center gap-4">
+                    <button onclick="window.open('https://wa.me/524421260133?text=Hola,%20me%20gustar%C3%ADa%20cotizar%20un%20Cake%20Topper%20con%20un%20dise%C3%B1o%20personalizado.', '_blank')" class="btn-zen btn-cyan">
+                        <i data-lucide="pen-tool" class="w-5 h-5"></i> Pedir Diseño Personalizado
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Grid Dinámico de Toppers (Se inyecta por página) -->
+            <div id="toppers-gallery" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6 min-h-[500px]">
+                <!-- Se inyecta con JS -->
+            </div>
+
+            <!-- Controles de Paginación -->
+            <div id="pagination-controls" class="mt-12 reveal active">
+                <!-- Se inyecta con JS -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- LIGHTBOX MODAL (Visualizador en grande) -->
+    <div id="lightbox-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 md:p-8 bg-navy/95 backdrop-blur-md">
+        <!-- Fondo clickeable para cerrar -->
+        <div class="absolute inset-0 cursor-pointer" onclick="closeLightbox()"></div>
+
+        <div class="lightbox-enter relative w-full max-w-4xl bg-white border-4 border-cloud rounded-[2rem] shadow-2xl flex flex-col max-h-[90vh] overflow-hidden z-10">
+            
+            <!-- Botón de Cerrar Superior -->
+            <button onclick="closeLightbox()" class="absolute top-4 right-4 p-2 bg-cloud/80 backdrop-blur hover:bg-navy rounded-full transition-colors text-navy hover:text-white z-50 shadow-sm border border-gray-200">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+
+            <!-- Contenedor de la Imagen con Scroll si es necesario -->
+            <div class="flex-1 overflow-y-auto hide-scrollbar bg-cloud/30 relative flex items-center justify-center p-4">
+                <img id="lightbox-img" src="" alt="" class="max-w-full max-h-[60vh] object-contain rounded-xl shadow-zen">
+            </div>
+
+            <!-- Pie de la tarjeta con la info y botón -->
+            <div class="p-6 md:p-8 border-t border-navy/10 bg-white flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="text-center md:text-left flex-1">
+                    <p class="text-cyanDark font-bold uppercase tracking-widest text-[10px] mb-1 flex items-center justify-center md:justify-start gap-1">
+                        <i data-lucide="star" class="w-3 h-3"></i> Diseño de Autor
+                    </p>
+                    <h3 id="lightbox-title" class="text-2xl md:text-3xl font-heading font-black text-navy capitalize"></h3>
+                </div>
+                
+                <div class="shrink-0 w-full md:w-auto flex justify-center">
+                    <a id="lightbox-cta" href="#" target="_blank" class="btn-zen btn-cyan w-full md:w-auto text-lg py-3 px-8">
+                        <i data-lucide="message-circle" class="w-5 h-5"></i> ¡Lo quiero!
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER CORPORATIVO -->
+    <footer class="relative z-10 py-16 bg-navy text-white mt-10 rounded-t-[3rem]">
+        <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div class="text-center md:text-left space-y-6">
+                <div class="flex items-center justify-center md:justify-start space-x-3">
+                    <div class="animate-logo-walk">
+                        <img src="logo.png" alt="Logo Flat" class="w-10 h-10 object-contain">
+                    </div>
+                    <span class="font-heading font-black tracking-tight text-2xl uppercase">ESTUDIO <span class="text-cyan">XIDITO</span></span>
+                </div>
+                <p class="text-cloud/60 max-w-sm text-sm leading-relaxed font-medium">
+                    Dando vida a tus ideas con creatividad y diseño de alta precisión.
+                </p>
+            </div>
+            
+            <div class="flex flex-col items-center md:items-end space-y-8">
+                <div class="flex space-x-4">
+                    <a href="https://www.instagram.com/estudio.xidito/" target="_blank" rel="noopener noreferrer" class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-cyan hover:text-navy transition-colors shadow-sm">
+                        <i data-lucide="instagram" class="w-5 h-5"></i>
+                    </a>
+                    <a href="https://www.facebook.com/profile.php?id=61579203017269" target="_blank" rel="noopener noreferrer" class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-cyan hover:text-navy transition-colors shadow-sm">
+                        <i data-lucide="facebook" class="w-5 h-5"></i>
+                    </a>
+                    <a href="https://wa.me/524421260133" target="_blank" rel="noopener noreferrer" class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-[#25D366] transition-colors shadow-sm">
+                        <i data-lucide="message-circle" class="w-5 h-5"></i>
+                    </a>
+                </div>
+                <p class="text-xs text-cloud/40 font-medium tracking-widest uppercase">© 2026 Estudio Xidito</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPT PRINCIPAL -->
+    <script>
+        lucide.createIcons();
+
+        // Reveal en Scroll
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal-item");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 50;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+
+        // Toda tu lista inmensa de imágenes
+        const topperImages = [
+            "IMG_20230405_234509.jpg", "IMG_20230417_124349_polarr.jpg", "IMG_20230423_162319_polarr.jpg",
+            "IMG_20230428_080852_polarr.jpg", "IMG_20230518_180943_polarr.jpg", "IMG_20230523_200029_polarr.jpg",
+            "mira la detective topper 1.jpg", "Paleta Pop It CT.jpg", "Spiderman.jpg", "Topo de Bolo-Combo 25- 2021 (6)-batizado.jpg",
+            "Topo de Bolo-Combo 25- 2021 (7)-Fundo do mar.jpg", "Topo de Bolo-Combo 25- 2021 (8).jpg", "Topo de Bolo-Combo 25- 2021 (9)-astronalta.jpg",
+            "Topo de Bolo-Combo 25- 2021 (10).jpg", "Topo de Bolo-Combo 25- 2021 (11)-batizado.jpg", "Topo de Bolo-Combo 25- 2021 (12)-africa.jpg",
+            "Topo de Bolo-Combo 25- 2021 (13)-abelhinha.jpg", "Topo-de-bolo-15-ANOS.jpg", "topper gata marie.jpg", "Unicornio CT.jpg",
+            "3 Cerditos CT - Grafik-Teka.jpg", "ABEJITA.jpg", "Arco iris CT.jpg", "Ariel Topper.jpg", "Astronauta v2 CT.jpg",
+            "baby shark topper 1.jpg", "Bautizo Niña CT.jpg", "Bautizo Osita Rosa.jpg", "Bautizo Oso Azul.jpg", "BICHIKIDS.jpg",
+            "Black Pink CT V1 - Grafik-Teka.jpg", "Cake Topper ALICE IN WONDERLAND.jpg", "Cake Topper Astronaut.jpg", "Cake Topper AVENGERS.jpg",
+            "Cake Topper Aviator.jpg", "Cake Topper Baby Shark (2).jpg", "Cake Topper BABY SHARK.jpg", "Cake Topper Ballerina.jpg",
+            "Cake topper batman.jpg", "Cake Topper BEAR (2).jpg", "Cake Topper BEAR 2.jpg", "Cake Topper BEE.jpg", "Cake Topper Black Pink.jpg",
+            "Cake Topper Bolofofos.jpg", "Cake Topper CARE BEARS.jpg", "Cake Topper Cars.jpg", "Cake Topper Christening.jpg",
+            "Cake Topper CIRCUS.jpg", "Cake Topper Dino.jpg", "Cake Topper DINOSAUR.jpg", "Cake Topper DINOSAURIO.jpg", "Cake Topper El Chavo.jpg",
+            "Cake Topper ELEPHANT.jpg", "Cake Topper FARM 2.jpg", "Cake Topper Flamingo.jpg", "Cake Topper FOX.jpg", "Cake Topper Free Fire.jpg",
+            "Cake Topper Frozen.jpg", "Cake Topper Gallina Pintadita.jpg", "CAKE TOPPER HOCUS POCUS.jpg", "Cake Topper HOT AIR BALLOON.jpg",
+            "Cake topper inuyasha.jpg", "Cake Topper Jasmine.jpg", "Cake Topper jungle 2.jpg", "Cake Topper Jungle.jpg", "Cake Topper LITTLE BEAR.jpg",
+            "Cake Topper LITTLE BIRDS.jpg", "Cake Topper LITTLE PRINCE.jpg", "Cake Topper Llama.jpg", "Cake Topper Mario Bross 2.jpg",
+            "Cake Topper Mario Bross.jpg", "Cake Topper Mickey Mouse.jpg", "Cake Topper Mulan.jpg", "Cake Topper Naruto 2.jpg",
+            "Cake Topper OSITO REALEZA.jpg", "Cake Topper Panda.jpg", "Cake Topper Paw Patrol PINK.jpg", "Cake Topper Paw Patrol.jpg",
+            "Cake Topper PRINCESAS.jpg", "Cake Topper Quince Años Rojo.jpg", "Cake Topper Roblox.jpg", "Cake Topper SAILOR BEAR.jpg",
+            "Cake Topper Sonic.jpg", "Cake Topper SPIDERMAN.jpg", "Cake Topper Superman.jpg", "Cake Topper THE INCREDIBLES.jpg",
+            "Cake Topper UNDER THE SEA.jpg", "Cake Topper Unicornio.jpg", "Carro.jpg", "Circo.jpg", "Circulo y Flores CT.jpg",
+            "Comunion genericos.jpg", "Fondo del Mar CT.jpg", "imagen Referencial(1).jpg", "IMG_0327.jpg", "IMG_0471.jpg",
+            "IMG_0515.jpg", "IMG_0785.jpg", "IMG_0964.JPG", "IMG_1103.jpg", "IMG_1236.jpg", "IMG_20230113_101539_polarr.jpg",
+            "IMG_20230113_153326_polarr.jpg", "IMG_20230122_174222_128.jpg", "IMG_20230130_105903_polarr_1.jpg", "IMG_20230131_154140_polarr.jpg",
+            "IMG_20230209_073952_polarr.jpg", "IMG_20230225_095603_polarr.jpg", "IMG_20230225_095957_polarr.jpg", "IMG_20230303_122334_polarr.jpg",
+            "IMG_20230303_142801_polarr.jpg", "IMG_20230307_163916.jpg", "IMG_20230307_163931.jpg", "IMG_20230307_164001.jpg",
+            "IMG_20230307_164037.jpg", "IMG_20230307_164050.jpg", "IMG_20230307_164202.jpg", "IMG_20230309_184221_302.jpg",
+            "IMG_20230310_101913_polarr.jpg", "IMG_20230312_114147_087.jpg", "IMG_20230331_154240.jpg", "IMG_20230405_232742.jpg",
+            "IMG_20230405_232811.jpg", "IMG_20230405_233912.jpg"
+        ];
+
+        // Lógica del Lightbox (Visualizador en grande)
+        function openLightbox(imageSrc, displayName) {
+            const modal = document.getElementById('lightbox-modal');
+            const img = document.getElementById('lightbox-img');
+            const title = document.getElementById('lightbox-title');
+            const cta = document.getElementById('lightbox-cta');
+            
+            const encodedMessage = encodeURIComponent(`Hola, me interesa el Cake Topper modelo: ${displayName}`);
+
+            img.src = imageSrc;
+            img.alt = displayName;
+            title.innerText = displayName;
+            cta.href = `https://wa.me/524421260133?text=${encodedMessage}`;
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            
+            // Re-render iconos por si acaso
+            lucide.createIcons();
+        }
+
+        function closeLightbox() {
+            const modal = document.getElementById('lightbox-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            // Limpiar src para evitar que se vea la imagen anterior al abrir uno nuevo
+            setTimeout(() => {
+                document.getElementById('lightbox-img').src = "";
+            }, 300);
+        }
+
+        // LOGICA DE PAGINACIÓN
+        const totalPages = 5; // Dividir siempre en 5 partes
+        const itemsPerPage = Math.ceil(topperImages.length / totalPages);
+        let currentPage = 1;
+
+        function renderPage(page) {
+            currentPage = page;
+            const gallery = document.getElementById('toppers-gallery');
+            if(!gallery) return;
+
+            // Limpiar galería para cargar la nueva página
+            gallery.innerHTML = '';
+
+            // Calcular índices de inicio y fin para el bloque de imágenes
+            const start = (page - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            const currentImages = topperImages.slice(start, end);
+
+            // Inyectar imágenes de la página actual
+            currentImages.forEach((file, index) => {
+                let displayName = file
+                    .replace(/\.jpg|\.JPG/g, '')
+                    .replace(/[-_]/g, ' ')
+                    .replace(/Cake Topper|CT|IMG|polarr|Topo de Bolo|Combo 25|2021|Grafik Teka/gi, '')
+                    .trim();
+                
+                if(displayName.length < 2 || !isNaN(displayName)) displayName = "Diseño Personalizado";
+
+                // Ahora el onClick abre el lightbox en lugar de ir directo a WhatsApp
+                gallery.innerHTML += `
+                    <div class="gallery-item-enter relative group rounded-3xl overflow-hidden shadow-zen hover:shadow-zen-hover transition-all duration-500 cursor-pointer aspect-square bg-white border border-navy/5" 
+                         onclick="openLightbox('${file}', '${displayName}')"
+                         style="animation-delay: ${index * 30}ms">
+                        <img src="${file}" alt="${displayName}" loading="lazy" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                        
+                        <div class="absolute inset-0 bg-navy/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4">
+                            <h4 class="text-white font-heading font-bold text-center text-sm md:text-base mb-3 translate-y-4 group-hover:translate-y-0 transition-transform duration-300 capitalize">${displayName}</h4>
+                            <div class="btn-zen btn-cyan text-xs py-2 px-4 translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75 shadow-none hover:shadow-none">
+                                Ver en grande <i data-lucide="eye" class="w-3 h-3 ml-1"></i>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            renderPaginationControls();
+            lucide.createIcons();
+
+            // Auto-scroll elegante hacia arriba (al título) al cambiar de página
+            if(page > 1) {
+                document.getElementById('gallery-header').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        function renderPaginationControls() {
+            const container = document.getElementById('pagination-controls');
+            if(!container) return;
+
+            let html = `<div class="flex flex-wrap justify-center items-center gap-2">`;
+            
+            // Botón Anterior
+            const prevDisabled = currentPage === 1 ? 'opacity-50 cursor-not-allowed bg-cloud text-navy border-transparent' : 'bg-white text-navy hover:bg-cloud shadow-sm border-navy/10 hover:border-navy/30';
+            html += `<button onclick="changePage(${currentPage - 1})" class="p-3 rounded-xl transition-all border ${prevDisabled}" ${currentPage === 1 ? 'disabled' : ''}>
+                        <i data-lucide="chevron-left" class="w-5 h-5"></i>
+                     </button>`;
+
+            // Números de Página
+            for(let i = 1; i <= totalPages; i++) {
+                if (i === currentPage) {
+                    html += `<button class="w-12 h-12 rounded-xl font-heading font-bold bg-cyan text-navy shadow-md border-2 border-cyanDark transform scale-110 transition-all">${i}</button>`;
+                } else {
+                    html += `<button onclick="changePage(${i})" class="w-11 h-11 rounded-xl font-heading font-bold bg-white text-navy/70 border border-navy/10 shadow-sm hover:bg-cloud hover:text-navy transition-all">${i}</button>`;
+                }
+            }
+
+            // Botón Siguiente
+            const nextDisabled = currentPage === totalPages ? 'opacity-50 cursor-not-allowed bg-cloud text-navy border-transparent' : 'bg-white text-navy hover:bg-cloud shadow-sm border-navy/10 hover:border-navy/30';
+            html += `<button onclick="changePage(${currentPage + 1})" class="p-3 rounded-xl transition-all border ${nextDisabled}" ${currentPage === totalPages ? 'disabled' : ''}>
+                        <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                     </button>`;
+
+            html += `</div>`;
+            container.innerHTML = html;
+        }
+
+        window.changePage = function(newPage) {
+            if (newPage >= 1 && newPage <= totalPages) {
+                renderPage(newPage);
+            }
+        };
+
+        // Iniciar en la primera página al cargar
+        document.addEventListener('DOMContentLoaded', () => {
+            renderPage(1);
+        });
+
+    </script>
+</body>
+</html>
