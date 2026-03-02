@@ -1,4 +1,4 @@
-import React from 'react';
+/* Google Analytics 4 - Estudio Xidito links.html */ /* GA4 se carga via index.html. Este archivo trackea via gtag si existe */ import React, { useEffect } from 'react';
 import { 
   Instagram, 
   Facebook, 
@@ -74,7 +74,7 @@ const FloatingBackground = () => {
   );
 };
 
-const App = () => {
+const App = () => {   // GA4: Track page view de links.html   useEffect(() => {     if(typeof window !== 'undefined' && typeof window.gtag !== 'undefined') {       window.gtag('event', 'page_view', {         page_title: 'Links - Estudio Xidito',         page_location: window.location.href       });     }   }, []); {
   // Carrusel limitado a 8 imágenes de alta calidad
   const sampleImages = [
     "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=600&q=80", 
