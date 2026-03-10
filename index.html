@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" id="html-root">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- OPTIMIZACIÓN SEO: Título y Descripción -->
-    <title>Estudio Xidito | Rotulación, Diseño de Logotipos y Fotografía en Querétaro</title>
-    <meta name="description" content="Especialistas en rotulación exterior con protección UV, stickers premium y cajas de lujo. Fotografía de producto y señalética industrial en Corregidora y Qro.">
+    <!-- OPTIMIZACIÓN SEO -->
+    <title data-i18n="meta_title">Estudio Xidito | Rotulación, Diseño de Logotipos y Fotografía en Querétaro</title>
+    <meta name="description" content="Especialistas en rotulación exterior con protección UV, stickers premium y cajas de lujo. Fotografía de producto y señalética industrial en Corregidora y Qro." data-i18n-attr="meta_desc">
     <meta name="keywords" content="Rotulación de fachadas Querétaro, Vinil impreso protección UV, Fotografía de producto, Señalética industrial, Cajas dulceras de lujo, Stickers premium, Diseño de logotipos Querétaro">
     
     <!-- Google Analytics 4 -->
@@ -18,7 +18,7 @@
         gtag('config', 'G-RGQ2WCMVFQ');
     </script>
     
-    <!-- OPTIMIZACIÓN SEO: Schema Markup LocalBusiness (Ayuda a Google Maps) -->
+    <!-- OPTIMIZACIÓN SEO: Schema Markup LocalBusiness -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -85,7 +85,6 @@
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
-        /* Fondo de Acero Inoxidable con Cuadrícula en Movimiento Diagonal */
         .metallic-grid-bg {
             position: fixed;
             top: 0;
@@ -102,235 +101,55 @@
             background-position: 0 0, 0 0, 0 0;
             animation: gridDiagonal 8s linear infinite;
         }
-
         @keyframes gridDiagonal {
             0% { background-position: 0 0, 0 0, 0 0; }
             100% { background-position: 40px 40px, 40px 40px, 0 0; }
         }
-
-        body {
-            color: #111C33;
-            margin: 0;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
-        
-        .selection-bg::selection {
-            background-color: #00D4FF;
-            color: #111C33;
-        }
-
-        /* Scroll Reveal Animation */
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* --- BOTONES 3D DEGRADADOS PROFESIONALES --- */
-        .btn-zen {
-            position: relative;
-            padding: 1rem 2.5rem;
-            border-radius: 9999px;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.75rem;
-            transition: all 0.2s ease;
-            cursor: pointer;
-            z-index: 1;
-            border-bottom-width: 4px;
-        }
-        
-        .btn-cyan {
-            background: linear-gradient(135deg, #00D4FF 0%, #00A8CC 100%);
-            color: #111C33;
-            border-color: #0087A3;
-            box-shadow: 0 8px 20px -5px rgba(0, 212, 255, 0.5), inset 0 -2px 0 rgba(0, 0, 0, 0.1);
-        }
-        .btn-cyan:hover {
-            background: linear-gradient(135deg, #111C33 0%, #0A1121 100%);
-            color: #00D4FF;
-            border-color: #000000;
-            transform: translateY(-2px);
-            box-shadow: 0 12px 25px -5px rgba(17, 28, 51, 0.5), inset 0 -2px 0 rgba(0, 0, 0, 0.2);
-        }
-        .btn-cyan:active {
-            transform: translateY(4px);
-            border-bottom-width: 0px;
-            margin-top: 4px;
-            box-shadow: 0 2px 5px -2px rgba(0, 212, 255, 0.5);
-        }
-
-        .btn-navy {
-            background: linear-gradient(135deg, #111C33 0%, #1A2B4C 100%);
-            color: #FFFFFF;
-            border-color: #0A1121;
-            box-shadow: 0 8px 20px -5px rgba(17, 28, 51, 0.5), inset 0 -2px 0 rgba(0,0,0,0.2);
-        }
-        .btn-navy:hover {
-            background: linear-gradient(135deg, #00D4FF 0%, #00A8CC 100%);
-            color: #111C33;
-            border-color: #0087A3;
-            transform: translateY(-2px);
-            box-shadow: 0 12px 25px -5px rgba(0, 212, 255, 0.5), inset 0 -2px 0 rgba(0,0,0,0.1);
-        }
-        .btn-navy:active {
-            transform: translateY(4px);
-            border-bottom-width: 0px;
-            margin-top: 4px;
-            box-shadow: 0 2px 5px -2px rgba(17, 28, 51, 0.5);
-        }
-
-        .btn-whatsapp {
-            background: linear-gradient(135deg, #25D366 0%, #1DA851 100%);
-            color: #FFFFFF;
-            border-color: #14833B;
-            box-shadow: 0 8px 20px -5px rgba(37, 211, 102, 0.5), inset 0 -2px 0 rgba(0,0,0,0.1);
-        }
-        .btn-whatsapp:hover {
-            background: linear-gradient(135deg, #1DA851 0%, #14833B 100%);
-            transform: translateY(-2px);
-            box-shadow: 0 12px 25px -5px rgba(37, 211, 102, 0.6), inset 0 -2px 0 rgba(0,0,0,0.2);
-        }
-        .btn-whatsapp:active {
-            transform: translateY(4px);
-            border-bottom-width: 0px;
-            margin-top: 4px;
-            box-shadow: 0 2px 5px -2px rgba(37, 211, 102, 0.5);
-        }
-
-        /* Hide Scrollbar */
+        body { color: #111C33; margin: 0; overflow-x: hidden; scroll-behavior: smooth; }
+        .selection-bg::selection { background-color: #00D4FF; color: #111C33; }
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .btn-zen { position: relative; padding: 1rem 2.5rem; border-radius: 9999px; font-family: 'Poppins', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; display: inline-flex; align-items: center; justify-content: center; gap: 0.75rem; transition: all 0.2s ease; cursor: pointer; z-index: 1; border-bottom-width: 4px; }
+        .btn-cyan { background: linear-gradient(135deg, #00D4FF 0%, #00A8CC 100%); color: #111C33; border-color: #0087A3; box-shadow: 0 8px 20px -5px rgba(0, 212, 255, 0.5), inset 0 -2px 0 rgba(0, 0, 0, 0.1); }
+        .btn-cyan:hover { background: linear-gradient(135deg, #111C33 0%, #0A1121 100%); color: #00D4FF; border-color: #000000; transform: translateY(-2px); box-shadow: 0 12px 25px -5px rgba(17, 28, 51, 0.5), inset 0 -2px 0 rgba(0, 0, 0, 0.2); }
+        .btn-cyan:active { transform: translateY(4px); border-bottom-width: 0px; margin-top: 4px; box-shadow: 0 2px 5px -2px rgba(0, 212, 255, 0.5); }
+        .btn-navy { background: linear-gradient(135deg, #111C33 0%, #1A2B4C 100%); color: #FFFFFF; border-color: #0A1121; box-shadow: 0 8px 20px -5px rgba(17, 28, 51, 0.5), inset 0 -2px 0 rgba(0,0,0,0.2); }
+        .btn-navy:hover { background: linear-gradient(135deg, #00D4FF 0%, #00A8CC 100%); color: #111C33; border-color: #0087A3; transform: translateY(-2px); box-shadow: 0 12px 25px -5px rgba(0, 212, 255, 0.5), inset 0 -2px 0 rgba(0,0,0,0.1); }
+        .btn-navy:active { transform: translateY(4px); border-bottom-width: 0px; margin-top: 4px; box-shadow: 0 2px 5px -2px rgba(17, 28, 51, 0.5); }
+        .btn-whatsapp { background: linear-gradient(135deg, #25D366 0%, #1DA851 100%); color: #FFFFFF; border-color: #14833B; box-shadow: 0 8px 20px -5px rgba(37, 211, 102, 0.5), inset 0 -2px 0 rgba(0,0,0,0.1); }
+        .btn-whatsapp:hover { background: linear-gradient(135deg, #1DA851 0%, #14833B 100%); transform: translateY(-2px); box-shadow: 0 12px 25px -5px rgba(37, 211, 102, 0.6), inset 0 -2px 0 rgba(0,0,0,0.2); }
+        .btn-whatsapp:active { transform: translateY(4px); border-bottom-width: 0px; margin-top: 4px; box-shadow: 0 2px 5px -2px rgba(37, 211, 102, 0.5); }
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-
-        /* Marquee Animations */
-        @keyframes marqueeLeft {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-        @keyframes marqueeRight {
-            0% { transform: translateX(-50%); }
-            100% { transform: translateX(0); }
-        }
-
-        /* ESTILOS INTERACTIVOS PARA PORTAFOLIO */
-        .marquee-item {
-            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-        .marquee-item img {
-            transition: transform 0.7s ease;
-        }
-        .marquee-item:hover img {
-            transform: scale(1.05);
-        }
-        .marquee-item.is-center {
-            transform: scale(1.08) translateY(-15px);
-            border-color: #00D4FF;
-            z-index: 40;
-            box-shadow: 0 25px 50px -12px rgba(0, 212, 255, 0.3);
-        }
-        .marquee-item.is-center .marquee-text-bg {
-            background-color: rgba(17, 28, 51, 0.95);
-            border-left-color: #00D4FF;
-        }
-        .marquee-item.is-center .marquee-text-bg span {
-            color: #FFFFFF;
-        }
-        
-        /* Typewriter Cursor */
-        @keyframes pulse-border {
-            0%, 100% { border-color: transparent; }
-            50% { border-color: #00D4FF; }
-        }
-        .typewriter-cursor {
-            border-right-width: 3px;
-            animation: pulse-border 1s infinite;
-            padding-right: 4px;
-        }
-
-        /* --- ANIMACIONES SECUENCIALES DEL PROCESO --- */
-        .animate-chat-seq {
-            animation: anim-chat 6s infinite;
-            transform-origin: bottom left;
-        }
-        @keyframes anim-chat {
-            0%, 33%, 100% { transform: scale(1) rotate(0); }
-            5% { transform: scale(1.15) rotate(-5deg); }
-            10% { transform: scale(1.2) rotate(5deg); }
-            15% { transform: scale(1.15) rotate(-5deg); }
-            20% { transform: scale(1.2) rotate(5deg); }
-            25% { transform: scale(1.1) rotate(0); }
-        }
-
-        .animate-bulb-seq {
-            animation: anim-bulb 6s infinite;
-            transform-origin: center;
-        }
-        @keyframes anim-bulb {
-            0%, 33%, 66%, 100% { transform: scale(1) translateY(0); filter: drop-shadow(0 0 0 transparent); }
-            40% { transform: scale(1.2) translateY(-5px) rotate(10deg); filter: drop-shadow(0 0 10px rgba(0,212,255,0.8)); }
-            45% { transform: scale(1.2) translateY(-5px) rotate(-10deg); filter: drop-shadow(0 0 15px rgba(0,212,255,1)); }
-            50% { transform: scale(1.2) translateY(-5px) rotate(10deg); filter: drop-shadow(0 0 10px rgba(0,212,255,0.8)); }
-            55% { transform: scale(1.2) translateY(-5px) rotate(-10deg); filter: drop-shadow(0 0 15px rgba(0,212,255,1)); }
-            60% { transform: scale(1.1) translateY(-2px) rotate(0deg); filter: drop-shadow(0 0 5px rgba(0,212,255,0.5)); }
-        }
-
-        .animate-rocket-seq {
-            animation: anim-rocket 6s infinite;
-            transform-origin: center;
-        }
-        @keyframes anim-rocket {
-            0%, 66%, 100% { transform: translate(0, 0) scale(1); opacity: 1; }
-            75% { transform: translate(25px, -25px) scale(1.2); opacity: 0; }
-            76% { transform: translate(-25px, 25px) scale(0.5); opacity: 0; }
-            85% { transform: translate(0, 0) scale(1); opacity: 1; }
-            90% { transform: translate(0, -5px) scale(1.1); }
-            95% { transform: translate(0, 0) scale(1); }
-        }
-
-        /* Staggered animation para modal */
-        @keyframes slideInUpFade {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-stagger-item {
-            opacity: 0;
-            animation: slideInUpFade 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        }
-        
-        .card-float { 
-            animation: floatCard 5s ease-in-out infinite; 
-        }
-        @keyframes floatCard {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-6px); }
-        }
-
-        @keyframes logo-walk {
-            0% { transform: translateX(-15px) rotate(-5deg); }
-            50% { transform: translateX(15px) rotate(5deg); }
-            100% { transform: translateX(-15px) rotate(-5deg); }
-        }
-        .animate-logo-walk {
-            animation: logo-walk 4s ease-in-out infinite;
-        }
+        @keyframes marqueeLeft { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        @keyframes marqueeRight { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
+        .marquee-item { transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        .marquee-item img { transition: transform 0.7s ease; }
+        .marquee-item:hover img { transform: scale(1.05); }
+        .marquee-item.is-center { transform: scale(1.08) translateY(-15px); border-color: #00D4FF; z-index: 40; box-shadow: 0 25px 50px -12px rgba(0, 212, 255, 0.3); }
+        .marquee-item.is-center .marquee-text-bg { background-color: rgba(17, 28, 51, 0.95); border-left-color: #00D4FF; }
+        .marquee-item.is-center .marquee-text-bg span { color: #FFFFFF; }
+        @keyframes pulse-border { 0%, 100% { border-color: transparent; } 50% { border-color: #00D4FF; } }
+        .typewriter-cursor { border-right-width: 3px; animation: pulse-border 1s infinite; padding-right: 4px; }
+        .animate-chat-seq { animation: anim-chat 6s infinite; transform-origin: bottom left; }
+        @keyframes anim-chat { 0%, 33%, 100% { transform: scale(1) rotate(0); } 5% { transform: scale(1.15) rotate(-5deg); } 10% { transform: scale(1.2) rotate(5deg); } 15% { transform: scale(1.15) rotate(-5deg); } 20% { transform: scale(1.2) rotate(5deg); } 25% { transform: scale(1.1) rotate(0); } }
+        .animate-bulb-seq { animation: anim-bulb 6s infinite; transform-origin: center; }
+        @keyframes anim-bulb { 0%, 33%, 66%, 100% { transform: scale(1) translateY(0); filter: drop-shadow(0 0 0 transparent); } 40% { transform: scale(1.2) translateY(-5px) rotate(10deg); filter: drop-shadow(0 0 10px rgba(0,212,255,0.8)); } 45% { transform: scale(1.2) translateY(-5px) rotate(-10deg); filter: drop-shadow(0 0 15px rgba(0,212,255,1)); } 50% { transform: scale(1.2) translateY(-5px) rotate(10deg); filter: drop-shadow(0 0 10px rgba(0,212,255,0.8)); } 55% { transform: scale(1.2) translateY(-5px) rotate(-10deg); filter: drop-shadow(0 0 15px rgba(0,212,255,1)); } 60% { transform: scale(1.1) translateY(-2px) rotate(0deg); filter: drop-shadow(0 0 5px rgba(0,212,255,0.5)); } }
+        .animate-rocket-seq { animation: anim-rocket 6s infinite; transform-origin: center; }
+        @keyframes anim-rocket { 0%, 66%, 100% { transform: translate(0, 0) scale(1); opacity: 1; } 75% { transform: translate(25px, -25px) scale(1.2); opacity: 0; } 76% { transform: translate(-25px, 25px) scale(0.5); opacity: 0; } 85% { transform: translate(0, 0) scale(1); opacity: 1; } 90% { transform: translate(0, -5px) scale(1.1); } 95% { transform: translate(0, 0) scale(1); } }
+        @keyframes slideInUpFade { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-stagger-item { opacity: 0; animation: slideInUpFade 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        .card-float { animation: floatCard 5s ease-in-out infinite; }
+        @keyframes floatCard { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+        @keyframes logo-walk { 0% { transform: translateX(-15px) rotate(-5deg); } 50% { transform: translateX(15px) rotate(5deg); } 100% { transform: translateX(-15px) rotate(-5deg); } }
+        .animate-logo-walk { animation: logo-walk 4s ease-in-out infinite; }
     </style>
 </head>
 <body class="selection-bg font-sans">
 
-    <!-- FONDO METÁLICO ANIMADO -->
     <div class="metallic-grid-bg"></div>
 
-    <!-- NAVEGACIÓN CORPORATIVA -->
+    <!-- NAVEGACIÓN -->
     <nav class="fixed top-0 w-full z-50 bg-cloud/90 backdrop-blur-lg border-b border-navy/5 transition-all duration-300">
         <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
             <div class="flex items-center space-x-3 cursor-pointer" onclick="navigate('inicio')">
@@ -338,13 +157,28 @@
                 <span class="font-heading font-extrabold tracking-tight text-xl uppercase text-navy">Estudio <span class="text-cyanDark">Xidito</span></span>
             </div>
             
-            <div class="hidden md:flex space-x-8">
-                <button onclick="navigate('inicio')" class="nav-link text-cyanDark font-heading font-semibold text-sm tracking-wide transition-colors hover:text-cyanDark" data-target="inicio">Inicio</button>
-                <button onclick="navigate('servicios')" class="nav-link text-navy/60 font-heading font-semibold text-sm tracking-wide transition-colors hover:text-cyanDark" data-target="servicios">Servicios</button>
-                <button onclick="navigate('proceso')" class="nav-link text-navy/60 font-heading font-semibold text-sm tracking-wide transition-colors hover:text-cyanDark" data-target="proceso">Proceso</button>
-                <button onclick="navigate('portafolio')" class="nav-link text-navy/60 font-heading font-semibold text-sm tracking-wide transition-colors hover:text-cyanDark" data-target="portafolio">Portafolio</button>
-                <button onclick="navigate('novedades')" class="nav-link text-navy/60 font-heading font-semibold text-sm tracking-wide transition-colors hover:text-cyanDark" data-target="novedades">Novedades</button>
-                <button onclick="navigate('contacto')" class="nav-link text-navy/60 font-heading font-semibold text-sm tracking-wide transition-colors hover:text-cyanDark" data-target="contacto">Contacto</button>
+            <div class="hidden md:flex items-center space-x-6">
+                <button onclick="navigate('inicio')" class="nav-link text-cyanDark font-heading font-semibold text-sm tracking-wide transition-colors hover:text-cyanDark" data-target="inicio" data-i18n="nav_home">Inicio</button>
+                <button onclick="navigate('servicios')" class="nav-link text-navy/60 font-heading font-semibold text-sm tracking-wide transition-colors hover:text-cyanDark" data-target="servicios" data-i18n="nav_services">Servicios</button>
+                <button onclick="navigate('proceso')" class="nav-link text-navy/60 font-heading font-semibold text-sm tracking-wide transition-colors hover:text-cyanDark" data-target="proceso" data-i18n="nav_process">Proceso</button>
+                <button onclick="navigate('portafolio')" class="nav-link text-navy/60 font-heading font-semibold text-sm tracking-wide transition-colors hover:text-cyanDark" data-target="portafolio" data-i18n="nav_portfolio">Portafolio</button>
+                <button onclick="navigate('novedades')" class="nav-link text-navy/60 font-heading font-semibold text-sm tracking-wide transition-colors hover:text-cyanDark" data-target="novedades" data-i18n="nav_news">Novedades</button>
+                <button onclick="navigate('contacto')" class="nav-link text-navy/60 font-heading font-semibold text-sm tracking-wide transition-colors hover:text-cyanDark" data-target="contacto" data-i18n="nav_contact">Contacto</button>
+                
+                <!-- SELECTOR DE IDIOMA (DESKTOP) - MEJORADO CON TEXTO TRADUCIR -->
+                <div class="relative group ml-2 pl-4 border-l border-navy/10">
+                    <button class="flex items-center gap-2 text-navy font-bold text-sm hover:text-cyanDark transition-colors bg-cloud px-4 py-1.5 rounded-full border border-navy/5 shadow-sm">
+                        <i data-lucide="globe" class="w-4 h-4 text-cyanDark"></i> 
+                        <span data-i18n="lang_translate" class="hidden lg:inline text-xs uppercase tracking-widest text-navy/60">Traducir a</span>
+                        <span id="desktop-lang-label" class="text-cyanDark">ES</span>
+                        <i data-lucide="chevron-down" class="w-3 h-3 opacity-50 group-hover:rotate-180 transition-transform"></i>
+                    </button>
+                    <div class="absolute top-full right-0 mt-2 w-32 bg-white rounded-2xl shadow-xl border border-navy/5 hidden group-hover:block overflow-hidden py-2">
+                        <button onclick="setLanguage('es')" class="block w-full text-left px-5 py-2 text-sm font-medium hover:bg-cloud hover:text-cyanDark text-navy transition-colors">Español</button>
+                        <button onclick="setLanguage('en')" class="block w-full text-left px-5 py-2 text-sm font-medium hover:bg-cloud hover:text-cyanDark text-navy transition-colors">English</button>
+                        <button onclick="setLanguage('zh')" class="block w-full text-left px-5 py-2 text-sm font-medium hover:bg-cloud hover:text-cyanDark text-navy transition-colors">中文</button>
+                    </div>
+                </div>
             </div>
 
             <button class="md:hidden text-navy p-2 bg-white rounded-lg shadow-sm border border-navy/5" onclick="toggleMenu()">
@@ -354,12 +188,22 @@
 
         <!-- Menú Móvil -->
         <div id="mobile-menu" class="hidden md:hidden bg-cloud absolute w-full p-6 space-y-4 border-b border-navy/10 shadow-xl">
-            <button onclick="navigate('inicio')" class="block w-full text-left text-lg font-heading font-semibold text-navy hover:text-cyanDark">Inicio</button>
-            <button onclick="navigate('servicios')" class="block w-full text-left text-lg font-heading font-semibold text-navy hover:text-cyanDark">Servicios</button>
-            <button onclick="navigate('proceso')" class="block w-full text-left text-lg font-heading font-semibold text-navy hover:text-cyanDark">Proceso</button>
-            <button onclick="navigate('portafolio')" class="block w-full text-left text-lg font-heading font-semibold text-navy hover:text-cyanDark">Portafolio</button>
-            <button onclick="navigate('novedades')" class="block w-full text-left text-lg font-heading font-semibold text-navy hover:text-cyanDark">Novedades</button>
-            <button onclick="navigate('contacto')" class="block w-full text-left text-lg font-heading font-semibold text-navy hover:text-cyanDark">Contacto</button>
+            <button onclick="navigate('inicio')" class="block w-full text-left text-lg font-heading font-semibold text-navy hover:text-cyanDark" data-i18n="nav_home">Inicio</button>
+            <button onclick="navigate('servicios')" class="block w-full text-left text-lg font-heading font-semibold text-navy hover:text-cyanDark" data-i18n="nav_services">Servicios</button>
+            <button onclick="navigate('proceso')" class="block w-full text-left text-lg font-heading font-semibold text-navy hover:text-cyanDark" data-i18n="nav_process">Proceso</button>
+            <button onclick="navigate('portafolio')" class="block w-full text-left text-lg font-heading font-semibold text-navy hover:text-cyanDark" data-i18n="nav_portfolio">Portafolio</button>
+            <button onclick="navigate('novedades')" class="block w-full text-left text-lg font-heading font-semibold text-navy hover:text-cyanDark" data-i18n="nav_news">Novedades</button>
+            <button onclick="navigate('contacto')" class="block w-full text-left text-lg font-heading font-semibold text-navy hover:text-cyanDark mb-4" data-i18n="nav_contact">Contacto</button>
+            
+            <!-- SELECTOR DE IDIOMA (MÓVIL) - MEJORADO -->
+            <div class="pt-4 border-t border-navy/10">
+                <p class="text-[10px] font-bold text-cyanDark uppercase tracking-widest mb-3 text-center" data-i18n="lang_select">Seleccionar Idioma</p>
+                <div class="flex justify-between gap-2">
+                    <button onclick="setLanguage('es')" class="text-navy font-bold text-sm flex-1 bg-white py-3 rounded-xl shadow-sm border border-navy/5 active:bg-cyan hover:border-cyan transition-colors">ES</button>
+                    <button onclick="setLanguage('en')" class="text-navy font-bold text-sm flex-1 bg-white py-3 rounded-xl shadow-sm border border-navy/5 active:bg-cyan hover:border-cyan transition-colors">EN</button>
+                    <button onclick="setLanguage('zh')" class="text-navy font-bold text-sm flex-1 bg-white py-3 rounded-xl shadow-sm border border-navy/5 active:bg-cyan hover:border-cyan transition-colors">ZH</button>
+                </div>
+            </div>
         </div>
     </nav>
 
@@ -380,10 +224,10 @@
                 <div class="space-y-8 text-center md:text-left order-1 md:order-2">
                     <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-navy/10 shadow-sm">
                         <span class="w-2 h-2 rounded-full bg-cyan animate-pulse"></span>
-                        <span class="text-xs font-heading font-bold tracking-widest text-navy uppercase">Agencia Creativa</span>
+                        <span class="text-xs font-heading font-bold tracking-widest text-navy uppercase" data-i18n="hero_agency">Agencia Creativa</span>
                     </div>
 
-                    <h1 class="font-heading font-black text-5xl md:text-6xl lg:text-7xl text-navy leading-[1.1] tracking-tight">
+                    <h1 class="font-heading font-black text-5xl md:text-6xl lg:text-7xl text-navy leading-[1.1] tracking-tight" data-i18n="hero_title">
                         Creamos lo que imaginas, con <span class="text-cyanDark">precisión digital</span> y alma artesana.
                     </h1>
                     
@@ -392,22 +236,22 @@
                     </div>
 
                     <div class="pt-6 flex flex-col sm:flex-row items-center gap-4 justify-center md:justify-start">
-                        <button onclick="navigate('contacto')" class="btn-zen btn-cyan w-full sm:w-auto">
+                        <button onclick="navigate('contacto')" class="btn-zen btn-cyan w-full sm:w-auto" data-i18n="hero_btn_start">
                             <i data-lucide="zap" class="w-5 h-5"></i> Iniciar Proyecto
                         </button>
-                        <button onclick="navigate('servicios')" class="btn-zen btn-navy w-full sm:w-auto">
+                        <button onclick="navigate('servicios')" class="btn-zen btn-navy w-full sm:w-auto" data-i18n="hero_btn_cat">
                             Ver Catálogo
                         </button>
                     </div>
 
                     <div class="pt-8 w-full md:w-auto">
-                        <div onclick="window.open('https://wa.me/524421260133?text=Hola,%20quiero%20aprovechar%20la%20promo%20de%20Topper-Man%C3%ADa', '_blank')" class="cursor-pointer group flex items-center gap-4 bg-white/70 backdrop-blur-sm hover:bg-white border border-cyan/30 p-3 pr-5 rounded-2xl shadow-sm hover:shadow-zen transition-all duration-300">
+                        <div onclick="openPromoWhatsApp('topper')" class="cursor-pointer group flex items-center gap-4 bg-white/70 backdrop-blur-sm hover:bg-white border border-cyan/30 p-3 pr-5 rounded-2xl shadow-sm hover:shadow-zen transition-all duration-300">
                             <div class="bg-cyan/20 text-cyanDark p-2 rounded-xl group-hover:bg-cyan group-hover:text-navy transition-colors">
                                 <i data-lucide="bell-ring" class="w-5 h-5 animate-pulse"></i>
                             </div>
                             <div class="text-left flex-1">
-                                <p class="text-[10px] font-bold text-cyanDark uppercase tracking-widest">Última Novedad</p>
-                                <p class="text-sm font-heading font-semibold text-navy mt-0.5">🎂 Topper-Manía: Diseño de autor por $180</p>
+                                <p class="text-[10px] font-bold text-cyanDark uppercase tracking-widest" data-i18n="hero_news_tag">Última Novedad</p>
+                                <p class="text-sm font-heading font-semibold text-navy mt-0.5" data-i18n="hero_news_txt">🎂 Topper-Manía: Diseño de autor por $180</p>
                             </div>
                             <i data-lucide="chevron-right" class="w-5 h-5 text-navy/30 group-hover:text-cyanDark group-hover:translate-x-1 transition-all"></i>
                         </div>
@@ -417,10 +261,10 @@
             </div>
         </section>
 
-        <!-- SECCIÓN: SERVICIOS (OPTIMIZADA PARA SEO) -->
+        <!-- SECCIÓN: SERVICIOS -->
         <section id="sec-servicios" class="section-container hidden max-w-6xl mx-auto px-6 py-20">
             <div class="text-center mb-16 reveal">
-                <h2 class="font-heading font-black text-4xl md:text-5xl text-navy tracking-tight">
+                <h2 class="font-heading font-black text-4xl md:text-5xl text-navy tracking-tight" data-i18n="sect_serv_title">
                     Soluciones Industriales y Creativas
                 </h2>
                 <div class="w-24 h-1 bg-cyan mx-auto mt-6 rounded-full"></div>
@@ -441,13 +285,13 @@
                                 </div>
                                 <div class="mt-2 flex-1">
                                     <h3 id="modal-title" class="text-3xl md:text-4xl font-heading font-black text-navy tracking-tight"></h3>
-                                    <p class="text-cyanDark font-bold uppercase tracking-widest text-[11px] mt-2">
+                                    <p class="text-cyanDark font-bold uppercase tracking-widest text-[11px] mt-2" data-i18n="modal_cat">
                                         Catálogo de Soluciones
                                     </p>
                                 </div>
                             </div>
                             <div class="shrink-0 w-full md:w-auto flex justify-center md:justify-end">
-                                <button onclick="closeModal()" class="flex items-center justify-center gap-2 px-5 py-3 bg-cloud hover:bg-navy text-navy hover:text-white rounded-xl font-bold uppercase tracking-widest text-xs transition-colors shadow-sm border border-navy/10 w-full md:w-auto">
+                                <button onclick="closeModal()" class="flex items-center justify-center gap-2 px-5 py-3 bg-cloud hover:bg-navy text-navy hover:text-white rounded-xl font-bold uppercase tracking-widest text-xs transition-colors shadow-sm border border-navy/10 w-full md:w-auto" data-i18n="modal_btn_back">
                                     <i data-lucide="arrow-left" class="w-4 h-4"></i> Regresar
                                 </button>
                             </div>
@@ -456,7 +300,7 @@
                             <!-- Detalles inyectados -->
                         </div>
                         <div class="flex justify-center mt-8 w-full group pb-2">
-                            <a id="modal-cta" href="#" target="_blank" class="btn-zen btn-cyan w-full md:w-auto text-lg py-4">
+                            <a id="modal-cta" href="#" target="_blank" class="btn-zen btn-cyan w-full md:w-auto text-lg py-4" data-i18n="modal_btn_quote">
                                 <span class="flex items-center justify-center gap-3">
                                     ¡COTIZAR ESTE SERVICIO! <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-2 transition-transform"></i>
                                 </span>
@@ -470,11 +314,11 @@
         <!-- SECCIÓN: PROCESO -->
         <section id="sec-proceso" class="section-container hidden max-w-5xl mx-auto px-6 py-20">
             <div class="text-center mb-20 reveal">
-                <h2 class="font-heading font-black text-4xl md:text-5xl text-navy tracking-tight">
+                <h2 class="font-heading font-black text-4xl md:text-5xl text-navy tracking-tight" data-i18n="sect_proc_title">
                     Metodología de Trabajo
                 </h2>
                 <div class="w-24 h-1 bg-cyan mx-auto mt-6 rounded-full mb-6"></div>
-                <p class="text-navy/70 max-w-2xl mx-auto text-lg">
+                <p class="text-navy/70 max-w-2xl mx-auto text-lg" data-i18n="sect_proc_desc">
                     Hacer realidad tu proyecto es muy sencillo. Te acompañamos paso a paso para que el resultado final sea impecable.
                 </p>
             </div>
@@ -488,10 +332,10 @@
                             <i data-lucide="message-square" class="w-10 h-10 animate-chat-seq"></i>
                         </div>
                         <div class="bg-white p-6 rounded-3xl shadow-sm border border-navy/5 w-full flex-1">
-                            <h3 class="text-xl font-heading font-bold text-navy mb-3 flex items-center justify-center gap-2">
+                            <h3 class="text-xl font-heading font-bold text-navy mb-3 flex items-center justify-center gap-2" data-i18n="proc_1_title">
                                 <span class="text-cyanDark">01.</span> Platiquemos
                             </h3>
-                            <p class="text-navy/70 text-sm leading-relaxed">Mándanos un mensajito contándonos qué necesitas. Escuchamos tus ideas y te enviamos una propuesta clara y sin enredos.</p>
+                            <p class="text-navy/70 text-sm leading-relaxed" data-i18n="proc_1_desc">Mándanos un mensajito contándonos qué necesitas. Escuchamos tus ideas y te enviamos una propuesta clara y sin enredos.</p>
                         </div>
                     </div>
                     <div class="flex flex-col items-center text-center group">
@@ -500,10 +344,10 @@
                             <i data-lucide="lightbulb" class="w-10 h-10 animate-bulb-seq"></i>
                         </div>
                         <div class="bg-white p-6 rounded-3xl shadow-sm border border-navy/5 w-full flex-1">
-                            <h3 class="text-xl font-heading font-bold text-navy mb-3 flex items-center justify-center gap-2">
+                            <h3 class="text-xl font-heading font-bold text-navy mb-3 flex items-center justify-center gap-2" data-i18n="proc_2_title">
                                 <span class="text-cyanDark">02.</span> Manos a la obra
                             </h3>
-                            <p class="text-navy/70 text-sm leading-relaxed">Aquí entra la magia del taller. Empezamos a diseñar y armar tu proyecto cuidando cada detalle para que quede perfecto.</p>
+                            <p class="text-navy/70 text-sm leading-relaxed" data-i18n="proc_2_desc">Aquí entra la magia del taller. Empezamos a diseñar y armar tu proyecto cuidando cada detalle para que quede perfecto.</p>
                         </div>
                     </div>
                     <div class="flex flex-col items-center text-center group">
@@ -512,17 +356,17 @@
                             <i data-lucide="rocket" class="w-10 h-10 animate-rocket-seq"></i>
                         </div>
                         <div class="bg-white p-6 rounded-3xl shadow-sm border border-navy/5 w-full flex-1">
-                            <h3 class="text-xl font-heading font-bold text-navy mb-3 flex items-center justify-center gap-2">
+                            <h3 class="text-xl font-heading font-bold text-navy mb-3 flex items-center justify-center gap-2" data-i18n="proc_3_title">
                                 <span class="text-cyanDark">03.</span> Listo para brillar
                             </h3>
-                            <p class="text-navy/70 text-sm leading-relaxed">¡Tu proyecto cobra vida! Ya sea la nueva imagen de tu negocio o la piñata de tus sueños, te lo entregamos listo para presumir.</p>
+                            <p class="text-navy/70 text-sm leading-relaxed" data-i18n="proc_3_desc">¡Tu proyecto cobra vida! Ya sea la nueva imagen de tu negocio o la piñata de tus sueños, te lo entregamos listo para presumir.</p>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="mt-20 text-center flex justify-center reveal">
-                <button onclick="navigate('contacto')" class="btn-zen btn-cyan text-lg">
+                <button onclick="navigate('contacto')" class="btn-zen btn-cyan text-lg" data-i18n="proc_btn">
                     Cotizar mi idea <i data-lucide="arrow-right" class="ml-2 w-5 h-5"></i>
                 </button>
             </div>
@@ -531,20 +375,18 @@
         <!-- SECCIÓN: PORTAFOLIO -->
         <section id="sec-portafolio" class="section-container hidden max-w-[1400px] mx-auto px-6 py-20 overflow-hidden">
             <div class="text-center mb-16 reveal">
-                <h2 class="font-heading font-black text-4xl md:text-5xl text-navy tracking-tight">
+                <h2 class="font-heading font-black text-4xl md:text-5xl text-navy tracking-tight" data-i18n="sect_port_title">
                     Nuestro Trabajo
                 </h2>
                 <div class="w-24 h-1 bg-cyan mx-auto mt-6 rounded-full"></div>
             </div>
             
             <div class="space-y-8 relative reveal">
-                <!-- Fila 1 -->
                 <div class="flex w-max" style="animation: marqueeLeft 40s linear infinite;">
                     <div id="marquee-row-1" class="flex gap-8 pr-8 w-max"></div>
                     <div id="marquee-row-1-clone" class="flex gap-8 pr-8 w-max"></div>
                 </div>
 
-                <!-- Fila 2 -->
                 <div class="flex w-max mt-4" style="animation: marqueeRight 45s linear infinite;">
                     <div id="marquee-row-2" class="flex gap-8 pr-8 w-max"></div>
                     <div id="marquee-row-2-clone" class="flex gap-8 pr-8 w-max"></div>
@@ -552,7 +394,7 @@
             </div>
             
             <div class="mt-20 flex justify-center reveal">
-                <a href="https://www.instagram.com/estudio.xidito/" target="_blank" class="btn-zen btn-navy">
+                <a href="https://www.instagram.com/estudio.xidito/" target="_blank" class="btn-zen btn-navy" data-i18n="port_btn">
                     <i data-lucide="instagram" class="w-5 h-5"></i> Visita nuestro Instagram
                 </a>
             </div>
@@ -561,65 +403,65 @@
         <!-- SECCIÓN: NOVEDADES -->
         <section id="sec-novedades" class="section-container hidden max-w-6xl mx-auto px-6 py-20">
             <div class="text-center mb-16 reveal">
-                <h2 class="font-heading font-black text-4xl md:text-5xl text-navy tracking-tight">
+                <h2 class="font-heading font-black text-4xl md:text-5xl text-navy tracking-tight" data-i18n="sect_nov_title">
                     Novedades y Promos
                 </h2>
                 <div class="w-24 h-1 bg-cyan mx-auto mt-6 rounded-full"></div>
-                <p class="text-navy/70 mt-6 max-w-2xl mx-auto text-lg font-medium">
+                <p class="text-navy/70 mt-6 max-w-2xl mx-auto text-lg font-medium" data-i18n="sect_nov_desc">
                     Entérate de nuestros últimos proyectos, descuentos exclusivos y lo que pasa dentro del taller de Estudio Xidito.
                 </p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 reveal">
                 <!-- Tarjeta 1 (Topper-Manía) -->
-                <div class="bg-white rounded-[2rem] border border-navy/5 shadow-zen hover:shadow-zen-hover transition-all duration-300 overflow-hidden group flex flex-col cursor-pointer" onclick="window.open('https://wa.me/524421260133?text=Hola,%20quiero%20aprovechar%20la%20promo%20de%20Topper-Man%C3%ADa', '_blank')">
+                <div class="bg-white rounded-[2rem] border border-navy/5 shadow-zen hover:shadow-zen-hover transition-all duration-300 overflow-hidden group flex flex-col cursor-pointer" onclick="openPromoWhatsApp('topper')">
                     <div class="h-48 overflow-hidden relative">
                         <img src="topper.jpg" alt="Cake Topper Multicapa" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
-                        <div class="absolute top-4 left-4 bg-cyan text-navy text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full shadow-md">
+                        <div class="absolute top-4 left-4 bg-cyan text-navy text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full shadow-md" data-i18n="nov_1_tag">
                             OFERTA 🎂
                         </div>
                     </div>
                     <div class="p-6 flex-1 flex flex-col">
-                        <p class="text-xs text-navy/50 font-bold mb-3 flex items-center gap-1"><i data-lucide="star" class="w-3 h-3 text-cyanDark"></i> Producto Estrella</p>
-                        <h3 class="text-xl font-heading font-bold text-navy mb-3">Topper-Manía: ¡Dale vida a tu pastel!</h3>
-                        <p class="text-navy/70 text-sm mb-6 flex-1 leading-relaxed">Crea un impacto visual único con nuestros Cake Toppers multicapa personalizados. Calidad premium y diseño de autor por solo $180 MXN. ¡Haz tu pedido hoy!</p>
-                        <span class="text-cyanDark font-bold text-sm flex items-center group-hover:text-navy transition-colors">
+                        <p class="text-xs text-navy/50 font-bold mb-3 flex items-center gap-1" data-i18n="nov_1_cat"><i data-lucide="star" class="w-3 h-3 text-cyanDark"></i> Producto Estrella</p>
+                        <h3 class="text-xl font-heading font-bold text-navy mb-3" data-i18n="nov_1_title">Topper-Manía: ¡Dale vida a tu pastel!</h3>
+                        <p class="text-navy/70 text-sm mb-6 flex-1 leading-relaxed" data-i18n="nov_1_desc">Crea un impacto visual único con nuestros Cake Toppers multicapa personalizados. Calidad premium y diseño de autor por solo $180 MXN. ¡Haz tu pedido hoy!</p>
+                        <span class="text-cyanDark font-bold text-sm flex items-center group-hover:text-navy transition-colors" data-i18n="nov_1_btn">
                             Quiero mi Topper <i data-lucide="arrow-right" class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform"></i>
                         </span>
                     </div>
                 </div>
 
                 <!-- Tarjeta 2 (Menú Digital) -->
-                <div class="bg-white rounded-[2rem] border border-navy/5 shadow-zen hover:shadow-zen-hover transition-all duration-300 overflow-hidden group flex flex-col cursor-pointer" onclick="window.open('https://wa.me/524421260133?text=Hola,%20me%20interesa%20la%20promo%20del%20Men%C3%BA%20Digital', '_blank')">
+                <div class="bg-white rounded-[2rem] border border-navy/5 shadow-zen hover:shadow-zen-hover transition-all duration-300 overflow-hidden group flex flex-col cursor-pointer" onclick="openPromoWhatsApp('menu')">
                     <div class="h-48 overflow-hidden relative">
                         <img src="menu_digital.jpg" alt="Menú Digital en Smartphone" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
-                        <div class="absolute top-4 left-4 bg-navy text-white text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full shadow-md">
+                        <div class="absolute top-4 left-4 bg-navy text-white text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full shadow-md" data-i18n="nov_2_tag">
                             DIGITAL 🍔
                         </div>
                     </div>
                     <div class="p-6 flex-1 flex flex-col">
-                        <p class="text-xs text-navy/50 font-bold mb-3 flex items-center gap-1"><i data-lucide="smartphone" class="w-3 h-3 text-cyanDark"></i> Innovación</p>
-                        <h3 class="text-xl font-heading font-bold text-navy mb-3">Menú Digital: Moderniza tu negocio por $500</h3>
-                        <p class="text-navy/70 text-sm mb-6 flex-1 leading-relaxed">¡Adiós a los menús de papel! Creamos tu página de menú profesional con tus fotos y textos. Rápido, tecnológico y fácil de usar por solo $500 MXN.</p>
-                        <span class="text-cyanDark font-bold text-sm flex items-center group-hover:text-navy transition-colors">
+                        <p class="text-xs text-navy/50 font-bold mb-3 flex items-center gap-1" data-i18n="nov_2_cat"><i data-lucide="smartphone" class="w-3 h-3 text-cyanDark"></i> Innovación</p>
+                        <h3 class="text-xl font-heading font-bold text-navy mb-3" data-i18n="nov_2_title">Menú Digital: Moderniza tu negocio por $500</h3>
+                        <p class="text-navy/70 text-sm mb-6 flex-1 leading-relaxed" data-i18n="nov_2_desc">¡Adiós a los menús de papel! Creamos tu página de menú profesional con tus fotos y textos. Rápido, tecnológico y fácil de usar por solo $500 MXN.</p>
+                        <span class="text-cyanDark font-bold text-sm flex items-center group-hover:text-navy transition-colors" data-i18n="nov_2_btn">
                             Ver demostración <i data-lucide="arrow-right" class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform"></i>
                         </span>
                     </div>
                 </div>
 
                 <!-- Tarjeta 3 (Sticker Slap) -->
-                <div class="bg-white rounded-[2rem] border border-navy/5 shadow-zen hover:shadow-zen-hover transition-all duration-300 overflow-hidden group flex flex-col cursor-pointer" onclick="window.open('https://wa.me/524421260133?text=Hola,%20me%20interesan%20los%20paquetes%20de%20Sticker%20Slap', '_blank')">
+                <div class="bg-white rounded-[2rem] border border-navy/5 shadow-zen hover:shadow-zen-hover transition-all duration-300 overflow-hidden group flex flex-col cursor-pointer" onclick="openPromoWhatsApp('sticker')">
                     <div class="h-48 overflow-hidden relative">
                         <img src="stickers.jpg" alt="Planillas de Stickers" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
-                        <div class="absolute top-4 left-4 bg-[#25D366] text-white text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full shadow-md">
+                        <div class="absolute top-4 left-4 bg-[#25D366] text-white text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full shadow-md" data-i18n="nov_3_tag">
                             PROMO 🏷️
                         </div>
                     </div>
                     <div class="p-6 flex-1 flex flex-col">
-                        <p class="text-xs text-navy/50 font-bold mb-3 flex items-center gap-1"><i data-lucide="tag" class="w-3 h-3 text-cyanDark"></i> Más Vendidos</p>
-                        <h3 class="text-xl font-heading font-bold text-navy mb-3">Sticker Slap: ¡Tu marca en todos lados!</h3>
-                        <p class="text-navy/70 text-sm mb-6 flex-1 leading-relaxed">Llévate 10 planillas (1/4 de carta) con tus diseños favoritos y corte a contorno por solo $250 MXN. ¡Calidad profesional lista para pegar!</p>
-                        <span class="text-cyanDark font-bold text-sm flex items-center group-hover:text-navy transition-colors">
+                        <p class="text-xs text-navy/50 font-bold mb-3 flex items-center gap-1" data-i18n="nov_3_cat"><i data-lucide="tag" class="w-3 h-3 text-cyanDark"></i> Más Vendidos</p>
+                        <h3 class="text-xl font-heading font-bold text-navy mb-3" data-i18n="nov_3_title">Sticker Slap: ¡Tu marca en todos lados!</h3>
+                        <p class="text-navy/70 text-sm mb-6 flex-1 leading-relaxed" data-i18n="nov_3_desc">Llévate 10 planillas (1/4 de carta) con tus diseños favoritos y corte a contorno por solo $250 MXN. ¡Calidad profesional lista para pegar!</p>
+                        <span class="text-cyanDark font-bold text-sm flex items-center group-hover:text-navy transition-colors" data-i18n="nov_3_btn">
                             Ver paquetes <i data-lucide="arrow-right" class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform"></i>
                         </span>
                     </div>
@@ -630,7 +472,7 @@
         <!-- SECCIÓN: CONTACTO -->
         <section id="sec-contacto" class="section-container hidden max-w-6xl mx-auto px-6 py-20">
             <div class="text-center mb-16 reveal">
-                <h2 class="font-heading font-black text-4xl md:text-5xl text-navy tracking-tight">
+                <h2 class="font-heading font-black text-4xl md:text-5xl text-navy tracking-tight" data-i18n="sect_cont_title">
                     Conecta con nosotros
                 </h2>
                 <div class="w-24 h-1 bg-cyan mx-auto mt-6 rounded-full"></div>
@@ -639,68 +481,68 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-10 reveal">
                 <div class="space-y-8">
                     <div class="p-8 bg-white rounded-3xl shadow-zen border border-navy/5">
-                        <h3 class="text-xl font-heading font-bold mb-6 text-navy flex items-center gap-2">
+                        <h3 class="text-xl font-heading font-bold mb-6 text-navy flex items-center gap-2" data-i18n="cont_channels">
                             <i data-lucide="zap" class="text-cyanDark w-5 h-5"></i> Canales Directos
                         </h3>
                         <div class="space-y-4 flex flex-col items-start w-full">
-                            <a href="https://wa.me/524421260133?text=Hola%2C%20te%20contacto%20desde%20tu%20p%C3%A1gina" target="_blank" class="btn-zen btn-whatsapp w-full">
+                            <a id="btn-wa-direct" href="https://wa.me/524421260133?text=Hola%2C%20te%20contacto%20desde%20tu%20p%C3%A1gina" target="_blank" class="btn-zen btn-whatsapp w-full" data-i18n="cont_wa">
                                 <i data-lucide="message-circle" class="w-5 h-5"></i> WhatsApp Directo
                             </a>
-                            <a href="tel:+524421260133" class="btn-zen btn-navy w-full mt-2">
+                            <a href="tel:+524421260133" class="btn-zen btn-navy w-full mt-2" data-i18n="cont_tel">
                                 <i data-lucide="phone" class="w-5 h-5"></i> Tel: 442 126 01 33
                             </a>
                         </div>
                     </div>
 
                     <div class="p-8 bg-white rounded-3xl shadow-zen border border-navy/5">
-                        <h3 class="text-sm font-bold uppercase tracking-widest text-cyanDark mb-6 flex items-center gap-3">
+                        <h3 class="text-sm font-bold uppercase tracking-widest text-cyanDark mb-6 flex items-center gap-3" data-i18n="cont_hours">
                             <i data-lucide="clock" class="w-5 h-5"></i> Horarios del Taller
                         </h3>
                         <div class="flex flex-col gap-4">
                             <div class="flex items-center justify-between text-navy border-b border-cloud pb-4">
-                                <span class="font-medium">Lunes a Viernes</span>
+                                <span class="font-medium" data-i18n="cont_mf">Lunes a Viernes</span>
                                 <span class="font-bold bg-cloud px-3 py-1 rounded-lg text-sm">09:00 - 18:00</span>
                             </div>
                             <div class="flex items-center justify-between text-navy pt-2">
-                                <span class="font-medium">Fines de semana</span>
-                                <span class="font-bold text-cyanDark text-sm">Previa Cita</span>
+                                <span class="font-medium" data-i18n="cont_we">Fines de semana</span>
+                                <span class="font-bold text-cyanDark text-sm" data-i18n="cont_appt">Previa Cita</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="p-8 bg-white rounded-3xl shadow-zen border border-navy/5 flex flex-col group overflow-hidden">
-                    <h3 class="text-xl font-heading font-bold mb-6 text-navy flex items-center gap-2">
+                    <h3 class="text-xl font-heading font-bold mb-6 text-navy flex items-center gap-2" data-i18n="cont_loc">
                         <i data-lucide="map-pin" class="text-cyanDark w-5 h-5"></i> Ubicación Estratégica
                     </h3>
                     <div class="flex-1 rounded-2xl mb-6 flex flex-col items-center justify-center overflow-hidden min-h-[200px] relative bg-cloud border border-navy/5">
                         <img src="ubicacion.jpg" alt="Ubicación Estudio Xidito" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                     </div>
-                    <p class="text-center text-navy/70 font-medium text-sm mb-6 bg-cloud py-2 rounded-lg">
+                    <p class="text-center text-navy/70 font-medium text-sm mb-6 bg-cloud py-2 rounded-lg" data-i18n="cont_loc_desc">
                         Atención presencial únicamente con previa cita.
                     </p>
-                    <a href="https://maps.app.goo.gl/ND74azWAr35eCKHz7" target="_blank" class="btn-zen btn-cyan w-full text-sm">
+                    <a href="https://maps.app.goo.gl/ND74azWAr35eCKHz7" target="_blank" class="btn-zen btn-cyan w-full text-sm" data-i18n="cont_loc_btn">
                         Abrir en Google Maps
                     </a>
                 </div>
             </div>
         </section>
 
-        <!-- SECCIÓN: FAQ (HACK SEO PARA LONG-TAIL KEYWORDS) -->
+        <!-- SECCIÓN: FAQ -->
         <section class="max-w-4xl mx-auto px-6 py-20 reveal">
-            <h3 class="font-heading font-bold text-2xl text-navy mb-6 text-center">Resolvemos tus dudas</h3>
+            <h3 class="font-heading font-bold text-2xl text-navy mb-6 text-center" data-i18n="sect_faq_title">Resolvemos tus dudas</h3>
             <div class="space-y-4">
                 <details class="bg-white rounded-2xl p-6 shadow-sm border border-navy/5 group cursor-pointer">
-                    <summary class="font-bold text-navy outline-none">Diferencias entre rotulación de interiores y exteriores: ¿Por qué usar protección UV?</summary>
-                    <p class="mt-4 text-navy/70 text-sm leading-relaxed">La rotulación exterior se enfrenta al sol, la lluvia y el polvo. Por eso en Estudio Xidito utilizamos vinil impreso con protección UV de hasta 2 años. Al ser una capa extra sobre la impresión, no solo evita que tu marca se decolore, sino que también hace que el vinil sea 100% lavable y extra resistente para cualquier uso.</p>
+                    <summary class="font-bold text-navy outline-none" data-i18n="faq_1_q">Diferencias entre rotulación de interiores y exteriores: ¿Por qué usar protección UV?</summary>
+                    <p class="mt-4 text-navy/70 text-sm leading-relaxed" data-i18n="faq_1_a">La rotulación exterior se enfrenta al sol, la lluvia y el polvo. Por eso en Estudio Xidito utilizamos vinil impreso con protección UV de hasta 2 años. Al ser una capa extra sobre la impresión, no solo evita que tu marca se decolore, sino que también hace que el vinil sea 100% lavable y extra resistente para cualquier uso.</p>
                 </details>
                 <details class="bg-white rounded-2xl p-6 shadow-sm border border-navy/5 group cursor-pointer">
-                    <summary class="font-bold text-navy outline-none">Señalética y letreros: ¿Es solo para el sector industrial?</summary>
-                    <p class="mt-4 text-navy/70 text-sm leading-relaxed">¡Para nada! Aunque producimos señalética industrial bajo norma oficial (protección civil) para naves y fábricas, también diseñamos y fabricamos señalización estética y profesional para interiores, oficinas y negocios comerciales que buscan orientar a sus clientes con un gran diseño.</p>
+                    <summary class="font-bold text-navy outline-none" data-i18n="faq_2_q">Señalética y letreros: ¿Es solo para el sector industrial?</summary>
+                    <p class="mt-4 text-navy/70 text-sm leading-relaxed" data-i18n="faq_2_a">¡Para nada! Aunque producimos señalética industrial bajo norma oficial (protección civil) para naves y fábricas, también diseñamos y fabricamos señalización estética y profesional para interiores, oficinas y negocios comerciales que buscan orientar a sus clientes con un gran diseño.</p>
                 </details>
                 <details class="bg-white rounded-2xl p-6 shadow-sm border border-navy/5 group cursor-pointer">
-                    <summary class="font-bold text-navy outline-none">Tendencias en cajas dulceras de lujo para eventos exclusivos</summary>
-                    <p class="mt-4 text-navy/70 text-sm leading-relaxed">Atrás quedaron las bolsitas de plástico. Para bautizos, XV años o bodas, diseñamos cajas dulceras de lujo con cortes precisos y materiales premium. Son un detalle único que tus invitados querrán conservar como recuerdo de tu fiesta chidita.</p>
+                    <summary class="font-bold text-navy outline-none" data-i18n="faq_3_q">Tendencias en cajas dulceras de lujo para eventos exclusivos</summary>
+                    <p class="mt-4 text-navy/70 text-sm leading-relaxed" data-i18n="faq_3_a">Atrás quedaron las bolsitas de plástico. Para bautizos, XV años o bodas, diseñamos cajas dulceras de lujo con cortes precisos y materiales premium. Son un detalle único que tus invitados querrán conservar como recuerdo de tu fiesta chidita.</p>
                 </details>
             </div>
         </section>
@@ -717,7 +559,7 @@
                     </div>
                     <span class="font-heading font-black tracking-tight text-2xl uppercase">ESTUDIO <span class="text-cyan">XIDITO</span></span>
                 </div>
-                <p class="text-cloud/60 max-w-sm text-sm leading-relaxed font-medium">
+                <p class="text-cloud/60 max-w-sm text-sm leading-relaxed font-medium" data-i18n="foot_desc">
                     Dando vida a tus ideas con creatividad y diseño de alta precisión.
                 </p>
             </div>
@@ -730,43 +572,482 @@
                     <a href="https://www.facebook.com/profile.php?id=61579203017269" target="_blank" rel="noopener noreferrer" class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-cyan hover:text-navy transition-colors shadow-sm">
                         <i data-lucide="facebook" class="w-5 h-5"></i>
                     </a>
-                    <a href="https://wa.me/524421260133" target="_blank" rel="noopener noreferrer" class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-[#25D366] transition-colors shadow-sm">
+                    <a id="btn-wa-float" href="https://wa.me/524421260133" target="_blank" rel="noopener noreferrer" class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-[#25D366] transition-colors shadow-sm">
                         <i data-lucide="message-circle" class="w-5 h-5"></i>
                     </a>
                 </div>
-                <p class="text-xs text-cloud/40 font-medium tracking-widest uppercase">© 2026 Estudio Xidito</p>
+                
+                <!-- ENLACES DE IDIOMA EN EL FOOTER -->
+                <div class="flex items-center gap-3 text-xs font-bold tracking-widest text-cloud/50 uppercase">
+                    <button onclick="setLanguage('es')" class="hover:text-cyan transition-colors">Español</button>
+                    <span>|</span>
+                    <button onclick="setLanguage('en')" class="hover:text-cyan transition-colors">English</button>
+                    <span>|</span>
+                    <button onclick="setLanguage('zh')" class="hover:text-cyan transition-colors">中文</button>
+                </div>
+
+                <p class="text-xs text-cloud/40 font-medium tracking-widest uppercase" data-i18n="foot_copy">© 2026 Estudio Xidito</p>
             </div>
         </div>
     </footer>
 
     <!-- Botón Flotante WhatsApp -->
     <div class="fixed bottom-8 right-8 z-[100] group">
-        <a href="https://wa.me/524421260133" target="_blank" class="w-16 h-16 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-[0_10px_25px_rgba(37,211,102,0.4)] hover:bg-[#1DA851] hover:-translate-y-2 transition-all duration-300">
+        <a id="btn-wa-corner" href="https://wa.me/524421260133" target="_blank" class="w-16 h-16 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-[0_10px_25px_rgba(37,211,102,0.4)] hover:bg-[#1DA851] hover:-translate-y-2 transition-all duration-300">
             <i data-lucide="message-circle" class="w-8 h-8 fill-current"></i>
         </a>
     </div>
 
-    <!-- SCRIPT PRINCIPAL -->
+    <!-- SCRIPT PRINCIPAL E INTERNACIONALIZACIÓN -->
     <script>
-        // Inicializar iconos
         lucide.createIcons();
 
-        // Reveal en Scroll
+        // 1. DICCIONARIO DE TRADUCCIONES (i18n)
+        const i18n = {
+            es: {
+                meta_title: "Estudio Xidito | Rotulación, Diseño de Logotipos y Fotografía en Querétaro",
+                meta_desc: "Especialistas en rotulación exterior con protección UV, stickers premium y cajas de lujo. Fotografía de producto y señalética industrial en Corregidora y Qro.",
+                nav_home: "Inicio", nav_services: "Servicios", nav_process: "Proceso", nav_portfolio: "Portafolio", nav_news: "Novedades", nav_contact: "Contacto",
+                hero_agency: "Agencia Creativa",
+                hero_title: "Creamos lo que imaginas, con <span class='text-cyanDark'>precisión digital</span> y alma artesana.",
+                hero_btn_start: "<i data-lucide='zap' class='w-5 h-5'></i> Iniciar Proyecto",
+                hero_btn_cat: "Ver Catálogo",
+                hero_news_tag: "Última Novedad",
+                hero_news_txt: "🎂 Topper-Manía: Diseño de autor por $180",
+                sect_serv_title: "Soluciones Industriales y Creativas",
+                modal_cat: "Catálogo de Soluciones",
+                modal_btn_back: "<i data-lucide='arrow-left' class='w-4 h-4'></i> Regresar",
+                modal_btn_quote: "<span class='flex items-center justify-center gap-3'>¡COTIZAR ESTE SERVICIO! <i data-lucide='arrow-right' class='w-5 h-5 group-hover:translate-x-2 transition-transform'></i></span>",
+                sect_proc_title: "Metodología de Trabajo",
+                sect_proc_desc: "Hacer realidad tu proyecto es muy sencillo. Te acompañamos paso a paso para que el resultado final sea impecable.",
+                proc_1_title: "<span class='text-cyanDark'>01.</span> Platiquemos",
+                proc_1_desc: "Mándanos un mensajito contándonos qué necesitas. Escuchamos tus ideas y te enviamos una propuesta clara y sin enredos.",
+                proc_2_title: "<span class='text-cyanDark'>02.</span> Manos a la obra",
+                proc_2_desc: "Aquí entra la magia del taller. Empezamos a diseñar y armar tu proyecto cuidando cada detalle para que quede perfecto.",
+                proc_3_title: "<span class='text-cyanDark'>03.</span> Listo para brillar",
+                proc_3_desc: "¡Tu proyecto cobra vida! Ya sea la nueva imagen de tu negocio o la piñata de tus sueños, te lo entregamos listo para presumir.",
+                proc_btn: "Cotizar mi idea <i data-lucide='arrow-right' class='ml-2 w-5 h-5'></i>",
+                sect_port_title: "Nuestro Trabajo",
+                port_btn: "<i data-lucide='instagram' class='w-5 h-5'></i> Visita nuestro Instagram",
+                sect_nov_title: "Novedades y Promos",
+                sect_nov_desc: "Entérate de nuestros últimos proyectos, descuentos exclusivos y lo que pasa dentro del taller de Estudio Xidito.",
+                nov_1_tag: "OFERTA 🎂", nov_1_cat: "<i data-lucide='star' class='w-3 h-3 text-cyanDark'></i> Producto Estrella",
+                nov_1_title: "Topper-Manía: ¡Dale vida a tu pastel!",
+                nov_1_desc: "Crea un impacto visual único con nuestros Cake Toppers multicapa personalizados. Calidad premium y diseño de autor por solo $180 MXN. ¡Haz tu pedido hoy!",
+                nov_1_btn: "Quiero mi Topper <i data-lucide='arrow-right' class='w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform'></i>",
+                nov_2_tag: "DIGITAL 🍔", nov_2_cat: "<i data-lucide='smartphone' class='w-3 h-3 text-cyanDark'></i> Innovación",
+                nov_2_title: "Menú Digital: Moderniza tu negocio por $500",
+                nov_2_desc: "¡Adiós a los menús de papel! Creamos tu página de menú profesional con tus fotos y textos. Rápido, tecnológico y fácil de usar por solo $500 MXN.",
+                nov_2_btn: "Ver demostración <i data-lucide='arrow-right' class='w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform'></i>",
+                nov_3_tag: "PROMO 🏷️", nov_3_cat: "<i data-lucide='tag' class='w-3 h-3 text-cyanDark'></i> Más Vendidos",
+                nov_3_title: "Sticker Slap: ¡Tu marca en todos lados!",
+                nov_3_desc: "Llévate 10 planillas (1/4 de carta) con tus diseños favoritos y corte a contorno por solo $250 MXN. ¡Calidad profesional lista para pegar!",
+                nov_3_btn: "Ver paquetes <i data-lucide='arrow-right' class='w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform'></i>",
+                sect_cont_title: "Conecta con nosotros",
+                cont_channels: "<i data-lucide='zap' class='text-cyanDark w-5 h-5'></i> Canales Directos",
+                cont_wa: "<i data-lucide='message-circle' class='w-5 h-5'></i> WhatsApp Directo",
+                cont_tel: "<i data-lucide='phone' class='w-5 h-5'></i> Tel: 442 126 01 33",
+                cont_hours: "<i data-lucide='clock' class='w-5 h-5'></i> Horarios del Taller",
+                cont_mf: "Lunes a Viernes", cont_we: "Fines de semana", cont_appt: "Previa Cita",
+                cont_loc: "<i data-lucide='map-pin' class='text-cyanDark w-5 h-5'></i> Ubicación Estratégica",
+                cont_loc_desc: "Atención presencial únicamente con previa cita.",
+                cont_loc_btn: "Abrir en Google Maps",
+                sect_faq_title: "Resolvemos tus dudas",
+                faq_1_q: "Diferencias entre rotulación de interiores y exteriores: ¿Por qué usar protección UV?",
+                faq_1_a: "La rotulación exterior se enfrenta al sol, la lluvia y el polvo. Por eso en Estudio Xidito utilizamos vinil impreso con protección UV de hasta 2 años. Al ser una capa extra sobre la impresión, no solo evita que tu marca se decolore, sino que también hace que el vinil sea 100% lavable y extra resistente para cualquier uso.",
+                faq_2_q: "Señalética y letreros: ¿Es solo para el sector industrial?",
+                faq_2_a: "¡Para nada! Aunque producimos señalética industrial bajo norma oficial (protección civil) para naves y fábricas, también diseñamos y fabricamos señalización estética y profesional para interiores, oficinas y negocios comerciales que buscan orientar a sus clientes con un gran diseño.",
+                faq_3_q: "Tendencias en cajas dulceras de lujo para eventos exclusivos",
+                faq_3_a: "Atrás quedaron las bolsitas de plástico. Para bautizos, XV años o bodas, diseñamos cajas dulceras de lujo con cortes precisos y materiales premium. Son un detalle único que tus invitados querrán conservar como recuerdo de tu fiesta chidita.",
+                foot_desc: "Dando vida a tus ideas con creatividad y diseño de alta precisión.",
+                foot_copy: "© 2026 Estudio Xidito",
+                wa_general: "Hola, te contacto desde tu página web.",
+                wa_service: "Hola, me interesa el servicio de ",
+                wa_topper: "Hola, quiero aprovechar la promo de Topper-Manía.",
+                wa_menu: "Hola, me interesa la promo del Menú Digital.",
+                wa_sticker: "Hola, me interesan los paquetes de Sticker Slap.",
+                card_discover: "Descubrir más",
+                lang_select: "Seleccionar Idioma",
+                lang_translate: "Traducir a"
+            },
+            en: {
+                meta_title: "Estudio Xidito | Wrapping, Branding & Photography in Queretaro",
+                meta_desc: "Specialists in outdoor wrapping with UV protection, premium stickers, and luxury boxes. Product photography and industrial signage in Queretaro, Mexico.",
+                nav_home: "Home", nav_services: "Services", nav_process: "Process", nav_portfolio: "Portfolio", nav_news: "News", nav_contact: "Contact",
+                hero_agency: "Creative Agency",
+                hero_title: "We create what you imagine, with <span class='text-cyanDark'>digital precision</span> and artisan soul.",
+                hero_btn_start: "<i data-lucide='zap' class='w-5 h-5'></i> Start Project",
+                hero_btn_cat: "View Catalog",
+                hero_news_tag: "Latest News",
+                hero_news_txt: "🎂 Topper-Mania: Author design for $180 MXN",
+                sect_serv_title: "Industrial & Creative Solutions",
+                modal_cat: "Solutions Catalog",
+                modal_btn_back: "<i data-lucide='arrow-left' class='w-4 h-4'></i> Go Back",
+                modal_btn_quote: "<span class='flex items-center justify-center gap-3'>GET A QUOTE! <i data-lucide='arrow-right' class='w-5 h-5 group-hover:translate-x-2 transition-transform'></i></span>",
+                sect_proc_title: "Work Methodology",
+                sect_proc_desc: "Making your project a reality is very easy. We guide you step by step so the final result is flawless.",
+                proc_1_title: "<span class='text-cyanDark'>01.</span> Let's Talk",
+                proc_1_desc: "Send us a message telling us what you need. We listen to your ideas and send you a clear, hassle-free proposal.",
+                proc_2_title: "<span class='text-cyanDark'>02.</span> Hands on",
+                proc_2_desc: "Here enters the magic of the workshop. We start designing and assembling your project, taking care of every detail.",
+                proc_3_title: "<span class='text-cyanDark'>03.</span> Ready to shine",
+                proc_3_desc: "Your project comes to life! Whether it's your business's new image or your dream piñata, we deliver it ready to show off.",
+                proc_btn: "Quote my idea <i data-lucide='arrow-right' class='ml-2 w-5 h-5'></i>",
+                sect_port_title: "Our Work",
+                port_btn: "<i data-lucide='instagram' class='w-5 h-5'></i> Visit our Instagram",
+                sect_nov_title: "News and Promos",
+                sect_nov_desc: "Find out about our latest projects, exclusive discounts, and what goes on inside the Estudio Xidito workshop.",
+                nov_1_tag: "OFFER 🎂", nov_1_cat: "<i data-lucide='star' class='w-3 h-3 text-cyanDark'></i> Best Seller",
+                nov_1_title: "Topper-Mania: Bring your cake to life!",
+                nov_1_desc: "Create a unique visual impact with our custom multi-layer Cake Toppers. Premium quality and author design for only $180 MXN. Order today!",
+                nov_1_btn: "I want my Topper <i data-lucide='arrow-right' class='w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform'></i>",
+                nov_2_tag: "DIGITAL 🍔", nov_2_cat: "<i data-lucide='smartphone' class='w-3 h-3 text-cyanDark'></i> Innovation",
+                nov_2_title: "Digital Menu: Modernize your business for $500",
+                nov_2_desc: "Goodbye paper menus! We create your professional menu page with your photos and texts. Fast, technological, and easy to use for only $500 MXN.",
+                nov_2_btn: "See demo <i data-lucide='arrow-right' class='w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform'></i>",
+                nov_3_tag: "PROMO 🏷️", nov_3_cat: "<i data-lucide='tag' class='w-3 h-3 text-cyanDark'></i> Top Rated",
+                nov_3_title: "Sticker Slap: Your brand everywhere!",
+                nov_3_desc: "Get 10 sticker sheets with your favorite designs and contour cutting for only $250 MXN. Professional quality ready to stick!",
+                nov_3_btn: "View packages <i data-lucide='arrow-right' class='w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform'></i>",
+                sect_cont_title: "Connect with us",
+                cont_channels: "<i data-lucide='zap' class='text-cyanDark w-5 h-5'></i> Direct Channels",
+                cont_wa: "<i data-lucide='message-circle' class='w-5 h-5'></i> Direct WhatsApp",
+                cont_tel: "<i data-lucide='phone' class='w-5 h-5'></i> Call: +52 442 126 01 33",
+                cont_hours: "<i data-lucide='clock' class='w-5 h-5'></i> Workshop Hours",
+                cont_mf: "Monday to Friday", cont_we: "Weekends", cont_appt: "By Appointment",
+                cont_loc: "<i data-lucide='map-pin' class='text-cyanDark w-5 h-5'></i> Strategic Location",
+                cont_loc_desc: "In-person assistance by appointment only.",
+                cont_loc_btn: "Open in Google Maps",
+                sect_faq_title: "We solve your doubts",
+                faq_1_q: "Differences between indoor and outdoor wrapping: Why use UV protection?",
+                faq_1_a: "Outdoor wrapping faces sun, rain, and dust. That's why at Estudio Xidito we use printed vinyl with UV protection lasting up to 2 years. Being an extra layer over the print, it not only prevents fading but also makes the vinyl 100% washable and extra resistant.",
+                faq_2_q: "Signage and signs: Is it only for the industrial sector?",
+                faq_2_a: "Not at all! Although we produce industrial signage under official safety regulations for warehouses and factories, we also design and manufacture aesthetic and professional signage for interiors, offices, and retail businesses.",
+                faq_3_q: "Trends in luxury candy boxes for exclusive events",
+                faq_3_a: "Plastic bags are a thing of the past. For baptisms, Sweet 16s, or weddings, we design luxury boxes with precise cuts and premium materials. They are a unique detail your guests will want to keep.",
+                foot_desc: "Bringing your ideas to life with creativity and high-precision design.",
+                foot_copy: "© 2026 Estudio Xidito",
+                wa_general: "Hi, I'm contacting you from your website.",
+                wa_service: "Hi, I'm interested in the service of ",
+                wa_topper: "Hi, I want to take advantage of the Topper-Mania promo.",
+                wa_menu: "Hi, I'm interested in the Digital Menu promo.",
+                wa_sticker: "Hi, I'm interested in the Sticker Slap packages.",
+                card_discover: "Discover more",
+                lang_select: "Select Language",
+                lang_translate: "Translate to"
+            },
+            zh: {
+                meta_title: "Estudio Xidito | 克雷塔罗的品牌标识、招牌和摄影",
+                meta_desc: "专营防紫外线户外招牌、优质贴纸和豪华礼盒。提供克雷塔罗地区的商业摄影与工业标识服务。",
+                nav_home: "首页", nav_services: "服务", nav_process: "流程", nav_portfolio: "作品集", nav_news: "最新动态", nav_contact: "联系我们",
+                hero_agency: "创意机构",
+                hero_title: "我们以<span class='text-cyanDark'>数字精度</span>和工匠精神，创造您所想象的一切。",
+                hero_btn_start: "<i data-lucide='zap' class='w-5 h-5'></i> 启动项目",
+                hero_btn_cat: "查看服务目录",
+                hero_news_tag: "最新动态",
+                hero_news_txt: "🎂 蛋糕插牌狂热：原创设计仅需 $180 MXN",
+                sect_serv_title: "工业与创意解决方案",
+                modal_cat: "解决方案目录",
+                modal_btn_back: "<i data-lucide='arrow-left' class='w-4 h-4'></i> 返回",
+                modal_btn_quote: "<span class='flex items-center justify-center gap-3'>获取报价！ <i data-lucide='arrow-right' class='w-5 h-5 group-hover:translate-x-2 transition-transform'></i></span>",
+                sect_proc_title: "工作方法",
+                sect_proc_desc: "让您的项目成为现实非常简单。我们将步步为您提供指导，确保最终结果完美无瑕。",
+                proc_1_title: "<span class='text-cyanDark'>01.</span> 让我们聊聊",
+                proc_1_desc: "给我们发条信息，告诉我们您的需求。我们会倾听您的想法，并为您提供清晰的方案。",
+                proc_2_title: "<span class='text-cyanDark'>02.</span> 开始动手",
+                proc_2_desc: "这里是工作室施展魔法的地方。我们开始设计并组装您的项目，注重每一个细节。",
+                proc_3_title: "<span class='text-cyanDark'>03.</span> 准备闪耀",
+                proc_3_desc: "您的项目焕发生机！无论是企业新形象还是梦幻派对用品，我们都会完美交付。",
+                proc_btn: "为我的想法报价 <i data-lucide='arrow-right' class='ml-2 w-5 h-5'></i>",
+                sect_port_title: "我们的作品",
+                port_btn: "<i data-lucide='instagram' class='w-5 h-5'></i> 访问我们的 Instagram",
+                sect_nov_title: "最新动态与促销",
+                sect_nov_desc: "了解我们的最新项目、独家折扣以及 Estudio Xidito 工作室的日常。",
+                nov_1_tag: "优惠 🎂", nov_1_cat: "<i data-lucide='star' class='w-3 h-3 text-cyanDark'></i> 明星产品",
+                nov_1_title: "Topper-Mania：让您的蛋糕焕发生机！",
+                nov_1_desc: "使用我们定制的多层蛋糕插牌，创造独特的视觉冲击。优质原创设计仅需 $180 MXN。今天就下单吧！",
+                nov_1_btn: "我想要插牌 <i data-lucide='arrow-right' class='w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform'></i>",
+                nov_2_tag: "数字化 🍔", nov_2_cat: "<i data-lucide='smartphone' class='w-3 h-3 text-cyanDark'></i> 创新",
+                nov_2_title: "数字菜单：$500 MXN 让业务现代化",
+                nov_2_desc: "告别纸质菜单！我们用您的照片和文字创建专业的菜单网页。快速、科技感且易用，只需 $500 MXN。",
+                nov_2_btn: "查看演示 <i data-lucide='arrow-right' class='w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform'></i>",
+                nov_3_tag: "促销 🏷️", nov_3_cat: "<i data-lucide='tag' class='w-3 h-3 text-cyanDark'></i> 最畅销",
+                nov_3_title: "Sticker Slap：让品牌无处不在！",
+                nov_3_desc: "仅需 $250 MXN，即可获得 10 张包含您最爱设计且沿边切割的贴纸。专业品质，随时可贴！",
+                nov_3_btn: "查看套餐 <i data-lucide='arrow-right' class='w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform'></i>",
+                sect_cont_title: "联系我们",
+                cont_channels: "<i data-lucide='zap' class='text-cyanDark w-5 h-5'></i> 直接联系渠道",
+                cont_wa: "<i data-lucide='message-circle' class='w-5 h-5'></i> 直接 WhatsApp 联系",
+                cont_tel: "<i data-lucide='phone' class='w-5 h-5'></i> 电话: 442 126 01 33",
+                cont_hours: "<i data-lucide='clock' class='w-5 h-5'></i> 工作室营业时间",
+                cont_mf: "周一至周五", cont_we: "周末", cont_appt: "仅限预约",
+                cont_loc: "<i data-lucide='map-pin' class='text-cyanDark w-5 h-5'></i> 战略位置",
+                cont_loc_desc: "仅提供预约面谈服务。",
+                cont_loc_btn: "在 Google 地图上打开",
+                sect_faq_title: "我们解答您的疑问",
+                faq_1_q: "室内和室外招牌的区别：为什么要用防紫外线保护？",
+                faq_1_a: "室外招牌会面临日晒、雨淋和灰尘。因此我们在 Estudio Xidito 使用带有长达 2 年防紫外线保护的打印贴膜。作为打印层上的额外保护，它不仅能防止品牌褪色，还能使贴膜 100% 可水洗且更加耐用。",
+                faq_2_q: "标识和标志：仅仅适用于工业领域吗？",
+                faq_2_a: "绝不是！虽然我们根据官方规范为仓库和工厂生产工业安全标识，但我们也为追求优秀设计的室内空间、办公室和商业店铺设计及制作美观专业的标识。",
+                faq_3_q: "高端活动中豪华礼盒的趋势",
+                faq_3_a: "塑料袋已成为过去。对于洗礼、15 岁成人礼或婚礼，我们使用精确的切割和优质材料设计豪华礼盒。这是您的客人会希望保留的独特细节。",
+                foot_desc: "通过创意和高精度设计，将您的想法化为现实。",
+                foot_copy: "© 2026 Estudio Xidito",
+                wa_general: "你好，我从您的网站联系您。",
+                wa_service: "你好，我对这项服务感兴趣：",
+                wa_topper: "你好，我想参加 Topper-Mania 的优惠活动。",
+                wa_menu: "你好，我对数字菜单的优惠感兴趣。",
+                wa_sticker: "你好，我对 Sticker Slap 套餐感兴趣。",
+                card_discover: "发现更多",
+                lang_select: "选择语言",
+                lang_translate: "切换语言"
+            }
+        };
+
+        // Arreglos dinámicos traducibles (Máquina de escribir)
+        const typewriterData = {
+            es: ["Branding", "Impresión de Gran Formato", "Fotografía Profesional", "Diseño Web", "Decoración para Eventos"],
+            en: ["Branding", "Large Format Printing", "Professional Photography", "Web Design", "Event Decoration"],
+            zh: ["品牌设计", "大幅面打印", "专业摄影", "网页设计", "活动布置"]
+        };
+
+        // Arreglos dinámicos traducibles (Servicios)
+        const servicesData = {
+            es: [
+                { id: 'formato', label: 'Rotulación y Exteriores', icon: 'layers', desc: 'Rotulación de fachadas y exteriores en Querétaro con alta durabilidad.', details: ['Vinil impreso con protección UV lavable', 'Rotulación vehicular comercial', 'Lonas y Microperforados', 'Corte de vinil de alta precisión'] },
+                { id: 'foto', label: 'Fotografía y Escenografía', icon: 'camera', desc: 'Fotografía de producto y sets fotográficos personalizados.', details: ['Sesiones en Set', 'Fotografía para E-commerce', 'Escenarios personalizados', 'Retoque industrial y comercial'] },
+                { id: 'negocio', label: 'Identidad y Señalética', icon: 'shopping-bag', desc: 'Diseño de logotipos y señalética para negocios, oficinas e industria.', details: ['Diseño de Logotipos Profesionales', 'Señalética comercial e interior', 'Señalética industrial (Normativa)', 'Identidad Corporativa', 'Toldos y Estructuras publicitarias'] },
+                { id: 'artesania', label: 'Eventos de Lujo y Artesanías', icon: 'palette', desc: 'Detalles únicos, stickers premium y cajas de lujo.', details: ['Cajas dulceras de lujo para eventos', 'Stickers premium con corte a contorno', 'Cake toppers multicapa', 'Piñatas de autor'] },
+                { id: 'fiestas', label: 'Decoración Temática', icon: 'party-popper', desc: 'Escenografías inolvidables para eventos exclusivos.', details: ['Decoración temática', 'Estructuras de coroplast', 'Mamparas personalizadas', 'Arcos de bienvenida'] },
+                { id: 'digital', label: 'Soluciones Digitales', icon: 'smartphone', desc: 'Presencia, webs e invitaciones modernas.', details: ['Websites y Páginas Web', 'Producción de Podcast', 'Invitaciones digitales', 'Menús QR para restaurantes', 'Tarjetas digitales', 'Social Media Branding'] }
+            ],
+            en: [
+                { id: 'formato', label: 'Exterior Wrapping', icon: 'layers', desc: 'Durable facade and outdoor wrapping in Queretaro.', details: ['Washable UV-protected printed vinyl', 'Commercial vehicle wrapping', 'Banners and Micro-perforated', 'High-precision vinyl cutting'] },
+                { id: 'foto', label: 'Photography & Sets', icon: 'camera', desc: 'Product photography and custom photo sets.', details: ['In-Studio Sessions', 'E-commerce Photography', 'Custom Scenarios', 'Industrial and Commercial Retouching'] },
+                { id: 'negocio', label: 'Identity & Signage', icon: 'shopping-bag', desc: 'Logo design and signage for businesses, offices, and industries.', details: ['Professional Logo Design', 'Commercial and Interior Signage', 'Industrial Signage (Regulations)', 'Corporate Identity', 'Awnings and Advertising Structures'] },
+                { id: 'artesania', label: 'Luxury Events & Crafts', icon: 'palette', desc: 'Unique details, premium stickers, and luxury boxes.', details: ['Luxury candy boxes for events', 'Premium contour-cut stickers', 'Multi-layer cake toppers', 'Author Piñatas'] },
+                { id: 'fiestas', label: 'Themed Decoration', icon: 'party-popper', desc: 'Unforgettable scenographies for exclusive events.', details: ['Themed decoration', 'Coroplast structures', 'Custom backdrops', 'Welcome arches'] },
+                { id: 'digital', label: 'Digital Solutions', icon: 'smartphone', desc: 'Online presence, modern websites, and digital invites.', details: ['Websites & Web Pages', 'Podcast Production', 'Digital invitations', 'QR Menus for restaurants', 'Digital Cards', 'Social Media Branding'] }
+            ],
+            zh: [
+                { id: 'formato', label: '户外招牌与车辆贴膜', icon: 'layers', desc: '克雷塔罗耐用的外墙和户外招牌。', details: ['可水洗防紫外线打印贴膜', '商业车辆贴膜', '横幅与微孔贴膜', '高精度切割贴膜'] },
+                { id: 'foto', label: '摄影与布景', icon: 'camera', desc: '产品摄影及定制摄影布景。', details: ['影棚拍摄', '电商摄影', '定制场景', '工业与商业修图'] },
+                { id: 'negocio', label: '品牌形象与标识', icon: 'shopping-bag', desc: '为企业、办公室和工业提供徽标设计和标识。', details: ['专业徽标设计', '商业及室内标识', '工业安全标识', '企业视觉识别', '遮阳篷及广告结构'] },
+                { id: 'artesania', label: '豪华派对与手工艺品', icon: 'palette', desc: '独特的细节、优质贴纸和豪华礼盒。', details: ['活动豪华糖果盒', '优质沿边切割贴纸', '多层蛋糕插牌', '原创皮纳塔 (Piñatas)'] },
+                { id: 'fiestas', label: '主题装饰', icon: 'party-popper', desc: '为高端活动打造难忘的场景布置。', details: ['主题装饰', '瓦楞塑料结构', '定制背景板', '迎宾拱门'] },
+                { id: 'digital', label: '数字解决方案', icon: 'smartphone', desc: '在线形象、现代网站与数字邀请函。', details: ['网站建设', '播客制作', '数字邀请函', '餐厅二维码菜单', '数字名片', '社交媒体品牌推广'] }
+            ]
+        };
+
+        // Títulos de Portafolio
+        const portTitles = {
+            es: ['Rotulación de Fachadas', 'Rotulación Vehicular', 'Letreros LED', 'Piñatas Personalizadas', 'Decoración de Eventos', 'Invitaciones Personalizadas', 'Etiquetas y Stickers', 'Cake Toppers', 'Branding', 'Vinil de Corte', 'Instalación Artesanal', 'Estamos Trabajando'],
+            en: ['Facade Wrapping', 'Vehicle Wrapping', 'LED Signs', 'Custom Piñatas', 'Event Decoration', 'Custom Invitations', 'Labels & Stickers', 'Cake Toppers', 'Branding', 'Vinyl Cutting', 'Artisan Installation', 'Work in Progress'],
+            zh: ['外墙招牌', '车辆贴膜', 'LED 招牌', '定制皮纳塔', '活动装饰', '定制邀请函', '标签与贴纸', '蛋糕插牌', '品牌设计', '贴膜切割', '手工安装', '正在进行中']
+        };
+
+        // Estado Global del Idioma
+        let currentLang = localStorage.getItem('xidito_lang') || 'es';
+
+        // 2. FUNCIÓN MAESTRA DE CAMBIO DE IDIOMA
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('xidito_lang', lang);
+            document.documentElement.lang = lang; // Actualiza etiqueta HTML
+            document.getElementById('desktop-lang-label').innerText = lang.toUpperCase();
+
+            // Traducir todos los elementos con data-i18n
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if(i18n[lang][key]) {
+                    el.innerHTML = i18n[lang][key];
+                }
+            });
+
+            // Traducir atributos SEO y enlaces de WhatsApp
+            document.querySelector('title').innerText = i18n[lang]['meta_title'];
+            document.querySelector('meta[name="description"]').setAttribute('content', i18n[lang]['meta_desc']);
+            
+            document.getElementById('btn-wa-direct').href = `https://wa.me/524421260133?text=${encodeURIComponent(i18n[lang]['wa_general'])}`;
+            
+            // Renderizar datos dinámicos (Typewriter y Grid)
+            resetTypewriter();
+            renderServicesGrid();
+            renderPortfolios();
+
+            // Refrescar íconos de Lucide
+            setTimeout(() => lucide.createIcons(), 50);
+
+            // Cerrar menú móvil si está abierto
+            const mobileMenu = document.getElementById('mobile-menu');
+            if(!mobileMenu.classList.contains('hidden')) toggleMenu();
+        }
+
+        // WhatsApp promos dinámico
+        function openPromoWhatsApp(promoType) {
+            let msg = "";
+            if(promoType === 'topper') msg = i18n[currentLang]['wa_topper'];
+            if(promoType === 'menu') msg = i18n[currentLang]['wa_menu'];
+            if(promoType === 'sticker') msg = i18n[currentLang]['wa_sticker'];
+            window.open(`https://wa.me/524421260133?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        // 3. RE-RENDER DE SERVICIOS
+        function renderServicesGrid() {
+            const grid = document.getElementById('services-grid');
+            if(!grid) return;
+            grid.innerHTML = '';
+            
+            servicesData[currentLang].forEach((s) => {
+                const delay = (Math.random() * 2).toFixed(2);
+                grid.innerHTML += `
+                    <div onclick="openModal('${s.id}')" class="group cursor-pointer bg-white border border-navy/5 rounded-3xl p-8 transition-all duration-500 transform hover:-translate-y-2 shadow-zen hover:shadow-zen-hover card-float relative overflow-hidden" style="animation-delay: ${delay}s">
+                        <div class="w-16 h-16 bg-cloud rounded-2xl flex items-center justify-center mb-6 group-hover:bg-cyan text-navy transition-all duration-500 group-hover:scale-110">
+                            <i data-lucide="${s.icon}"></i>
+                        </div>
+                        <h3 class="text-xl font-heading font-bold text-navy mb-3">${s.label}</h3>
+                        <p class="text-navy/70 text-sm mb-6 leading-relaxed">${s.desc}</p>
+                        <span class="text-xs font-bold uppercase tracking-widest text-cyanDark group-hover:text-navy transition-colors flex items-center">
+                            ${i18n[currentLang]['card_discover']} <i data-lucide="arrow-right" class="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform"></i>
+                        </span>
+                    </div>
+                `;
+            });
+        }
+
+        function openModal(id) {
+            const service = servicesData[currentLang].find(s => s.id === id);
+            if(!service) return;
+
+            document.getElementById('modal-title').innerText = service.label;
+            document.getElementById('modal-icon-container').innerHTML = `<i data-lucide="${service.icon}" style="width: 32px; height: 32px;"></i>`;
+            
+            const detailsHtml = service.details.map((d, index) => `
+                <div class="animate-stagger-item flex items-center gap-4 p-4 bg-cloud rounded-2xl border border-navy/5 hover:border-cyan hover:-translate-y-1 transition-all duration-300 group" style="animation-delay: ${index * 100}ms">
+                    <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm shrink-0 group-hover:bg-cyan transition-colors">
+                        <i data-lucide="check" class="text-navy w-4 h-4"></i>
+                    </div>
+                    <span class="text-sm font-medium text-navy">${d}</span>
+                </div>
+            `).join('');
+            document.getElementById('modal-details').innerHTML = detailsHtml;
+            
+            // WhatsApp para Modal
+            const msg = i18n[currentLang]['wa_service'] + service.label;
+            document.getElementById('modal-cta').href = `https://wa.me/524421260133?text=${encodeURIComponent(msg)}`;
+
+            const modal = document.getElementById('service-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            lucide.createIcons();
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('service-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // 4. RE-RENDER DE PORTAFOLIO
+        function renderPortfolios() {
+            const baseImages = ['portafolio1.jpg', 'portafolio2.jpg', 'portafolio3.jpg', 'portafolio4.jpg', 'portafolio5.jpg', 'portafolio6.jpg', 'portafolio7.jpg', 'portafolio8.jpg', 'portafolio9.jpg', 'portafolio10.jpg', 'portafolio11.jpg', 'portafolio12.jpg'];
+            
+            const mappedData = baseImages.map((img, i) => ({ img: img, title: portTitles[currentLang][i] }));
+
+            renderMarquee('marquee-row-1', mappedData.slice(0,6));
+            renderMarquee('marquee-row-1-clone', mappedData.slice(0,6));
+            renderMarquee('marquee-row-2', mappedData.slice(6,12));
+            renderMarquee('marquee-row-2-clone', mappedData.slice(6,12));
+            
+            marqueeItems = document.querySelectorAll('.marquee-item');
+        }
+
+        function renderMarquee(containerId, items) {
+            const container = document.getElementById(containerId);
+            if(!container) return;
+            const html = items.map(item => `
+                <div class="marquee-item w-[300px] md:w-[400px] h-[200px] md:h-[280px] flex-shrink-0 rounded-[2rem] border-4 border-white bg-white shadow-zen overflow-hidden group relative cursor-pointer">
+                    <img src="${item.img}" class="w-full h-full object-cover" alt="${item.title}">
+                    <div class="absolute inset-0 bg-gradient-to-t from-navy/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div class="marquee-text-bg absolute bottom-6 left-6 right-6 border-l-4 border-transparent bg-white/95 backdrop-blur-sm p-3 rounded-r-xl transition-colors duration-300 shadow-sm">
+                        <span class="text-navy font-bold text-sm md:text-base block truncate transition-colors duration-300">
+                            ${item.title}
+                        </span>
+                    </div>
+                </div>
+            `).join('');
+            container.innerHTML = html;
+        }
+
+        let marqueeItems = [];
+        function startMarqueeAnimation() {
+            animateCenterJump();
+        }
+        function animateCenterJump() {
+            const screenCenter = window.innerWidth / 2;
+            marqueeItems.forEach(item => {
+                const rect = item.getBoundingClientRect();
+                const itemCenter = rect.left + rect.width / 2;
+                if (Math.abs(screenCenter - itemCenter) < (rect.width / 2.5)) {
+                    item.classList.add('is-center');
+                } else {
+                    item.classList.remove('is-center');
+                }
+            });
+            requestAnimationFrame(animateCenterJump);
+        }
+
+        // 5. MÁQUINA DE ESCRIBIR MULTILINGÜE
+        let typeEl = document.getElementById('typewriter');
+        let textIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let typeTimeout;
+
+        function resetTypewriter() {
+            clearTimeout(typeTimeout);
+            textIndex = 0;
+            charIndex = 0;
+            isDeleting = false;
+            if(typeEl) typeEl.textContent = '';
+            type();
+        }
+
+        function type() {
+            if(!typeEl) return;
+            const textsArray = typewriterData[currentLang];
+            const current = textsArray[textIndex];
+            
+            if (isDeleting) charIndex--;
+            else charIndex++;
+            
+            typeEl.textContent = current.substring(0, charIndex);
+            
+            let speed = isDeleting ? 40 : 80;
+            if (!isDeleting && charIndex === current.length) {
+                speed = 2000;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                textIndex = (textIndex + 1) % textsArray.length;
+                speed = 500;
+            }
+            typeTimeout = setTimeout(type, speed);
+        }
+
+        // Inicialización y Utilidades Generales
         function reveal() {
             var reveals = document.querySelectorAll(".reveal");
             for (var i = 0; i < reveals.length; i++) {
                 var windowHeight = window.innerHeight;
                 var elementTop = reveals[i].getBoundingClientRect().top;
                 var elementVisible = 100;
-                if (elementTop < windowHeight - elementVisible) {
-                    reveals[i].classList.add("active");
-                }
+                if (elementTop < windowHeight - elementVisible) reveals[i].classList.add("active");
             }
         }
         window.addEventListener("scroll", reveal);
-        reveal(); // Trigger on load
 
-        // 1. NAVEGACIÓN
         function navigate(sectionId) {
             document.querySelectorAll('.section-container').forEach(el => {
                 el.classList.remove('block');
@@ -786,9 +1067,8 @@
             });
 
             const mobileMenu = document.getElementById('mobile-menu');
-            if(!mobileMenu.classList.contains('hidden')) {
-                toggleMenu();
-            }
+            if(!mobileMenu.classList.contains('hidden')) toggleMenu();
+            
             window.scrollTo(0,0);
             setTimeout(reveal, 100); 
         }
@@ -806,157 +1086,12 @@
             lucide.createIcons();
         }
 
-        // 3. TYPEWRITER EFFECT
-        const texts = ["Branding", "Impresión de Gran Formato", "Fotografía Profesional", "Diseño Web", "Decoración para Eventos"];
-        let textIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
-        const typeEl = document.getElementById('typewriter');
-        
-        function type() {
-            const current = texts[textIndex];
-            if (isDeleting) charIndex--;
-            else charIndex++;
-            
-            typeEl.textContent = current.substring(0, charIndex);
-            
-            let speed = isDeleting ? 40 : 80;
-            if (!isDeleting && charIndex === current.length) {
-                speed = 2000;
-                isDeleting = true;
-            } else if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                textIndex = (textIndex + 1) % texts.length;
-                speed = 500;
-            }
-            setTimeout(type, speed);
-        }
-        if(typeEl) type();
-
-        // 5. DATOS DE SERVICIOS (OPTIMIZADOS PARA SEO)
-        const services = [
-            { id: 'formato', label: 'Rotulación y Exteriores', icon: 'layers', desc: 'Rotulación de fachadas y exteriores en Querétaro con alta durabilidad.', details: ['Vinil impreso con protección UV lavable', 'Rotulación vehicular comercial', 'Lonas y Microperforados', 'Corte de vinil de alta precisión'] },
-            { id: 'foto', label: 'Fotografía y Escenografía', icon: 'camera', desc: 'Fotografía de producto y sets fotográficos personalizados.', details: ['Sesiones en Set', 'Fotografía para E-commerce', 'Escenarios personalizados', 'Retoque industrial y comercial'] },
-            { id: 'negocio', label: 'Identidad y Señalética', icon: 'shopping-bag', desc: 'Diseño de logotipos y señalética para negocios, oficinas e industria.', details: ['Diseño de Logotipos Profesionales', 'Señalética comercial e interior', 'Señalética industrial (Normativa)', 'Identidad Corporativa', 'Toldos y Estructuras publicitarias'] },
-            { id: 'artesania', label: 'Eventos de Lujo y Artesanías', icon: 'palette', desc: 'Detalles únicos, stickers premium y cajas de lujo.', details: ['Cajas dulceras de lujo para eventos', 'Stickers premium con corte a contorno', 'Cake toppers multicapa', 'Piñatas de autor'] },
-            { id: 'fiestas', label: 'Decoración Temática', icon: 'party-popper', desc: 'Escenografías inolvidables para eventos exclusivos.', details: ['Decoración temática', 'Estructuras de coroplast', 'Mamparas personalizadas', 'Arcos de bienvenida'] },
-            { id: 'digital', label: 'Soluciones Digitales', icon: 'smartphone', desc: 'Presencia, webs e invitaciones modernas.', details: ['Websites y Páginas Web', 'Producción de Podcast', 'Invitaciones digitales', 'Menús QR para restaurantes', 'Tarjetas digitales', 'Social Media Branding'] }
-        ];
-
-        const grid = document.getElementById('services-grid');
-        if(grid) {
-            services.forEach((s, index) => {
-                const delay = (Math.random() * 2).toFixed(2);
-                
-                grid.innerHTML += `
-                    <div onclick="openModal('${s.id}')" class="group cursor-pointer bg-white border border-navy/5 rounded-3xl p-8 transition-all duration-500 transform hover:-translate-y-2 shadow-zen hover:shadow-zen-hover card-float relative overflow-hidden" style="animation-delay: ${delay}s">
-                        <div class="w-16 h-16 bg-cloud rounded-2xl flex items-center justify-center mb-6 group-hover:bg-cyan text-navy transition-all duration-500 group-hover:scale-110">
-                            <i data-lucide="${s.icon}"></i>
-                        </div>
-                        <h3 class="text-xl font-heading font-bold text-navy mb-3">${s.label}</h3>
-                        <p class="text-navy/70 text-sm mb-6 leading-relaxed">${s.desc}</p>
-                        <span class="text-xs font-bold uppercase tracking-widest text-cyanDark group-hover:text-navy transition-colors flex items-center">
-                            Descubrir más <i data-lucide="arrow-right" class="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform"></i>
-                        </span>
-                    </div>
-                `;
-            });
-        }
-
-        function openModal(id) {
-            const service = services.find(s => s.id === id);
-            if(!service) return;
-
-            document.getElementById('modal-title').innerText = service.label;
-            
-            // Icono vectorial unificado en el modal
-            document.getElementById('modal-icon-container').innerHTML = `<i data-lucide="${service.icon}" style="width: 32px; height: 32px;"></i>`;
-            
-            const detailsHtml = service.details.map((d, index) => `
-                <div class="animate-stagger-item flex items-center gap-4 p-4 bg-cloud rounded-2xl border border-navy/5 hover:border-cyan hover:-translate-y-1 transition-all duration-300 group" style="animation-delay: ${index * 100}ms">
-                    <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm shrink-0 group-hover:bg-cyan transition-colors">
-                        <i data-lucide="check" class="text-navy w-4 h-4"></i>
-                    </div>
-                    <span class="text-sm font-medium text-navy">${d}</span>
-                </div>
-            `).join('');
-            document.getElementById('modal-details').innerHTML = detailsHtml;
-            
-            document.getElementById('modal-cta').href = `https://wa.me/524421260133?text=Hola,%20me%20interesa%20el%20servicio%20de%20${service.label}`;
-
-            const modal = document.getElementById('service-modal');
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-            lucide.createIcons();
-        }
-
-        function closeModal() {
-            const modal = document.getElementById('service-modal');
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-        }
-
-        // 6. RENDERIZAR PORTAFOLIO
-        const portfolioData = [
-            { img: 'portafolio1.jpg', title: 'Rotulación de Fachadas' },
-            { img: 'portafolio2.jpg', title: 'Rotulación Vehicular' },
-            { img: 'portafolio3.jpg', title: 'Letreros LED' },
-            { img: 'portafolio4.jpg', title: 'Piñatas Personalizadas' },
-            { img: 'portafolio5.jpg', title: 'Decoración de Eventos' },
-            { img: 'portafolio6.jpg', title: 'Invitaciones Personalizadas' },
-            { img: 'portafolio7.jpg', title: 'Etiquetas y Stickers' },
-            { img: 'portafolio8.jpg', title: 'Cake Toppers' },
-            { img: 'portafolio9.jpg', title: 'Branding' },
-            { img: 'portafolio10.jpg', title: 'Vinil de Corte' },
-            { img: 'portafolio11.jpg', title: 'Instalación Artesanal' },
-            { img: 'portafolio12.jpg', title: 'Estamos Trabajando' }
-        ];
-
-        function renderMarquee(containerId, items) {
-            const container = document.getElementById(containerId);
-            if(!container) return;
-            const html = items.map(item => `
-                <div class="marquee-item w-[300px] md:w-[400px] h-[200px] md:h-[280px] flex-shrink-0 rounded-[2rem] border-4 border-white bg-white shadow-zen overflow-hidden group relative cursor-pointer">
-                    <img src="${item.img}" class="w-full h-full object-cover" alt="${item.title}">
-                    <div class="absolute inset-0 bg-gradient-to-t from-navy/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <div class="marquee-text-bg absolute bottom-6 left-6 right-6 border-l-4 border-transparent bg-white/95 backdrop-blur-sm p-3 rounded-r-xl transition-colors duration-300 shadow-sm">
-                        <span class="text-navy font-bold text-sm md:text-base block truncate transition-colors duration-300">
-                            ${item.title}
-                        </span>
-                    </div>
-                </div>
-            `).join('');
-            container.innerHTML = html;
-        }
-
-        renderMarquee('marquee-row-1', portfolioData.slice(0,6));
-        renderMarquee('marquee-row-1-clone', portfolioData.slice(0,6));
-        renderMarquee('marquee-row-2', portfolioData.slice(6,12));
-        renderMarquee('marquee-row-2-clone', portfolioData.slice(6,12));
-
-        // Animación de Salto en el Centro
-        let marqueeItems = [];
-        function startMarqueeAnimation() {
-            marqueeItems = document.querySelectorAll('.marquee-item');
-            animateCenterJump();
-        }
-
-        function animateCenterJump() {
-            const screenCenter = window.innerWidth / 2;
-            marqueeItems.forEach(item => {
-                const rect = item.getBoundingClientRect();
-                const itemCenter = rect.left + rect.width / 2;
-                if (Math.abs(screenCenter - itemCenter) < (rect.width / 2.5)) {
-                    item.classList.add('is-center');
-                } else {
-                    item.classList.remove('is-center');
-                }
-            });
-            requestAnimationFrame(animateCenterJump);
-        }
-
-        startMarqueeAnimation();
-        lucide.createIcons();
+        // --- ARRANQUE ---
+        document.addEventListener('DOMContentLoaded', () => {
+            setLanguage(currentLang);
+            startMarqueeAnimation();
+            reveal();
+        });
 
     </script>
 </body>
