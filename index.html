@@ -165,15 +165,16 @@
                 <button onclick="navigate('novedades')" class="nav-link text-navy/60 font-heading font-semibold text-sm tracking-wide transition-colors hover:text-cyanDark" data-target="novedades" data-i18n="nav_news">Novedades</button>
                 <button onclick="navigate('contacto')" class="nav-link text-navy/60 font-heading font-semibold text-sm tracking-wide transition-colors hover:text-cyanDark" data-target="contacto" data-i18n="nav_contact">Contacto</button>
                 
-                <!-- SELECTOR DE IDIOMA (DESKTOP) - MEJORADO CON TEXTO TRADUCIR -->
-                <div class="relative group ml-2 pl-4 border-l border-navy/10">
+                <!-- SELECTOR DE IDIOMA (DESKTOP) - MEJORADO PARA NO DESAPARECER -->
+                <div class="relative group ml-2 pl-4 border-l border-navy/10 py-4">
                     <button class="flex items-center gap-2 text-navy font-bold text-sm hover:text-cyanDark transition-colors bg-cloud px-4 py-1.5 rounded-full border border-navy/5 shadow-sm">
                         <i data-lucide="globe" class="w-4 h-4 text-cyanDark"></i> 
                         <span data-i18n="lang_translate" class="hidden lg:inline text-xs uppercase tracking-widest text-navy/60">Traducir a</span>
                         <span id="desktop-lang-label" class="text-cyanDark">ES</span>
                         <i data-lucide="chevron-down" class="w-3 h-3 opacity-50 group-hover:rotate-180 transition-transform"></i>
                     </button>
-                    <div class="absolute top-full right-0 mt-2 w-32 bg-white rounded-2xl shadow-xl border border-navy/5 hidden group-hover:block overflow-hidden py-2">
+                    <!-- Se eliminó mt-2 y se usó top-[100%] para que el menú se pegue al contenedor padre y no haya huecos -->
+                    <div class="absolute top-[80%] right-0 w-32 bg-white rounded-2xl shadow-xl border border-navy/5 hidden group-hover:block overflow-hidden py-2 mt-1">
                         <button onclick="setLanguage('es')" class="block w-full text-left px-5 py-2 text-sm font-medium hover:bg-cloud hover:text-cyanDark text-navy transition-colors">Español</button>
                         <button onclick="setLanguage('en')" class="block w-full text-left px-5 py-2 text-sm font-medium hover:bg-cloud hover:text-cyanDark text-navy transition-colors">English</button>
                         <button onclick="setLanguage('zh')" class="block w-full text-left px-5 py-2 text-sm font-medium hover:bg-cloud hover:text-cyanDark text-navy transition-colors">中文</button>
@@ -195,7 +196,7 @@
             <button onclick="navigate('novedades')" class="block w-full text-left text-lg font-heading font-semibold text-navy hover:text-cyanDark" data-i18n="nav_news">Novedades</button>
             <button onclick="navigate('contacto')" class="block w-full text-left text-lg font-heading font-semibold text-navy hover:text-cyanDark mb-4" data-i18n="nav_contact">Contacto</button>
             
-            <!-- SELECTOR DE IDIOMA (MÓVIL) - MEJORADO -->
+            <!-- SELECTOR DE IDIOMA (MÓVIL) -->
             <div class="pt-4 border-t border-navy/10">
                 <p class="text-[10px] font-bold text-cyanDark uppercase tracking-widest mb-3 text-center" data-i18n="lang_select">Seleccionar Idioma</p>
                 <div class="flex justify-between gap-2">
