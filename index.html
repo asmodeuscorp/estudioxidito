@@ -21,7 +21,9 @@
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        gtag('config', 'G-RGQ2WCMVFQ');
+        gtag('config', 'G-RGQ2WCMVFQ', {
+            'send_page_view': false // Desactivamos la vista automática para manejarla manual por SPA
+        });
     </script>
     
     <!-- OPTIMIZACIÓN SEO: Schema Markup LocalBusiness -->
@@ -268,7 +270,7 @@
                 <button onclick="navigate('servicios')" class="nav-link text-theme-base/60 font-heading font-semibold text-sm tracking-wide transition-colors hover:text-theme-dark" data-target="servicios" data-i18n="nav_services">Servicios</button>
                 <button onclick="navigate('proceso')" class="nav-link text-theme-base/60 font-heading font-semibold text-sm tracking-wide transition-colors hover:text-theme-dark" data-target="proceso" data-i18n="nav_process">Proceso</button>
                 <button onclick="navigate('portafolio')" class="nav-link text-theme-base/60 font-heading font-semibold text-sm tracking-wide transition-colors hover:text-theme-dark" data-target="portafolio" data-i18n="nav_portfolio">Portafolio</button>
-                <button onclick="navigate('novedades')" class="nav-link text-theme-base/60 font-heading font-semibold text-sm tracking-wide transition-colors hover:text-theme-dark" data-target="novedades" data-i18n="nav_news">Novedades</button>
+                <button onclick="navigate('novedades')" class="lang-es-only nav-link text-theme-base/60 font-heading font-semibold text-sm tracking-wide transition-colors hover:text-theme-dark" data-target="novedades" data-i18n="nav_news">Novedades</button>
                 <button onclick="navigate('contacto')" class="nav-link text-theme-base/60 font-heading font-semibold text-sm tracking-wide transition-colors hover:text-theme-dark" data-target="contacto" data-i18n="nav_contact">Contacto</button>
                 
                 <!-- SELECTOR DE IDIOMA (DESKTOP) -->
@@ -298,7 +300,7 @@
             <button onclick="navigate('servicios')" class="block w-full text-left text-lg font-heading font-semibold text-theme-base hover:text-theme-dark" data-i18n="nav_services">Servicios</button>
             <button onclick="navigate('proceso')" class="block w-full text-left text-lg font-heading font-semibold text-theme-base hover:text-theme-dark" data-i18n="nav_process">Proceso</button>
             <button onclick="navigate('portafolio')" class="block w-full text-left text-lg font-heading font-semibold text-theme-base hover:text-theme-dark" data-i18n="nav_portfolio">Portafolio</button>
-            <button onclick="navigate('novedades')" class="block w-full text-left text-lg font-heading font-semibold text-theme-base hover:text-theme-dark" data-i18n="nav_news">Novedades</button>
+            <button onclick="navigate('novedades')" class="lang-es-only block w-full text-left text-lg font-heading font-semibold text-theme-base hover:text-theme-dark" data-i18n="nav_news">Novedades</button>
             <button onclick="navigate('contacto')" class="block w-full text-left text-lg font-heading font-semibold text-theme-base hover:text-theme-dark mb-4" data-i18n="nav_contact">Contacto</button>
             
             <!-- SELECTOR DE IDIOMA (MÓVIL) -->
@@ -323,7 +325,6 @@
                 <div class="flex justify-center order-2 md:order-1">
                     <div class="relative group">
                         <div class="absolute inset-0 hero-glow rounded-full blur-[60px] opacity-20 group-hover:opacity-40 transition-opacity duration-700"></div>
-                        <!-- Atributo fetchpriority="high" para SEO y Carga ultra rápida del LCP -->
                         <img src="personaje_heroe.png" alt="Personaje Estudio Xidito" fetchpriority="high" class="relative z-10 w-64 md:w-96 rounded-[3rem] drop-shadow-2xl transform group-hover:scale-105 transition-transform duration-700 object-cover">
                     </div>
                 </div>
@@ -351,14 +352,14 @@
                         </button>
                     </div>
 
-                    <div class="pt-8 w-full md:w-auto">
-                        <div onclick="openPromoWhatsApp('topper')" class="cursor-pointer group flex items-center gap-4 bg-white/70 backdrop-blur-sm hover:bg-white border border-theme-accent/30 p-3 pr-5 rounded-2xl shadow-sm hover:shadow-zen transition-all duration-300">
+                    <div class="pt-8 w-full md:w-auto lang-es-only">
+                        <div onclick="openPromoWhatsApp('menu')" class="cursor-pointer group flex items-center gap-4 bg-white/70 backdrop-blur-sm hover:bg-white border border-theme-accent/30 p-3 pr-5 rounded-2xl shadow-sm hover:shadow-zen transition-all duration-300">
                             <div class="bg-theme-accent/20 text-theme-dark p-2 rounded-xl group-hover:bg-theme-accent group-hover:text-theme-base transition-colors">
                                 <i data-lucide="bell-ring" class="w-5 h-5 animate-pulse"></i>
                             </div>
                             <div class="text-left flex-1">
                                 <p class="text-[10px] font-bold text-theme-dark uppercase tracking-widest" data-i18n="hero_news_tag">Última Novedad</p>
-                                <p class="text-sm font-heading font-semibold text-theme-base mt-0.5" data-i18n="hero_news_txt">🎂 Topper-Manía: Diseño de autor por $180</p>
+                                <p class="text-sm font-heading font-semibold text-theme-base mt-0.5" data-i18n="hero_news_txt">🚀 Menú Web Profesional por $500 (Solo 3 lugares)</p>
                             </div>
                             <i data-lucide="chevron-right" class="w-5 h-5 text-theme-base/30 group-hover:text-theme-dark group-hover:translate-x-1 transition-all"></i>
                         </div>
@@ -538,20 +539,20 @@
                     </div>
                 </div>
 
-                <!-- Tarjeta 2 (Menú Digital) -->
+                <!-- Tarjeta 2 (Menú Web Profesional) -->
                 <div class="bg-white rounded-[2rem] border border-theme-base/5 shadow-zen hover:shadow-zen-hover transition-all duration-300 overflow-hidden group flex flex-col cursor-pointer" onclick="openPromoWhatsApp('menu')">
                     <div class="h-48 overflow-hidden relative">
-                        <img src="menu_digital.jpg" alt="Menú Digital en Smartphone" loading="lazy" decoding="async" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+                        <img src="menuqr.jpg" alt="Menú Web Profesional" loading="lazy" decoding="async" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
                         <div class="absolute top-4 left-4 bg-theme-base text-white text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full shadow-md" data-i18n="nov_2_tag">
-                            DIGITAL 🍔
+                            SOLO 3 LUGARES 🚀
                         </div>
                     </div>
                     <div class="p-6 flex-1 flex flex-col">
-                        <p class="text-xs text-theme-base/50 font-bold mb-3 flex items-center gap-1" data-i18n="nov_2_cat"><i data-lucide="smartphone" class="w-3 h-3 text-theme-dark"></i> Innovación</p>
-                        <h3 class="text-xl font-heading font-bold text-theme-base mb-3" data-i18n="nov_2_title">Menú Digital: Moderniza tu negocio por $500</h3>
-                        <p class="text-theme-base/70 text-sm mb-6 flex-1 leading-relaxed" data-i18n="nov_2_desc">¡Adiós a los menús de papel! Creamos tu página de menú profesional con tus fotos y textos. Rápido, tecnológico y fácil de usar por solo $500 MXN.</p>
+                        <p class="text-xs text-theme-base/50 font-bold mb-3 flex items-center gap-1" data-i18n="nov_2_cat"><i data-lucide="smartphone" class="w-3 h-3 text-theme-dark"></i> Promoción Especial</p>
+                        <h3 class="text-xl font-heading font-bold text-theme-base mb-3" data-i18n="nov_2_title">Menú Web Profesional: ¡Adiós al PDF pesado!</h3>
+                        <p class="text-theme-base/70 text-sm mb-6 flex-1 leading-relaxed" data-i18n="nov_2_desc">¡Ya no hagas que tus clientes sufran con un PDF que nunca carga! Buscamos 3 negocios para el catálogo 2026. Incluye: abre al segundo, diseño a tu estilo, pedidos por WA, reseñas en Google Maps y tu propia dirección web (estudio.xidito.com/tu-negocio). ¡Por solo $500 MXN!</p>
                         <span class="text-theme-dark font-bold text-sm flex items-center group-hover:text-theme-base transition-colors" data-i18n="nov_2_btn">
-                            Ver demostración <i data-lucide="arrow-right" class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform"></i>
+                            Apartar mi lugar <i data-lucide="arrow-right" class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform"></i>
                         </span>
                     </div>
                 </div>
@@ -592,10 +593,10 @@
                             <i data-lucide="zap" class="text-theme-dark w-5 h-5"></i> Canales Directos
                         </h3>
                         <div class="space-y-4 flex flex-col items-start w-full">
-                            <a id="btn-wa-direct" href="https://wa.me/524421260133?text=Hola%2C%20te%20contacto%20desde%20tu%20p%C3%A1gina" target="_blank" rel="noopener noreferrer" class="btn-zen btn-whatsapp w-full" data-i18n="cont_wa">
+                            <a id="btn-wa-direct" href="https://wa.me/524421260133?text=Hola%2C%20te%20contacto%20desde%20tu%20p%C3%A1gina" target="_blank" rel="noopener noreferrer" class="btn-zen btn-whatsapp w-full track-wa" data-i18n="cont_wa">
                                 <i data-lucide="message-circle" class="w-5 h-5"></i> WhatsApp Directo
                             </a>
-                            <a href="tel:+524421260133" class="btn-zen btn-base w-full mt-2" data-i18n="cont_tel">
+                            <a id="btn-call-directo" href="tel:+524421260133" class="btn-zen btn-base w-full mt-2" data-i18n="cont_tel">
                                 <i data-lucide="phone" class="w-5 h-5"></i> Tel: 442 126 01 33
                             </a>
                         </div>
@@ -679,7 +680,7 @@
                     <a href="https://www.facebook.com/profile.php?id=61579203017269" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-theme-accent hover:text-theme-base transition-colors shadow-sm">
                         <i data-lucide="facebook" class="w-5 h-5"></i>
                     </a>
-                    <a id="btn-wa-float" href="https://wa.me/524421260133" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-[#25D366] transition-colors shadow-sm">
+                    <a id="btn-wa-float-footer" href="https://wa.me/524421260133" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-[#25D366] transition-colors shadow-sm track-wa">
                         <i data-lucide="message-circle" class="w-5 h-5"></i>
                     </a>
                 </div>
@@ -700,16 +701,92 @@
 
     <!-- Botón Flotante WhatsApp -->
     <div class="fixed bottom-8 right-8 z-[100] group">
-        <a id="btn-wa-corner" href="https://wa.me/524421260133" target="_blank" rel="noopener noreferrer" aria-label="Chat WhatsApp" class="w-16 h-16 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-[0_10px_25px_rgba(37,211,102,0.4)] hover:bg-[#1DA851] hover:-translate-y-2 transition-all duration-300">
+        <a id="btn-wa-corner" href="https://wa.me/524421260133" target="_blank" rel="noopener noreferrer" aria-label="Chat WhatsApp" class="w-16 h-16 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-[0_10px_25px_rgba(37,211,102,0.4)] hover:bg-[#1DA851] hover:-translate-y-2 transition-all duration-300 track-wa">
             <i data-lucide="message-circle" class="w-8 h-8 fill-current"></i>
         </a>
     </div>
 
-    <!-- SCRIPT PRINCIPAL E INTERNACIONALIZACIÓN -->
+    <!-- SCRIPT PRINCIPAL, MÚLTIPLES IDIOMAS Y MÉTRICAS GA4 -->
     <script>
         lucide.createIcons();
 
-        // 1. DICCIONARIO DE TRADUCCIONES (i18n)
+        // ==========================================
+        // 1. SISTEMA DE MÉTRICAS GA4 (ESTUDIO XIDITO)
+        // ==========================================
+        
+        // Función segura para enviar a gtag
+        function sendEvent(eventName, params = {}) {
+            if (typeof gtag === 'function') {
+                gtag('event', eventName, params);
+                // console.log("GA4 Event:", eventName, params); // Descomentar para depurar
+            }
+        }
+
+        // Métrica 3: Duración de Sesión Precisa
+        let sessionStartTime = Date.now();
+        window.addEventListener('beforeunload', () => {
+            let sessionDurationSecs = Math.round((Date.now() - sessionStartTime) / 1000);
+            sendEvent('session_duracion', { valor_segundos: sessionDurationSecs });
+        });
+
+        // Métrica 2: Tasa de Interés Real (10 segundos)
+        setTimeout(() => {
+            sendEvent('engaged_10s', { status: 'activo' });
+        }, 10000);
+
+        // Métrica 6: Fidelidad del Usuario (Nuevo vs Recurrente)
+        const userType = localStorage.getItem('xidito_user') ? 'recurrente' : 'nuevo';
+        if (userType === 'nuevo') {
+            localStorage.setItem('xidito_user', 'true');
+        }
+        sendEvent('usuario_fidelidad', { tipo: userType });
+
+        // Métrica 5: Atribución de Tráfico (UTM Tracking)
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('utm_source') || urlParams.has('utm_campaign')) {
+            sendEvent('visita_campana', {
+                source: urlParams.get('utm_source') || 'directo',
+                medium: urlParams.get('utm_medium') || 'ninguno',
+                campaign: urlParams.get('utm_campaign') || 'organico'
+            });
+        }
+
+        // Métrica 4: Profundidad de Desplazamiento (Scroll Depth)
+        let scrollMarks = { 25: false, 50: false, 75: false, 100: false };
+        window.addEventListener('scroll', () => {
+            let scrollPercent = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+            [25, 50, 75, 100].forEach(mark => {
+                if (scrollPercent >= mark && !scrollMarks[mark]) {
+                    scrollMarks[mark] = true;
+                    sendEvent('scroll_depth', { porcentaje: mark });
+                }
+            });
+        });
+
+        // Métrica 9: Clic de Llamada Directa
+        document.getElementById('btn-call-directo')?.addEventListener('click', () => {
+            sendEvent('click_to_call', { ubicacion: 'seccion_contacto' });
+        });
+
+        // Métrica 8: Conversión Directa WhatsApp (Aplica a todos los botones con clase .track-wa)
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.track-wa').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    sendEvent('conversion_whatsapp', { origen: e.currentTarget.id || 'whatsapp_link' });
+                });
+            });
+            
+            // Disparar la primera vista de página (Métrica 1 SPA)
+            sendEvent('vista_seccion', { nombre_seccion: 'inicio' });
+            
+            // Métrica 7: Geolocalización básica por Zona Horaria
+            sendEvent('geolocalizacion_visitante', { zona_horaria: Intl.DateTimeFormat().resolvedOptions().timeZone });
+        });
+
+
+        // ==========================================
+        // 2. DICCIONARIO DE TRADUCCIONES (i18n)
+        // ==========================================
         const i18n = {
             es: {
                 meta_title: "Estudio Xidito | Rotulación, Diseño de Logotipos y Fotografía en Querétaro",
@@ -720,7 +797,7 @@
                 hero_btn_start: "<i data-lucide='zap' class='w-5 h-5'></i> Iniciar Proyecto",
                 hero_btn_cat: "Ver Catálogo",
                 hero_news_tag: "Última Novedad",
-                hero_news_txt: "🎂 Topper-Manía: Diseño de autor por $180",
+                hero_news_txt: "🚀 Menú Web Profesional por $500 (Solo 3 lugares)",
                 sect_serv_title: "Soluciones Industriales y Creativas",
                 modal_cat: "Catálogo de Soluciones",
                 modal_btn_back: "<i data-lucide='arrow-left' class='w-4 h-4'></i> Regresar",
@@ -742,10 +819,10 @@
                 nov_1_title: "Topper-Manía: ¡Dale vida a tu pastel!",
                 nov_1_desc: "Crea un impacto visual único con nuestros Cake Toppers multicapa personalizados. Calidad premium y diseño de autor por solo $180 MXN. ¡Haz tu pedido hoy!",
                 nov_1_btn: "Quiero mi Topper <i data-lucide='arrow-right' class='w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform'></i>",
-                nov_2_tag: "DIGITAL 🍔", nov_2_cat: "<i data-lucide='smartphone' class='w-3 h-3 text-theme-dark'></i> Innovación",
-                nov_2_title: "Menú Digital: Moderniza tu negocio por $500",
-                nov_2_desc: "¡Adiós a los menús de papel! Creamos tu página de menú profesional con tus fotos y textos. Rápido, tecnológico y fácil de usar por solo $500 MXN.",
-                nov_2_btn: "Ver demostración <i data-lucide='arrow-right' class='w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform'></i>",
+                nov_2_tag: "SOLO 3 LUGARES 🚀", nov_2_cat: "<i data-lucide='smartphone' class='w-3 h-3 text-theme-dark'></i> Promoción Especial",
+                nov_2_title: "Menú Web Profesional: ¡Adiós al PDF pesado!",
+                nov_2_desc: "¡Ya no hagas que tus clientes sufran con un PDF que nunca carga! Buscamos 3 negocios para el catálogo 2026. Incluye: abre al segundo, diseño a tu estilo, pedidos por WA, reseñas en Google Maps y tu propia dirección web (estudio.xidito.com/tu-negocio). ¡Por solo $500 MXN!",
+                nov_2_btn: "Apartar mi lugar <i data-lucide='arrow-right' class='w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform'></i>",
                 nov_3_tag: "PROMO 🏷️", nov_3_cat: "<i data-lucide='tag' class='w-3 h-3 text-theme-dark'></i> Más Vendidos",
                 nov_3_title: "Sticker Slap: ¡Tu marca en todos lados!",
                 nov_3_desc: "Llévate 10 planillas (1/4 de carta) con tus diseños favoritos y corte a contorno por solo $250 MXN. ¡Calidad profesional lista para pegar!",
@@ -771,7 +848,7 @@
                 wa_general: "Hola, te contacto desde tu página web.",
                 wa_service: "Hola, me interesa el servicio de ",
                 wa_topper: "Hola, quiero aprovechar la promo de Topper-Manía.",
-                wa_menu: "Hola, me interesa la promo del Menú Digital.",
+                wa_menu: "Hola, me interesa uno de los 3 lugares para la promo del Menú Web Profesional de $500.",
                 wa_sticker: "Hola, me interesan los paquetes de Sticker Slap.",
                 card_discover: "Descubrir más",
                 lang_select: "Seleccionar Idioma",
@@ -786,7 +863,7 @@
                 hero_btn_start: "<i data-lucide='zap' class='w-5 h-5'></i> Start Project",
                 hero_btn_cat: "View Catalog",
                 hero_news_tag: "Latest News",
-                hero_news_txt: "🎂 Topper-Mania: Author design for $180 MXN",
+                hero_news_txt: "🚀 Pro Web Menu for $500 MXN (Only 3 spots)",
                 sect_serv_title: "Industrial & Creative Solutions",
                 modal_cat: "Solutions Catalog",
                 modal_btn_back: "<i data-lucide='arrow-left' class='w-4 h-4'></i> Go Back",
@@ -808,10 +885,10 @@
                 nov_1_title: "Topper-Mania: Bring your cake to life!",
                 nov_1_desc: "Create a unique visual impact with our custom multi-layer Cake Toppers. Premium quality and author design for only $180 MXN. Order today!",
                 nov_1_btn: "I want my Topper <i data-lucide='arrow-right' class='w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform'></i>",
-                nov_2_tag: "DIGITAL 🍔", nov_2_cat: "<i data-lucide='smartphone' class='w-3 h-3 text-theme-dark'></i> Innovation",
-                nov_2_title: "Digital Menu: Modernize your business for $500",
-                nov_2_desc: "Goodbye paper menus! We create your professional menu page with your photos and texts. Fast, technological, and easy to use for only $500 MXN.",
-                nov_2_btn: "See demo <i data-lucide='arrow-right' class='w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform'></i>",
+                nov_2_tag: "ONLY 3 SPOTS 🚀", nov_2_cat: "<i data-lucide='smartphone' class='w-3 h-3 text-theme-dark'></i> Special Promo",
+                nov_2_title: "Pro Web Menu: Goodbye heavy PDFs!",
+                nov_2_desc: "Stop making your customers suffer with slow PDFs! We're looking for 3 businesses for our 2026 catalog. Includes: instant loading, custom design, WhatsApp orders, Google Maps reviews, and your own URL. Only $500 MXN!",
+                nov_2_btn: "Save my spot <i data-lucide='arrow-right' class='w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform'></i>",
                 nov_3_tag: "PROMO 🏷️", nov_3_cat: "<i data-lucide='tag' class='w-3 h-3 text-theme-dark'></i> Top Rated",
                 nov_3_title: "Sticker Slap: Your brand everywhere!",
                 nov_3_desc: "Get 10 sticker sheets with your favorite designs and contour cutting for only $250 MXN. Professional quality ready to stick!",
@@ -837,7 +914,7 @@
                 wa_general: "Hi, I'm contacting you from your website.",
                 wa_service: "Hi, I'm interested in the service of ",
                 wa_topper: "Hi, I want to take advantage of the Topper-Mania promo.",
-                wa_menu: "Hi, I'm interested in the Digital Menu promo.",
+                wa_menu: "Hi, I'm interested in one of the 3 spots for the $500 Pro Web Menu promo.",
                 wa_sticker: "Hi, I'm interested in the Sticker Slap packages.",
                 card_discover: "Discover more",
                 lang_select: "Select Language",
@@ -852,7 +929,7 @@
                 hero_btn_start: "<i data-lucide='zap' class='w-5 h-5'></i> 启动项目",
                 hero_btn_cat: "查看服务目录",
                 hero_news_tag: "最新动态",
-                hero_news_txt: "🎂 蛋糕插牌狂热：原创设计仅需 $180 MXN",
+                hero_news_txt: "🚀 专业网页菜单仅需 $500 MXN（仅限3个名额）",
                 sect_serv_title: "工业与创意解决方案",
                 modal_cat: "解决方案目录",
                 modal_btn_back: "<i data-lucide='arrow-left' class='w-4 h-4'></i> 返回",
@@ -874,10 +951,10 @@
                 nov_1_title: "Topper-Mania：让您的蛋糕焕发生机！",
                 nov_1_desc: "使用我们定制的多层蛋糕插牌，创造独特的视觉冲击。优质原创设计仅需 $180 MXN。今天就下单吧！",
                 nov_1_btn: "我想要插牌 <i data-lucide='arrow-right' class='w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform'></i>",
-                nov_2_tag: "数字化 🍔", nov_2_cat: "<i data-lucide='smartphone' class='w-3 h-3 text-theme-dark'></i> 创新",
-                nov_2_title: "数字菜单：$500 MXN 让业务现代化",
-                nov_2_desc: "告别纸质菜单！我们用您的照片和文字创建专业的菜单网页。快速、科技感且易用，只需 $500 MXN。",
-                nov_2_btn: "查看演示 <i data-lucide='arrow-right' class='w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform'></i>",
+                nov_2_tag: "仅限3个名额 🚀", nov_2_cat: "<i data-lucide='smartphone' class='w-3 h-3 text-theme-dark'></i> 特别促销",
+                nov_2_title: "专业网页菜单：告别笨重的 PDF！",
+                nov_2_desc: "别再让顾客忍受加载缓慢的PDF了！我们正在为2026年的目录寻找3家企业。包含：秒开加载、定制设计、WhatsApp订单、谷歌地图评论及您的专属网址。仅需 $500 MXN！",
+                nov_2_btn: "预留名额 <i data-lucide='arrow-right' class='w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform'></i>",
                 nov_3_tag: "促销 🏷️", nov_3_cat: "<i data-lucide='tag' class='w-3 h-3 text-theme-dark'></i> 最畅销",
                 nov_3_title: "Sticker Slap：让品牌无处不在！",
                 nov_3_desc: "仅需 $250 MXN，即可获得 10 张包含您最爱设计且沿边切割的贴纸。专业品质，随时可贴！",
@@ -903,7 +980,7 @@
                 wa_general: "你好，我从您的网站联系您。",
                 wa_service: "你好，我对这项服务感兴趣：",
                 wa_topper: "你好，我想参加 Topper-Mania 的优惠活动。",
-                wa_menu: "你好，我对数字菜单的优惠感兴趣。",
+                wa_menu: "你好，我对 $500 的专业网页菜单促销活动的3个名额之一感兴趣。",
                 wa_sticker: "你好，我对 Sticker Slap 套餐感兴趣。",
                 card_discover: "发现更多",
                 lang_select: "选择语言",
@@ -956,56 +1033,50 @@
         // Estado Global del Idioma
         let currentLang = localStorage.getItem('xidito_lang') || 'es';
 
-        // 2. FUNCIÓN MAESTRA DE CAMBIO DE IDIOMA Y TEMA
+        // 3. FUNCIÓN MAESTRA DE CAMBIO DE IDIOMA Y TEMA
         function setLanguage(lang) {
             currentLang = lang;
             localStorage.setItem('xidito_lang', lang);
-            
-            // Actualiza etiqueta HTML y clases de tema
-            const htmlRoot = document.getElementById('html-root');
-            htmlRoot.lang = lang;
-            htmlRoot.className = lang === 'es' ? 'selection-bg font-sans' : `selection-bg font-sans theme-${lang}`;
-            
-            document.getElementById('desktop-lang-label').innerText = lang.toUpperCase();
-
-            // Traducir todos los elementos con data-i18n
-            const elements = document.querySelectorAll('[data-i18n]');
-            elements.forEach(el => {
-                const key = el.getAttribute('data-i18n');
-                if(i18n[lang][key]) {
-                    el.innerHTML = i18n[lang][key];
-                }
-            });
-
             // Traducir atributos SEO y enlaces de WhatsApp
             document.querySelector('title').innerText = i18n[lang]['meta_title'];
             document.querySelector('meta[name="description"]').setAttribute('content', i18n[lang]['meta_desc']);
             
             document.getElementById('btn-wa-direct').href = `https://wa.me/524421260133?text=${encodeURIComponent(i18n[lang]['wa_general'])}`;
             
+            // Ocultar/Mostrar elementos exclusivos de español (Novedades y promo)
+            const esOnlyElements = document.querySelectorAll('.lang-es-only');
+            if(lang === 'es') {
+                esOnlyElements.forEach(el => el.style.display = '');
+            } else {
+                esOnlyElements.forEach(el => el.style.display = 'none');
+                // Si está en la sección de novedades y cambia de idioma, mandarlo a inicio
+                const novSection = document.getElementById('sec-novedades');
+                if(novSection && !novSection.classList.contains('hidden')) {
+                    navigate('inicio');
+                }
+            }
+
             // Renderizar datos dinámicos (Typewriter y Grid)
             resetTypewriter();
             renderServicesGrid();
             renderPortfolios();
 
-            // Refrescar íconos de Lucide
             setTimeout(() => lucide.createIcons(), 50);
 
-            // Cerrar menú móvil si está abierto
             const mobileMenu = document.getElementById('mobile-menu');
             if(!mobileMenu.classList.contains('hidden')) toggleMenu();
         }
 
-        // WhatsApp promos dinámico
         function openPromoWhatsApp(promoType) {
             let msg = "";
             if(promoType === 'topper') msg = i18n[currentLang]['wa_topper'];
             if(promoType === 'menu') msg = i18n[currentLang]['wa_menu'];
             if(promoType === 'sticker') msg = i18n[currentLang]['wa_sticker'];
             window.open(`https://wa.me/524421260133?text=${encodeURIComponent(msg)}`, '_blank');
+            sendEvent('conversion_whatsapp', { origen: 'promo_' + promoType }); // Evento GA4
         }
 
-        // 3. RE-RENDER DE SERVICIOS
+        // 4. RE-RENDER DE SERVICIOS
         function renderServicesGrid() {
             const grid = document.getElementById('services-grid');
             if(!grid) return;
@@ -1045,14 +1116,21 @@
             `).join('');
             document.getElementById('modal-details').innerHTML = detailsHtml;
             
-            // WhatsApp para Modal
             const msg = i18n[currentLang]['wa_service'] + service.label;
-            document.getElementById('modal-cta').href = `https://wa.me/524421260133?text=${encodeURIComponent(msg)}`;
+            
+            const btnCta = document.getElementById('modal-cta');
+            btnCta.href = `https://wa.me/524421260133?text=${encodeURIComponent(msg)}`;
+            
+            // Re-asignar evento para asegurar que se registre correctamente la cotización del servicio
+            btnCta.onclick = () => { sendEvent('conversion_whatsapp', { origen: 'cotizar_' + id }); };
 
             const modal = document.getElementById('service-modal');
             modal.classList.remove('hidden');
             modal.classList.add('flex');
             lucide.createIcons();
+            
+            // Enviar evento de vista de servicio
+            sendEvent('vista_servicio', { nombre_servicio: service.label });
         }
 
         function closeModal() {
@@ -1061,7 +1139,7 @@
             modal.classList.remove('flex');
         }
 
-        // 4. RE-RENDER DE PORTAFOLIO
+        // 5. RE-RENDER DE PORTAFOLIO
         function renderPortfolios() {
             const baseImages = ['portafolio1.jpg', 'portafolio2.jpg', 'portafolio3.jpg', 'portafolio4.jpg', 'portafolio5.jpg', 'portafolio6.jpg', 'portafolio7.jpg', 'portafolio8.jpg', 'portafolio9.jpg', 'portafolio10.jpg', 'portafolio11.jpg', 'portafolio12.jpg'];
             
@@ -1110,7 +1188,7 @@
             requestAnimationFrame(animateCenterJump);
         }
 
-        // 5. MÁQUINA DE ESCRIBIR MULTILINGÜE
+        // 6. MÁQUINA DE ESCRIBIR MULTILINGÜE
         let typeEl = document.getElementById('typewriter');
         let textIndex = 0;
         let charIndex = 0;
@@ -1158,7 +1236,7 @@
                 if (elementTop < windowHeight - elementVisible) reveals[i].classList.add("active");
             }
         }
-        window.addEventListener("scroll", reveal);
+        // Se adjunta al evento scroll global creado en la sección de métricas (línea 403)
 
         function navigate(sectionId) {
             document.querySelectorAll('.section-container').forEach(el => {
@@ -1183,6 +1261,9 @@
             
             window.scrollTo(0,0);
             setTimeout(reveal, 100); 
+            
+            // Disparar Métrica 1 (Vistas de Sección)
+            sendEvent('vista_seccion', { nombre_seccion: sectionId });
         }
 
         function toggleMenu() {
@@ -1198,11 +1279,13 @@
             lucide.createIcons();
         }
 
-        // --- ARRANQUE ---
+        // --- ARRANQUE COMPLETO ---
         document.addEventListener('DOMContentLoaded', () => {
             setLanguage(currentLang);
             startMarqueeAnimation();
             reveal();
+            // Aseguramos que se escuche el scroll para los efectos reveal independientemente de las métricas
+            window.addEventListener("scroll", reveal);
         });
 
     </script>
