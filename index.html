@@ -1037,6 +1037,22 @@
         function setLanguage(lang) {
             currentLang = lang;
             localStorage.setItem('xidito_lang', lang);
+            
+            const htmlRoot = document.getElementById('html-root');
+            htmlRoot.lang = lang;
+            htmlRoot.className = lang === 'es' ? 'selection-bg font-sans' : `selection-bg font-sans theme-${lang}`;
+            
+            document.getElementById('desktop-lang-label').innerText = lang.toUpperCase();
+
+            // Traducir todos los elementos con data-i18n
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if(i18n[lang][key]) {
+                    el.innerHTML = i18n[lang][key];
+                }
+            });
+
             // Traducir atributos SEO y enlaces de WhatsApp
             document.querySelector('title').innerText = i18n[lang]['meta_title'];
             document.querySelector('meta[name="description"]').setAttribute('content', i18n[lang]['meta_desc']);
