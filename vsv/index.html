@@ -11,73 +11,92 @@
         body { font-family: 'Inter', sans-serif; background-color: #fffcfb; scroll-behavior: smooth; overflow-x: hidden; }
         .font-serif { font-family: 'Playfair Display', serif; }
         
-        /* Animación de flotado sutil para el logo */
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-        }
-        .animate-float { animation: float 6s ease-in-out infinite; }
-
-        /* Video de fondo: Extra Blur y Cámara Lenta */
+        /* Video de fondo con Blur moderado */
         .video-container {
             position: absolute;
             inset: 0;
             overflow: hidden;
             z-index: 0;
         }
-        .video-blur {
-            filter: blur(60px) brightness(0.75); /* Blur aumentado */
-            transform: scale(1.25);
+        .video-overlay {
+            filter: blur(12px); /* Blur disminuido para mayor claridad */
+            transform: scale(1.1);
             width: 100%;
             height: 100%;
             object-fit: cover;
+            opacity: 0.9;
+        }
+
+        /* Logo Estilo Marca de Agua */
+        .watermark-container {
+            position: relative;
+            z-index: 10;
+            opacity: 0.12; /* Sutil marca de agua */
+            mix-blend-mode: soft-light;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+        .watermark-logo {
+            max-width: 400px;
+            filter: grayscale(100%);
         }
 
         /* Transiciones de Página */
         .page-content { display: none; }
-        .page-active { display: block; animation: fadeIn 1s ease-out forwards; }
+        .page-active { display: block; animation: fadeIn 0.8s ease-out forwards; }
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Carrusel Elegante */
+        /* Carrusel de Iconos Elegantes */
         .carousel-track {
             display: flex;
-            transition: transform 0.9s cubic-bezier(0.65, 0, 0.35, 1);
+            transition: transform 0.8s cubic-bezier(0.45, 0, 0.55, 1);
         }
         .carousel-card {
             flex: 0 0 100%;
-            padding: 0 12px;
+            padding: 0 10px;
         }
         @media (min-width: 768px) {
             .carousel-card { flex: 0 0 33.333%; }
         }
 
-        .shadow-cute { shadow: 0 20px 40px -15px rgba(244, 63, 94, 0.15); }
+        /* Estilo de los Iconos del Carrusel */
+        .icon-box {
+            background: linear-gradient(135deg, #fffcfb 0%, #fef2f2 100%);
+            border: 1px solid rgba(244, 63, 94, 0.1);
+            transition: all 0.5s ease;
+        }
+        .icon-box:hover {
+            background: #fff;
+            border-color: rgba(244, 63, 94, 0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -20px rgba(244, 63, 94, 0.2);
+        }
     </style>
 </head>
 <body class="selection:bg-rose-100">
 
-    <!-- Barra de Navegación -->
+    <!-- Navegación -->
     <nav id="navbar" class="fixed w-full z-50 transition-all duration-700 py-6 px-6">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <button onclick="toggleMenu()" class="md:hidden text-white" id="menuIcon">
                 <i data-lucide="menu" size="28"></i>
             </button>
 
-            <div class="hidden md:flex gap-10 flex-1">
-                <button onclick="showPage('home')" class="nav-link text-[10px] uppercase tracking-[0.4em] font-bold text-white/80 hover:text-white">Inicio</button>
-                <button onclick="showPage('about')" class="nav-link text-[10px] uppercase tracking-[0.4em] font-bold text-white/80 hover:text-white">La Diseñadora</button>
+            <div class="hidden md:flex gap-12 flex-1">
+                <button onclick="showPage('home')" class="nav-link text-[10px] uppercase tracking-[0.4em] font-bold text-white/70 hover:text-white transition-all">Inicio</button>
+                <button onclick="showPage('about')" class="nav-link text-[10px] uppercase tracking-[0.4em] font-bold text-white/70 hover:text-white transition-all">La Diseñadora</button>
             </div>
 
             <div class="cursor-pointer" onclick="showPage('home')">
-                <img src="logo.png" alt="Logo" id="navLogo" class="h-10 md:h-12 brightness-0 invert">
+                <img src="logo.png" alt="VSV Logo" id="navLogo" class="h-10 md:h-12 brightness-0 invert opacity-80">
             </div>
 
             <div class="flex-1 flex justify-end items-center gap-6">
-                <button onclick="showPage('contact')" class="nav-link hidden md:block text-[10px] uppercase tracking-[0.4em] font-bold text-white/80 hover:text-white">Contacto</button>
-                <button onclick="toggleLang()" id="langBtn" class="bg-rose-500 text-white px-5 py-2 rounded-full text-[9px] uppercase tracking-widest font-bold hover:bg-rose-600 transition-all">
+                <button onclick="showPage('contact')" class="nav-link hidden md:block text-[10px] uppercase tracking-[0.4em] font-bold text-white/70 hover:text-white transition-all">Contacto</button>
+                <button onclick="toggleLang()" id="langBtn" class="bg-rose-500/80 text-white px-5 py-2 rounded-full text-[9px] uppercase tracking-widest font-bold hover:bg-rose-600 transition-all backdrop-blur-md">
                     English
                 </button>
             </div>
@@ -85,15 +104,15 @@
     </nav>
 
     <!-- Menú Móvil -->
-    <div id="mobileMenu" class="fixed inset-0 z-[60] bg-[#fffcfb] hidden flex-col p-10">
+    <div id="mobileMenu" class="fixed inset-0 z-[60] bg-[#fffcfb] hidden flex-col p-12">
         <div class="flex justify-between items-center mb-20">
             <img src="logo.png" alt="Logo" class="h-10">
             <button onclick="toggleMenu()" class="text-rose-950"><i data-lucide="x" size="32"></i></button>
         </div>
         <div class="flex flex-col gap-10 text-4xl font-serif italic text-rose-950/40">
-            <button onclick="showPage('home')" class="text-left hover:text-rose-900 transition-all">Inicio</button>
-            <button onclick="showPage('about')" class="text-left hover:text-rose-900 transition-all">La Diseñadora</button>
-            <button onclick="showPage('contact')" class="text-left hover:text-rose-900 transition-all">Contacto</button>
+            <button onclick="showPage('home')" class="text-left hover:text-rose-950 transition-all">Inicio</button>
+            <button onclick="showPage('about')" class="text-left hover:text-rose-950 transition-all">La Diseñadora</button>
+            <button onclick="showPage('contact')" class="text-left hover:text-rose-950 transition-all">Contacto</button>
         </div>
     </div>
 
@@ -101,72 +120,75 @@
     <section id="home" class="page-content page-active">
         <div class="relative h-screen flex items-center justify-center overflow-hidden">
             <div class="video-container">
-                <video id="bgVideo" autoplay muted loop playsinline class="video-blur">
+                <video id="bgVideo" autoplay muted loop playsinline class="video-overlay">
                     <source src="fondovid.mp4" type="video/mp4">
                 </video>
             </div>
             
-            <div class="relative z-10 text-center px-6">
-                <img src="logo.png" alt="VSV Logo" class="w-64 md:w-80 mx-auto mb-8 animate-float drop-shadow-2xl">
-                <p id="heroSub" class="text-white/90 uppercase tracking-[0.5em] text-[10px] md:text-xs font-bold mb-10 drop-shadow-lg">
+            <!-- Logo Marca de Agua -->
+            <div class="watermark-container">
+                <img src="logo.png" alt="VSV Watermark" class="watermark-logo">
+            </div>
+
+            <div class="absolute bottom-24 z-20 text-center px-6">
+                <p id="heroSub" class="text-white/70 uppercase tracking-[0.5em] text-[10px] md:text-xs font-bold mb-8 drop-shadow-sm">
                     Arte en Diseño por Valeria Santoyo V.
                 </p>
-                <button onclick="showPage('about')" id="heroBtn" class="px-12 py-4 bg-white/95 text-rose-900 uppercase text-[10px] tracking-[0.4em] font-bold rounded-full hover:bg-rose-900 hover:text-white transition-all shadow-2xl backdrop-blur-sm">
-                    Explorar Universo
+                <button onclick="showPage('about')" id="heroBtn" class="px-10 py-3 bg-white/10 border border-white/20 text-white uppercase text-[10px] tracking-[0.4em] font-bold rounded-full hover:bg-white hover:text-rose-900 transition-all backdrop-blur-md">
+                    Descubrir
                 </button>
             </div>
         </div>
 
-        <!-- Instagram Feed Carousel -->
+        <!-- Carrusel de Instagram con Iconos -->
         <div class="py-32 px-6 max-w-7xl mx-auto overflow-hidden">
             <div class="text-center mb-20">
-                <h3 id="instaTitle" class="text-4xl font-serif italic text-rose-950 mb-4">Momentos de Instagram</h3>
-                <div class="h-0.5 w-16 bg-rose-200 mx-auto mb-6"></div>
-                <a href="https://www.instagram.com/vsv.arteendiseno/" target="_blank" class="text-[11px] uppercase tracking-[0.4em] text-rose-400 font-bold hover:text-rose-600 transition-all">@vsv.arteendiseno</a>
+                <h3 id="instaTitle" class="text-3xl font-serif italic text-rose-950 mb-4">Momentos de Instagram</h3>
+                <div class="h-0.5 w-16 bg-rose-200 mx-auto"></div>
+                <p class="text-[10px] uppercase tracking-widest text-rose-300 mt-4">Explora nuestras piezas exclusivas</p>
             </div>
 
-            <div class="relative">
+            <div class="relative px-4">
                 <div class="carousel-track" id="instaTrack">
-                    <!-- Los posts se inyectan aquí -->
+                    <!-- Iconos inyectados por JS -->
                 </div>
                 
-                <!-- Botones de Navegación del Carrusel -->
-                <button onclick="moveCarousel(-1)" class="absolute -left-4 top-1/2 -translate-y-1/2 bg-white/95 p-4 rounded-full shadow-xl text-rose-900 hidden md:block hover:bg-rose-50 transition-all z-10">
+                <button onclick="moveCarousel(-1)" class="absolute -left-2 top-1/2 -translate-y-1/2 bg-white/90 p-4 rounded-full shadow-lg text-rose-900 hidden md:block hover:bg-rose-50 transition-all z-10">
                     <i data-lucide="chevron-left"></i>
                 </button>
-                <button onclick="moveCarousel(1)" class="absolute -right-4 top-1/2 -translate-y-1/2 bg-white/95 p-4 rounded-full shadow-xl text-rose-900 hidden md:block hover:bg-rose-50 transition-all z-10">
+                <button onclick="moveCarousel(1)" class="absolute -right-2 top-1/2 -translate-y-1/2 bg-white/90 p-4 rounded-full shadow-lg text-rose-900 hidden md:block hover:bg-rose-50 transition-all z-10">
                     <i data-lucide="chevron-right"></i>
                 </button>
             </div>
         </div>
     </section>
 
-    <!-- SECCIÓN: LA DISEÑADORA (ABOUT) -->
+    <!-- SECCIÓN: LA DISEÑADORA -->
     <section id="about" class="page-content pt-40 pb-24 px-6 max-w-7xl mx-auto">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
             <div class="relative">
-                <div class="absolute inset-0 bg-rose-100 rounded-[120px] rotate-2 -z-10 opacity-40"></div>
-                <img src="valeria.png" alt="Valeria Santoyo V." class="w-full h-[650px] object-cover rounded-[120px] shadow-2xl border-[15px] border-white" onerror="this.src='https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1000'">
+                <div class="absolute inset-0 bg-rose-100 rounded-[100px] rotate-2 -z-10 opacity-30"></div>
+                <img src="valeria.png" alt="Valeria Santoyo V." class="w-full h-[600px] object-cover rounded-[100px] shadow-2xl border-[15px] border-white" onerror="this.src='https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1000'">
             </div>
             <div class="lg:pl-10">
-                <span id="aboutSub" class="text-rose-400 font-serif italic mb-4 block tracking-[0.3em] uppercase text-sm">Diseñadora & Creadora</span>
-                <h2 id="aboutTitle" class="text-6xl font-serif italic mb-10 text-rose-950">Valeria Santoyo V.</h2>
-                <div class="space-y-8">
-                    <p id="aboutText1" class="text-gray-600 text-xl leading-relaxed font-light italic border-l-4 border-rose-200 pl-8">
-                        "Mi taller es donde la materia se vuelve alma. Busco piezas orgánicas que no solo adornen, sino que cuenten la esencia de quien las lleva."
+                <span id="aboutSub" class="text-rose-400 font-serif italic mb-2 block tracking-widest uppercase text-sm">Diseñadora & Creadora</span>
+                <h2 id="aboutTitle" class="text-6xl font-serif italic mb-8 text-rose-950 leading-tight">Valeria Santoyo V.</h2>
+                <div class="space-y-8 text-gray-600 font-light text-lg italic">
+                    <p id="aboutText1" class="border-l-4 border-rose-100 pl-6 leading-relaxed">
+                        "Mi taller es el lugar donde la naturaleza encuentra una nueva forma de brillar a través de mis manos."
                     </p>
-                    <p id="aboutText2" class="text-gray-500 text-lg leading-relaxed">
-                        Con un enfoque artesanal único, Valeria Santoyo V. crea accesorios que fusionan técnicas tradicionales con la belleza natural de las piedras.
+                    <p id="aboutText2" class="leading-relaxed not-italic">
+                        Cada accesorio de VSV es una pieza de autor, concebida con paciencia y diseñada para resaltar la esencia única de quien la porta.
                     </p>
                 </div>
-                <div class="flex gap-10 mt-16">
+                <div class="flex gap-12 mt-12">
                     <div class="text-center">
-                        <div class="w-16 h-16 bg-white shadow-md rounded-full flex items-center justify-center mb-3 text-rose-500 mx-auto"><i data-lucide="heart" size="22"></i></div>
+                        <div class="w-16 h-16 bg-white shadow-md rounded-full flex items-center justify-center mb-3 text-rose-500 mx-auto"><i data-lucide="sparkles" size="24"></i></div>
                         <span class="text-[9px] uppercase tracking-widest font-bold text-rose-300">Hecho a Mano</span>
                     </div>
                     <div class="text-center">
-                        <div class="w-16 h-16 bg-white shadow-md rounded-full flex items-center justify-center mb-3 text-rose-500 mx-auto"><i data-lucide="star" size="22"></i></div>
-                        <span class="text-[9px] uppercase tracking-widest font-bold text-rose-300">Diseño de Autor</span>
+                        <div class="w-16 h-16 bg-white shadow-md rounded-full flex items-center justify-center mb-3 text-rose-500 mx-auto"><i data-lucide="gem" size="24"></i></div>
+                        <span class="text-[9px] uppercase tracking-widest font-bold text-rose-300">Diseño Único</span>
                     </div>
                 </div>
             </div>
@@ -178,24 +200,24 @@
         <div class="bg-white rounded-[60px] shadow-2xl overflow-hidden border border-rose-50 flex flex-col md:flex-row">
             <div class="md:w-2/5 bg-rose-950 p-12 text-rose-100 flex flex-col justify-center">
                 <h2 id="contactTitle" class="text-4xl font-serif italic mb-8 text-white">Hablemos</h2>
-                <p id="contactSub" class="mb-12 text-rose-200/50 leading-relaxed text-sm">¿Deseas una pieza exclusiva o tienes alguna duda?</p>
+                <p id="contactSub" class="mb-12 text-rose-200/40 text-sm leading-relaxed font-light italic">¿Tienes una idea en mente para una pieza especial?</p>
                 <div class="space-y-8">
-                    <a href="https://www.instagram.com/vsv.arteendiseno/" target="_blank" class="flex items-center gap-5 hover:text-rose-400 transition-all">
-                        <i data-lucide="instagram" size="22"></i> @vsv.arteendiseno
+                    <a href="https://www.instagram.com/vsv.arteendiseno/" target="_blank" class="flex items-center gap-4 hover:text-rose-400 transition-all text-sm tracking-widest">
+                        <i data-lucide="instagram" size="20"></i> INSTAGRAM
                     </a>
-                    <a href="https://wa.me/5210000000000" class="flex items-center gap-5 hover:text-rose-400 transition-all">
-                        <i data-lucide="message-circle" size="22"></i> WhatsApp Directo
+                    <a href="https://wa.me/5210000000000" class="flex items-center gap-4 hover:text-rose-400 transition-all text-sm tracking-widest">
+                        <i data-lucide="message-circle" size="20"></i> WHATSAPP
                     </a>
                 </div>
             </div>
             <div class="md:w-3/5 p-12 md:p-20 space-y-8">
-                <div class="group">
-                    <label class="text-[10px] uppercase tracking-widest text-gray-400 block mb-2 font-bold group-focus-within:text-rose-500 transition-all">Tu Nombre</label>
-                    <input type="text" class="w-full bg-transparent border-b border-rose-100 py-3 focus:border-rose-500 outline-none transition-all placeholder-rose-200" placeholder="...">
+                <div>
+                    <label class="text-[10px] uppercase tracking-widest text-gray-400 block mb-3 font-bold">Nombre</label>
+                    <input type="text" class="w-full bg-transparent border-b border-rose-100 py-3 focus:border-rose-500 outline-none transition-all placeholder-rose-100/30" placeholder="...">
                 </div>
-                <div class="group">
-                    <label class="text-[10px] uppercase tracking-widest text-gray-400 block mb-2 font-bold group-focus-within:text-rose-500 transition-all">Tu Mensaje</label>
-                    <textarea class="w-full bg-transparent border-b border-rose-100 py-3 focus:border-rose-500 outline-none transition-all h-32 resize-none placeholder-rose-200" placeholder="Escribe aquí..."></textarea>
+                <div>
+                    <label class="text-[10px] uppercase tracking-widest text-gray-400 block mb-3 font-bold">Mensaje</label>
+                    <textarea class="w-full bg-transparent border-b border-rose-100 py-3 focus:border-rose-500 outline-none transition-all h-32 resize-none placeholder-rose-100/30" placeholder="¿Cómo puedo ayudarte?"></textarea>
                 </div>
                 <button id="contactBtn" class="w-full bg-rose-600 text-white py-5 rounded-full text-[11px] uppercase tracking-[0.4em] font-bold hover:bg-rose-900 shadow-xl transition-all">
                     Enviar Consulta
@@ -204,85 +226,82 @@
         </div>
     </section>
 
-    <!-- Pie de Página -->
+    <!-- Footer -->
     <footer class="bg-white py-24 px-6 border-t border-rose-50 text-center">
-        <img src="logo.png" alt="Logo" class="h-16 mx-auto mb-10">
-        <p class="text-[11px] text-rose-300 uppercase tracking-[0.6em] font-bold mb-12 italic">Valeria Santoyo V.</p>
+        <img src="logo.png" alt="Logo" class="h-16 mx-auto mb-10 opacity-30 grayscale">
+        <p class="text-[11px] text-rose-300 uppercase tracking-[0.6em] font-bold mb-12">Valeria Santoyo V.</p>
         <div class="flex justify-center gap-12 mb-16">
-            <a href="https://www.instagram.com/vsv.arteendiseno/" target="_blank" class="text-rose-200 hover:text-rose-600 transition-all transform hover:scale-125"><i data-lucide="instagram" size="28"></i></a>
-            <a href="https://www.facebook.com/vsvbolsasyaccesorios/photos" target="_blank" class="text-rose-200 hover:text-rose-600 transition-all transform hover:scale-125"><i data-lucide="facebook" size="28"></i></a>
-            <a href="https://wa.me/5210000000000" class="text-rose-200 hover:text-rose-600 transition-all transform hover:scale-125"><i data-lucide="message-circle" size="28"></i></a>
+            <a href="https://www.instagram.com/vsv.arteendiseno/" target="_blank" class="text-rose-200 hover:text-rose-500 transition-all transform hover:scale-125"><i data-lucide="instagram" size="26"></i></a>
+            <a href="https://www.facebook.com/vsvbolsasyaccesorios/photos" target="_blank" class="text-rose-200 hover:text-rose-500 transition-all transform hover:scale-125"><i data-lucide="facebook" size="26"></i></a>
+            <a href="https://wa.me/5210000000000" class="text-rose-200 hover:text-rose-600 transition-all transform hover:scale-125"><i data-lucide="message-circle" size="26"></i></a>
         </div>
         <div class="text-[9px] uppercase tracking-[0.5em] text-gray-300">
-            © 2024 VSV Arte en Diseño • Handmade with Soul for Valeria
+            © 2024 VSV Arte en Diseño • Joyería de Autor
         </div>
     </footer>
 
     <!-- Botón Flotante -->
     <a href="https://wa.me/5210000000000" class="fixed bottom-10 right-10 z-40 bg-rose-500 text-white p-5 rounded-full shadow-2xl hover:scale-110 active:scale-95 transition-all">
-        <i data-lucide="message-circle" size="32"></i>
+        <i data-lucide="message-circle" size="30"></i>
     </a>
 
     <script>
         // Inicializar Iconos
         lucide.createIcons();
 
-        // Configuración de Video: CÁMARA LENTA
+        // Control de Video: Cámara Lenta (35%)
         window.onload = function() {
             const video = document.getElementById('bgVideo');
-            if(video) video.playbackRate = 0.3; // 30% de velocidad original para máxima elegancia
+            if(video) video.playbackRate = 0.35;
             renderInstagram();
         };
 
-        // Estado del Sitio
+        // Estado
         let currentLang = 'es';
         let carouselIdx = 0;
 
-        // Base de Datos de Instagram (Ligas Proporcionadas)
+        // Base de Datos de Instagram con Iconos Elegantes
         const instaPosts = [
-            { link: "https://www.instagram.com/vsv.arteendiseno/p/DXzdYfJFnR-/", img: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338" },
-            { link: "https://www.instagram.com/vsv.arteendiseno/p/DXzcyT1lk_D/", img: "https://images.unsplash.com/photo-1617038220319-276d3cfab638" },
-            { link: "https://www.instagram.com/vsv.arteendiseno/p/DXzcs9FFlgr/", img: "https://images.unsplash.com/photo-1596704017254-9b121068fb31" },
-            { link: "https://www.instagram.com/vsv.arteendiseno/p/DXzb1atlvc7/", img: "https://images.unsplash.com/photo-1535632063477-ba3fbf204421" },
-            { link: "https://www.instagram.com/vsv.arteendiseno/p/DXzboB5lsBs/", img: "https://images.unsplash.com/photo-1601121141458-f2428562704e" },
-            { link: "https://www.instagram.com/vsv.arteendiseno/p/DXzcgU3FsR7/", img: "https://images.unsplash.com/photo-1599643478518-d74485119dc4" },
-            { link: "https://www.instagram.com/vsv.arteendiseno/p/DXzZprkFj2d/", img: "https://images.unsplash.com/photo-1581605405669-fcdf81165afa" },
-            { link: "https://www.instagram.com/vsv.arteendiseno/reel/DXtDtXJjp12/", img: "https://images.unsplash.com/photo-1611085507273-212bb1241518" },
-            { link: "https://www.instagram.com/vsv.arteendiseno/p/DXzaA3EFiyu/", img: "https://images.unsplash.com/photo-1512163143273-bde0e3cc7407" },
-            { link: "https://www.instagram.com/vsv.arteendiseno/p/DXtAO_djtEa/", img: "https://images.unsplash.com/photo-1576053139778-7e32f2ae3cfd" }
+            { link: "https://www.instagram.com/vsv.arteendiseno/p/DXzdYfJFnR-/", icon: "flower-2" },
+            { link: "https://www.instagram.com/vsv.arteendiseno/p/DXzcyT1lk_D/", icon: "gem" },
+            { link: "https://www.instagram.com/vsv.arteendiseno/p/DXzcs9FFlgr/", icon: "sparkles" },
+            { link: "https://www.instagram.com/vsv.arteendiseno/p/DXzb1atlvc7/", icon: "heart" },
+            { link: "https://www.instagram.com/vsv.arteendiseno/p/DXzboB5lsBs/", icon: "star" },
+            { link: "https://www.instagram.com/vsv.arteendiseno/p/DXzcgU3FsR7/", icon: "sun" },
+            { link: "https://www.instagram.com/vsv.arteendiseno/p/DXzZprkFj2d/", icon: "moon" },
+            { link: "https://www.instagram.com/vsv.arteendiseno/reel/DXtDtXJjp12/", icon: "clapperboard" },
+            { link: "https://www.instagram.com/vsv.arteendiseno/p/DXzaA3EFiyu/", icon: "diamond" },
+            { link: "https://www.instagram.com/vsv.arteendiseno/p/DXtAO_djtEa/", icon: "crown" }
         ];
 
-        // Diccionario de Idiomas
+        // Traducciones
         const langData = {
             es: {
                 navHome: "Inicio", navAbout: "La Diseñadora", navContact: "Contacto", lang: "English",
-                heroSub: "Arte en Diseño por Valeria Santoyo V.", heroBtn: "Explorar Universo",
+                heroSub: "Arte en Diseño por Valeria Santoyo V.", heroBtn: "Descubrir",
                 instaTitle: "Momentos de Instagram", aboutSub: "Diseñadora & Creadora",
-                aboutTitle: "Valeria Santoyo V.", aboutText1: '"Mi taller es donde la materia se vuelve alma. Busco piezas orgánicas que no solo adornen, sino que cuenten la esencia de quien las lleva."',
-                aboutText2: "Con un enfoque artesanal único, Valeria Santoyo V. crea accesorios que fusionan técnicas tradicionales con la belleza natural de las piedras.",
-                contactTitle: "Hablemos", contactSub: "¿Deseas una pieza exclusiva o tienes alguna duda?", contactBtn: "Enviar Consulta"
+                aboutTitle: "Valeria Santoyo V.", aboutText1: '"Mi taller es el lugar donde la naturaleza encuentra una nueva forma de brillar a través de mis manos."',
+                aboutText2: "Cada accesorio de VSV es una pieza de autor, concebida con paciencia y diseñada para resaltar la esencia única de quien la porta.",
+                contactTitle: "Hablemos", contactSub: "¿Tienes una idea en mente para una pieza especial?", contactBtn: "Enviar Consulta"
             },
             en: {
                 navHome: "Home", navAbout: "The Designer", navContact: "Contact", lang: "Español",
-                heroSub: "Art in Design by Valeria Santoyo V.", heroBtn: "Explore Universe",
+                heroSub: "Art in Design by Valeria Santoyo V.", heroBtn: "Discover",
                 instaTitle: "Instagram Moments", aboutSub: "Designer & Creator",
-                aboutTitle: "Valeria Santoyo V.", aboutText1: '"My workshop is where matter becomes soul. I seek organic pieces that don\'t just adorn, but tell the essence of who wears them."',
-                aboutText2: "With a unique artisanal approach, Valeria Santoyo V. creates accessories that fuse traditional techniques with the natural beauty of stones.",
-                contactTitle: "Let's Talk", contactSub: "Looking for an exclusive piece or have a question?", contactBtn: "Send Inquiry"
+                aboutTitle: "Valeria Santoyo V.", aboutText1: '"My workshop is where nature finds a new way to shine through my hands."',
+                aboutText2: "Each VSV accessory is an artist's piece, conceived with patience and designed to highlight the unique essence of the wearer.",
+                contactTitle: "Let's Talk", contactSub: "Do you have an idea in mind for a special piece?", contactBtn: "Send Inquiry"
             }
         };
 
-        // Renderizar el Carrusel de Instagram
+        // Renderizar Carrusel con Iconos
         function renderInstagram() {
             const track = document.getElementById('instaTrack');
             track.innerHTML = instaPosts.map(post => `
                 <div class="carousel-card">
-                    <a href="${post.link}" target="_blank" class="block group">
-                        <div class="aspect-square bg-rose-50 rounded-[60px] overflow-hidden border-4 border-white shadow-xl relative">
-                            <img src="${post.img}?q=80&w=800" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
-                            <div class="absolute inset-0 bg-rose-900/20 opacity-0 group-hover:opacity-100 transition-all flex items-center justify-center">
-                                <i data-lucide="instagram" class="text-white" size="32"></i>
-                            </div>
+                    <a href="${post.link}" target="_blank" class="block">
+                        <div class="aspect-square flex items-center justify-center rounded-[60px] icon-box">
+                            <i data-lucide="${post.icon}" class="text-rose-300" size="48"></i>
                         </div>
                     </a>
                 </div>
@@ -290,34 +309,30 @@
             lucide.createIcons();
         }
 
-        // Navegación del Carrusel
+        // Navegación Carrusel
         function moveCarousel(dir) {
             const track = document.getElementById('instaTrack');
             const visible = window.innerWidth < 768 ? 1 : 3;
             const max = instaPosts.length - visible;
-            
             carouselIdx += dir;
             if (carouselIdx < 0) carouselIdx = max;
             if (carouselIdx > max) carouselIdx = 0;
-            
             const offset = carouselIdx * (100 / visible);
             track.style.transform = `translateX(-${offset}%)`;
         }
 
-        // Navegación de Secciones
+        // Cambio de Páginas
         function showPage(id) {
             document.querySelectorAll('.page-content').forEach(p => p.classList.remove('page-active'));
             document.getElementById(id).classList.add('page-active');
-            
             const nav = document.getElementById('navbar');
             const logo = document.getElementById('navLogo');
             const links = document.querySelectorAll('.nav-link');
-
             if (id !== 'home') {
                 nav.classList.add('bg-white/95', 'shadow-sm', 'py-4');
                 nav.classList.remove('py-6');
                 logo.classList.remove('brightness-0', 'invert');
-                links.forEach(l => l.classList.replace('text-white/80', 'text-gray-400'));
+                links.forEach(l => l.classList.replace('text-white/70', 'text-gray-400'));
             } else {
                 handleScroll();
             }
@@ -325,23 +340,22 @@
             toggleMenu(false);
         }
 
-        // Control del Scroll
+        // Control de Scroll
         function handleScroll() {
             if (document.getElementById('home').classList.contains('page-active')) {
                 const nav = document.getElementById('navbar');
                 const logo = document.getElementById('navLogo');
                 const links = document.querySelectorAll('.nav-link');
-
                 if (window.scrollY > 50) {
                     nav.classList.add('bg-white/95', 'shadow-sm', 'py-4');
                     nav.classList.remove('py-6');
                     logo.classList.remove('brightness-0', 'invert');
-                    links.forEach(l => l.classList.replace('text-white/80', 'text-gray-400'));
+                    links.forEach(l => l.classList.replace('text-white/70', 'text-gray-400'));
                 } else {
                     nav.classList.remove('bg-white/95', 'shadow-sm', 'py-4');
                     nav.classList.add('py-6');
                     logo.classList.add('brightness-0', 'invert');
-                    links.forEach(l => l.classList.replace('text-gray-400', 'text-white/80'));
+                    links.forEach(l => l.classList.replace('text-gray-400', 'text-white/70'));
                 }
             }
         }
@@ -354,7 +368,7 @@
             else menu.classList.toggle('hidden');
         }
 
-        // Traducción de Idiomas
+        // Cambio de Idioma
         function toggleLang() {
             currentLang = currentLang === 'es' ? 'en' : 'es';
             const t = langData[currentLang];
@@ -371,9 +385,8 @@
             document.getElementById('contactBtn').innerText = t.contactBtn;
         }
 
-        // Auto-carrusel cada 6 segundos
+        // Auto-carrusel
         setInterval(() => moveCarousel(1), 6000);
-
     </script>
 </body>
 </html>
