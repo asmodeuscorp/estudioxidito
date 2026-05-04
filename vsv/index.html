@@ -1,147 +1,182 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { 
-  Instagram, Facebook, MessageCircle, 
-  ChevronRight, Menu, X, Heart, Star, Globe, 
-  MapPin, Mail, Phone, ArrowLeft, Sparkles, Flower,
-  ChevronLeft
+  Instagram, 
+  Facebook, 
+  MessageCircle, 
+  ChevronRight, 
+  ChevronLeft,
+  Menu, 
+  X, 
+  Heart, 
+  Star, 
+  Globe, 
+  Sparkles, 
+  Flower 
 } from 'lucide-react';
 
 const App = () => {
+  // --- State Management ---
   const [currentPage, setCurrentPage] = useState('home');
   const [language, setLanguage] = useState('es');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [carouselIndex, setCarouselIndex] = useState(0);
 
-  // Diccionario de traducciones
+  // --- Content Dictionary ---
   const content = {
     es: {
-      nav: { home: "Inicio", designs: "Creaciones", about: "La Diseñadora", contact: "Contacto", lang: "English" },
-      home: { heroBtn: "Explorar", instaTitle: "Momentos de Instagram" },
-      designs: { title: "Nuestras Creaciones", desc: "Piezas únicas de arte portátil diseñadas por Valeria Santoyo V.", consult: "Consultar" },
+      nav: { home: "Inicio", about: "La Diseñadora", contact: "Contacto", lang: "English" },
+      home: { 
+        heroSub: "Magia artesanal por Valeria Santoyo V.",
+        heroBtn: "Explorar Creaciones", 
+        instaTitle: "Momentos de Instagram" 
+      },
       about: { 
         title: "Valeria Santoyo V.", 
         subtitle: "Diseñadora & Creadora", 
         text1: "Desde mi taller, busco capturar la esencia de la naturaleza en metales y piedras. VSV es mi visión del mundo: delicada, orgánica y llena de luz.", 
         text2: "Cada diseño lleva una parte de mi alma y un respeto profundo por los procesos artesanales.",
-        badge1: "Hecho a Mano", badge2: "Diseño de Autor"
+        badge1: "Hecho a Mano", 
+        badge2: "Diseño de Autor"
       },
-      contact: { title: "Contacto", subtitle: "¿Buscas un diseño personalizado?", formName: "Nombre", formMsg: "Mensaje", formBtn: "Enviar WhatsApp" }
+      contact: { 
+        title: "Hablemos", 
+        subtitle: "¿Buscas un diseño personalizado?", 
+        formName: "Nombre", 
+        formMsg: "Mensaje", 
+        formBtn: "Enviar por WhatsApp" 
+      }
     },
     en: {
-      nav: { home: "Home", designs: "Creations", about: "The Designer", contact: "Contact", lang: "Español" },
-      home: { heroBtn: "Explore", instaTitle: "Instagram Moments" },
-      designs: { title: "Our Creations", desc: "Unique pieces of wearable art designed by Valeria Santoyo V.", consult: "Inquire" },
+      nav: { home: "Home", about: "The Designer", contact: "Contact", lang: "Español" },
+      home: { 
+        heroSub: "Handcrafted magic by Valeria Santoyo V.",
+        heroBtn: "Explore Creations", 
+        instaTitle: "Instagram Moments" 
+      },
       about: { 
         title: "Valeria Santoyo V.", 
         subtitle: "Designer & Creator", 
-        text1: "From my workshop, I seek to capture the essence of nature in metals and stones. VSV is my vision of the world: delicate, organic, and full of light.", 
-        text2: "Every design carries a part of my soul and a deep respect for artisanal processes.",
-        badge1: "Handmade", badge2: "Artist Design"
+        text1: "From my workshop, I seek to capture the essence of nature in metals and stones. VSV is my vision: delicate, organic, and full of light.", 
+        text2: "Every design carries a part of my soul and a deep respect for slow, artisanal processes.",
+        badge1: "Handmade", 
+        badge2: "Artist Design"
       },
-      contact: { title: "Contact", subtitle: "Looking for a custom design?", formName: "Name", formMsg: "Message", formBtn: "Send WhatsApp" }
+      contact: { 
+        title: "Let's Talk", 
+        subtitle: "Looking for a custom design?", 
+        formName: "Name", 
+        formMsg: "Message", 
+        formBtn: "Send via WhatsApp" 
+      }
     }
   };
 
   const t = content[language];
 
+  // --- Instagram Data (10 images) ---
+  const instaImages = [
+    "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338",
+    "https://images.unsplash.com/photo-1617038220319-276d3cfab638",
+    "https://images.unsplash.com/photo-1596704017254-9b121068fb31",
+    "https://images.unsplash.com/photo-1535632063477-ba3fbf204421",
+    "https://images.unsplash.com/photo-1601121141458-f2428562704e",
+    "https://images.unsplash.com/photo-1599643478518-d74485119dc4",
+    "https://images.unsplash.com/photo-1581605405669-fcdf81165afa",
+    "https://images.unsplash.com/photo-1611085507273-212bb1241518",
+    "https://images.unsplash.com/photo-1512163143273-bde0e3cc7407",
+    "https://images.unsplash.com/photo-1576053139778-7e32f2ae3cfd"
+  ];
+
+  // --- Effects ---
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
-    window.scrollTo(0, 0);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [currentPage]);
+  }, []);
+
+  // Carousel Auto-rotation
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCarouselIndex((prev) => (prev + 1) % (instaImages.length - 2));
+    }, 4000);
+    return () => clearInterval(timer);
+  }, [instaImages.length]);
 
   const navigate = (page) => {
     setCurrentPage(page);
     setIsMenuOpen(false);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // --- COMPONENTE CARRUSEL INSTAGRAM (10 IMÁGENES) ---
-  const InstagramCarousel = () => {
-    const [currentIndex, setCurrentIndex] = useState(0);
-    
-    // Simulación de 10 imágenes elegantes de joyería
-    const images = [
-      "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338",
-      "https://images.unsplash.com/photo-1596704017254-9b121068fb31",
-      "https://images.unsplash.com/photo-1617038220319-276d3cfab638",
-      "https://images.unsplash.com/photo-1535632063477-ba3fbf204421",
-      "https://images.unsplash.com/photo-1601121141458-f2428562704e",
-      "https://images.unsplash.com/photo-1599643478518-d74485119dc4",
-      "https://images.unsplash.com/photo-1581605405669-fcdf81165afa",
-      "https://images.unsplash.com/photo-1611085507273-212bb1241518",
-      "https://images.unsplash.com/photo-1512163143273-bde0e3cc7407",
-      "https://images.unsplash.com/photo-1576053139778-7e32f2ae3cfd"
-    ];
+  const toggleLanguage = () => {
+    setLanguage(language === 'es' ? 'en' : 'es');
+  };
 
-    useEffect(() => {
-      const interval = setInterval(() => {
-        setCurrentIndex((prev) => (prev + 1) % (images.length - 2));
-      }, 4000);
-      return () => clearInterval(interval);
-    }, [images.length]);
+  // --- Helper Components ---
+  const Navbar = () => (
+    <header className={`fixed w-full z-50 transition-all duration-500 ${scrolled || currentPage !== 'home' ? 'bg-white/95 backdrop-blur-md shadow-sm py-4' : 'bg-transparent py-8'}`}>
+      <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
+        <button onClick={() => setIsMenuOpen(true)} className={`md:hidden ${scrolled || currentPage !== 'home' ? 'text-rose-950' : 'text-white'}`}>
+          <Menu size={28} />
+        </button>
 
-    return (
-      <div className="relative group px-4 md:px-10">
-        <div className="overflow-hidden">
-          <div 
-            className="flex transition-transform duration-1000 ease-in-out gap-4"
-            style={{ transform: `translateX(-${currentIndex * (100 / (window.innerWidth < 768 ? 1 : 3))}%)` }}
-          >
-            {images.map((url, i) => (
-              <div key={i} className="min-w-full md:min-w-[calc(33.333%-11px)] aspect-square rounded-[40px] overflow-hidden shadow-md">
-                <img src={`${url}?q=80&w=800`} className="w-full h-full object-cover" alt={`Instagram ${i}`} />
-              </div>
-            ))}
-          </div>
+        <div className="hidden md:flex gap-10 flex-1">
+          <button onClick={() => navigate('home')} className={`text-[11px] uppercase tracking-[0.3em] font-bold transition-colors ${currentPage === 'home' ? 'text-rose-500' : scrolled ? 'text-gray-400 hover:text-rose-500' : 'text-white/70 hover:text-white'}`}>
+            {t.nav.home}
+          </button>
+          <button onClick={() => navigate('about')} className={`text-[11px] uppercase tracking-[0.3em] font-bold transition-colors ${currentPage === 'about' ? 'text-rose-500' : scrolled ? 'text-gray-400 hover:text-rose-500' : 'text-white/70 hover:text-white'}`}>
+            {t.nav.about}
+          </button>
         </div>
-        <button 
-          onClick={() => setCurrentIndex((prev) => (prev > 0 ? prev - 1 : 0))}
-          className="absolute left-0 top-1/2 -translate-y-1/2 bg-white/80 p-3 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity"
-        >
-          <ChevronLeft size={20} />
-        </button>
-        <button 
-          onClick={() => setCurrentIndex((prev) => (prev < images.length - 3 ? prev + 1 : 0))}
-          className="absolute right-0 top-1/2 -translate-y-1/2 bg-white/80 p-3 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity"
-        >
-          <ChevronRight size={20} />
-        </button>
-      </div>
-    );
-  };
+        
+        <div className="text-center cursor-pointer" onClick={() => navigate('home')}>
+          <img src="logo.png" alt="VSV Logo" className={`h-10 md:h-12 transition-all duration-500 ${scrolled || currentPage !== 'home' ? 'brightness-100' : 'brightness-0 invert'}`} />
+        </div>
 
-  // --- VISTAS ---
-  const HomePage = () => (
+        <div className="flex-1 flex justify-end items-center gap-6">
+          <button onClick={() => navigate('contact')} className={`hidden md:block text-[11px] uppercase tracking-[0.3em] font-bold transition-colors ${currentPage === 'contact' ? 'text-rose-500' : scrolled ? 'text-gray-400 hover:text-rose-500' : 'text-white/70 hover:text-white'}`}>
+            {t.nav.contact}
+          </button>
+          <button onClick={toggleLanguage} className="bg-rose-500 text-white px-4 py-1.5 rounded-full text-[10px] uppercase tracking-widest font-bold hover:bg-rose-600 transition-all flex items-center gap-2">
+            <Globe size={14} /> {t.nav.lang}
+          </button>
+        </div>
+      </div>
+    </header>
+  );
+
+  // --- Page Components ---
+  const Home = () => (
     <div className="animate-in fade-in duration-1000">
-      {/* Hero con Video y Blur */}
+      {/* Hero with Blurred Video Background */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        <video 
-          autoPlay 
-          muted 
-          loop 
-          playsInline 
-          className="absolute inset-0 w-full h-full object-cover blur-md scale-110"
-        >
-          <source src="fondovid.mp4" type="video/mp4" />
-        </video>
-        {/* Overlay para contraste */}
-        <div className="absolute inset-0 bg-rose-900/10" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-rose-950/30" />
+        <div className="absolute inset-0 z-0">
+          <video 
+            autoPlay 
+            muted 
+            loop 
+            playsInline 
+            className="w-full h-full object-cover filter blur-lg scale-110"
+          >
+            <source src="fondovid.mp4" type="video/mp4" />
+          </video>
+          <div className="absolute inset-0 bg-rose-900/10" />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-rose-50/5 to-[#fffcfb]" />
+        </div>
         
         <div className="relative z-10 text-center px-6">
           <img 
             src="logo.png" 
             alt="VSV Logo" 
-            className="w-48 md:w-64 mx-auto mb-8 animate-pulse-slow drop-shadow-2xl" 
-            style={{ animationDuration: '4s' }}
+            className="w-48 md:w-64 mx-auto mb-8 drop-shadow-2xl animate-float" 
           />
-          <p className="text-white uppercase tracking-[0.6em] text-[10px] md:text-xs font-bold mb-8 animate-slide-up">
-            Valeria Santoyo V.
-          </p>
+          <h2 className="text-white uppercase tracking-[0.6em] text-[10px] md:text-xs font-bold mb-10 drop-shadow-md">
+            {t.home.heroSub}
+          </h2>
           <button 
-            onClick={() => navigate('designs')} 
-            className="px-10 py-3 bg-white/90 text-rose-900 uppercase text-[10px] tracking-[0.4em] font-bold rounded-full hover:bg-rose-900 hover:text-white transition-all shadow-2xl backdrop-blur-sm"
+            onClick={() => navigate('about')} 
+            className="px-12 py-4 bg-white/95 text-rose-900 uppercase text-[11px] tracking-[0.4em] font-bold rounded-full hover:bg-rose-900 hover:text-white transition-all shadow-xl backdrop-blur-sm"
           >
             {t.home.heroBtn}
           </button>
@@ -149,43 +184,77 @@ const App = () => {
       </section>
 
       {/* Instagram Carousel Section */}
-      <section className="py-24 max-w-7xl mx-auto">
+      <section className="py-24 px-6 max-w-7xl mx-auto overflow-hidden">
         <div className="text-center mb-16">
-          <h3 className="text-3xl font-serif italic text-rose-950 mb-2">{t.home.instaTitle}</h3>
-          <div className="h-[2px] w-12 bg-rose-200 mx-auto" />
+          <h3 className="text-4xl font-serif italic text-rose-950 mb-4">{t.home.instaTitle}</h3>
+          <div className="h-0.5 w-16 bg-rose-200 mx-auto" />
         </div>
-        <InstagramCarousel />
+
+        <div className="relative group">
+          <div 
+            className="flex transition-transform duration-700 ease-out gap-6"
+            style={{ transform: `translateX(-${carouselIndex * (100 / (window.innerWidth < 768 ? 1 : 3.2))}%)` }}
+          >
+            {instaImages.map((url, i) => (
+              <div 
+                key={i} 
+                className="min-w-full md:min-w-[calc(33.33%-16px)] aspect-square rounded-[60px] overflow-hidden shadow-lg border-4 border-white group/item"
+              >
+                <img 
+                  src={`${url}?q=80&w=800`} 
+                  className="w-full h-full object-cover transition-transform duration-1000 group-hover/item:scale-110" 
+                  alt={`Insta ${i}`} 
+                />
+              </div>
+            ))}
+          </div>
+
+          <button 
+            onClick={() => setCarouselIndex(prev => Math.max(0, prev - 1))}
+            className="absolute -left-4 top-1/2 -translate-y-1/2 bg-white p-4 rounded-full shadow-xl text-rose-900 z-20 hover:scale-110 transition-transform hidden md:block"
+          >
+            <ChevronLeft size={24} />
+          </button>
+          <button 
+            onClick={() => setCarouselIndex(prev => (prev + 1) % (instaImages.length - 2))}
+            className="absolute -right-4 top-1/2 -translate-y-1/2 bg-white p-4 rounded-full shadow-xl text-rose-900 z-20 hover:scale-110 transition-transform hidden md:block"
+          >
+            <ChevronRight size={24} />
+          </button>
+        </div>
       </section>
     </div>
   );
 
-  const AboutPage = () => (
-    <div className="pt-32 pb-24 px-6 max-w-7xl mx-auto animate-in fade-in duration-700">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+  const About = () => (
+    <div className="pt-32 pb-24 px-6 max-w-7xl mx-auto animate-in fade-in duration-1000">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
         <div className="relative">
-          <div className="absolute inset-0 bg-rose-100 rounded-[100px] rotate-3 -z-10" />
+          <div className="absolute inset-0 bg-rose-100 rounded-[120px] -rotate-3 -z-10" />
           <img 
             src="valeria.png" 
-            className="w-full h-[600px] object-cover rounded-[100px] shadow-2xl border-[12px] border-white" 
             alt="Valeria Santoyo V." 
-            onError={(e) => e.target.src = 'https://images.unsplash.com/photo-1544005313-94ddf0286df2'}
+            className="w-full h-[650px] object-cover rounded-[120px] shadow-2xl border-[15px] border-white"
+            onError={(e) => { e.target.src = "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1000"; }}
           />
         </div>
         <div className="lg:pl-10">
-          <span className="text-rose-400 font-serif italic mb-2 block">{t.about.subtitle}</span>
+          <span className="text-rose-400 font-serif italic mb-2 block tracking-widest">{t.about.subtitle}</span>
           <h2 className="text-6xl font-serif italic mb-10 text-rose-950">{t.about.title}</h2>
-          <p className="text-gray-600 text-xl leading-relaxed mb-8 font-light">{t.about.text1}</p>
-          <div className="bg-rose-50/50 p-10 rounded-[40px] mb-12 italic text-rose-900 border border-rose-100 italic">
-            "{t.about.text2}"
+          <p className="text-gray-600 text-xl leading-relaxed mb-8 font-light italic">
+            "{t.about.text1}"
+          </p>
+          <div className="bg-rose-50/50 p-10 rounded-[40px] mb-12 text-rose-900 border border-rose-100 italic leading-relaxed">
+            {t.about.text2}
           </div>
-          <div className="flex gap-10">
+          <div className="flex gap-12">
             <div className="text-center">
-              <div className="w-16 h-16 bg-white shadow-md rounded-full flex items-center justify-center mb-3 text-rose-400 border border-rose-50 mx-auto"><Heart size={24} /></div>
-              <span className="text-[9px] uppercase tracking-widest font-bold text-rose-300">{t.about.badge1}</span>
+              <div className="w-20 h-20 bg-white shadow-lg rounded-full flex items-center justify-center mb-4 text-rose-500 mx-auto"><Heart size={28} /></div>
+              <span className="text-[10px] uppercase tracking-widest font-bold text-rose-900/40">{t.about.badge1}</span>
             </div>
             <div className="text-center">
-              <div className="w-16 h-16 bg-white shadow-md rounded-full flex items-center justify-center mb-3 text-rose-400 border border-rose-50 mx-auto"><Star size={24} /></div>
-              <span className="text-[9px] uppercase tracking-widest font-bold text-rose-300">{t.about.badge2}</span>
+              <div className="w-20 h-20 bg-white shadow-lg rounded-full flex items-center justify-center mb-4 text-rose-500 mx-auto"><Star size={28} /></div>
+              <span className="text-[10px] uppercase tracking-widest font-bold text-rose-900/40">{t.about.badge2}</span>
             </div>
           </div>
         </div>
@@ -193,76 +262,111 @@ const App = () => {
     </div>
   );
 
-  return (
-    <div className="min-h-screen bg-[#fffcfb] text-gray-800 font-sans selection:bg-rose-100 overflow-x-hidden">
-      {/* Header */}
-      <header className={`fixed w-full z-50 transition-all duration-700 ${scrolled || currentPage !== 'home' ? 'bg-white/95 backdrop-blur-md shadow-sm py-3' : 'bg-transparent py-8'}`}>
-        <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-          <button onClick={() => setIsMenuOpen(true)} className={`md:hidden p-2 transition-colors ${scrolled || currentPage !== 'home' ? 'text-rose-950' : 'text-white'}`}>
-            <Menu size={28} />
-          </button>
-
-          <div className="hidden md:flex gap-12 flex-1">
-            <button onClick={() => navigate('home')} className={`text-[10px] uppercase tracking-[0.3em] font-bold ${currentPage === 'home' ? 'text-rose-600' : scrolled ? 'text-gray-400 hover:text-rose-600' : 'text-white/70 hover:text-white'}`}>{t.nav.home}</button>
-            <button onClick={() => navigate('about')} className={`text-[10px] uppercase tracking-[0.3em] font-bold ${currentPage === 'about' ? 'text-rose-600' : scrolled ? 'text-gray-400 hover:text-rose-600' : 'text-white/70 hover:text-white'}`}>{t.nav.about}</button>
-          </div>
-          
-          <div className="text-center cursor-pointer" onClick={() => navigate('home')}>
-             {scrolled || currentPage !== 'home' ? (
-                <img src="logo.png" className="h-10 mx-auto" alt="Logo" />
-             ) : (
-                <div className="text-3xl font-serif text-white tracking-[0.2em]">VSV</div>
-             )}
-          </div>
-
-          <div className="flex-1 flex justify-end items-center gap-10">
-            <button onClick={() => setLanguage(language === 'es' ? 'en' : 'es')} className="text-[10px] font-bold text-rose-800 uppercase tracking-widest bg-rose-50 px-5 py-2 rounded-full border border-rose-100 flex items-center gap-2">
-              <Globe size={12} /> {t.nav.lang}
-            </button>
+  const Contact = () => (
+    <div className="pt-32 pb-24 px-6 max-w-4xl mx-auto animate-in slide-in-from-bottom duration-700">
+      <div className="bg-white rounded-[60px] shadow-2xl overflow-hidden border border-rose-50 flex flex-col md:flex-row">
+        <div className="md:w-2/5 bg-rose-950 p-12 text-rose-100 flex flex-col justify-center">
+          <h2 className="text-4xl font-serif italic mb-8">{t.contact.title}</h2>
+          <p className="mb-12 text-rose-200/60 leading-relaxed">{t.contact.subtitle}</p>
+          <div className="space-y-6">
+            <a href="https://www.instagram.com/vsv.arteendiseno/" target="_blank" rel="noreferrer" className="flex items-center gap-4 hover:text-rose-400 transition-colors">
+              <Instagram size={20} /> @vsv.arteendiseno
+            </a>
+            <div className="flex items-center gap-4">
+              <MessageCircle size={20} /> WhatsApp
+            </div>
           </div>
         </div>
-      </header>
+        <div className="md:w-3/5 p-12 md:p-16 space-y-8">
+          <div>
+            <label className="text-[10px] uppercase tracking-widest text-gray-400 block mb-3 font-bold">{t.contact.formName}</label>
+            <input type="text" className="w-full bg-transparent border-b border-rose-100 py-3 focus:border-rose-500 outline-none transition-all" />
+          </div>
+          <div>
+            <label className="text-[10px] uppercase tracking-widest text-gray-400 block mb-3 font-bold">{t.contact.formMsg}</label>
+            <textarea className="w-full bg-transparent border-b border-rose-100 py-3 focus:border-rose-500 outline-none transition-all h-32 resize-none" />
+          </div>
+          <button className="w-full bg-rose-600 text-white py-5 rounded-full text-[11px] uppercase tracking-[0.4em] font-bold hover:bg-rose-900 shadow-xl transition-all active:scale-95">
+            {t.contact.formBtn}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 
-      {/* Mobile Menu */}
+  // --- Main Render ---
+  return (
+    <div className="min-h-screen bg-[#fffcfb] text-gray-800 font-sans selection:bg-rose-100">
+      <Navbar />
+
+      {/* Mobile Menu Overlay */}
       {isMenuOpen && (
         <div className="fixed inset-0 z-[60] bg-rose-50 flex flex-col p-12 animate-in slide-in-from-top duration-500">
           <div className="flex justify-between items-center mb-24">
-             <img src="logo.png" className="h-12" alt="Logo" />
-             <button onClick={() => setIsMenuOpen(false)} className="p-3 bg-white rounded-full shadow-lg"><X size={32} className="text-rose-900" /></button>
+             <img src="logo.png" alt="Logo" className="h-10" />
+             <button onClick={() => setIsMenuOpen(false)} className="p-3 bg-white rounded-full shadow-lg text-rose-950">
+               <X size={32} />
+             </button>
           </div>
-          <nav className="flex flex-col gap-8 text-5xl font-serif italic text-rose-900/30">
-            <button onClick={() => navigate('home')} className={currentPage === 'home' ? 'text-rose-900' : ''}>Inicio</button>
-            <button onClick={() => navigate('about')} className={currentPage === 'about' ? 'text-rose-900' : ''}>La Diseñadora</button>
+          <nav className="flex flex-col gap-10 text-5xl font-serif italic text-rose-900/30">
+            <button onClick={() => navigate('home')} className={currentPage === 'home' ? 'text-rose-900 pl-4' : 'hover:pl-4 transition-all'}>Inicio</button>
+            <button onClick={() => navigate('about')} className={currentPage === 'about' ? 'text-rose-900 pl-4' : 'hover:pl-4 transition-all'}>La Diseñadora</button>
+            <button onClick={() => navigate('contact')} className={currentPage === 'contact' ? 'text-rose-900 pl-4' : 'hover:pl-4 transition-all'}>Contacto</button>
           </nav>
         </div>
       )}
 
-      {/* Main */}
       <main>
-        {currentPage === 'home' && <HomePage />}
-        {currentPage === 'about' && <AboutPage />}
+        {currentPage === 'home' && <Home />}
+        {currentPage === 'about' && <About />}
+        {currentPage === 'contact' && <Contact />}
       </main>
 
       {/* Footer */}
       <footer className="bg-white py-24 px-6 border-t border-rose-50 text-center">
-        <img src="logo.png" className="h-20 mx-auto mb-6" alt="Logo" />
+        <img src="logo.png" alt="VSV Logo" className="h-16 mx-auto mb-6" />
         <p className="text-[11px] text-rose-300 uppercase tracking-[0.6em] font-bold mb-12">Valeria Santoyo V.</p>
-        <div className="flex justify-center gap-12 mb-16">
-           <a href="https://www.instagram.com/vsv.arteendiseno/" target="_blank" rel="noreferrer" className="text-rose-200 hover:text-rose-500 transition-all"><Instagram size={28} /></a>
-           <a href="https://www.facebook.com/vsvbolsasyaccesorios/photos" target="_blank" rel="noreferrer" className="text-rose-200 hover:text-rose-500 transition-all"><Facebook size={28} /></a>
-           <a href="https://wa.me/520000000000" target="_blank" rel="noreferrer" className="text-rose-200 hover:text-rose-500 transition-all"><MessageCircle size={28} /></a>
+        <div className="flex justify-center gap-10 mb-16">
+           <a href="https://www.instagram.com/vsv.arteendiseno/" target="_blank" rel="noreferrer" className="text-rose-200 hover:text-rose-500 transition-all transform hover:scale-125">
+             <Instagram size={28} />
+           </a>
+           <a href="https://www.facebook.com/vsvbolsasyaccesorios/photos" target="_blank" rel="noreferrer" className="text-rose-200 hover:text-rose-500 transition-all transform hover:scale-125">
+             <Facebook size={28} />
+           </a>
+           <a href="https://wa.me/520000000000" target="_blank" rel="noreferrer" className="text-rose-200 hover:text-rose-500 transition-all transform hover:scale-125">
+             <MessageCircle size={28} />
+           </a>
         </div>
-        <div className="text-[9px] uppercase tracking-[0.4em] text-gray-300">
-          © 2024 VSV Arte en Diseño • Handmade with Soul
+        <div className="text-[10px] uppercase tracking-[0.4em] text-gray-300">
+          © 2024 VSV Arte en Diseño • Hecho con alma para Valeria
         </div>
       </footer>
 
+      {/* Floating Action Button */}
+      <a 
+        href="https://wa.me/520000000000" 
+        target="_blank"
+        rel="noreferrer"
+        className="fixed bottom-10 right-10 z-40 bg-rose-500 text-white p-5 rounded-full shadow-2xl hover:scale-110 active:scale-95 transition-all animate-bounce-subtle"
+      >
+        <MessageCircle size={32} />
+      </a>
+
       <style>{`
-        @keyframes slide-up { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-        .animate-slide-up { animation: slide-up 1.2s ease-out forwards; }
-        .animate-slide-up-delayed { opacity: 0; animation: slide-up 1.2s ease-out 0.6s forwards; }
-        @keyframes pulse-slow { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.8; transform: scale(0.98); } }
-        .animate-pulse-slow { animation: pulse-slow 4s ease-in-out infinite; }
+        @keyframes float {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-15px); }
+        }
+        .animate-float {
+          animation: float 5s ease-in-out infinite;
+        }
+        @keyframes bounce-subtle {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-8px); }
+        }
+        .animate-bounce-subtle {
+          animation: bounce-subtle 3s ease-in-out infinite;
+        }
       `}</style>
     </div>
   );
