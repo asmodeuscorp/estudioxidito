@@ -1,375 +1,338 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { 
-  Instagram, 
-  Facebook, 
-  MessageCircle, 
-  ChevronRight, 
-  ChevronLeft,
-  Menu, 
-  X, 
-  Heart, 
-  Star, 
-  Globe, 
-  Sparkles, 
-  Flower 
-} from 'lucide-react';
-
-const App = () => {
-  // --- State Management ---
-  const [currentPage, setCurrentPage] = useState('home');
-  const [language, setLanguage] = useState('es');
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [carouselIndex, setCarouselIndex] = useState(0);
-
-  // --- Content Dictionary ---
-  const content = {
-    es: {
-      nav: { home: "Inicio", about: "La Diseñadora", contact: "Contacto", lang: "English" },
-      home: { 
-        heroSub: "Magia artesanal por Valeria Santoyo V.",
-        heroBtn: "Explorar Creaciones", 
-        instaTitle: "Momentos de Instagram" 
-      },
-      about: { 
-        title: "Valeria Santoyo V.", 
-        subtitle: "Diseñadora & Creadora", 
-        text1: "Desde mi taller, busco capturar la esencia de la naturaleza en metales y piedras. VSV es mi visión del mundo: delicada, orgánica y llena de luz.", 
-        text2: "Cada diseño lleva una parte de mi alma y un respeto profundo por los procesos artesanales.",
-        badge1: "Hecho a Mano", 
-        badge2: "Diseño de Autor"
-      },
-      contact: { 
-        title: "Hablemos", 
-        subtitle: "¿Buscas un diseño personalizado?", 
-        formName: "Nombre", 
-        formMsg: "Mensaje", 
-        formBtn: "Enviar por WhatsApp" 
-      }
-    },
-    en: {
-      nav: { home: "Home", about: "The Designer", contact: "Contact", lang: "Español" },
-      home: { 
-        heroSub: "Handcrafted magic by Valeria Santoyo V.",
-        heroBtn: "Explore Creations", 
-        instaTitle: "Instagram Moments" 
-      },
-      about: { 
-        title: "Valeria Santoyo V.", 
-        subtitle: "Designer & Creator", 
-        text1: "From my workshop, I seek to capture the essence of nature in metals and stones. VSV is my vision: delicate, organic, and full of light.", 
-        text2: "Every design carries a part of my soul and a deep respect for slow, artisanal processes.",
-        badge1: "Handmade", 
-        badge2: "Artist Design"
-      },
-      contact: { 
-        title: "Let's Talk", 
-        subtitle: "Looking for a custom design?", 
-        formName: "Name", 
-        formMsg: "Message", 
-        formBtn: "Send via WhatsApp" 
-      }
-    }
-  };
-
-  const t = content[language];
-
-  // --- Instagram Data (10 images) ---
-  const instaImages = [
-    "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338",
-    "https://images.unsplash.com/photo-1617038220319-276d3cfab638",
-    "https://images.unsplash.com/photo-1596704017254-9b121068fb31",
-    "https://images.unsplash.com/photo-1535632063477-ba3fbf204421",
-    "https://images.unsplash.com/photo-1601121141458-f2428562704e",
-    "https://images.unsplash.com/photo-1599643478518-d74485119dc4",
-    "https://images.unsplash.com/photo-1581605405669-fcdf81165afa",
-    "https://images.unsplash.com/photo-1611085507273-212bb1241518",
-    "https://images.unsplash.com/photo-1512163143273-bde0e3cc7407",
-    "https://images.unsplash.com/photo-1576053139778-7e32f2ae3cfd"
-  ];
-
-  // --- Effects ---
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // Carousel Auto-rotation
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCarouselIndex((prev) => (prev + 1) % (instaImages.length - 2));
-    }, 4000);
-    return () => clearInterval(timer);
-  }, [instaImages.length]);
-
-  const navigate = (page) => {
-    setCurrentPage(page);
-    setIsMenuOpen(false);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const toggleLanguage = () => {
-    setLanguage(language === 'es' ? 'en' : 'es');
-  };
-
-  // --- Helper Components ---
-  const Navbar = () => (
-    <header className={`fixed w-full z-50 transition-all duration-500 ${scrolled || currentPage !== 'home' ? 'bg-white/95 backdrop-blur-md shadow-sm py-4' : 'bg-transparent py-8'}`}>
-      <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-        <button onClick={() => setIsMenuOpen(true)} className={`md:hidden ${scrolled || currentPage !== 'home' ? 'text-rose-950' : 'text-white'}`}>
-          <Menu size={28} />
-        </button>
-
-        <div className="hidden md:flex gap-10 flex-1">
-          <button onClick={() => navigate('home')} className={`text-[11px] uppercase tracking-[0.3em] font-bold transition-colors ${currentPage === 'home' ? 'text-rose-500' : scrolled ? 'text-gray-400 hover:text-rose-500' : 'text-white/70 hover:text-white'}`}>
-            {t.nav.home}
-          </button>
-          <button onClick={() => navigate('about')} className={`text-[11px] uppercase tracking-[0.3em] font-bold transition-colors ${currentPage === 'about' ? 'text-rose-500' : scrolled ? 'text-gray-400 hover:text-rose-500' : 'text-white/70 hover:text-white'}`}>
-            {t.nav.about}
-          </button>
-        </div>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valeria Santoyo V. | VSV Arte en Diseño</title>
+    <!-- Tailwind CSS para el diseño -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #fffcfb; }
+        .font-serif { font-family: 'Playfair Display', serif; }
         
-        <div className="text-center cursor-pointer" onClick={() => navigate('home')}>
-          <img src="logo.png" alt="VSV Logo" className={`h-10 md:h-12 transition-all duration-500 ${scrolled || currentPage !== 'home' ? 'brightness-100' : 'brightness-0 invert'}`} />
-        </div>
-
-        <div className="flex-1 flex justify-end items-center gap-6">
-          <button onClick={() => navigate('contact')} className={`hidden md:block text-[11px] uppercase tracking-[0.3em] font-bold transition-colors ${currentPage === 'contact' ? 'text-rose-500' : scrolled ? 'text-gray-400 hover:text-rose-500' : 'text-white/70 hover:text-white'}`}>
-            {t.nav.contact}
-          </button>
-          <button onClick={toggleLanguage} className="bg-rose-500 text-white px-4 py-1.5 rounded-full text-[10px] uppercase tracking-widest font-bold hover:bg-rose-600 transition-all flex items-center gap-2">
-            <Globe size={14} /> {t.nav.lang}
-          </button>
-        </div>
-      </div>
-    </header>
-  );
-
-  // --- Page Components ---
-  const Home = () => (
-    <div className="animate-in fade-in duration-1000">
-      {/* Hero with Blurred Video Background */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <video 
-            autoPlay 
-            muted 
-            loop 
-            playsInline 
-            className="w-full h-full object-cover filter blur-lg scale-110"
-          >
-            <source src="fondovid.mp4" type="video/mp4" />
-          </video>
-          <div className="absolute inset-0 bg-rose-900/10" />
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-rose-50/5 to-[#fffcfb]" />
-        </div>
-        
-        <div className="relative z-10 text-center px-6">
-          <img 
-            src="logo.png" 
-            alt="VSV Logo" 
-            className="w-48 md:w-64 mx-auto mb-8 drop-shadow-2xl animate-float" 
-          />
-          <h2 className="text-white uppercase tracking-[0.6em] text-[10px] md:text-xs font-bold mb-10 drop-shadow-md">
-            {t.home.heroSub}
-          </h2>
-          <button 
-            onClick={() => navigate('about')} 
-            className="px-12 py-4 bg-white/95 text-rose-900 uppercase text-[11px] tracking-[0.4em] font-bold rounded-full hover:bg-rose-900 hover:text-white transition-all shadow-xl backdrop-blur-sm"
-          >
-            {t.home.heroBtn}
-          </button>
-        </div>
-      </section>
-
-      {/* Instagram Carousel Section */}
-      <section className="py-24 px-6 max-w-7xl mx-auto overflow-hidden">
-        <div className="text-center mb-16">
-          <h3 className="text-4xl font-serif italic text-rose-950 mb-4">{t.home.instaTitle}</h3>
-          <div className="h-0.5 w-16 bg-rose-200 mx-auto" />
-        </div>
-
-        <div className="relative group">
-          <div 
-            className="flex transition-transform duration-700 ease-out gap-6"
-            style={{ transform: `translateX(-${carouselIndex * (100 / (window.innerWidth < 768 ? 1 : 3.2))}%)` }}
-          >
-            {instaImages.map((url, i) => (
-              <div 
-                key={i} 
-                className="min-w-full md:min-w-[calc(33.33%-16px)] aspect-square rounded-[60px] overflow-hidden shadow-lg border-4 border-white group/item"
-              >
-                <img 
-                  src={`${url}?q=80&w=800`} 
-                  className="w-full h-full object-cover transition-transform duration-1000 group-hover/item:scale-110" 
-                  alt={`Insta ${i}`} 
-                />
-              </div>
-            ))}
-          </div>
-
-          <button 
-            onClick={() => setCarouselIndex(prev => Math.max(0, prev - 1))}
-            className="absolute -left-4 top-1/2 -translate-y-1/2 bg-white p-4 rounded-full shadow-xl text-rose-900 z-20 hover:scale-110 transition-transform hidden md:block"
-          >
-            <ChevronLeft size={24} />
-          </button>
-          <button 
-            onClick={() => setCarouselIndex(prev => (prev + 1) % (instaImages.length - 2))}
-            className="absolute -right-4 top-1/2 -translate-y-1/2 bg-white p-4 rounded-full shadow-xl text-rose-900 z-20 hover:scale-110 transition-transform hidden md:block"
-          >
-            <ChevronRight size={24} />
-          </button>
-        </div>
-      </section>
-    </div>
-  );
-
-  const About = () => (
-    <div className="pt-32 pb-24 px-6 max-w-7xl mx-auto animate-in fade-in duration-1000">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-        <div className="relative">
-          <div className="absolute inset-0 bg-rose-100 rounded-[120px] -rotate-3 -z-10" />
-          <img 
-            src="valeria.png" 
-            alt="Valeria Santoyo V." 
-            className="w-full h-[650px] object-cover rounded-[120px] shadow-2xl border-[15px] border-white"
-            onError={(e) => { e.target.src = "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1000"; }}
-          />
-        </div>
-        <div className="lg:pl-10">
-          <span className="text-rose-400 font-serif italic mb-2 block tracking-widest">{t.about.subtitle}</span>
-          <h2 className="text-6xl font-serif italic mb-10 text-rose-950">{t.about.title}</h2>
-          <p className="text-gray-600 text-xl leading-relaxed mb-8 font-light italic">
-            "{t.about.text1}"
-          </p>
-          <div className="bg-rose-50/50 p-10 rounded-[40px] mb-12 text-rose-900 border border-rose-100 italic leading-relaxed">
-            {t.about.text2}
-          </div>
-          <div className="flex gap-12">
-            <div className="text-center">
-              <div className="w-20 h-20 bg-white shadow-lg rounded-full flex items-center justify-center mb-4 text-rose-500 mx-auto"><Heart size={28} /></div>
-              <span className="text-[10px] uppercase tracking-widest font-bold text-rose-900/40">{t.about.badge1}</span>
-            </div>
-            <div className="text-center">
-              <div className="w-20 h-20 bg-white shadow-lg rounded-full flex items-center justify-center mb-4 text-rose-500 mx-auto"><Star size={28} /></div>
-              <span className="text-[10px] uppercase tracking-widest font-bold text-rose-900/40">{t.about.badge2}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-
-  const Contact = () => (
-    <div className="pt-32 pb-24 px-6 max-w-4xl mx-auto animate-in slide-in-from-bottom duration-700">
-      <div className="bg-white rounded-[60px] shadow-2xl overflow-hidden border border-rose-50 flex flex-col md:flex-row">
-        <div className="md:w-2/5 bg-rose-950 p-12 text-rose-100 flex flex-col justify-center">
-          <h2 className="text-4xl font-serif italic mb-8">{t.contact.title}</h2>
-          <p className="mb-12 text-rose-200/60 leading-relaxed">{t.contact.subtitle}</p>
-          <div className="space-y-6">
-            <a href="https://www.instagram.com/vsv.arteendiseno/" target="_blank" rel="noreferrer" className="flex items-center gap-4 hover:text-rose-400 transition-colors">
-              <Instagram size={20} /> @vsv.arteendiseno
-            </a>
-            <div className="flex items-center gap-4">
-              <MessageCircle size={20} /> WhatsApp
-            </div>
-          </div>
-        </div>
-        <div className="md:w-3/5 p-12 md:p-16 space-y-8">
-          <div>
-            <label className="text-[10px] uppercase tracking-widest text-gray-400 block mb-3 font-bold">{t.contact.formName}</label>
-            <input type="text" className="w-full bg-transparent border-b border-rose-100 py-3 focus:border-rose-500 outline-none transition-all" />
-          </div>
-          <div>
-            <label className="text-[10px] uppercase tracking-widest text-gray-400 block mb-3 font-bold">{t.contact.formMsg}</label>
-            <textarea className="w-full bg-transparent border-b border-rose-100 py-3 focus:border-rose-500 outline-none transition-all h-32 resize-none" />
-          </div>
-          <button className="w-full bg-rose-600 text-white py-5 rounded-full text-[11px] uppercase tracking-[0.4em] font-bold hover:bg-rose-900 shadow-xl transition-all active:scale-95">
-            {t.contact.formBtn}
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-
-  // --- Main Render ---
-  return (
-    <div className="min-h-screen bg-[#fffcfb] text-gray-800 font-sans selection:bg-rose-100">
-      <Navbar />
-
-      {/* Mobile Menu Overlay */}
-      {isMenuOpen && (
-        <div className="fixed inset-0 z-[60] bg-rose-50 flex flex-col p-12 animate-in slide-in-from-top duration-500">
-          <div className="flex justify-between items-center mb-24">
-             <img src="logo.png" alt="Logo" className="h-10" />
-             <button onClick={() => setIsMenuOpen(false)} className="p-3 bg-white rounded-full shadow-lg text-rose-950">
-               <X size={32} />
-             </button>
-          </div>
-          <nav className="flex flex-col gap-10 text-5xl font-serif italic text-rose-900/30">
-            <button onClick={() => navigate('home')} className={currentPage === 'home' ? 'text-rose-900 pl-4' : 'hover:pl-4 transition-all'}>Inicio</button>
-            <button onClick={() => navigate('about')} className={currentPage === 'about' ? 'text-rose-900 pl-4' : 'hover:pl-4 transition-all'}>La Diseñadora</button>
-            <button onClick={() => navigate('contact')} className={currentPage === 'contact' ? 'text-rose-900 pl-4' : 'hover:pl-4 transition-all'}>Contacto</button>
-          </nav>
-        </div>
-      )}
-
-      <main>
-        {currentPage === 'home' && <Home />}
-        {currentPage === 'about' && <About />}
-        {currentPage === 'contact' && <Contact />}
-      </main>
-
-      {/* Footer */}
-      <footer className="bg-white py-24 px-6 border-t border-rose-50 text-center">
-        <img src="logo.png" alt="VSV Logo" className="h-16 mx-auto mb-6" />
-        <p className="text-[11px] text-rose-300 uppercase tracking-[0.6em] font-bold mb-12">Valeria Santoyo V.</p>
-        <div className="flex justify-center gap-10 mb-16">
-           <a href="https://www.instagram.com/vsv.arteendiseno/" target="_blank" rel="noreferrer" className="text-rose-200 hover:text-rose-500 transition-all transform hover:scale-125">
-             <Instagram size={28} />
-           </a>
-           <a href="https://www.facebook.com/vsvbolsasyaccesorios/photos" target="_blank" rel="noreferrer" className="text-rose-200 hover:text-rose-500 transition-all transform hover:scale-125">
-             <Facebook size={28} />
-           </a>
-           <a href="https://wa.me/520000000000" target="_blank" rel="noreferrer" className="text-rose-200 hover:text-rose-500 transition-all transform hover:scale-125">
-             <MessageCircle size={28} />
-           </a>
-        </div>
-        <div className="text-[10px] uppercase tracking-[0.4em] text-gray-300">
-          © 2024 VSV Arte en Diseño • Hecho con alma para Valeria
-        </div>
-      </footer>
-
-      {/* Floating Action Button */}
-      <a 
-        href="https://wa.me/520000000000" 
-        target="_blank"
-        rel="noreferrer"
-        className="fixed bottom-10 right-10 z-40 bg-rose-500 text-white p-5 rounded-full shadow-2xl hover:scale-110 active:scale-95 transition-all animate-bounce-subtle"
-      >
-        <MessageCircle size={32} />
-      </a>
-
-      <style>{`
+        /* Animación de flotado para el logo */
         @keyframes float {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-15px); }
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
         }
-        .animate-float {
-          animation: float 5s ease-in-out infinite;
-        }
-        @keyframes bounce-subtle {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-8px); }
-        }
-        .animate-bounce-subtle {
-          animation: bounce-subtle 3s ease-in-out infinite;
-        }
-      `}</style>
-    </div>
-  );
-};
+        .animate-float { animation: float 5s ease-in-out infinite; }
 
-export default App;
+        /* Desenfoque para el video de baja resolución */
+        .video-blur {
+            filter: blur(12px);
+            transform: scale(1.1); /* Evita bordes blancos por el blur */
+        }
+
+        /* Transiciones suaves de página */
+        .page-content { display: none; transition: opacity 0.5s ease; opacity: 0; }
+        .page-active { display: block; opacity: 1; }
+
+        /* Carrusel de Instagram */
+        .carousel-container {
+            display: flex;
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .carousel-item {
+            flex: 0 0 100%;
+        }
+        @media (min-width: 768px) {
+            .carousel-item { flex: 0 0 33.333%; }
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+    <!-- Header / Navbar -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 py-6 px-6">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <!-- Mobile Menu Toggle -->
+            <button onclick="toggleMenu()" class="md:hidden text-white nav-text" id="menuBtn">
+                <i data-lucide="menu" size="28"></i>
+            </button>
+
+            <!-- Desktop Nav Left -->
+            <div class="hidden md:flex gap-10 flex-1">
+                <button onclick="showPage('home')" class="nav-text text-[11px] uppercase tracking-[0.3em] font-bold text-white/80 hover:text-white transition-colors">Inicio</button>
+                <button onclick="showPage('about')" class="nav-text text-[11px] uppercase tracking-[0.3em] font-bold text-white/80 hover:text-white transition-colors">La Diseñadora</button>
+            </div>
+
+            <!-- Logo Central -->
+            <div class="cursor-pointer" onclick="showPage('home')">
+                <img src="logo.png" alt="Logo" id="navLogo" class="h-10 md:h-12 brightness-0 invert transition-all">
+            </div>
+
+            <!-- Desktop Nav Right -->
+            <div class="flex-1 flex justify-end items-center gap-6">
+                <button onclick="showPage('contact')" class="nav-text hidden md:block text-[11px] uppercase tracking-[0.3em] font-bold text-white/80 hover:text-white transition-colors">Contacto</button>
+                <button onclick="toggleLang()" id="langBtn" class="bg-rose-500 text-white px-4 py-1.5 rounded-full text-[10px] uppercase tracking-widest font-bold hover:bg-rose-600 transition-all">
+                    English
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Menú Móvil -->
+    <div id="mobileMenu" class="fixed inset-0 z-[60] bg-rose-50 hidden flex-col p-12 transition-all">
+        <div class="flex justify-between items-center mb-16">
+            <img src="logo.png" alt="Logo" class="h-10">
+            <button onclick="toggleMenu()" class="p-3 bg-white rounded-full shadow-lg text-rose-950">
+                <i data-lucide="x" size="32"></i>
+            </button>
+        </div>
+        <div class="flex flex-col gap-8 text-4xl font-serif italic text-rose-950/40">
+            <button onclick="showPage('home')" class="text-left hover:text-rose-950 transition-all">Inicio</button>
+            <button onclick="showPage('about')" class="text-left hover:text-rose-950 transition-all">La Diseñadora</button>
+            <button onclick="showPage('contact')" class="text-left hover:text-rose-950 transition-all">Contacto</button>
+        </div>
+    </div>
+
+    <!-- SECCIÓN: INICIO (HOME) -->
+    <section id="home" class="page-content page-active">
+        <!-- Hero with Video -->
+        <div class="relative h-screen flex items-center justify-center overflow-hidden">
+            <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover video-blur">
+                <source src="fondovid.mp4" type="video/mp4">
+            </video>
+            <div class="absolute inset-0 bg-rose-950/20"></div>
+            
+            <div class="relative z-10 text-center px-6">
+                <img src="logo.png" alt="VSV Logo" class="w-56 md:w-80 mx-auto mb-8 animate-float drop-shadow-2xl">
+                <h2 id="heroSub" class="text-white uppercase tracking-[0.6em] text-[10px] md:text-xs font-bold mb-10 drop-shadow-md">
+                    Magia artesanal por Valeria Santoyo V.
+                </h2>
+                <button onclick="showPage('about')" id="heroBtn" class="px-12 py-4 bg-white/95 text-rose-900 uppercase text-[11px] tracking-[0.4em] font-bold rounded-full hover:bg-rose-900 hover:text-white transition-all shadow-xl backdrop-blur-sm">
+                    Conoce mi historia
+                </button>
+            </div>
+        </div>
+
+        <!-- Instagram Carousel -->
+        <div class="py-24 px-6 max-w-7xl mx-auto overflow-hidden">
+            <div class="text-center mb-16">
+                <h3 id="instaTitle" class="text-4xl font-serif italic text-rose-950 mb-4">Momentos de Instagram</h3>
+                <div class="h-0.5 w-16 bg-rose-200 mx-auto"></div>
+            </div>
+
+            <div class="relative group">
+                <div class="carousel-container" id="carousel">
+                    <!-- 10 Imágenes de Instagram -->
+                    <div class="carousel-item p-2"><img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=800" class="w-full aspect-square object-cover rounded-[50px] border-4 border-white shadow-lg"></div>
+                    <div class="carousel-item p-2"><img src="https://images.unsplash.com/photo-1617038220319-276d3cfab638?q=80&w=800" class="w-full aspect-square object-cover rounded-[50px] border-4 border-white shadow-lg"></div>
+                    <div class="carousel-item p-2"><img src="https://images.unsplash.com/photo-1596704017254-9b121068fb31?q=80&w=800" class="w-full aspect-square object-cover rounded-[50px] border-4 border-white shadow-lg"></div>
+                    <div class="carousel-item p-2"><img src="https://images.unsplash.com/photo-1535632063477-ba3fbf204421?q=80&w=800" class="w-full aspect-square object-cover rounded-[50px] border-4 border-white shadow-lg"></div>
+                    <div class="carousel-item p-2"><img src="https://images.unsplash.com/photo-1601121141458-f2428562704e?q=80&w=800" class="w-full aspect-square object-cover rounded-[50px] border-4 border-white shadow-lg"></div>
+                    <div class="carousel-item p-2"><img src="https://images.unsplash.com/photo-1599643478518-d74485119dc4?q=80&w=800" class="w-full aspect-square object-cover rounded-[50px] border-4 border-white shadow-lg"></div>
+                    <div class="carousel-item p-2"><img src="https://images.unsplash.com/photo-1581605405669-fcdf81165afa?q=80&w=800" class="w-full aspect-square object-cover rounded-[50px] border-4 border-white shadow-lg"></div>
+                    <div class="carousel-item p-2"><img src="https://images.unsplash.com/photo-1611085507273-212bb1241518?q=80&w=800" class="w-full aspect-square object-cover rounded-[50px] border-4 border-white shadow-lg"></div>
+                    <div class="carousel-item p-2"><img src="https://images.unsplash.com/photo-1512163143273-bde0e3cc7407?q=80&w=800" class="w-full aspect-square object-cover rounded-[50px] border-4 border-white shadow-lg"></div>
+                    <div class="carousel-item p-2"><img src="https://images.unsplash.com/photo-1576053139778-7e32f2ae3cfd?q=80&w=800" class="w-full aspect-square object-cover rounded-[50px] border-4 border-white shadow-lg"></div>
+                </div>
+                
+                <!-- Controles del carrusel -->
+                <button onclick="moveCarousel(-1)" class="absolute left-0 top-1/2 -translate-y-1/2 bg-white/90 p-4 rounded-full shadow-xl text-rose-900 hidden md:block hover:scale-110 transition-all">
+                    <i data-lucide="chevron-left"></i>
+                </button>
+                <button onclick="moveCarousel(1)" class="absolute right-0 top-1/2 -translate-y-1/2 bg-white/90 p-4 rounded-full shadow-xl text-rose-900 hidden md:block hover:scale-110 transition-all">
+                    <i data-lucide="chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN: LA DISEÑADORA -->
+    <section id="about" class="page-content pt-32 pb-24 px-6 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+            <div class="relative">
+                <div class="absolute inset-0 bg-rose-100 rounded-[120px] -rotate-3 -z-10"></div>
+                <img src="valeria.png" alt="Valeria Santoyo V." class="w-full h-[650px] object-cover rounded-[120px] shadow-2xl border-[15px] border-white" onerror="this.src='https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1000'">
+            </div>
+            <div class="lg:pl-10">
+                <span id="aboutSub" class="text-rose-400 font-serif italic mb-2 block tracking-widest uppercase text-sm">Diseñadora & Creadora</span>
+                <h2 id="aboutTitle" class="text-6xl font-serif italic mb-10 text-rose-950">Valeria Santoyo V.</h2>
+                <p id="aboutText1" class="text-gray-600 text-xl leading-relaxed mb-8 font-light italic">
+                    "Desde mi taller, busco capturar la esencia de la naturaleza en metales y piedras. VSV es mi visión del mundo: delicada, orgánica y llena de luz."
+                </p>
+                <div id="aboutText2" class="bg-rose-50/50 p-10 rounded-[40px] mb-12 text-rose-900 border border-rose-100 italic leading-relaxed">
+                    Cada diseño lleva una parte de mi alma y un respeto profundo por los procesos lentos y artesanales.
+                </div>
+                <div class="flex gap-12">
+                    <div class="text-center">
+                        <div class="w-20 h-20 bg-white shadow-lg rounded-full flex items-center justify-center mb-4 text-rose-500 mx-auto"><i data-lucide="heart" size="28"></i></div>
+                        <span class="text-[10px] uppercase tracking-widest font-bold text-rose-900/40">Hecho a Mano</span>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-20 h-20 bg-white shadow-lg rounded-full flex items-center justify-center mb-4 text-rose-500 mx-auto"><i data-lucide="star" size="28"></i></div>
+                        <span class="text-[10px] uppercase tracking-widest font-bold text-rose-900/40">Diseño de Autor</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN: CONTACTO -->
+    <section id="contact" class="page-content pt-32 pb-24 px-6 max-w-4xl mx-auto">
+        <div class="bg-white rounded-[60px] shadow-2xl overflow-hidden border border-rose-50 flex flex-col md:flex-row">
+            <div class="md:w-2/5 bg-rose-950 p-12 text-rose-100 flex flex-col justify-center">
+                <h2 id="contactTitle" class="text-4xl font-serif italic mb-8 leading-tight text-white">Hablemos</h2>
+                <p id="contactSub" class="mb-12 text-rose-200/60 leading-relaxed text-sm">¿Buscas un diseño personalizado o tienes alguna duda?</p>
+                <div class="space-y-6">
+                    <a href="https://www.instagram.com/vsv.arteendiseno/" target="_blank" class="flex items-center gap-4 hover:text-rose-400 transition-colors">
+                        <i data-lucide="instagram" size="20"></i> @vsv.arteendiseno
+                    </a>
+                    <a href="#" class="flex items-center gap-4 hover:text-rose-400 transition-colors">
+                        <i data-lucide="message-circle" size="20"></i> WhatsApp
+                    </a>
+                </div>
+            </div>
+            <div class="md:w-3/5 p-12 md:p-16 space-y-8">
+                <div>
+                    <label class="text-[10px] uppercase tracking-widest text-gray-400 block mb-3 font-bold">Nombre</label>
+                    <input type="text" class="w-full bg-transparent border-b border-rose-100 py-3 focus:border-rose-500 outline-none transition-all">
+                </div>
+                <div>
+                    <label class="text-[10px] uppercase tracking-widest text-gray-400 block mb-3 font-bold">Mensaje</label>
+                    <textarea class="w-full bg-transparent border-b border-rose-100 py-3 focus:border-rose-400 outline-none transition-all h-32 resize-none"></textarea>
+                </div>
+                <button id="contactBtn" class="w-full bg-rose-600 text-white py-5 rounded-full text-[11px] uppercase tracking-[0.4em] font-bold hover:bg-rose-900 shadow-xl transition-all active:scale-95">
+                    Enviar por WhatsApp
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white py-24 px-6 border-t border-rose-50 text-center">
+        <img src="logo.png" alt="Logo" class="h-16 mx-auto mb-6">
+        <p class="text-[11px] text-rose-300 uppercase tracking-[0.6em] font-bold mb-12">Valeria Santoyo V.</p>
+        <div class="flex justify-center gap-10 mb-16">
+            <a href="https://www.instagram.com/vsv.arteendiseno/" target="_blank" class="text-rose-200 hover:text-rose-500 transition-all transform hover:scale-125"><i data-lucide="instagram" size="28"></i></a>
+            <a href="https://www.facebook.com/vsvbolsasyaccesorios/photos" target="_blank" class="text-rose-200 hover:text-rose-500 transition-all transform hover:scale-125"><i data-lucide="facebook" size="28"></i></a>
+            <a href="#" class="text-rose-200 hover:text-rose-500 transition-all transform hover:scale-125"><i data-lucide="message-circle" size="28"></i></a>
+        </div>
+        <div class="text-[9px] uppercase tracking-[0.4em] text-gray-300">
+            © 2024 VSV Arte en Diseño • Hecho con alma para Valeria
+        </div>
+    </footer>
+
+    <!-- WhatsApp Floating -->
+    <a href="#" class="fixed bottom-10 right-10 z-40 bg-rose-500 text-white p-5 rounded-full shadow-2xl hover:scale-110 active:scale-95 transition-all">
+        <i data-lucide="message-circle" size="32"></i>
+    </a>
+
+    <!-- SCRIPTS -->
+    <script>
+        // Inicializar Iconos
+        lucide.createIcons();
+
+        // Estado del sitio
+        let currentLang = 'es';
+        let currentIdx = 0;
+
+        // Diccionario
+        const texts = {
+            es: {
+                navHome: "Inicio", navAbout: "La Diseñadora", navContact: "Contacto", lang: "English",
+                heroSub: "Magia artesanal por Valeria Santoyo V.", heroBtn: "Conoce mi historia",
+                instaTitle: "Momentos de Instagram", aboutSub: "Diseñadora & Creadora",
+                aboutText1: '"Desde mi taller, busco capturar la esencia de la naturaleza en metales y piedras. VSV es mi visión del mundo: delicada, orgánica y llena de luz."',
+                aboutText2: "Cada diseño lleva una parte de mi alma y un respeto profundo por los procesos lentos y artesanales.",
+                contactTitle: "Hablemos", contactSub: "¿Buscas un diseño personalizado?", contactBtn: "Enviar por WhatsApp"
+            },
+            en: {
+                navHome: "Home", navAbout: "The Designer", navContact: "Contact", lang: "Español",
+                heroSub: "Handcrafted magic by Valeria Santoyo V.", heroBtn: "See my story",
+                instaTitle: "Instagram Moments", aboutSub: "Designer & Creator",
+                aboutText1: '"From my workshop, I seek to capture the essence of nature in metals and stones. VSV is my vision: delicate, organic, and full of light."',
+                aboutText2: "Every design carries a part of my soul and a deep respect for slow, artisanal processes.",
+                contactTitle: "Let's Talk", contactSub: "Looking for a custom design?", contactBtn: "Send via WhatsApp"
+            }
+        };
+
+        // Cambiar de Página
+        function showPage(pageId) {
+            document.querySelectorAll('.page-content').forEach(p => p.classList.remove('page-active'));
+            document.getElementById(pageId).classList.add('page-active');
+            
+            const nav = document.getElementById('navbar');
+            const logo = document.getElementById('navLogo');
+            const navTexts = document.querySelectorAll('.nav-text');
+
+            if (pageId !== 'home') {
+                nav.classList.add('bg-white/95', 'shadow-sm');
+                nav.classList.remove('py-8');
+                nav.classList.add('py-4');
+                logo.classList.remove('brightness-0', 'invert');
+                navTexts.forEach(t => t.classList.replace('text-white/80', 'text-gray-400'));
+            } else {
+                updateScrollState();
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            toggleMenu(false);
+        }
+
+        // Manejar Scroll
+        function updateScrollState() {
+            if (document.getElementById('home').classList.contains('page-active')) {
+                const nav = document.getElementById('navbar');
+                const logo = document.getElementById('navLogo');
+                const navTexts = document.querySelectorAll('.nav-text');
+                
+                if (window.scrollY > 50) {
+                    nav.classList.add('bg-white/95', 'shadow-sm', 'py-4');
+                    nav.classList.remove('bg-transparent', 'py-8');
+                    logo.classList.remove('brightness-0', 'invert');
+                    navTexts.forEach(t => t.classList.replace('text-white/80', 'text-gray-400'));
+                } else {
+                    nav.classList.remove('bg-white/95', 'shadow-sm', 'py-4');
+                    nav.classList.add('bg-transparent', 'py-8');
+                    logo.classList.add('brightness-0', 'invert');
+                    navTexts.forEach(t => t.classList.replace('text-gray-400', 'text-white/80'));
+                }
+            }
+        }
+        window.addEventListener('scroll', updateScrollState);
+
+        // Menú Móvil
+        function toggleMenu(force) {
+            const menu = document.getElementById('mobileMenu');
+            if (force === false) menu.classList.add('hidden');
+            else menu.classList.toggle('hidden');
+        }
+
+        // Idioma
+        function toggleLang() {
+            currentLang = currentLang === 'es' ? 'en' : 'es';
+            const t = texts[currentLang];
+            
+            document.getElementById('langBtn').innerText = t.lang;
+            document.getElementById('heroSub').innerText = t.heroSub;
+            document.getElementById('heroBtn').innerText = t.heroBtn;
+            document.getElementById('instaTitle').innerText = t.instaTitle;
+            document.getElementById('aboutSub').innerText = t.aboutSub;
+            document.getElementById('aboutText1').innerText = t.aboutText1;
+            document.getElementById('aboutText2').innerText = t.aboutText2;
+            document.getElementById('contactTitle').innerText = t.contactTitle;
+            document.getElementById('contactSub').innerText = t.contactSub;
+            document.getElementById('contactBtn').innerText = t.contactBtn;
+        }
+
+        // Carrusel
+        function moveCarousel(step) {
+            const container = document.getElementById('carousel');
+            const totalItems = 10;
+            const itemsVisible = window.innerWidth < 768 ? 1 : 3;
+            
+            currentIdx = (currentIdx + step + totalItems) % (totalItems - itemsVisible + 1);
+            const offset = currentIdx * (100 / itemsVisible);
+            container.style.transform = `translateX(-${offset}%)`;
+        }
+
+        // Auto-rotación carrusel
+        setInterval(() => moveCarousel(1), 5000);
+
+    </script>
+</body>
+</html>
