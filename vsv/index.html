@@ -111,6 +111,18 @@
         .bg-violet-vsv { background-color: var(--vsv-dark-violet); }
         .border-violet-vsv { border-color: var(--vsv-dark-violet); }
 
+        /* --- MENÚ NAVEGACIÓN SUAVE --- */
+        .nav-link { 
+            font-weight: 700; 
+            color: var(--vsv-rosa-palo); 
+            opacity: 0.8; 
+            transition: all 0.3s ease;
+        }
+        .nav-link:hover { 
+            opacity: 1; 
+            color: var(--vsv-dark-violet);
+        }
+
         #lightbox {
             display: none;
             position: fixed;
@@ -134,9 +146,9 @@
             <button onclick="toggleMenu()" class="md:hidden text-violet-900 p-2"><i data-lucide="menu" size="32"></i></button>
             
             <div class="hidden md:flex gap-10 flex-1">
-                <button onclick="showPage('home')" class="nav-link text-[10px] uppercase tracking-[0.4em] font-black hover:text-[#D29B9B] transition-colors" data-lang="navInicio">Inicio</button>
-                <button onclick="showPage('gallery')" class="nav-link text-[10px] uppercase tracking-[0.4em] font-black hover:text-[#D29B9B] transition-colors" data-lang="navColeccion">Colección</button>
-                <button onclick="showPage('mission')" class="nav-link text-[10px] uppercase tracking-[0.4em] font-black hover:text-[#D29B9B] transition-colors" data-lang="navMision">Misión</button>
+                <button onclick="showPage('home')" class="nav-link text-[10px] uppercase tracking-[0.4em]" data-lang="navInicio">Inicio</button>
+                <button onclick="showPage('gallery')" class="nav-link text-[10px] uppercase tracking-[0.4em]" data-lang="navColeccion">Colección</button>
+                <button onclick="showPage('mission')" class="nav-link text-[10px] uppercase tracking-[0.4em]" data-lang="navMision">Misión</button>
             </div>
 
             <div class="cursor-pointer" onclick="showPage('home')">
@@ -144,8 +156,8 @@
             </div>
 
             <div class="flex-1 flex justify-end items-center gap-8">
-                <button onclick="showPage('about')" class="nav-link hidden md:block text-[10px] uppercase tracking-[0.4em] font-black hover:text-[#D29B9B] transition-colors" data-lang="navValeria">Valeria</button>
-                <button onclick="showPage('contact')" class="nav-link hidden md:block text-[10px] uppercase tracking-[0.4em] font-black hover:text-[#D29B9B] transition-colors" data-lang="navContacto">Contacto</button>
+                <button onclick="showPage('about')" class="nav-link hidden md:block text-[10px] uppercase tracking-[0.4em]" data-lang="navValeria">Valeria</button>
+                <button onclick="showPage('contact')" class="nav-link hidden md:block text-[10px] uppercase tracking-[0.4em]" data-lang="navContacto">Contacto</button>
                 <button onclick="toggleLang()" id="langBtn" class="bg-violet-700 text-white px-5 py-2 rounded-full text-[9px] font-black tracking-widest transition-all">English</button>
             </div>
         </div>
@@ -357,13 +369,10 @@
         function toggleLang() {
             currentLang = currentLang === 'es' ? 'en' : 'es';
             const t = texts[currentLang];
-            
-            // Actualizar botones de Nav
             document.querySelectorAll('[data-lang]').forEach(el => {
                 const key = el.getAttribute('data-lang');
                 if (t[key]) el.innerHTML = t[key];
             });
-
             document.getElementById('langBtn').innerText = t.langBtn;
         }
 
@@ -392,7 +401,6 @@
             const shuffled = [...list].sort(() => Math.random() - 0.5);
             const numRows = filter === 'ellas' ? 4 : 1; 
             const chunkSize = Math.ceil(shuffled.length / numRows);
-
             for (let i = 0; i < numRows; i++) {
                 const chunk = shuffled.slice(i * chunkSize, (i + 1) * chunkSize);
                 if (chunk.length === 0) continue;
