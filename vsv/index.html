@@ -9,11 +9,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --lila-light: #f3f0ff;
-            --lila-main: #a78bfa;
-            --purple-deep: #4c1d95;
-            --gold-soft: #d4af37;
-            --gold-bright: #f3d47a;
+            --lila-soft: #f5f3ff;
+            --purple-vsv: #7c3aed;
+            --gold-vsv: #d4af37;
+            --gold-light: #f3d47a;
         }
 
         body { 
@@ -25,105 +24,89 @@
         }
         .font-serif { font-family: 'Playfair Display', serif; }
 
-        /* --- MARIPOSAS ETÉREAS (BACKGROUND) --- */
-        .butterfly-container {
+        /* --- ANIMACIÓN DE MARIPOSAS ETÉREAS --- */
+        .butterfly-layer {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 1;
-            opacity: 0.08; /* Casi imperceptible como pediste */
+            z-index: 2;
+            opacity: 0.05; /* Casi imperceptible como marca de agua */
         }
-
         .butterfly {
             position: absolute;
-            fill: var(--purple-deep);
-            animation: flutter 15s infinite linear;
+            animation: float-butterfly 25s linear infinite;
+            fill: var(--purple-vsv);
         }
-
-        @keyframes flutter {
-            0% { transform: translate(-10%, 100vh) rotate(0deg) scale(0.5); }
-            25% { transform: translate(30vw, 60vh) rotate(20deg) scale(0.8); }
-            50% { transform: translate(60vw, 80vh) rotate(-15deg) scale(0.6); }
-            75% { transform: translate(80vw, 20vh) rotate(10deg) scale(0.9); }
-            100% { transform: translate(110%, -10vh) rotate(0deg) scale(0.5); }
+        @keyframes float-butterfly {
+            0% { transform: translate(-10%, 100vh) rotate(0deg); }
+            25% { transform: translate(30vw, 50vh) rotate(20deg); }
+            50% { transform: translate(60vw, 80vh) rotate(-15deg); }
+            75% { transform: translate(90vw, 20vh) rotate(10deg); }
+            100% { transform: translate(110%, -10vh) rotate(0deg); }
         }
 
         /* --- HERO & VIDEO --- */
-        .hero-video-wrap {
+        .video-container {
             position: absolute;
             inset: 0;
             z-index: 0;
         }
-        .video-canvas {
+        .video-bg {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: blur(8px) brightness(0.7);
-            transform: scale(1.05);
+            filter: blur(10px) brightness(0.8);
+            transform: scale(1.1);
         }
-        .video-overlay {
+        .video-tint {
             position: absolute;
             inset: 0;
-            background: linear-gradient(to bottom, rgba(76, 29, 149, 0.2), rgba(255, 252, 251, 1));
+            background: linear-gradient(to bottom, rgba(124, 58, 237, 0.1), #fffcfb);
         }
-
         .watermark-logo {
             opacity: 0.1;
             mix-blend-mode: overlay;
-            filter: grayscale(100%);
-            max-width: 400px;
+            filter: grayscale(100%) brightness(200%);
+            max-width: 450px;
+            pointer-events: none;
         }
 
-        /* --- GALERÍA DINÁMICA (AUTO-SCROLL) --- */
-        .gallery-wrapper {
+        /* --- GALERÍA DINÁMICA INFINITA --- */
+        .gallery-container {
             width: 100%;
             overflow: hidden;
-            padding: 2rem 0;
-            position: relative;
+            padding: 40px 0;
         }
         .gallery-track {
             display: flex;
-            width: calc(250px * 20);
-            animation: scroll-gallery 60s linear infinite;
+            width: max-content;
+            animation: scroll 80s linear infinite;
         }
         .gallery-track:hover { animation-play-state: paused; }
-
-        @keyframes scroll-gallery {
+        @keyframes scroll {
             0% { transform: translateX(0); }
-            100% { transform: translateX(calc(-250px * 10)); }
+            100% { transform: translateX(-50%); }
         }
-
-        .gallery-img-card {
-            width: 250px;
-            height: 350px;
-            margin: 0 1rem;
-            flex-shrink: 0;
-            border-radius: 2rem;
+        .gallery-card {
+            width: 280px;
+            height: 380px;
+            margin: 0 15px;
+            border-radius: 40px;
             overflow: hidden;
-            border: 4px solid white;
-            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.1);
+            border: 5px solid white;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
             cursor: pointer;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.4s ease;
         }
-        .gallery-img-card:hover {
-            transform: scale(1.05) translateY(-10px);
-            border-color: var(--gold-bright);
-        }
+        .gallery-card:hover { transform: scale(1.05) translateY(-10px); }
 
         /* --- INTERFAZ --- */
         .page-content { display: none; }
-        .page-active { display: block; animation: pageFade 1s ease-out; }
-        @keyframes pageFade { from { opacity: 0; } to { opacity: 1; } }
-
-        .btn-vsv {
-            background: linear-gradient(135deg, var(--gold-soft), var(--gold-bright));
-            color: white;
-            box-shadow: 0 10px 20px -5px rgba(212, 175, 55, 0.4);
-        }
-        .btn-vsv:hover { transform: translateY(-2px); box-shadow: 0 15px 25px -5px rgba(212, 175, 55, 0.5); }
+        .page-active { display: block; animation: fadeIn 0.8s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         #lightbox {
             display: none;
@@ -133,14 +116,20 @@
             z-index: 100;
             align-items: center;
             justify-content: center;
-            backdrop-blur: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .gold-btn {
+            background: linear-gradient(135deg, var(--gold-vsv), var(--gold-light));
+            color: white;
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
         }
     </style>
 </head>
 <body>
 
     <!-- Capa de Mariposas -->
-    <div class="butterfly-container" id="butterflyLayer"></div>
+    <div class="butterfly-layer" id="butterflies"></div>
 
     <!-- Navegación -->
     <nav id="navbar" class="fixed w-full z-50 transition-all duration-700 py-6 px-10">
@@ -150,17 +139,17 @@
             </button>
 
             <div class="hidden md:flex gap-12 flex-1">
-                <button onclick="showPage('home')" class="nav-link text-[10px] uppercase tracking-[0.4em] font-bold text-white/80 hover:text-purple-300 transition-all">Inicio</button>
-                <button onclick="showPage('gallery')" class="nav-link text-[10px] uppercase tracking-[0.4em] font-bold text-white/80 hover:text-purple-300 transition-all">Colección</button>
+                <button onclick="showPage('home')" class="nav-link text-[10px] uppercase tracking-[0.4em] font-bold text-white/70 hover:text-white transition-all">Inicio</button>
+                <button onclick="showPage('gallery')" class="nav-link text-[10px] uppercase tracking-[0.4em] font-bold text-white/70 hover:text-white transition-all">Colección</button>
             </div>
 
             <div class="cursor-pointer" onclick="showPage('home')">
-                <img src="logo.png" alt="Logo" id="navLogo" class="h-10 md:h-12 brightness-0 invert opacity-90">
+                <img src="logo.png" alt="VSV Logo" id="navLogo" class="h-10 md:h-12 brightness-0 invert opacity-90 transition-all">
             </div>
 
             <div class="flex-1 flex justify-end items-center gap-8">
-                <button onclick="showPage('about')" class="nav-link hidden md:block text-[10px] uppercase tracking-[0.4em] font-bold text-white/80 hover:text-purple-300 transition-all">Valeria</button>
-                <button onclick="showPage('contact')" class="nav-link hidden md:block text-[10px] uppercase tracking-[0.4em] font-bold text-white/80 hover:text-purple-300 transition-all">Contacto</button>
+                <button onclick="showPage('about')" class="nav-link hidden md:block text-[10px] uppercase tracking-[0.4em] font-bold text-white/70 hover:text-white transition-all">Valeria</button>
+                <button onclick="showPage('contact')" class="nav-link hidden md:block text-[10px] uppercase tracking-[0.4em] font-bold text-white/70 hover:text-white transition-all">Contacto</button>
                 <button onclick="toggleLang()" id="langBtn" class="bg-white/10 backdrop-blur-md text-white border border-white/20 px-5 py-2 rounded-full text-[9px] uppercase tracking-widest font-bold hover:bg-white hover:text-purple-900 transition-all">
                     English
                 </button>
@@ -169,87 +158,79 @@
     </nav>
 
     <!-- Menú Móvil -->
-    <div id="mobileMenu" class="fixed inset-0 z-[60] bg-[#fffcfb] hidden flex-col p-12">
+    <div id="mobileMenu" class="fixed inset-0 z-[60] bg-white hidden flex-col p-12">
         <div class="flex justify-between items-center mb-20">
             <img src="logo.png" alt="Logo" class="h-10">
             <button onclick="toggleMenu()" class="text-purple-950 p-2 bg-purple-50 rounded-full"><i data-lucide="x" size="32"></i></button>
         </div>
         <div class="flex flex-col gap-10 text-4xl font-serif italic text-purple-900/40">
-            <button onclick="showPage('home')" class="text-left">Inicio</button>
-            <button onclick="showPage('gallery')" class="text-left">Colección</button>
-            <button onclick="showPage('about')" class="text-left">Valeria</button>
-            <button onclick="showPage('contact')" class="text-left">Contacto</button>
+            <button onclick="showPage('home')">Inicio</button>
+            <button onclick="showPage('gallery')">Colección</button>
+            <button onclick="showPage('about')">Valeria</button>
+            <button onclick="showPage('contact')">Contacto</button>
         </div>
     </div>
 
     <!-- SECCIÓN: INICIO -->
     <section id="home" class="page-content page-active">
         <div class="relative h-screen flex items-center justify-center overflow-hidden">
-            <div class="hero-video-wrap">
-                <video id="bgVideo" autoplay muted loop playsinline class="video-canvas">
+            <div class="video-container">
+                <video id="bgVideo" autoplay muted loop playsinline class="video-bg">
                     <source src="fondovid.mp4" type="video/mp4">
                 </video>
-                <div class="video-overlay"></div>
+                <div class="video-tint"></div>
             </div>
 
-            <div class="relative z-10 text-center px-6 max-w-5xl">
+            <div class="relative z-10 text-center px-6">
                 <img src="logo.png" alt="VSV Watermark" class="watermark-logo mx-auto mb-10">
-                <h2 id="heroFrase" class="text-purple-950 text-3xl md:text-5xl font-serif italic mb-12 leading-tight px-4">
+                <h2 id="heroFrase" class="text-purple-950 text-3xl md:text-5xl font-serif italic mb-12 leading-tight max-w-4xl mx-auto">
                     "Hecha a mano, pensada con el corazón. Una joya que lleva consigo la energía de lo auténtico."
                 </h2>
-                <div class="flex flex-col md:flex-row gap-6 justify-center items-center">
-                    <button onclick="showPage('gallery')" id="heroBtn" class="px-12 py-4 btn-vsv uppercase text-[10px] tracking-[0.5em] font-bold rounded-full transition-all">
-                        Explorar Colección
-                    </button>
-                    <a href="https://www.instagram.com/vsv.arteendiseno/" target="_blank" class="text-[10px] uppercase tracking-[0.4em] font-bold text-purple-400 hover:text-gold-soft transition-all">Instagram @vsv.arteendiseno</a>
-                </div>
+                <button onclick="showPage('gallery')" class="px-12 py-4 gold-btn uppercase text-[10px] tracking-[0.5em] font-bold rounded-full transition-all hover:scale-105 active:scale-95">
+                    Explorar Universo
+                </button>
             </div>
         </div>
     </section>
 
-    <!-- SECCIÓN: GALERÍA DINÁMICA -->
-    <section id="gallery" class="page-content pt-40 pb-24 bg-white">
-        <div class="max-w-7xl mx-auto px-6 mb-16 text-center">
-            <h3 id="galleryTitle" class="text-5xl font-serif italic text-purple-950 mb-6 tracking-tighter">Galería del Alma</h3>
-            <div class="h-1 w-24 bg-gold-soft mx-auto rounded-full mb-6"></div>
-            <p id="galleryDesc" class="text-gray-400 uppercase tracking-[0.3em] text-[10px]">Toca cualquier pieza para ver su detalle</p>
+    <!-- SECCIÓN: COLECCIÓN DINÁMICA -->
+    <section id="gallery" class="page-content pt-40 pb-20 bg-white">
+        <div class="max-w-7xl mx-auto px-6 text-center mb-16">
+            <h3 id="galleryTitle" class="text-5xl font-serif italic text-purple-950 mb-6">Fragmentos del Alma</h3>
+            <div class="h-1 w-20 bg-gold-vsv mx-auto rounded-full mb-6"></div>
+            <p id="galleryDesc" class="text-gray-400 uppercase tracking-[0.4em] text-[9px]">Haz clic en cualquier pieza para ampliarla</p>
         </div>
 
-        <!-- Carrusel Infinito 1 -->
-        <div class="gallery-wrapper mb-10">
+        <div class="gallery-container">
             <div class="gallery-track" id="track1"></div>
         </div>
-        <!-- Carrusel Infinito 2 (Sentido contrario) -->
-        <div class="gallery-wrapper">
-            <div class="gallery-track" id="track2" style="animation-direction: reverse; animation-duration: 80s;"></div>
+        <div class="gallery-container">
+            <div class="gallery-track" id="track2" style="animation-direction: reverse; animation-duration: 60s;"></div>
         </div>
     </section>
 
     <!-- SECCIÓN: VALERIA -->
     <section id="about" class="page-content pt-40 pb-24 px-6 max-w-7xl mx-auto">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
             <div class="relative group">
-                <div class="absolute inset-0 bg-purple-200 rounded-[120px] -rotate-3 transition-transform group-hover:rotate-0 duration-700 -z-10"></div>
-                <img src="valeria.png" alt="Valeria Santoyo V." class="w-full h-[700px] object-cover rounded-[120px] shadow-2xl border-[20px] border-white" onerror="this.src='https://images.unsplash.com/photo-1544005313-94ddf0286df2'">
-                <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-rose-50 rounded-full flex items-center justify-center shadow-xl border-4 border-white">
-                    <i data-lucide="butterfly" class="text-purple-300" size="48"></i>
-                </div>
+                <div class="absolute inset-0 bg-purple-100 rounded-[120px] -rotate-3 transition-transform group-hover:rotate-0 duration-700 -z-10 opacity-60"></div>
+                <img src="valeria.png" alt="Valeria Santoyo V." class="w-full h-[650px] object-cover rounded-[120px] shadow-2xl border-[15px] border-white" onerror="this.src='https://images.unsplash.com/photo-1544005313-94ddf0286df2'">
             </div>
             <div class="lg:pl-10">
-                <span class="text-gold-soft font-serif italic text-lg mb-4 block">La mirada de la artista</span>
-                <h2 class="text-7xl font-serif italic mb-10 text-purple-950">Valeria Santoyo V.</h2>
-                <div class="space-y-10 text-gray-600 font-light text-xl leading-relaxed">
-                    <p class="italic border-l-8 border-purple-100 pl-8">"Lo que hago no son accesorios, son fragmentos de mi propia historia entrelazados con metales y piedras."</p>
-                    <p>Cada pieza de VSV es única. Mi proceso es lento, meditativo y respetuoso con la materia prima. Busco que al usar una de mis creaciones, sientas la vibración de lo hecho a mano.</p>
+                <span class="text-gold-vsv font-serif italic text-lg mb-2 block tracking-widest">Diseñadora & Creadora</span>
+                <h2 class="text-6xl font-serif italic mb-10 text-purple-950">Valeria Santoyo V.</h2>
+                <div class="space-y-8 text-gray-600 font-light text-xl leading-relaxed">
+                    <p class="italic border-l-4 border-purple-200 pl-6">"Cada accesorio es un susurro de la naturaleza transformado en arte por mis manos."</p>
+                    <p>Mi taller es donde la magia ocurre. Diseño piezas sofisticadas pero coquetas, clásicas pero juveniles, siempre buscando que resalten la esencia única de quien las porta.</p>
                 </div>
-                <div class="grid grid-cols-2 gap-10 mt-16">
-                    <div class="p-8 bg-white rounded-3xl shadow-sm border border-purple-50 text-center hover:shadow-xl transition-all">
-                        <i data-lucide="sparkles" class="text-gold-soft mx-auto mb-4" size="32"></i>
-                        <span class="text-[10px] uppercase tracking-widest font-bold text-gray-400">Artesanía Pura</span>
+                <div class="grid grid-cols-2 gap-8 mt-12">
+                    <div class="p-6 bg-white rounded-3xl shadow-sm border border-purple-50 text-center">
+                        <i data-lucide="sparkles" class="text-gold-vsv mx-auto mb-3" size="28"></i>
+                        <span class="text-[9px] uppercase tracking-widest font-bold text-gray-400">Artesanía Pura</span>
                     </div>
-                    <div class="p-8 bg-white rounded-3xl shadow-sm border border-purple-50 text-center hover:shadow-xl transition-all">
-                        <i data-lucide="heart" class="text-purple-400 mx-auto mb-4" size="32"></i>
-                        <span class="text-[10px] uppercase tracking-widest font-bold text-gray-400">Energía Vital</span>
+                    <div class="p-6 bg-white rounded-3xl shadow-sm border border-purple-50 text-center">
+                        <i data-lucide="heart" class="text-purple-400 mx-auto mb-3" size="28"></i>
+                        <span class="text-[9px] uppercase tracking-widest font-bold text-gray-400">Energía Vital</span>
                     </div>
                 </div>
             </div>
@@ -257,151 +238,141 @@
     </section>
 
     <!-- SECCIÓN: CONTACTO -->
-    <section id="contact" class="page-content pt-40 pb-24 px-6 max-w-6xl mx-auto">
-        <div class="bg-white rounded-[100px] shadow-2xl overflow-hidden border border-purple-50 flex flex-col lg:flex-row">
-            <div class="lg:w-1/2 bg-purple-950 p-20 text-white flex flex-col justify-center relative">
-                <div class="absolute top-0 right-0 w-64 h-64 bg-purple-800/30 rounded-full -mr-32 -mt-32 blur-3xl"></div>
-                <h2 id="contactTitle" class="text-6xl font-serif italic mb-10 leading-tight">Hablemos <br>con el alma</h2>
-                <p id="contactSub" class="text-purple-200/60 text-lg mb-16 font-light">¿Deseas una pieza personalizada o tienes alguna duda sobre mi colección?</p>
-                
-                <div class="space-y-8">
-                    <a href="https://wa.me/5210000000000?text=Hola%20Valeria!%20Me%20encantó%20tu%20web%20y%20quisiera%20más%20información%20de%20una%20pieza." target="_blank" class="flex items-center gap-8 group">
-                        <div class="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center group-hover:bg-green-500 transition-all duration-500 shadow-lg">
-                            <i data-lucide="message-circle" size="28"></i>
-                        </div>
+    <section id="contact" class="page-content pt-40 pb-24 px-6 max-w-5xl mx-auto">
+        <div class="bg-white rounded-[80px] shadow-2xl overflow-hidden border border-purple-50 flex flex-col lg:flex-row">
+            <div class="lg:w-2/5 bg-purple-950 p-16 text-white flex flex-col justify-center relative">
+                <h2 id="contactTitle" class="text-5xl font-serif italic mb-10">Hablemos</h2>
+                <p id="contactSub" class="text-purple-200/50 text-lg mb-12 font-light">¿Deseas una pieza personalizada o tienes alguna duda?</p>
+                <div class="space-y-10">
+                    <a href="https://www.instagram.com/vsv.arteendiseno/" target="_blank" class="flex items-center gap-6 group">
+                        <div class="w-14 h-14 bg-white/10 rounded-full flex items-center justify-center group-hover:bg-purple-600 transition-all duration-500 shadow-lg"><i data-lucide="instagram" size="24"></i></div>
                         <div>
-                            <p class="text-[10px] uppercase tracking-widest text-purple-400 font-bold mb-1">WhatsApp</p>
-                            <p class="tracking-widest text-sm">ENVIAR MENSAJE</p>
+                            <p class="text-[9px] uppercase tracking-widest text-purple-400 font-bold mb-1">Instagram</p>
+                            <p class="tracking-widest text-xs">@VSV.ARTEENDISENO</p>
                         </div>
                     </a>
-                    <a href="https://www.instagram.com/vsv.arteendiseno/" target="_blank" class="flex items-center gap-8 group">
-                        <div class="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center group-hover:bg-purple-600 transition-all duration-500 shadow-lg">
-                            <i data-lucide="instagram" size="28"></i>
-                        </div>
+                    <div class="flex items-center gap-6">
+                        <div class="w-14 h-14 bg-white/10 rounded-full flex items-center justify-center"><i data-lucide="message-circle" size="24"></i></div>
                         <div>
-                            <p class="text-[10px] uppercase tracking-widest text-purple-400 font-bold mb-1">Instagram</p>
-                            <p class="tracking-widest text-sm">@VSV.ARTEENDISENO</p>
+                            <p class="text-[9px] uppercase tracking-widest text-purple-400 font-bold mb-1">WhatsApp</p>
+                            <p class="tracking-widest text-xs">+52 1 55 4372 5613</p>
                         </div>
-                    </a>
+                    </div>
                 </div>
             </div>
-            <div class="lg:w-1/2 p-20 lg:p-24 space-y-12 bg-white">
-                <div class="group">
-                    <label class="text-[11px] uppercase tracking-[0.4em] text-gray-400 block mb-4 font-bold group-focus-within:text-gold-soft transition-all">Tu Nombre</label>
-                    <input type="text" class="w-full bg-transparent border-b-2 border-purple-50 py-4 focus:border-gold-soft outline-none transition-all text-xl font-light" placeholder="Valeria Santoyo...">
+            <div class="lg:w-3/5 p-16 md:p-24 space-y-10">
+                <div>
+                    <label class="text-[10px] uppercase tracking-widest text-gray-400 block mb-3 font-bold">Tu Nombre</label>
+                    <input type="text" id="formName" class="w-full bg-transparent border-b-2 border-purple-100 py-3 focus:border-gold-vsv outline-none transition-all text-lg" placeholder="Valeria Santoyo...">
                 </div>
-                <div class="group">
-                    <label class="text-[11px] uppercase tracking-[0.4em] text-gray-400 block mb-4 font-bold group-focus-within:text-gold-soft transition-all">¿Qué pieza te inspiró?</label>
-                    <textarea class="w-full bg-transparent border-b-2 border-purple-50 py-4 focus:border-gold-soft outline-none transition-all h-32 resize-none text-xl font-light" placeholder="Cuéntame tu idea..."></textarea>
+                <div>
+                    <label class="text-[10px] uppercase tracking-widest text-gray-400 block mb-3 font-bold">¿Qué te inspiró?</label>
+                    <textarea id="formMsg" class="w-full bg-transparent border-b-2 border-purple-100 py-3 focus:border-gold-vsv outline-none transition-all h-32 resize-none text-lg" placeholder="Cuéntame tu idea..."></textarea>
                 </div>
-                <button class="w-full btn-vsv text-white py-6 rounded-full text-[12px] uppercase tracking-[0.5em] font-bold transition-all hover:scale-105">
-                    Enviar Consulta
+                <button onclick="sendWhatsApp()" class="w-full gold-btn text-white py-6 rounded-full text-[11px] uppercase tracking-[0.4em] font-bold transition-all hover:scale-105 active:scale-95">
+                    Enviar a WhatsApp
                 </button>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-[#fffcfb] py-24 px-10 border-t border-purple-50 text-center">
+    <!-- Footer Persistente -->
+    <footer class="bg-white py-20 px-10 border-t border-purple-50 text-center">
         <img src="logo.png" alt="VSV Logo" class="h-20 mx-auto mb-10 opacity-20 grayscale">
-        <p class="text-[11px] text-purple-300 uppercase tracking-[0.7em] font-bold mb-12 italic">Valeria Santoyo V.</p>
+        <p class="text-[11px] text-purple-300 uppercase tracking-[0.6em] font-bold mb-12 italic">Valeria Santoyo V.</p>
         <div class="flex justify-center gap-16 mb-20">
-            <a href="https://www.instagram.com/vsv.arteendiseno/" target="_blank" class="text-purple-200 hover:text-gold-soft transition-all transform hover:scale-125 hover:-rotate-12"><i data-lucide="instagram" size="32"></i></a>
-            <a href="https://www.facebook.com/vsvbolsasyaccesorios/photos" target="_blank" class="text-purple-200 hover:text-gold-soft transition-all transform hover:scale-125 hover:rotate-12"><i data-lucide="facebook" size="32"></i></a>
-            <a href="https://wa.me/5210000000000" class="text-purple-200 hover:text-gold-soft transition-all transform hover:scale-125"><i data-lucide="message-circle" size="32"></i></a>
+            <a href="https://www.instagram.com/vsv.arteendiseno/" target="_blank" class="text-purple-200 hover:text-gold-vsv transition-all transform hover:scale-125"><i data-lucide="instagram" size="30"></i></a>
+            <a href="https://wa.me/5215543725613" target="_blank" class="text-purple-200 hover:text-gold-vsv transition-all transform hover:scale-125"><i data-lucide="message-circle" size="30"></i></a>
+            <a href="https://www.facebook.com/vsvbolsasyaccesorios/photos" target="_blank" class="text-purple-200 hover:text-gold-vsv transition-all transform hover:scale-125"><i data-lucide="facebook" size="30"></i></a>
         </div>
-        <div class="text-[10px] uppercase tracking-[0.5em] text-gray-300">
-            © 2024 VSV ARTE EN DISEÑO • PIEZAS HECHAS CON EL ALMA
+        <div class="text-[9px] uppercase tracking-[0.5em] text-gray-300">
+            © 2024 VSV ARTE EN DISEÑO • HECHO CON EL ALMA
         </div>
     </footer>
 
     <!-- Lightbox -->
     <div id="lightbox" onclick="closeLightbox()">
         <button class="absolute top-10 right-10 text-purple-900 bg-white p-4 rounded-full shadow-2xl z-[110]"><i data-lucide="x" size="32"></i></button>
-        <img src="" id="lightboxImg" class="max-h-[85vh] max-w-[90vw] rounded-[40px] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] border-[10px] border-white object-contain">
+        <img src="" id="lightboxImg" class="max-h-[85vh] max-w-[90vw] rounded-[40px] shadow-2xl border-[8px] border-white object-contain">
     </div>
 
     <!-- Scripts -->
     <script>
         lucide.createIcons();
 
-        // 1. GENERAR MARIPOSAS ETÉREAS
-        function createButterflies() {
-            const container = document.getElementById('butterflyLayer');
-            const count = 6;
+        // 1. GENERAR MARIPOSAS
+        function initButterflies() {
+            const container = document.getElementById('butterflies');
+            const count = 5;
             for(let i=0; i<count; i++) {
                 const b = document.createElement('div');
                 b.className = 'butterfly';
-                b.style.left = Math.random() * 80 + 'vw';
-                b.style.top = Math.random() * 80 + 'vh';
+                b.style.left = Math.random() * 90 + 'vw';
+                b.style.top = Math.random() * 90 + 'vh';
                 b.style.animationDelay = (Math.random() * -20) + 's';
-                b.style.animationDuration = (15 + Math.random() * 10) + 's';
+                b.style.animationDuration = (20 + Math.random() * 10) + 's';
                 b.innerHTML = `
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
                         <path d="M12 19c-1 0-2-1-2-2 0-3 3-5 5-5s2 1 2 2-2 5-5 5z"/>
                         <path d="M12 19c1 0 2-1 2-2 0-3-3-5-5-5s-2 1-2 2 2 5 5 5z"/>
-                        <path d="M12 19v-7"/>
-                        <path d="M12 8c1-1 2-2 2-4"/>
-                        <path d="M12 8c-1-1-2-2-2-4"/>
+                        <path d="M12 19v-7"/><path d="M12 8c1-1 2-2 2-4"/><path d="M12 8c-1-1-2-2-2-4"/>
                     </svg>
                 `;
                 container.appendChild(b);
             }
         }
 
-        // 2. CONFIGURACIÓN VIDEO & GALERÍA
-        window.onload = function() {
-            const video = document.getElementById('bgVideo');
-            if(video) video.playbackRate = 0.3;
-            createButterflies();
-            initDynamicGallery();
-        };
-
-        // 3. GALERÍA DINÁMICA (60+ FOTOS)
+        // 2. GALERÍA DINÁMICA
         const picsList = [
             "001", "002", "003", "004", "005", "006", "007", "008", "009", "010", "011", "012", "014", "015", "016", "017", "018", "019", "020", "021", "022", "023", "024", "025", "026", "027", "028", "029", "030", "031", "032", "033", "034", "035", "036", "037", "038", "039", "040", "042", "043", "044", "045", "046", "047", "048", "049", "050", "051", "052", "053", "054", "055", "056", "057", "058", "059", "060", "061", "062", "063", "066", "067", "068"
         ];
 
-        function initDynamicGallery() {
+        function initGallery() {
             const t1 = document.getElementById('track1');
             const t2 = document.getElementById('track2');
-            
-            // Mezclamos un poco las fotos para variedad
             const shuffled = [...picsList].sort(() => Math.random() - 0.5);
-            const row1 = shuffled.slice(0, 30);
-            const row2 = shuffled.slice(30);
+            const row1 = shuffled.slice(0, 32);
+            const row2 = shuffled.slice(32);
 
-            // Inyectamos las imágenes (duplicadas para el scroll infinito)
-            function fillTrack(track, list) {
-                const fullList = [...list, ...list]; // Duplicar para el bucle
-                track.innerHTML = fullList.map(num => `
-                    <div class="gallery-img-card" onclick="openLightbox('pics/VSV${num}.jpg')">
-                        <img src="pics/VSV${num}.jpg" class="w-full h-full object-cover" loading="lazy">
+            function fill(track, list) {
+                const full = [...list, ...list];
+                track.innerHTML = full.map(n => `
+                    <div class="gallery-card" onclick="openLightbox('pics/VSV${n}.jpg')">
+                        <img src="pics/VSV${n}.jpg" class="w-full h-full object-cover" loading="lazy">
                     </div>
                 `).join('');
             }
-
-            fillTrack(t1, row1);
-            fillTrack(t2, row2);
+            fill(t1, row1);
+            fill(t2, row2);
         }
 
-        // 4. LÓGICA DE PÁGINAS & SCROLL
+        // 3. WHATSAPP LOGIC
+        function sendWhatsApp() {
+            const name = document.getElementById('formName').value;
+            const msg = document.getElementById('formMsg').value;
+            const phone = "5215543725613";
+            const text = encodeURIComponent(`Hola Valeria! Mi nombre es ${name}. Me encantó tu web y quería consultarte por lo siguiente: ${msg}`);
+            window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
+        }
+
+        // 4. SISTEMA DE PÁGINAS
+        let currentLang = 'es';
+        const langData = {
+            es: { heroFrase: '"Hecha a mano, pensada con el corazón. Una joya que lleva consigo la energía de lo auténtico."', galleryTitle: "Fragmentos del Alma", contactTitle: "Hablemos", langBtn: "English" },
+            en: { heroFrase: '"Handmade, thought with the heart. A jewel that carries with it the energy of the authentic."', galleryTitle: "Soul Fragments", contactTitle: "Let's Talk", langBtn: "Español" }
+        };
+
         function showPage(id) {
             document.querySelectorAll('.page-content').forEach(p => p.classList.remove('page-active'));
             document.getElementById(id).classList.add('page-active');
-            
             const nav = document.getElementById('navbar');
             const logo = document.getElementById('navLogo');
             const links = document.querySelectorAll('.nav-link');
-
             if (id !== 'home') {
                 nav.classList.add('bg-white/95', 'shadow-md', 'py-4');
                 nav.classList.remove('py-6');
                 logo.classList.remove('brightness-0', 'invert');
-                links.forEach(l => {
-                    l.classList.replace('text-white/80', 'text-gray-400');
-                    l.classList.add('hover:text-purple-600');
-                });
+                links.forEach(l => l.classList.replace('text-white/70', 'text-gray-400'));
             } else {
                 handleScroll();
             }
@@ -414,33 +385,23 @@
             const nav = document.getElementById('navbar');
             const logo = document.getElementById('navLogo');
             const links = document.querySelectorAll('.nav-link');
-
             if (window.scrollY > 50) {
                 nav.classList.add('bg-white/95', 'shadow-md', 'py-4');
-                nav.classList.remove('py-6');
                 logo.classList.remove('brightness-0', 'invert');
-                links.forEach(l => l.classList.replace('text-white/80', 'text-gray-400'));
+                links.forEach(l => l.classList.replace('text-white/70', 'text-gray-400'));
             } else {
                 nav.classList.remove('bg-white/95', 'shadow-md', 'py-4');
-                nav.classList.add('py-6');
                 logo.classList.add('brightness-0', 'invert');
-                links.forEach(l => l.classList.replace('text-gray-400', 'text-white/80'));
+                links.forEach(l => l.classList.replace('text-gray-400', 'text-white/70'));
             }
         }
         window.onscroll = handleScroll;
 
-        // 5. TRADUCCIONES & UTILIDADES
-        let currentLang = 'es';
-        const langDict = {
-            es: { heroBtn: "Explorar Colección", galleryTitle: "Galería del Alma", contactTitle: "Hablemos con el alma", langBtn: "English" },
-            en: { heroBtn: "Explore Collection", galleryTitle: "Gallery of the Soul", contactTitle: "Talk with the Soul", langBtn: "Español" }
-        };
-
         function toggleLang() {
             currentLang = currentLang === 'es' ? 'en' : 'es';
-            const d = langDict[currentLang];
+            const d = langData[currentLang];
             document.getElementById('langBtn').innerText = d.langBtn;
-            document.getElementById('heroBtn').innerText = d.heroBtn;
+            document.getElementById('heroFrase').innerText = d.heroFrase;
             document.getElementById('galleryTitle').innerText = d.galleryTitle;
             document.getElementById('contactTitle').innerText = d.contactTitle;
         }
@@ -463,6 +424,13 @@
             document.getElementById('lightbox').style.display = 'none';
             document.body.style.overflow = 'auto';
         }
+
+        window.onload = function() {
+            const v = document.getElementById('bgVideo');
+            if(v) v.playbackRate = 0.3;
+            initButterflies();
+            initGallery();
+        };
     </script>
 </body>
 </html>
