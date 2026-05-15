@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Caro's Tropical B-Day | Mirador del Sol</title>
+    <!-- Optimizaciones de carga: Tailwind y fuentes -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&family=Caveat:wght@700&family=Pacifico&display=swap" rel="stylesheet">
+    <!-- Iconos y Mapas -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -92,9 +94,9 @@
         <div class="animated-wave"></div>
     </div>
 
-    <!-- Música -->
-    <audio id="beachAudio" loop>
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg">
+    <!-- Música: Archivo ccs.mp3 optimizado -->
+    <audio id="beachAudio" loop autoplay>
+        <source src="ccs.mp3" type="audio/mpeg">
     </audio>
     <div id="musicControl" class="fixed bottom-8 right-8 z-[1000] btn-beach p-4 rounded-full text-white shadow-2xl border-4 border-white cursor-pointer">
         <i data-lucide="music" id="musicIcon"></i>
@@ -106,7 +108,7 @@
         <div class="absolute top-20 right-10 text-8xl floating-emoji" style="animation-delay: 1s;">🦩</div>
         <div class="z-20 max-w-4xl">
             <p class="text-tropical-orange font-black tracking-[0.6em] uppercase text-sm mb-4">Metrópoli Creativa 2026</p>
-            <h1 class="text-6xl md:text-[9rem] font-pacifico text-deep-ocean drop-shadow-2xl mb-8">Caro's B-Day</h1>
+            <h1 class="text-6xl md:text-[9rem] font-pacifico text-deep-ocean drop-shadow-2xl mb-8 text-shadow">Caro's B-Day</h1>
             <p class="text-3xl md:text-5xl font-caveat text-gray-800 mb-10 leading-tight">
                 Estás invitado a la mejor <span class="text-hot-pink font-black underline decoration-wavy">Beach Party</span> del año
                 <br>en el <span class="text-deep-ocean font-bold">Mirador del Sol</span>
@@ -416,24 +418,53 @@
     <footer class="py-24 text-center bg-white border-t-8 border-sand-light flex flex-col items-center gap-10">
         <p class="text-deep-ocean text-3xl font-black">Realizado con muchísimo amor por <br> <a href="https://estudio.xidito.com/" target="_blank" class="text-hot-pink hover:scale-110 inline-block transition-transform">Estudio Xidito</a></p>
         <div class="flex gap-10">
-            <a href="https://www.instagram.com/estudio.xidito/" target="_blank" class="p-6 bg-gray-50 rounded-full text-pink-600 hover:bg-pink-50 transition-all shadow-md flex items-center justify-center"><i data-lucide="instagram" class="w-10 h-10"></i></a>
-            <a href="https://www.facebook.com/profile.php?id=61579203017269&locale=es_LA" target="_blank" class="p-6 bg-gray-50 rounded-full text-blue-600 hover:bg-blue-50 transition-all shadow-md flex items-center justify-center"><i data-lucide="facebook" class="w-10 h-10"></i></a>
+            <a href="https://www.instagram.com/estudio.xidito/" target="_blank" class="p-6 bg-gray-50 rounded-full text-pink-600 hover:bg-pink-50 transition-all shadow-md flex items-center justify-center">
+                <i data-lucide="instagram" class="w-10 h-10"></i>
+            </a>
+            <a href="https://www.facebook.com/profile.php?id=61579203017269&locale=es_LA" target="_blank" class="p-6 bg-gray-50 rounded-full text-blue-600 hover:bg-blue-50 transition-all shadow-md flex items-center justify-center">
+                <i data-lucide="facebook" class="w-10 h-10"></i>
+            </a>
         </div>
         <p class="text-gray-300 font-black tracking-[0.6em] uppercase text-xs">Caro's Tropical B-Day 2026</p>
     </footer>
 
     <script>
+        // Inicializar Iconos
         lucide.createIcons();
+
+        // Control de Música: Archivo CCS.MP3
         const audio = document.getElementById('beachAudio');
         const mBtn = document.getElementById('musicControl');
         const mIcon = document.getElementById('musicIcon');
         let playing = false;
+
+        // Función para intentar reproducir (Manejo de bloqueo de navegador)
+        function tryAutoplay() {
+            audio.play().then(() => {
+                playing = true;
+                mIcon.setAttribute('data-lucide', 'pause');
+                lucide.createIcons();
+            }).catch(error => {
+                console.log("Autoplay bloqueado, esperando interacción.");
+            });
+        }
+
+        // Ejecutar al cargar
+        window.addEventListener('load', tryAutoplay);
+
         mBtn.onclick = () => {
-            if(!playing) { audio.play(); mIcon.setAttribute('data-lucide', 'pause'); }
-            else { audio.pause(); mIcon.setAttribute('data-lucide', 'music'); }
-            lucide.createIcons(); playing = !playing;
+            if(!playing) { 
+                audio.play(); 
+                mIcon.setAttribute('data-lucide', 'pause'); 
+            } else { 
+                audio.pause(); 
+                mIcon.setAttribute('data-lucide', 'music'); 
+            }
+            lucide.createIcons(); 
+            playing = !playing;
         };
 
+        // Scroll Reveal
         function reveal() {
             var reveals = document.querySelectorAll(".reveal");
             for (var i = 0; i < reveals.length; i++) {
@@ -442,6 +473,7 @@
         }
         window.onscroll = reveal; reveal();
 
+        // Mapa Maestro: 26 Puntos
         const map = L.map('map').setView([20.60, -100.40], 12);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
@@ -506,7 +538,7 @@
                 ctx.fillText(l, x, y);
             }
             if(msg) wrap(`"${msg}"`, 540, 1550, 750, 50);
-            ctx.font = '160px Arial'; ctx.fillText("🐚 🐬 🦀", 540, 1850);
+            ctx.font = '160px Arial'; ctx.fillText("🐚  Dolphin 🦀", 540, 1850);
             document.getElementById('postcardPreview').src = canvas.toDataURL();
             document.getElementById('resultArea').classList.remove('hidden');
             const wa = encodeURIComponent(`¡Hola Caro! Soy ${name} ✨ Confirmo que voy. Mensaje: "${msg}" 🌴🐬`);
