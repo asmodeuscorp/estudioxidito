@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caro's Tropical B-Day | Mirador del Sol</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&family=Caveat:wght@700&family=Pacifico&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <style>
+        :root {
+            --hot-pink: #ff006e;
+            --deep-ocean: #0077b6;
+            --electric-blue: #00b4d8;
+            --sand-light: #fefae0;
+            --tropical-orange: #fb8500;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--sand-light);
+            color: #1a202c;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .font-caveat { font-family: 'Caveat', cursive; }
+        .font-pacifico { font-family: 'Pacifico', cursive; }
+
+        /* --- FONDO DE PLAYA ANIMADA --- */
+        .beach-background {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            background: linear-gradient(to bottom, #87ceeb 0%, #ade8f4 50%, #fefae0 100%);
+            overflow: hidden;
+        }
+
+        .animated-wave {
+            position: absolute; bottom: 0; left: 0; width: 200%; height: 180px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%2300b4d8" fill-opacity="0.4" d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,224C672,245,768,267,864,250.7C960,235,1056,181,1152,165.3C1248,149,1344,171,1392,181.3L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: 50% 100%;
+            animation: wave-move 20s linear infinite;
+        }
+
+        .animated-wave.wave2 {
+            bottom: 30px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ade8f4" fill-opacity="0.6" d="M0,160L48,176C96,192,192,224,288,224C384,224,480,192,576,181.3C672,171,768,181,864,202.7C960,224,1056,256,1152,245.3C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            animation: wave-move 15s linear infinite reverse;
+        }
+
+        @keyframes wave-move { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* --- BOTONES Y CARDS --- */
+        .btn-beach {
+            background: linear-gradient(-45deg, #ff006e, #fb8500, #00b4d8, #70e000);
+            background-size: 400% 400%;
+            animation: bg-pan 3s ease infinite;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes bg-pan { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.7s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        #map { height: 550px; border-radius: 40px; border: 10px solid white; box-shadow: 0 30px 60px rgba(0,0,0,0.25); }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 35px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            display: flex; flex-direction: column; justify-content: space-between;
+        }
+
+        .glass-card:hover { transform: translateY(-8px); border-color: var(--hot-pink); }
+
+        .floating-emoji { pointer-events: none; animation: float 6s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-35px) rotate(10deg); } }
+    </style>
+</head>
+<body>
+
+    <div class="beach-background">
+        <div class="animated-wave wave2"></div>
+        <div class="animated-wave"></div>
+    </div>
+
+    <!-- Música -->
+    <audio id="beachAudio" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg">
+    </audio>
+    <div id="musicControl" class="fixed bottom-8 right-8 z-[1000] btn-beach p-4 rounded-full text-white shadow-2xl border-4 border-white cursor-pointer">
+        <i data-lucide="music" id="musicIcon"></i>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex flex-col items-center justify-center relative px-6 text-center overflow-hidden">
+        <div class="absolute top-10 left-10 text-7xl floating-emoji">🦜</div>
+        <div class="absolute top-20 right-10 text-8xl floating-emoji" style="animation-delay: 1s;">🦩</div>
+        <div class="z-20 max-w-4xl">
+            <p class="text-tropical-orange font-black tracking-[0.6em] uppercase text-sm mb-4">Metrópoli Creativa 2026</p>
+            <h1 class="text-6xl md:text-[9rem] font-pacifico text-deep-ocean drop-shadow-2xl mb-8">Caro's B-Day</h1>
+            <p class="text-3xl md:text-5xl font-caveat text-gray-800 mb-10 leading-tight">
+                Estás invitado a la mejor <span class="text-hot-pink font-black underline decoration-wavy">Beach Party</span> del año
+                <br>en el <span class="text-deep-ocean font-bold">Mirador del Sol</span>
+            </p>
+            <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+                <a href="#mapa" class="btn-beach text-white px-12 py-5 rounded-full font-black text-lg shadow-xl flex items-center gap-2">
+                    <i data-lucide="map"></i> EXPLORAR 26 PUNTOS
+                </a>
+                <a href="#confirmar" class="bg-white border-4 border-hot-pink text-hot-pink px-12 py-5 rounded-full font-black text-lg hover:bg-hot-pink hover:text-white transition-all">
+                    CONFIRMAR 💌
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mapa -->
+    <section id="mapa" class="py-24 px-6 bg-white/30 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 reveal">
+                <span class="text-7xl mb-4 block">🏝️</span>
+                <h2 class="text-6xl font-pacifico text-deep-ocean mb-6">Mapa Maestro</h2>
+                <div id="map" class="mt-8"></div>
+                <a href="https://www.google.com/maps/search/?api=1&query=Mirador+del+Sol+Queretaro" target="_blank" class="mt-10 inline-flex items-center gap-3 bg-white text-tropical-orange px-10 py-5 rounded-3xl font-black shadow-2xl hover:scale-105 transition-transform">
+                    <i data-lucide="navigation"></i> CÓMO LLEGAR AL EVENTO
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Listados del PDF (26 Puntos) -->
+    <section class="py-24 px-6 bg-white/40 backdrop-blur-xl">
+        <div class="max-w-7xl mx-auto space-y-32">
+            
+            <!-- CATEGORÍA: CAFÉS -->
+            <div class="reveal">
+                <div class="flex items-center gap-4 mb-12 border-b-4 border-hot-pink pb-4">
+                    <span class="text-5xl">☕</span>
+                    <h3 class="text-5xl font-pacifico text-hot-pink">Rituales de Café</h3>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="glass-card">
+                        <div>
+                            <h4 class="text-2xl font-black text-deep-ocean mb-2">Gota a Gota Atelier</h4>
+                            <p class="text-sm font-bold text-tropical-orange mb-3">📍 18-20 min • Mirador del Sol</p>
+                            <p class="text-gray-600 text-sm mb-4">Fusión de botánica y especialidad en Edificio Rosadoce. El spot más aesthetic.</p>
+                        </div>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Gota+a+Gota+Atelier+Queretaro" target="_blank" class="text-hot-pink font-black flex items-center gap-2 mt-4 hover:translate-x-2 transition-transform"><i data-lucide="external-link"></i> MAPA</a>
+                    </div>
+                    <div class="glass-card">
+                        <div>
+                            <h4 class="text-2xl font-black text-deep-ocean mb-2">Casa Apothecarius</h4>
+                            <p class="text-sm font-bold text-tropical-orange mb-3">📍 22 min • Mirador del Sol</p>
+                            <p class="text-gray-600 text-sm mb-4">Casona histórica de 300 años. Café boutique y diseño de época.</p>
+                        </div>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Casa+Apothecarius+Queretaro" target="_blank" class="text-hot-pink font-black flex items-center gap-2 mt-4 hover:translate-x-2 transition-transform"><i data-lucide="external-link"></i> MAPA</a>
+                    </div>
+                    <div class="glass-card">
+                        <div>
+                            <h4 class="text-2xl font-black text-deep-ocean mb-2">Café Bretón</h4>
+                            <p class="text-sm font-bold text-tropical-orange mb-3">📍 24 min • Mirador del Sol</p>
+                            <p class="text-gray-600 text-sm mb-4">Estilo francés contemporáneo en el Andador Libertad.</p>
+                        </div>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Cafe+Breton+Queretaro" target="_blank" class="text-hot-pink font-black flex items-center gap-2 mt-4 hover:translate-x-2 transition-transform"><i data-lucide="external-link"></i> MAPA</a>
+                    </div>
+                    <div class="glass-card">
+                        <div>
+                            <h4 class="text-2xl font-black text-deep-ocean mb-2">Cao Cao Café</h4>
+                            <p class="text-sm font-bold text-tropical-orange mb-3">📍 23 min • Mirador del Sol</p>
+                            <p class="text-gray-600 text-sm mb-4">Enfoque orgánico y diseño eco-consciente mexicano.</p>
+                        </div>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Cao+Cao+Cafe+Queretaro" target="_blank" class="text-hot-pink font-black flex items-center gap-2 mt-4 hover:translate-x-2 transition-transform"><i data-lucide="external-link"></i> MAPA</a>
+                    </div>
+                    <div class="glass-card">
+                        <div>
+                            <h4 class="text-2xl font-black text-deep-ocean mb-2">Micaela Cocina Café</h4>
+                            <p class="text-sm font-bold text-tropical-orange mb-3">📍 12 min • Mirador del Sol</p>
+                            <p class="text-gray-600 text-sm mb-4">Estética femenina sofisticada cerca de La Fábrica.</p>
+                        </div>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Micaela+Cocina+Cafe+Queretaro" target="_blank" class="text-hot-pink font-black flex items-center gap-2 mt-4 hover:translate-x-2 transition-transform"><i data-lucide="external-link"></i> MAPA</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CATEGORÍA: MUSEOS -->
+            <div class="reveal">
+                <div class="flex items-center gap-4 mb-12 border-b-4 border-electric-blue pb-4">
+                    <span class="text-5xl">🖼️</span>
+                    <h3 class="text-5xl font-pacifico text-electric-blue">Eje de los Museos</h3>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="glass-card">
+                        <div>
+                            <h4 class="text-2xl font-black text-deep-ocean mb-2">MAQRO</h4>
+                            <p class="text-sm font-bold text-tropical-orange mb-3">📍 25 min • Mirador del Sol</p>
+                            <p class="text-gray-600 text-sm mb-4">Claustro de San Agustín. El patio barroco más bello.</p>
+                        </div>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Museo+de+Arte+de+Queretaro" target="_blank" class="text-electric-blue font-black flex items-center gap-2 mt-4 hover:translate-x-2 transition-transform"><i data-lucide="external-link"></i> MAPA</a>
+                    </div>
+                    <div class="glass-card">
+                        <div>
+                            <h4 class="text-2xl font-black text-deep-ocean mb-2">MACQ</h4>
+                            <p class="text-sm font-bold text-tropical-orange mb-3">📍 23 min • Mirador del Sol</p>
+                            <p class="text-gray-600 text-sm mb-4">Arte contemporáneo. Un lugar seguro para pensar diferente.</p>
+                        </div>
+                        <a href="https://www.google.com/maps/search/?api=1&query=MACQ+Queretaro" target="_blank" class="text-electric-blue font-black flex items-center gap-2 mt-4 hover:translate-x-2 transition-transform"><i data-lucide="external-link"></i> MAPA</a>
+                    </div>
+                    <div class="glass-card">
+                        <div>
+                            <h4 class="text-2xl font-black text-deep-ocean mb-2">Fundación Carbonell</h4>
+                            <p class="text-sm font-bold text-tropical-orange mb-3">📍 24 min • Mirador del Sol</p>
+                            <p class="text-gray-600 text-sm mb-4">Hiperrealismo e intimidad en una casona remodelada.</p>
+                        </div>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Fundacion+Santiago+Carbonell" target="_blank" class="text-electric-blue font-black flex items-center gap-2 mt-4 hover:translate-x-2 transition-transform"><i data-lucide="external-link"></i> MAPA</a>
+                    </div>
+                    <div class="glass-card">
+                        <div>
+                            <h4 class="text-2xl font-black text-deep-ocean mb-2">Galería Libertad</h4>
+                            <p class="text-sm font-bold text-tropical-orange mb-3">📍 24 min • Mirador del Sol</p>
+                            <p class="text-gray-600 text-sm mb-4">Artistas emergentes locales en Plaza de Armas.</p>
+                        </div>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Galeria+Libertad+Queretaro" target="_blank" class="text-electric-blue font-black flex items-center gap-2 mt-4 hover:translate-x-2 transition-transform"><i data-lucide="external-link"></i> MAPA</a>
+                    </div>
+                    <div class="glass-card">
+                        <div>
+                            <h4 class="text-2xl font-black text-deep-ocean mb-2">Museo de la Ciudad</h4>
+                            <p class="text-sm font-bold text-tropical-orange mb-3">📍 25 min • Mirador del Sol</p>
+                            <p class="text-gray-600 text-sm mb-4">Arte experimental en el ex-convento de Capuchinas.</p>
+                        </div>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Museo+de+la+Ciudad+Queretaro" target="_blank" class="text-electric-blue font-black flex items-center gap-2 mt-4 hover:translate-x-2 transition-transform"><i data-lucide="external-link"></i> MAPA</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CATEGORÍA: DISEÑO -->
+            <div class="reveal">
+                <div class="flex items-center gap-4 mb-12 border-b-4 border-tropical-orange pb-4">
+                    <span class="text-5xl">🛍️</span>
+                    <h3 class="text-5xl font-pacifico text-tropical-orange">Geografía del Diseño</h3>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="glass-card">
+                        <div>
+                            <h4 class="text-2xl font-black text-deep-ocean mb-2">La Fábrica</h4>
+                            <p class="text-sm font-bold text-tropical-orange mb-3">📍 11 min • Mirador del Sol</p>
+                            <p class="text-gray-600 text-sm mb-4">Hub de industrias creativas. Diseño industrial e interiorismo.</p>
+                        </div>
+                        <a href="https://www.google.com/maps/search/?api=1&query=La+Fabrica+Queretaro" target="_blank" class="text-tropical-orange font-black flex items-center gap-2 mt-4 hover:translate-x-2 transition-transform"><i data-lucide="external-link"></i> MAPA</a>
+                    </div>
+                    <div class="glass-card">
+                        <div>
+                            <h4 class="text-2xl font-black text-deep-ocean mb-2">YOL Boutique</h4>
+                            <p class="text-sm font-bold text-tropical-orange mb-3">📍 24 min • Mirador del Sol</p>
+                            <p class="text-gray-600 text-sm mb-4">Artesanía de lujo y joyería con identidad cultural.</p>
+                        </div>
+                        <a href="https://www.google.com/maps/search/?api=1&query=YOL+Boutique+Queretaro" target="_blank" class="text-tropical-orange font-black flex items-center gap-2 mt-4 hover:translate-x-2 transition-transform"><i data-lucide="external-link"></i> MAPA</a>
+                    </div>
+                    <div class="glass-card">
+                        <div>
+                            <h4 class="text-2xl font-black text-deep-ocean mb-2">Buenas Concept Store</h4>
+                            <p class="text-sm font-bold text-tropical-orange mb-3">📍 24 min • Mirador del Sol</p>
+                            <p class="text-gray-600 text-sm mb-4">Marcas de moda emergentes y objetos sofisticados.</p>
+                        </div>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Buenas+Concept+Store+Queretaro" target="_blank" class="text-tropical-orange font-black flex items-center gap-2 mt-4 hover:translate-x-2 transition-transform"><i data-lucide="external-link"></i> MAPA</a>
+                    </div>
+                    <div class="glass-card">
+                        <div>
+                            <h4 class="text-2xl font-black text-deep-ocean mb-2">Santo Grial</h4>
+                            <p class="text-sm font-bold text-tropical-orange mb-3">📍 24 min • Mirador del Sol</p>
+                            <p class="text-gray-600 text-sm mb-4">Moda local vanguardista y tradición textil.</p>
+                        </div>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Santo+Grial+Queretaro" target="_blank" class="text-tropical-orange font-black flex items-center gap-2 mt-4 hover:translate-x-2 transition-transform"><i data-lucide="external-link"></i> MAPA</a>
+                    </div>
+                    <div class="glass-card">
+                        <div>
+                            <h4 class="text-2xl font-black text-deep-ocean mb-2">Nimia</h4>
+                            <p class="text-sm font-bold text-tropical-orange mb-3">📍 25 min • Mirador del Sol</p>
+                            <p class="text-gray-600 text-sm mb-4">Ilustración y diseño independiente en Galería-Tienda.</p>
+                        </div>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Nimia+Queretaro" target="_blank" class="text-tropical-orange font-black flex items-center gap-2 mt-4 hover:translate-x-2 transition-transform"><i data-lucide="external-link"></i> MAPA</a>
+                    </div>
+                    <div class="glass-card">
+                        <div>
+                            <h4 class="text-2xl font-black text-deep-ocean mb-2">Casa Porfiria</h4>
+                            <p class="text-sm font-bold text-tropical-orange mb-3">📍 24 min • Mirador del Sol</p>
+                            <p class="text-gray-600 text-sm mb-4">Despacho de interiorismo y mobiliario a medida.</p>
+                        </div>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Casa+Porfiria+Queretaro" target="_blank" class="text-tropical-orange font-black flex items-center gap-2 mt-4 hover:translate-x-2 transition-transform"><i data-lucide="external-link"></i> MAPA</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CATEGORÍA: VIÑEDOS -->
+            <div class="reveal">
+                <div class="flex items-center gap-4 mb-12 border-b-4 border-[#800e13] pb-4">
+                    <span class="text-5xl">🍷</span>
+                    <h3 class="text-5xl font-pacifico text-[#800e13]">Ruta del Vino</h3>
+                </div>
+                <div class="grid md:grid-cols-2 gap-10">
+                    <div class="glass-card border-l-8 border-[#800e13]">
+                        <div>
+                            <h4 class="text-3xl font-black text-deep-ocean mb-3">Viñedos Azteca</h4>
+                            <p class="text-sm font-bold text-tropical-orange mb-4">📍 45 min • Mirador del Sol</p>
+                            <p class="text-gray-600 mb-6">Pinta tu botella. Hacienda restaurada con estética ecuestre.</p>
+                        </div>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Vinedos+Azteca+Queretaro" target="_blank" class="text-[#800e13] font-black flex items-center gap-2 mt-4 hover:translate-x-2 transition-transform"><i data-lucide="external-link"></i> EXPLORAR MAPA</a>
+                    </div>
+                    <div class="glass-card border-l-8 border-[#800e13]">
+                        <div>
+                            <h4 class="text-3xl font-black text-deep-ocean mb-3">Freixenet México</h4>
+                            <p class="text-sm font-bold text-tropical-orange mb-4">📍 50 min • Mirador del Sol</p>
+                            <p class="text-gray-600 mb-6">Cavas a 25 metros de profundidad. Geometría subterránea.</p>
+                        </div>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Freixenet+Mexico" target="_blank" class="text-[#800e13] font-black flex items-center gap-2 mt-4 hover:translate-x-2 transition-transform"><i data-lucide="external-link"></i> EXPLORAR MAPA</a>
+                    </div>
+                    <div class="glass-card border-l-8 border-[#800e13]">
+                        <div>
+                            <h4 class="text-3xl font-black text-deep-ocean mb-3">La Redonda</h4>
+                            <p class="text-sm font-bold text-tropical-orange mb-4">📍 50 min • Mirador del Sol</p>
+                            <p class="text-gray-600 mb-6">Catas en el viñedo y festivales estacionales épicos.</p>
+                        </div>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Vinedo+La+Redonda+Queretaro" target="_blank" class="text-[#800e13] font-black flex items-center gap-2 mt-4 hover:translate-x-2 transition-transform"><i data-lucide="external-link"></i> EXPLORAR MAPA</a>
+                    </div>
+                    <div class="glass-card border-l-8 border-[#800e13]">
+                        <div>
+                            <h4 class="text-3xl font-black text-deep-ocean mb-3">Tequisquiapan</h4>
+                            <p class="text-sm font-bold text-tropical-orange mb-4">📍 55 min • Mirador del Sol</p>
+                            <p class="text-gray-600 mb-6">Pueblo Mágico y Festival del Queso y el Vino.</p>
+                        </div>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Tequisquiapan+Queretaro" target="_blank" class="text-[#800e13] font-black flex items-center gap-2 mt-4 hover:translate-x-2 transition-transform"><i data-lucide="external-link"></i> EXPLORAR MAPA</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CATEGORÍA: CENAS -->
+            <div class="reveal">
+                <div class="flex items-center gap-4 mb-12 border-b-4 border-red-500 pb-4">
+                    <span class="text-5xl">🍴</span>
+                    <h3 class="text-5xl font-pacifico text-red-500">Gastronomía Visual</h3>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="glass-card">
+                        <div>
+                            <h4 class="text-2xl font-black text-deep-ocean mb-2">Carranza 50</h4>
+                            <p class="text-sm font-bold text-tropical-orange mb-3">📍 24 min • Mirador del Sol</p>
+                            <p class="text-gray-600 text-sm mb-4">Brasas con vista frontal al histórico Templo de la Cruz.</p>
+                        </div>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Carranza+50+Queretaro" target="_blank" class="text-red-500 font-black flex items-center gap-2 mt-4 hover:translate-x-2 transition-transform"><i data-lucide="external-link"></i> MAPA</a>
+                    </div>
+                    <div class="glass-card">
+                        <div>
+                            <h4 class="text-2xl font-black text-deep-ocean mb-2">La Grupa</h4>
+                            <p class="text-sm font-bold text-tropical-orange mb-3">📍 22 min • Mirador del Sol</p>
+                            <p class="text-gray-600 text-sm mb-4">La mejor vista panorámica de las cúpulas centrales.</p>
+                        </div>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Terraza+La+Grupa+Queretaro" target="_blank" class="text-red-500 font-black flex items-center gap-2 mt-4 hover:translate-x-2 transition-transform"><i data-lucide="external-link"></i> MAPA</a>
+                    </div>
+                    <div class="glass-card">
+                        <div>
+                            <h4 class="text-2xl font-black text-deep-ocean mb-2">Comalli</h4>
+                            <p class="text-sm font-bold text-tropical-orange mb-3">📍 24 min • Mirador del Sol</p>
+                            <p class="text-gray-600 text-sm mb-4">Sabores tradicionales modernos en andador histórico.</p>
+                        </div>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Comalli+Queretaro" target="_blank" class="text-red-500 font-black flex items-center gap-2 mt-4 hover:translate-x-2 transition-transform"><i data-lucide="external-link"></i> MAPA</a>
+                    </div>
+                    <div class="glass-card">
+                        <div>
+                            <h4 class="text-2xl font-black text-deep-ocean mb-2">Sayil Centro</h4>
+                            <p class="text-sm font-bold text-tropical-orange mb-3">📍 24 min • Mirador del Sol</p>
+                            <p class="text-gray-600 text-sm mb-4">Cocina Yucateca contemporánea con diseño regional.</p>
+                        </div>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Sayil+Centro+Queretaro" target="_blank" class="text-red-500 font-black flex items-center gap-2 mt-4 hover:translate-x-2 transition-transform"><i data-lucide="external-link"></i> MAPA</a>
+                    </div>
+                    <div class="glass-card">
+                        <div>
+                            <h4 class="text-2xl font-black text-deep-ocean mb-2">The Carter Bar</h4>
+                            <p class="text-sm font-bold text-tropical-orange mb-3">📍 28 min • Mirador del Sol</p>
+                            <p class="text-gray-600 text-sm mb-4">Alta cocina y mixología en Hacienda Laborcilla.</p>
+                        </div>
+                        <a href="https://www.google.com/maps/search/?api=1&query=The+Carter+Bar+Queretaro" target="_blank" class="text-red-500 font-black flex items-center gap-2 mt-4 hover:translate-x-2 transition-transform"><i data-lucide="external-link"></i> MAPA</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- RSVP -->
+    <section id="confirmar" class="py-32 px-6 bg-deep-ocean text-white relative overflow-hidden text-center">
+        <h2 class="text-7xl font-pacifico mb-8 text-white drop-shadow-2xl">¡Confirma tu lugar!</h2>
+        <p class="text-2xl font-caveat text-white mb-12 font-bold drop-shadow-lg">Crea tu postal personalizada para compartir y dile algo lindo a Caro.</p>
+        <div class="max-w-2xl mx-auto bg-white p-12 rounded-[60px] shadow-2xl text-gray-900 border-8 border-sky-300">
+            <input type="text" id="guestName" placeholder="TU NOMBRE..." class="w-full px-8 py-5 rounded-3xl bg-gray-50 border-4 border-transparent focus:border-hot-pink outline-none text-center text-2xl font-black mb-6">
+            <textarea id="guestMsg" placeholder="UN MENSAJE PARA CARO..." class="w-full px-8 py-5 rounded-3xl bg-gray-50 border-4 border-transparent focus:border-hot-pink outline-none text-center text-xl font-bold h-40 mb-6"></textarea>
+            <button onclick="generatePostcard()" class="btn-beach w-full text-white py-8 rounded-3xl font-black text-3xl shadow-2xl">GENERAR POSTAL ✨</button>
+            <div id="resultArea" class="hidden mt-10 pt-10 border-t-4 border-gray-100">
+                <canvas id="postcardCanvas" width="1080" height="1920" class="hidden"></canvas>
+                <img id="postcardPreview" class="w-72 mx-auto border-8 border-white rounded-[40px] shadow-2xl mb-8">
+                <div class="flex flex-col gap-4">
+                    <button onclick="downloadPostcard()" class="bg-sky-100 text-deep-ocean py-5 rounded-3xl font-black text-xl flex items-center justify-center gap-2"><i data-lucide="download"></i> DESCARGAR</button>
+                    <a id="whatsappLink" href="#" target="_blank" class="bg-[#25D366] text-white py-5 rounded-3xl font-black text-xl flex items-center justify-center gap-2 shadow-lg"><i data-lucide="message-circle"></i> ENVIAR A CARO</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-24 text-center bg-white border-t-8 border-sand-light flex flex-col items-center gap-10">
+        <p class="text-deep-ocean text-3xl font-black">Realizado con muchísimo amor por <br> <a href="https://estudio.xidito.com/" target="_blank" class="text-hot-pink hover:scale-110 inline-block transition-transform">Estudio Xidito</a></p>
+        <div class="flex gap-10">
+            <a href="https://www.instagram.com/estudio.xidito/" target="_blank" class="p-6 bg-gray-50 rounded-full text-pink-600 hover:bg-pink-50 transition-all shadow-md flex items-center justify-center"><i data-lucide="instagram" class="w-10 h-10"></i></a>
+            <a href="https://www.facebook.com/profile.php?id=61579203017269&locale=es_LA" target="_blank" class="p-6 bg-gray-50 rounded-full text-blue-600 hover:bg-blue-50 transition-all shadow-md flex items-center justify-center"><i data-lucide="facebook" class="w-10 h-10"></i></a>
+        </div>
+        <p class="text-gray-300 font-black tracking-[0.6em] uppercase text-xs">Caro's Tropical B-Day 2026</p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+        const audio = document.getElementById('beachAudio');
+        const mBtn = document.getElementById('musicControl');
+        const mIcon = document.getElementById('musicIcon');
+        let playing = false;
+        mBtn.onclick = () => {
+            if(!playing) { audio.play(); mIcon.setAttribute('data-lucide', 'pause'); }
+            else { audio.pause(); mIcon.setAttribute('data-lucide', 'music'); }
+            lucide.createIcons(); playing = !playing;
+        };
+
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                if (reveals[i].getBoundingClientRect().top < window.innerHeight - 150) reveals[i].classList.add("active");
+            }
+        }
+        window.onscroll = reveal; reveal();
+
+        const map = L.map('map').setView([20.60, -100.40], 12);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+        const allSpots = [
+            { n: "MIRADOR DEL SOL (EVENTO) 🔴", lat: 20.6121, lng: -100.4101, url: "https://www.google.com/maps/search/?api=1&query=Mirador+del+Sol+Queretaro" },
+            { n: "Gota a Gota ☕", lat: 20.5975, lng: -100.3845, url: "https://www.google.com/maps/search/?api=1&query=Gota+a+Gota+Atelier+Queretaro" },
+            { n: "Casa Apothecarius ☕", lat: 20.5925, lng: -100.3930, url: "https://www.google.com/maps/search/?api=1&query=Casa+Apothecarius+Queretaro" },
+            { n: "Café Bretón ☕", lat: 20.5921, lng: -100.3900, url: "https://www.google.com/maps/search/?api=1&query=Cafe+Breton+Queretaro" },
+            { n: "Cao Cao Café ☕", lat: 20.5970, lng: -100.4050, url: "https://www.google.com/maps/search/?api=1&query=Cao+Cao+Cafe+Queretaro" },
+            { n: "Micaela Cocina ☕", lat: 20.6060, lng: -100.3800, url: "https://www.google.com/maps/search/?api=1&query=Micaela+Cocina+Cafe+Queretaro" },
+            { n: "MAQRO 🖼️", lat: 20.5926, lng: -100.3942, url: "https://www.google.com/maps/search/?api=1&query=Museo+de+Arte+de+Queretaro" },
+            { n: "MACQ 🖼️", lat: 20.5935, lng: -100.3860, url: "https://www.google.com/maps/search/?api=1&query=Museo+de+Arte+Contemporaneo+Queretaro" },
+            { n: "Fundación Carbonell 🖼️", lat: 20.5930, lng: -100.3890, url: "https://www.google.com/maps/search/?api=1&query=Fundacion+Santiago+Carbonell" },
+            { n: "Galería Libertad 🖼️", lat: 20.5935, lng: -100.3910, url: "https://www.google.com/maps/search/?api=1&query=Galeria+Libertad+Queretaro" },
+            { n: "Museo Ciudad 🖼️", lat: 20.5950, lng: -100.3960, url: "https://www.google.com/maps/search/?api=1&query=Museo+de+la+Ciudad+Queretaro" },
+            { n: "La Fábrica 🏭", lat: 20.6055, lng: -100.3812, url: "https://www.google.com/maps/search/?api=1&query=La+Fabrica+Queretaro" },
+            { n: "YOL Boutique 🛍️", lat: 20.5940, lng: -100.3905, url: "https://www.google.com/maps/search/?api=1&query=YOL+Boutique+Queretaro" },
+            { n: "Buenas Concept 🛍️", lat: 20.5938, lng: -100.3895, url: "https://www.google.com/maps/search/?api=1&query=Buenas+Concept+Store+Queretaro" },
+            { n: "Santo Grial 🛍️", lat: 20.5932, lng: -100.3920, url: "https://www.google.com/maps/search/?api=1&query=Santo+Grial+Queretaro" },
+            { n: "Nimia 🛍️", lat: 20.5938, lng: -100.3895, url: "https://www.google.com/maps/search/?api=1&query=Nimia+Queretaro" },
+            { n: "Casa Porfiria 🛍️", lat: 20.5945, lng: -100.3965, url: "https://www.google.com/maps/search/?api=1&query=Casa+Porfiria+Queretaro" },
+            { n: "Viñedos Azteca 🍷", lat: 20.7300, lng: -99.9800, url: "https://www.google.com/maps/search/?api=1&query=Vinedos+Azteca+Queretaro" },
+            { n: "Freixenet 🍷", lat: 20.7350, lng: -99.9500, url: "https://www.google.com/maps/search/?api=1&query=Freixenet+Mexico" },
+            { n: "La Redonda 🍷", lat: 20.6500, lng: -99.9000, url: "https://www.google.com/maps/search/?api=1&query=Vinedo+La+Redonda+Queretaro" },
+            { n: "Tequisquiapan 🍷", lat: 20.518, lng: -99.891, url: "https://www.google.com/maps/search/?api=1&query=Tequisquiapan+Queretaro" },
+            { n: "Carranza 50 🍴", lat: 20.5945, lng: -100.3865, url: "https://www.google.com/maps/search/?api=1&query=Carranza+50+Queretaro" },
+            { n: "La Grupa 🍴", lat: 20.5950, lng: -100.3915, url: "https://www.google.com/maps/search/?api=1&query=Terraza+La+Grupa+Queretaro" },
+            { n: "Comalli 🍴", lat: 20.5930, lng: -100.3900, url: "https://www.google.com/maps/search/?api=1&query=Comalli+Queretaro" },
+            { n: "Sayil Centro 🍴", lat: 20.5940, lng: -100.3890, url: "https://www.google.com/maps/search/?api=1&query=Sayil+Centro+Queretaro" },
+            { n: "The Carter Bar 🍴", lat: 20.6100, lng: -100.3800, url: "https://www.google.com/maps/search/?api=1&query=The+Carter+Bar+Queretaro" }
+        ];
+
+        allSpots.forEach(s => {
+            L.marker([s.lat, s.lng]).addTo(map).bindPopup(`<b>${s.n}</b><br><a href="${s.url}" target="_blank">IR CON GOOGLE MAPS</a>`);
+        });
+
+        function generatePostcard() {
+            const name = document.getElementById('guestName').value.toUpperCase();
+            const msg = document.getElementById('guestMsg').value;
+            if(!name) return alert("¡Dinos quién eres! 🐚");
+            const canvas = document.getElementById('postcardCanvas');
+            const ctx = canvas.getContext('2d');
+            const gr = ctx.createLinearGradient(0, 0, 0, 1920);
+            gr.addColorStop(0, '#ff006e'); gr.addColorStop(0.5, '#00b4d8'); gr.addColorStop(1, '#70e000');
+            ctx.fillStyle = gr; ctx.fillRect(0, 0, 1080, 1920);
+            ctx.fillStyle = 'rgba(255,255,255,0.2)'; ctx.beginPath(); ctx.arc(540, 500, 450, 0, Math.PI*2); ctx.fill();
+            ctx.textAlign = 'center'; ctx.fillStyle = 'white';
+            ctx.font = 'bold 50px Outfit'; ctx.fillText("¡VOY A LA BEACH PARTY!", 540, 650);
+            ctx.font = '240px Pacifico'; ctx.fillText("Caro's", 540, 950);
+            ctx.font = 'bold 100px Outfit'; ctx.fillText("TROPICAL B-DAY", 540, 1100);
+            ctx.fillStyle = 'white'; ctx.roundRect(100, 1200, 880, 550, 80); ctx.fill();
+            ctx.fillStyle = '#ff006e'; ctx.font = 'bold 60px Outfit'; ctx.fillText("INVITADO CONFIRMADO:", 540, 1320);
+            ctx.fillStyle = '#1a202c'; ctx.font = 'italic 110px Caveat'; ctx.fillText(name, 540, 1450);
+            ctx.fillStyle = '#0077b6'; ctx.font = 'bold 40px Outfit';
+            const wrap = (t, x, y, mw, lh) => {
+                let ws = t.split(' '), l = '';
+                for(let n=0; n<ws.length; n++){
+                    let test = l + ws[n] + ' ';
+                    if(ctx.measureText(test).width > mw && n>0){ ctx.fillText(l, x, y); l = ws[n] + ' '; y += lh; }
+                    else l = test;
+                }
+                ctx.fillText(l, x, y);
+            }
+            if(msg) wrap(`"${msg}"`, 540, 1550, 750, 50);
+            ctx.font = '160px Arial'; ctx.fillText("🐚 🐬 🦀", 540, 1850);
+            document.getElementById('postcardPreview').src = canvas.toDataURL();
+            document.getElementById('resultArea').classList.remove('hidden');
+            const wa = encodeURIComponent(`¡Hola Caro! Soy ${name} ✨ Confirmo que voy. Mensaje: "${msg}" 🌴🐬`);
+            document.getElementById('whatsappLink').href = `https://wa.me/5217223001749?text=${wa}`;
+            document.getElementById('resultArea').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function downloadPostcard() {
+            const link = document.createElement('a');
+            link.download = `Confirmacion_Caro.png`;
+            link.href = document.getElementById('postcardCanvas').toDataURL();
+            link.click();
+        }
+
+        CanvasRenderingContext2D.prototype.roundRect = function (x, y, w, h, r) {
+            this.beginPath(); this.moveTo(x + r, y);
+            this.arcTo(x + w, y, x + w, y + h, r); this.arcTo(x + w, y + h, x, y + h, r);
+            this.arcTo(x, y + h, x, y, r); this.arcTo(x, y, x + w, y, r);
+            this.closePath(); return this;
+        }
+    </script>
+</body>
+</html>
