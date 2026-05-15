@@ -30,16 +30,11 @@
                         'nunito': ['Nunito', 'sans-serif'],
                     },
                     animation: {
-                        'float': 'float 6s ease-in-out infinite',
                         'fall': 'fall linear infinite',
                         'bounce-slow': 'bounce 3s infinite',
                         'pulse-fast': 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                     },
                     keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-15px)' },
-                        },
                         fall: {
                             '0%': { transform: 'translateY(-10vh) rotate(0deg)', opacity: 1 },
                             '100%': { transform: 'translateY(110vh) rotate(360deg)', opacity: 0.2 },
@@ -51,7 +46,6 @@
     </script>
 
     <style>
-        /* Cursor Personalizado */
         body {
             font-family: 'Nunito', sans-serif;
             background-color: #FFFDF9;
@@ -65,7 +59,39 @@
             color: #0A3D62;
         }
 
-        /* ESTILO CARTOON NETWORK (Pro & Gamificado) */
+        /* ESTILOS CUTE Y LEGIBLES */
+        .cute-text-pink {
+            color: #FF9FF3;
+            -webkit-text-stroke: 2px #0A3D62;
+            text-shadow: 4px 4px 0px #0A3D62;
+        }
+        .cute-text-blue {
+            color: #4AD3F5;
+            -webkit-text-stroke: 2px #0A3D62;
+            text-shadow: 4px 4px 0px #0A3D62;
+        }
+        .cute-text-yellow {
+            color: #FFEAA7;
+            -webkit-text-stroke: 2px #0A3D62;
+            text-shadow: 4px 4px 0px #0A3D62;
+        }
+        .cute-text-white {
+            color: #FFFFFF;
+            -webkit-text-stroke: 2px #0A3D62;
+            text-shadow: 4px 4px 0px #0A3D62;
+        }
+
+        /* ESTILO CARTOON NETWORK */
+        .text-outline-shadow {
+            color: #0A3D62;
+            text-shadow: 
+                -2px -2px 0 #FFF,  
+                 2px -2px 0 #FFF,
+                -2px  2px 0 #FFF,
+                 2px  2px 0 #FFF,
+                 6px  6px 0 #4AD3F5;
+        }
+
         .cartoon-border {
             border: 4px solid #0A3D62;
             box-shadow: 8px 8px 0px #0A3D62;
@@ -76,7 +102,6 @@
             box-shadow: 10px 10px 0px #0A3D62;
         }
         
-        /* Botones Arcade */
         .cartoon-btn {
             border: 4px solid #0A3D62;
             box-shadow: 4px 6px 0px #0A3D62;
@@ -113,7 +138,6 @@
             border-radius: 10px;
         }
 
-        /* Tarros de Helado */
         .ice-cream-jar {
             background: white;
             border-radius: 20px 20px 30px 30px;
@@ -152,9 +176,8 @@
         <div class="max-w-6xl mx-auto px-4">
             <div class="flex justify-between items-center h-20">
                 <a href="#" class="flex items-center gap-3 group">
-                    <!-- LOGO TOP LEFT -->
-                    <img src="logo.png" alt="Logo Tío Bolo" class="w-14 h-14 object-contain group-hover:scale-110 transition-transform drop-shadow-md">
-                    <span class="font-title text-3xl text-boloDarkBlue tracking-wider" style="-webkit-text-stroke: 1px #FFF;">Tío Bolo</span>
+                    <img src="logo.png" alt="Logo Tío Bolo" class="w-14 h-14 object-contain animate-bounce drop-shadow-md" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2240%22 fill=%22%234AD3F5%22/><text x=%2250%22 y=%2265%22 font-size=%2240%22 text-anchor=%22middle%22>🐻‍❄️</text></svg>'">
+                    <span class="font-title text-3xl tracking-wider cute-text-white">Tío Bolo</span>
                 </a>
                 <div class="hidden md:flex space-x-8 text-lg font-bold text-gray-600">
                     <a href="#sabores" class="hover:text-boloBlue transition-colors hover:-translate-y-1 transform inline-block">Sabores</a>
@@ -172,148 +195,191 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <header class="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden flex items-center min-h-screen">
-        <div class="max-w-6xl mx-auto px-4 relative z-10 w-full">
-            <div class="flex flex-col lg:flex-row items-center gap-12">
-                
-                <!-- Textos -->
-                <div class="flex-1 text-center lg:text-left">
-                    <div class="inline-block bg-boloYellow text-orange-600 px-4 py-2 rounded-full font-title text-sm mb-4 transform -rotate-2 cartoon-border">
-                        ⭐ Naturalmente Irresistible
-                    </div>
-                    <h1 class="text-5xl lg:text-7xl mb-6 text-boloDarkBlue leading-tight drop-shadow-lg" style="text-shadow: 3px 3px 0 #FFF, 5px 5px 0 #4AD3F5;">
-                        ¡Ponte los lentes y <br> <span class="text-boloPink block mt-2">disfruta el sabor!</span>
-                    </h1>
-                    <p class="text-xl text-gray-800 mb-8 max-w-lg mx-auto lg:mx-0 font-nunito font-bold bg-white/50 p-4 rounded-xl border-2 border-boloDarkBlue border-dashed">
-                        Cremosos, frescos y hechos con amor. El sabor que te abraza está en cada tarrito del Tío Bolo.
-                    </p>
-                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                        <a href="#sabores" class="bg-boloBlue text-white font-title text-xl py-4 px-8 rounded-full cartoon-btn flex items-center justify-center gap-2">
-                            Ver Sabores 🍦
-                        </a>
-                        <a href="#armador" class="bg-boloYellow text-orange-600 font-title text-xl py-4 px-8 rounded-full cartoon-btn flex items-center justify-center gap-2">
-                            Crea el tuyo ✨
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- Contenedor del Video (16:9 Panorámico Cartoon) -->
-                <div class="flex-1 relative w-full flex justify-center lg:justify-end animate-float">
-                    <div class="relative w-full max-w-lg aspect-video rounded-3xl cartoon-border bg-boloDarkBlue overflow-hidden flex flex-col items-center justify-center group">
-                        
-                        <!-- Detalles de TV Cartoon -->
-                        <div class="absolute top-2 right-4 w-4 h-4 rounded-full bg-red-500 animate-pulse z-20 border-2 border-white"></div>
-                        <div class="absolute bottom-2 left-0 w-full h-4 bg-white/20 z-20"></div>
+    <!-- Hero Section (Video Centrado como Protagonista) -->
+    <header class="relative pt-32 pb-16 overflow-hidden flex flex-col items-center min-h-screen justify-center text-center px-4">
+        <div class="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center">
+            
+            <div class="inline-block bg-boloYellow text-orange-600 px-6 py-2 rounded-full font-title text-sm md:text-lg mb-6 transform -rotate-2 cartoon-border z-20 shadow-lg mt-10">
+                ⭐ Naturalmente Irresistible
+            </div>
+            
+            <h1 class="text-4xl md:text-6xl lg:text-7xl mb-8 leading-tight font-title cute-text-white">
+                ¡El Sabor que te <span class="cute-text-pink block mt-2">Abraza!</span>
+            </h1>
 
-                        <!-- Video 16:9 -->
-                        <video id="hero-video" class="absolute top-0 left-0 w-full h-full object-cover z-10" autoplay loop muted playsinline>
-                            <source src="video-oso.mp4" type="video/mp4">
-                        </video>
-                        
-                        <!-- Overlay Fallback (Solo se ve si el video falla) -->
-                        <div class="absolute inset-0 flex items-center justify-center bg-boloBlue z-0">
-                            <span class="text-white font-title text-2xl">Cargando Tío Bolo...</span>
-                        </div>
-                    </div>
-                    
-                    <!-- Sticker flotante -->
-                    <div class="absolute -bottom-6 -right-2 lg:-right-6 bg-ticketRed text-white font-title text-lg p-4 rounded-full cartoon-border transform rotate-12 z-30">
-                        ¡Dale Play! ▶️
-                    </div>
-                </div>
+            <!-- Contenedor del Video Gigante -->
+            <div class="w-full aspect-video cartoon-border rounded-[2rem] bg-boloDarkBlue overflow-hidden relative shadow-[15px_15px_0px_#0A3D62] group mb-10">
+                <!-- Detalles de TV Cartoon -->
+                <div class="absolute top-4 right-6 w-4 h-4 rounded-full bg-red-500 animate-pulse z-20 border-2 border-white"></div>
+                <div class="absolute bottom-4 left-4 w-1/3 h-4 bg-white/20 z-20 rounded-full"></div>
 
+                <!-- Video Principal -->
+                <video id="hero-video" class="absolute inset-0 w-full h-full object-cover z-10" autoplay loop muted playsinline>
+                    <source src="video-oso.mp4" type="video/mp4">
+                    Tu navegador no soporta el video.
+                </video>
+                
+                <div class="absolute inset-0 flex items-center justify-center bg-boloBlue z-0">
+                    <span class="text-white font-title text-2xl">Cargando la magia...</span>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-6 justify-center">
+                <a href="#sabores" class="bg-boloBlue text-white font-title text-2xl py-4 px-10 rounded-full cartoon-btn flex items-center justify-center gap-2">
+                    Ver Menú 🍦
+                </a>
+                <a href="#armador" class="bg-boloYellow text-orange-600 font-title text-2xl py-4 px-10 rounded-full cartoon-btn flex items-center justify-center gap-2">
+                    Crea tu Helado ✨
+                </a>
             </div>
         </div>
     </header>
 
-    <div class="melt-divider bg-boloBlue">
+    <div class="melt-divider bg-boloBlue mt-10">
         <svg viewBox="0 0 1200 120" preserveAspectRatio="none" style="fill: #FFFDF9;">
             <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V0C73.81,29.35,156.4,49.52,214.34,56.44Z"></path>
         </svg>
     </div>
 
-    <!-- Sección de Menú -->
+    <!-- Sección de Menú (Con SVGs de Alta Calidad) -->
     <section id="sabores" class="py-20 bg-boloBlue relative">
         <div class="max-w-6xl mx-auto px-4">
             <div class="text-center mb-16 relative">
-                <div class="absolute -top-10 left-1/2 transform -translate-x-1/2 text-7xl opacity-20">🍦</div>
-                <h2 class="text-5xl text-white mb-4 font-title" style="text-shadow: 4px 4px 0 #0A3D62;">Nuestros Sabores Estrella</h2>
-                <p class="text-xl text-white font-bold bg-boloDarkBlue/30 inline-block px-6 py-2 rounded-full cartoon-border">12 increíbles creaciones artesanales listas para sorprenderte.</p>
+                <h2 class="text-5xl mb-4 font-title cute-text-yellow">Nuestros Sabores Estrella</h2>
+                <p class="text-xl text-white font-bold bg-boloDarkBlue/30 inline-block px-6 py-2 rounded-full cartoon-border">12 creaciones espectaculares artesanales.</p>
             </div>
 
-            <!-- Grid de Sabores -->
+            <!-- Grid de Sabores con SVGs Vectoriales -->
             <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
-                <!-- Se usa el cartoon-border para darles el aspecto pop-art -->
-                <div class="ice-cream-jar p-4 pt-8 text-center bg-[#f2fbe4] cartoon-border bg-gradient-to-b from-white to-[#f2fbe4]">
+                
+                <div class="ice-cream-jar p-4 pt-8 text-center bg-[#f2fbe4] cartoon-border">
                     <div class="jar-lid"></div>
-                    <img src="" alt="Aguacate" class="w-20 h-20 object-cover rounded-full mx-auto mb-3 cartoon-border bg-boloGreen">
+                    <svg viewBox="0 0 100 100" class="w-20 h-20 mx-auto mb-3 cartoon-border rounded-full bg-white drop-shadow-md">
+                        <path d="M50 15 C30 15 20 40 20 60 C20 85 35 90 50 90 C65 90 80 85 80 60 C80 40 70 15 50 15 Z" fill="#78C6A3" stroke="#0A3D62" stroke-width="4" stroke-linejoin="round"/>
+                        <circle cx="50" cy="65" r="15" fill="#8B5A2B" stroke="#0A3D62" stroke-width="3"/>
+                        <circle cx="45" cy="60" r="4" fill="#FFF" opacity="0.8"/>
+                    </svg>
                     <h3 class="text-xl mb-1 text-boloDarkBlue font-title">Aguacate</h3>
                     <p class="text-gray-700 font-bold text-sm">Cremoso y natural.</p>
                 </div>
-                <div class="ice-cream-jar p-4 pt-8 text-center bg-[#fff0f5] cartoon-border bg-gradient-to-b from-white to-[#fff0f5]">
+
+                <div class="ice-cream-jar p-4 pt-8 text-center bg-[#fff0f5] cartoon-border">
                     <div class="jar-lid"></div>
-                    <img src="" alt="Guayaba" class="w-20 h-20 object-cover rounded-full mx-auto mb-3 cartoon-border bg-boloPink">
+                    <svg viewBox="0 0 100 100" class="w-20 h-20 mx-auto mb-3 cartoon-border rounded-full bg-white drop-shadow-md">
+                        <circle cx="50" cy="50" r="35" fill="#FF9FF3" stroke="#0A3D62" stroke-width="4"/>
+                        <circle cx="50" cy="50" r="22" fill="#FFF" stroke="#0A3D62" stroke-width="3"/>
+                        <circle cx="40" cy="45" r="3" fill="#F1C40F"/><circle cx="50" cy="40" r="3" fill="#F1C40F"/><circle cx="60" cy="55" r="3" fill="#F1C40F"/><circle cx="45" cy="60" r="3" fill="#F1C40F"/>
+                    </svg>
                     <h3 class="text-xl mb-1 text-boloDarkBlue font-title">Guayaba</h3>
                     <p class="text-gray-700 font-bold text-sm">Dulce y tropical.</p>
                 </div>
-                <div class="ice-cream-jar p-4 pt-8 text-center bg-[#fff6e5] cartoon-border bg-gradient-to-b from-white to-[#fff6e5]">
+
+                <div class="ice-cream-jar p-4 pt-8 text-center bg-[#fff6e5] cartoon-border">
                     <div class="jar-lid"></div>
-                    <img src="" alt="Pan de Muerto" class="w-20 h-20 object-cover rounded-full mx-auto mb-3 cartoon-border bg-orange-300">
+                    <svg viewBox="0 0 100 100" class="w-20 h-20 mx-auto mb-3 cartoon-border rounded-full bg-white drop-shadow-md">
+                        <path d="M20 70 C20 40 80 40 80 70 Z" fill="#E67E22" stroke="#0A3D62" stroke-width="4" stroke-linejoin="round"/>
+                        <circle cx="50" cy="35" r="10" fill="#E67E22" stroke="#0A3D62" stroke-width="3"/>
+                        <path d="M30 60 L70 60 M50 45 L50 70" stroke="#0A3D62" stroke-width="3" stroke-linecap="round"/>
+                    </svg>
                     <h3 class="text-xl mb-1 text-boloDarkBlue font-title">Pan de Muerto</h3>
                     <p class="text-gray-700 font-bold text-sm">Tradición en frío.</p>
                 </div>
-                <div class="ice-cream-jar p-4 pt-8 text-center bg-[#f0f8ff] cartoon-border bg-gradient-to-b from-white to-[#f0f8ff]">
+
+                <div class="ice-cream-jar p-4 pt-8 text-center bg-[#f0f8ff] cartoon-border">
                     <div class="jar-lid"></div>
-                    <img src="" alt="Chicle" class="w-20 h-20 object-cover rounded-full mx-auto mb-3 cartoon-border bg-blue-300">
+                    <svg viewBox="0 0 100 100" class="w-20 h-20 mx-auto mb-3 cartoon-border rounded-full bg-white drop-shadow-md">
+                        <circle cx="50" cy="50" r="35" fill="#87CEEB" stroke="#0A3D62" stroke-width="4"/>
+                        <circle cx="35" cy="40" r="8" fill="#FF9FF3" stroke="#0A3D62" stroke-width="2"/>
+                        <circle cx="60" cy="60" r="10" fill="#FFEAA7" stroke="#0A3D62" stroke-width="2"/>
+                        <circle cx="65" cy="35" r="6" fill="#A8E6CF" stroke="#0A3D62" stroke-width="2"/>
+                    </svg>
                     <h3 class="text-xl mb-1 text-boloDarkBlue font-title">Chicle</h3>
                     <p class="text-gray-700 font-bold text-sm">Diversión pura.</p>
                 </div>
-                <div class="ice-cream-jar p-4 pt-8 text-center bg-[#ffffe0] cartoon-border bg-gradient-to-b from-white to-[#ffffe0]">
+
+                <div class="ice-cream-jar p-4 pt-8 text-center bg-[#ffffe0] cartoon-border">
                     <div class="jar-lid"></div>
-                    <img src="" alt="Queso" class="w-20 h-20 object-cover rounded-full mx-auto mb-3 cartoon-border bg-yellow-200">
+                    <svg viewBox="0 0 100 100" class="w-20 h-20 mx-auto mb-3 cartoon-border rounded-full bg-white drop-shadow-md">
+                        <path d="M20 70 L80 80 L80 30 Z" fill="#F1C40F" stroke="#0A3D62" stroke-width="4" stroke-linejoin="round"/>
+                        <circle cx="50" cy="55" r="6" fill="#FFF" stroke="#0A3D62" stroke-width="2"/>
+                        <circle cx="70" cy="65" r="4" fill="#FFF" stroke="#0A3D62" stroke-width="2"/>
+                        <circle cx="65" cy="45" r="5" fill="#FFF" stroke="#0A3D62" stroke-width="2"/>
+                    </svg>
                     <h3 class="text-xl mb-1 text-boloDarkBlue font-title">Queso</h3>
                     <p class="text-gray-700 font-bold text-sm">Un toque salado.</p>
                 </div>
-                <div class="ice-cream-jar p-4 pt-8 text-center bg-[#ffe4e1] cartoon-border bg-gradient-to-b from-white to-[#ffe4e1]">
+
+                <div class="ice-cream-jar p-4 pt-8 text-center bg-[#ffe4e1] cartoon-border">
                     <div class="jar-lid"></div>
-                    <img src="" alt="Frutos Rojos" class="w-20 h-20 object-cover rounded-full mx-auto mb-3 cartoon-border bg-red-400">
+                    <svg viewBox="0 0 100 100" class="w-20 h-20 mx-auto mb-3 cartoon-border rounded-full bg-white drop-shadow-md">
+                        <circle cx="40" cy="45" r="15" fill="#E74C3C" stroke="#0A3D62" stroke-width="3"/>
+                        <circle cx="65" cy="55" r="12" fill="#8E44AD" stroke="#0A3D62" stroke-width="3"/>
+                        <circle cx="45" cy="65" r="14" fill="#C0392B" stroke="#0A3D62" stroke-width="3"/>
+                        <path d="M40 30 Q50 20 60 30" fill="none" stroke="#2ECC71" stroke-width="4" stroke-linecap="round"/>
+                    </svg>
                     <h3 class="text-xl mb-1 text-boloDarkBlue font-title">Frutos Rojos</h3>
                     <p class="text-gray-700 font-bold text-sm">Refrescante.</p>
                 </div>
-                <div class="ice-cream-jar p-4 pt-8 text-center bg-[#f5f5dc] cartoon-border bg-gradient-to-b from-white to-[#f5f5dc]">
+
+                <div class="ice-cream-jar p-4 pt-8 text-center bg-[#f5f5dc] cartoon-border">
                     <div class="jar-lid"></div>
-                    <img src="" alt="Cascanuez" class="w-20 h-20 object-cover rounded-full mx-auto mb-3 cartoon-border bg-amber-500">
+                    <svg viewBox="0 0 100 100" class="w-20 h-20 mx-auto mb-3 cartoon-border rounded-full bg-white drop-shadow-md">
+                        <path d="M30 50 C30 20 70 20 70 50 C70 60 60 65 60 75 C60 85 40 85 40 75 C40 65 30 60 30 50 Z" fill="#D35400" stroke="#0A3D62" stroke-width="4" stroke-linejoin="round"/>
+                        <path d="M45 30 L45 80 M55 30 L55 80" stroke="#0A3D62" stroke-width="2" stroke-dasharray="4,4"/>
+                    </svg>
                     <h3 class="text-xl mb-1 text-boloDarkBlue font-title">Cascanuez</h3>
                     <p class="text-gray-700 font-bold text-sm">Nuez y arándano.</p>
                 </div>
-                <div class="ice-cream-jar p-4 pt-8 text-center bg-[#f8f0ff] cartoon-border bg-gradient-to-b from-white to-[#f8f0ff]">
+
+                <div class="ice-cream-jar p-4 pt-8 text-center bg-[#f8f0ff] cartoon-border">
                     <div class="jar-lid"></div>
-                    <img src="" alt="Taro" class="w-20 h-20 object-cover rounded-full mx-auto mb-3 cartoon-border bg-purple-400">
+                    <svg viewBox="0 0 100 100" class="w-20 h-20 mx-auto mb-3 cartoon-border rounded-full bg-white drop-shadow-md">
+                        <path d="M25 45 C20 20 60 15 75 35 C90 55 70 85 45 80 C20 75 30 60 25 45 Z" fill="#9B59B6" stroke="#0A3D62" stroke-width="4" stroke-linejoin="round"/>
+                        <path d="M35 40 L45 45 M60 60 L65 50 M40 65 L50 60" stroke="#0A3D62" stroke-width="3" stroke-linecap="round"/>
+                    </svg>
                     <h3 class="text-xl mb-1 text-boloDarkBlue font-title">Taro Oriental</h3>
                     <p class="text-gray-700 font-bold text-sm">Color espectacular.</p>
                 </div>
-                <div class="ice-cream-jar p-4 pt-8 text-center bg-[#fffdf0] cartoon-border bg-gradient-to-b from-white to-[#fffdf0]">
+
+                <div class="ice-cream-jar p-4 pt-8 text-center bg-[#fffdf0] cartoon-border">
                     <div class="jar-lid"></div>
-                    <img src="" alt="Vainilla" class="w-20 h-20 object-cover rounded-full mx-auto mb-3 cartoon-border bg-yellow-100">
+                    <svg viewBox="0 0 100 100" class="w-20 h-20 mx-auto mb-3 cartoon-border rounded-full bg-white drop-shadow-md">
+                        <path d="M30 20 Q50 90 70 20" fill="none" stroke="#8B4513" stroke-width="6" stroke-linecap="round"/>
+                        <circle cx="40" cy="60" r="10" fill="#F1C40F" stroke="#0A3D62" stroke-width="2"/><circle cx="55" cy="50" r="10" fill="#F1C40F" stroke="#0A3D62" stroke-width="2"/><circle cx="60" cy="65" r="10" fill="#F1C40F" stroke="#0A3D62" stroke-width="2"/><circle cx="45" cy="70" r="10" fill="#F1C40F" stroke="#0A3D62" stroke-width="2"/>
+                    </svg>
                     <h3 class="text-xl mb-1 text-boloDarkBlue font-title">Vainilla</h3>
                     <p class="text-gray-700 font-bold text-sm">El clásico favorito.</p>
                 </div>
-                <div class="ice-cream-jar p-4 pt-8 text-center bg-[#eaffea] cartoon-border bg-gradient-to-b from-white to-[#eaffea]">
+
+                <div class="ice-cream-jar p-4 pt-8 text-center bg-[#eaffea] cartoon-border">
                     <div class="jar-lid"></div>
-                    <img src="" alt="Limón" class="w-20 h-20 object-cover rounded-full mx-auto mb-3 cartoon-border bg-green-300">
+                    <svg viewBox="0 0 100 100" class="w-20 h-20 mx-auto mb-3 cartoon-border rounded-full bg-white drop-shadow-md">
+                        <circle cx="50" cy="50" r="35" fill="#2ECC71" stroke="#0A3D62" stroke-width="4"/>
+                        <circle cx="50" cy="50" r="28" fill="#A8E6CF" stroke="#0A3D62" stroke-width="2"/>
+                        <path d="M50 22 L50 78 M22 50 L78 50 M30 30 L70 70 M30 70 L70 30" stroke="#0A3D62" stroke-width="2"/>
+                    </svg>
                     <h3 class="text-xl mb-1 text-boloDarkBlue font-title">Limón</h3>
                     <p class="text-gray-700 font-bold text-sm">Cítrico ideal.</p>
                 </div>
-                <div class="ice-cream-jar p-4 pt-8 text-center bg-[#fff5e6] cartoon-border bg-gradient-to-b from-white to-[#fff5e6]">
+
+                <div class="ice-cream-jar p-4 pt-8 text-center bg-[#fff5e6] cartoon-border">
                     <div class="jar-lid"></div>
-                    <img src="" alt="Maracuyá" class="w-20 h-20 object-cover rounded-full mx-auto mb-3 cartoon-border bg-orange-400">
+                    <svg viewBox="0 0 100 100" class="w-20 h-20 mx-auto mb-3 cartoon-border rounded-full bg-white drop-shadow-md">
+                        <circle cx="50" cy="50" r="35" fill="#E67E22" stroke="#0A3D62" stroke-width="4"/>
+                        <circle cx="50" cy="50" r="28" fill="#F1C40F" stroke="#0A3D62" stroke-width="2"/>
+                        <circle cx="40" cy="40" r="2" fill="#000"/><circle cx="50" cy="35" r="2" fill="#000"/><circle cx="60" cy="45" r="2" fill="#000"/><circle cx="45" cy="55" r="2" fill="#000"/><circle cx="55" cy="65" r="2" fill="#000"/>
+                    </svg>
                     <h3 class="text-xl mb-1 text-boloDarkBlue font-title">Maracuyá</h3>
                     <p class="text-gray-700 font-bold text-sm">Pasión frutal.</p>
                 </div>
-                <div class="ice-cream-jar p-4 pt-8 text-center bg-[#fffbea] cartoon-border bg-gradient-to-b from-white to-[#fffbea]">
+
+                <div class="ice-cream-jar p-4 pt-8 text-center bg-[#fffbea] cartoon-border">
                     <div class="jar-lid"></div>
-                    <img src="" alt="Piña" class="w-20 h-20 object-cover rounded-full mx-auto mb-3 cartoon-border bg-yellow-400">
+                    <svg viewBox="0 0 100 100" class="w-20 h-20 mx-auto mb-3 cartoon-border rounded-full bg-white drop-shadow-md">
+                        <circle cx="50" cy="55" r="25" fill="#F1C40F" stroke="#0A3D62" stroke-width="4"/>
+                        <path d="M35 40 L65 70 M65 40 L35 70" stroke="#0A3D62" stroke-width="2"/>
+                        <path d="M50 30 Q60 10 70 30 Q50 20 30 30 Q40 10 50 30 Z" fill="#2ECC71" stroke="#0A3D62" stroke-width="3" stroke-linejoin="round"/>
+                    </svg>
                     <h3 class="text-xl mb-1 text-boloDarkBlue font-title">Sabor Piña</h3>
                     <p class="text-gray-700 font-bold text-sm">Toque playero.</p>
                 </div>
@@ -327,17 +393,17 @@
         </svg>
     </div>
 
-    <!-- Sección Armador Virtual Gamificado (Pro Graphics) -->
+    <!-- Sección Armador Virtual Gamificado -->
     <section id="armador" class="py-16">
         <div class="max-w-6xl mx-auto px-4">
             <div class="text-center mb-10 relative">
-                <h2 class="text-5xl text-boloDarkBlue mb-4 font-title">Armador Mágico</h2>
+                <h2 class="text-5xl mb-4 font-title cute-text-blue">Armador Mágico</h2>
                 <p class="text-xl text-gray-700 font-bold">Laboratorio Oficial de Sabores del Tío Bolo.</p>
             </div>
 
             <div class="bg-white rounded-[2rem] cartoon-border flex flex-col lg:flex-row overflow-hidden">
                 
-                <!-- Visualizador del Helado (Gráficos Avanzados SVG) -->
+                <!-- Visualizador del Helado -->
                 <div class="lg:w-2/5 bg-[#ffeaa7] p-8 flex flex-col items-center justify-center relative min-h-[450px] border-b-4 lg:border-b-0 lg:border-r-4 border-boloDarkBlue bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+PGNpcmNsZSBjeD0iMTAiIGN5PSIxMCIgcj0iMiIgZmlsbD0iI2QyYjk3OCIgb3BhY2l0eT0iMC41Ii8+PC9zdmc+')]">
                     
                     <div class="absolute top-4 left-4 bg-white px-4 py-2 rounded-full font-title text-boloDarkBlue cartoon-border z-40">
@@ -350,35 +416,18 @@
                             <!-- Topping Superior -->
                             <div id="preview-topping" class="absolute -top-4 left-0 w-full z-30 text-center text-[70px] leading-none filter drop-shadow-xl transform -rotate-6"></div>
                             
-                            <!-- Bola Principal SVG Gamificada (Con derretido) -->
+                            <!-- Bola Principal SVG -->
                             <div class="absolute top-12 left-1/2 transform -translate-x-1/2 z-20 w-48 h-48 drop-shadow-2xl">
                                 <svg viewBox="0 0 100 100" class="w-full h-full">
-                                    <defs>
-                                        <!-- Gradiente dinámico -->
-                                        <radialGradient id="scoopGradient" cx="30%" cy="30%" r="70%">
-                                            <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.6"/>
-                                            <stop offset="20%" id="stopColor1" stop-color="#A8E6CF"/>
-                                            <stop offset="100%" id="stopColor2" stop-color="#55A68B"/> <!-- Oscuro por defecto (se cambia en JS) -->
-                                        </radialGradient>
-                                        <filter id="insetShadow">
-                                            <feOffset dx="0" dy="-4"/>
-                                            <feGaussianBlur stdDeviation="3" result="offset-blur"/>
-                                            <feComposite operator="out" in="SourceGraphic" in2="offset-blur" result="inverse"/>
-                                            <feFlood flood-color="black" flood-opacity="0.3" result="color"/>
-                                            <feComposite operator="in" in="color" in2="inverse" result="shadow"/>
-                                            <feComposite operator="over" in="shadow" in2="SourceGraphic"/>
-                                        </filter>
-                                    </defs>
-                                    <!-- Bola de helado con base ondulada/derretida -->
-                                    <path d="M50 5 C20 5 10 30 10 50 C10 65 15 75 25 75 C28 85 35 88 40 80 C45 85 55 85 60 80 C65 90 75 85 75 75 C85 75 90 65 90 50 C90 30 80 5 50 5 Z" fill="url(#scoopGradient)" stroke="#0A3D62" stroke-width="3" stroke-linejoin="round"/>
-                                    <!-- Brillo Cartoon -->
+                                    <path d="M50 5 C20 5 10 30 10 50 C10 65 15 75 25 75 C28 85 35 88 40 80 C45 85 55 85 60 80 C65 90 75 85 75 75 C85 75 90 65 90 50 C90 30 80 5 50 5 Z" id="preview-flavor-path" fill="#A8E6CF" stroke="#0A3D62" stroke-width="3" stroke-linejoin="round"/>
+                                    <!-- Brillo -->
                                     <path d="M30 15 Q40 10 50 15 Q40 20 30 15 Z" fill="#FFFFFF" opacity="0.8"/>
                                 </svg>
                             </div>
                             
                             <!-- Base (Cono o Tarro) -->
                             <div id="preview-base" class="absolute bottom-0 left-1/2 transform -translate-x-1/2 z-10 transition-all duration-300 w-32 h-40">
-                                <!-- Se inyecta en JS -->
+                                <!-- JS inyecta esto -->
                             </div>
                         </div>
                     </div>
@@ -404,29 +453,28 @@
                     <div class="mb-8 bg-white p-6 rounded-2xl cartoon-border">
                         <h4 class="font-title text-boloDarkBlue text-xl mb-4"><i class="fas fa-caret-right text-boloPink"></i> 2. Sabor Principal</h4>
                         <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                            <!-- Los botones usan el cartoon-btn -->
-                            <button onclick="setFlavor('Aguacate', '#A8E6CF', '#55A68B')" class="cartoon-btn active bg-[#A8E6CF] p-2 rounded-xl flex flex-col items-center" id="fl-Aguacate">
+                            <button onclick="setFlavor('Aguacate', '#A8E6CF')" class="cartoon-btn active bg-[#A8E6CF] p-2 rounded-xl flex flex-col items-center" id="fl-Aguacate">
                                 <span class="font-title text-boloDarkBlue text-sm mt-1">Aguacate</span>
                             </button>
-                            <button onclick="setFlavor('Guayaba', '#FF9FF3', '#D65CBF')" class="cartoon-btn bg-[#FF9FF3] p-2 rounded-xl flex flex-col items-center" id="fl-Guayaba">
+                            <button onclick="setFlavor('Guayaba', '#FF9FF3')" class="cartoon-btn bg-[#FF9FF3] p-2 rounded-xl flex flex-col items-center" id="fl-Guayaba">
                                 <span class="font-title text-boloDarkBlue text-sm mt-1">Guayaba</span>
                             </button>
-                            <button onclick="setFlavor('Chicle', '#87CEEB', '#4A90E2')" class="cartoon-btn bg-[#87CEEB] p-2 rounded-xl flex flex-col items-center" id="fl-Chicle">
+                            <button onclick="setFlavor('Chicle', '#87CEEB')" class="cartoon-btn bg-[#87CEEB] p-2 rounded-xl flex flex-col items-center" id="fl-Chicle">
                                 <span class="font-title text-boloDarkBlue text-sm mt-1">Chicle</span>
                             </button>
-                            <button onclick="setFlavor('Vainilla', '#FFFACD', '#D4C66A')" class="cartoon-btn bg-[#FFFACD] p-2 rounded-xl flex flex-col items-center" id="fl-Vainilla">
+                            <button onclick="setFlavor('Vainilla', '#FFFACD')" class="cartoon-btn bg-[#FFFACD] p-2 rounded-xl flex flex-col items-center" id="fl-Vainilla">
                                 <span class="font-title text-boloDarkBlue text-sm mt-1">Vainilla</span>
                             </button>
-                            <button onclick="setFlavor('Taro', '#DDA0DD', '#9B59B6')" class="cartoon-btn bg-[#DDA0DD] p-2 rounded-xl flex flex-col items-center" id="fl-Taro">
+                            <button onclick="setFlavor('Taro', '#DDA0DD')" class="cartoon-btn bg-[#DDA0DD] p-2 rounded-xl flex flex-col items-center" id="fl-Taro">
                                 <span class="font-title text-boloDarkBlue text-sm mt-1">Taro</span>
                             </button>
-                            <button onclick="setFlavor('Fresa', '#FF6B6B', '#C0392B')" class="cartoon-btn bg-[#FF6B6B] p-2 rounded-xl flex flex-col items-center" id="fl-Fresa">
+                            <button onclick="setFlavor('Fresa', '#FF6B6B')" class="cartoon-btn bg-[#FF6B6B] p-2 rounded-xl flex flex-col items-center" id="fl-Fresa">
                                 <span class="font-title text-boloDarkBlue text-sm mt-1">Fresa</span>
                             </button>
-                            <button onclick="setFlavor('Maracuyá', '#FFB07C', '#E67E22')" class="cartoon-btn bg-[#FFB07C] p-2 rounded-xl flex flex-col items-center" id="fl-Maracuyá">
+                            <button onclick="setFlavor('Maracuyá', '#FFB07C')" class="cartoon-btn bg-[#FFB07C] p-2 rounded-xl flex flex-col items-center" id="fl-Maracuyá">
                                 <span class="font-title text-boloDarkBlue text-sm mt-1">Maracuyá</span>
                             </button>
-                            <button onclick="setFlavor('Queso', '#FFF7A1', '#F1C40F')" class="cartoon-btn bg-[#FFF7A1] p-2 rounded-xl flex flex-col items-center" id="fl-Queso">
+                            <button onclick="setFlavor('Queso', '#FFF7A1')" class="cartoon-btn bg-[#FFF7A1] p-2 rounded-xl flex flex-col items-center" id="fl-Queso">
                                 <span class="font-title text-boloDarkBlue text-sm mt-1">Queso</span>
                             </button>
                         </div>
@@ -447,30 +495,30 @@
                         <button class="flex-1 py-4 cartoon-btn bg-ticketGold text-boloDarkBlue font-title text-2xl rounded-xl" onclick="pedirHeladoArmado()">
                             <i class="fab fa-whatsapp"></i> ¡Lo Quiero!
                         </button>
-                        <button class="sm:w-auto px-8 py-4 cartoon-btn bg-boloDarkBlue text-white font-title text-xl rounded-xl" onclick="descargarHelado()">
-                            <i class="fas fa-download"></i> Guardar Foto
-                        </button>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Zona Kids: Atrapa la Bola (Pro Gamified) -->
+    <!-- Zona Kids: Atrapa la Bola -->
     <section id="kids" class="py-20 bg-boloBlue relative overflow-hidden cartoon-border border-x-0 border-t-8 border-b-8">
         
         <div class="max-w-5xl mx-auto px-4 text-center relative z-10">
             <div class="inline-block bg-boloYellow text-boloDarkBlue px-8 py-2 rounded-full font-title text-2xl mb-6 cartoon-border shadow-md transform -rotate-2">
                 🎮 Bolo Arcade
             </div>
-            <h2 class="text-5xl text-white mb-2 font-title" style="text-shadow: 4px 4px 0 #0A3D62;">Atrapa la Bola</h2>
-            <p class="text-xl text-white font-bold mb-8 drop-shadow-md">Ayuda al Tío Bolo a atrapar todo el helado.</p>
+            <h2 class="text-5xl mb-2 font-title cute-text-white">Atrapa la Bola</h2>
+            <p class="text-xl text-white font-bold mb-8 drop-shadow-md">Tienes 60 segundos. ¡Que no se caiga ningún helado!</p>
             
             <div class="relative bg-white rounded-3xl cartoon-border mx-auto p-2" style="max-width: 800px; box-shadow: 12px 12px 0 #0A3D62;">
                 
-                <div class="absolute top-4 left-4 z-10 flex gap-2 items-center">
+                <div class="absolute top-4 left-4 z-10 flex gap-4 items-center w-full pr-8">
                     <div class="bg-boloDarkBlue text-white px-6 py-2 rounded-xl font-title text-xl border-4 border-boloYellow shadow-lg">
                         PUNTOS: <span id="game-score" class="text-boloPink text-2xl ml-2">0</span>
+                    </div>
+                    <div class="bg-ticketRed text-white px-6 py-2 rounded-xl font-title text-xl border-4 border-white shadow-lg ml-auto">
+                        ⏳ <span id="game-timer">60</span>s
                     </div>
                 </div>
 
@@ -479,8 +527,7 @@
                 
                 <!-- Pantalla de Inicio -->
                 <div id="game-overlay" class="absolute inset-0 bg-[#E0F6FF]/95 backdrop-blur-sm rounded-2xl flex flex-col items-center justify-center z-20 cartoon-border border-0 m-2">
-                    <!-- LOGO ANIMADO AQUÍ -->
-                    <img src="logo.png" alt="Tío Bolo" class="w-40 h-40 object-contain mb-4 animate-bounce-slow drop-shadow-2xl">
+                    <img src="logo.png" alt="Tío Bolo" class="w-40 h-40 object-contain mb-4 animate-bounce drop-shadow-2xl" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2240%22 fill=%22%234AD3F5%22/><text x=%2250%22 y=%2265%22 font-size=%2240%22 text-anchor=%22middle%22>🐻‍❄️</text></svg>'">
                     <h3 class="font-title text-5xl mb-6 text-boloDarkBlue" style="text-shadow: 3px 3px 0 #FFF;">¿Listo para jugar?</h3>
                     
                     <div class="flex gap-4 mb-6">
@@ -492,14 +539,14 @@
 
                 <!-- Pantalla Game Over -->
                 <div id="game-over" class="hidden absolute inset-0 bg-boloDarkBlue/95 backdrop-blur-md rounded-2xl flex flex-col items-center justify-center z-20 p-6 text-center m-2 cartoon-border border-boloPink border-4">
-                    <h3 class="font-title text-6xl mb-2 text-boloYellow" style="text-shadow: 4px 4px 0 #D63031;">¡Plaf! 🍦</h3>
+                    <h3 id="go-title" class="font-title text-6xl mb-2 text-boloYellow" style="text-shadow: 4px 4px 0 #D63031;">¡Plaf! 🍦</h3>
                     <p class="text-2xl mb-8 font-title text-white">Atrapaste <span id="final-score" class="text-5xl text-boloPink">0</span> Bolas</p>
                     
                     <div class="flex flex-col sm:flex-row gap-4">
                         <button onclick="showGameMenu()" class="cartoon-btn bg-white text-boloDarkBlue font-title text-xl py-3 px-8 rounded-xl">
                             <i class="fas fa-redo"></i> Reintentar
                         </button>
-                        <button onclick="descargarScore()" class="cartoon-btn bg-boloYellow text-orange-600 font-title text-xl py-3 px-8 rounded-xl">
+                        <button onclick="descargarScoreNativo()" class="cartoon-btn bg-boloYellow text-orange-600 font-title text-xl py-3 px-8 rounded-xl">
                             <i class="fas fa-camera"></i> Guardar Récord
                         </button>
                     </div>
@@ -509,7 +556,7 @@
         </div>
     </section>
 
-    <!-- El Guardián del Sabor (Mascota - Formato 9:16) -->
+    <!-- El Guardián del Sabor -->
     <section id="mascota" class="py-20 relative overflow-hidden bg-white">
         <div class="max-w-6xl mx-auto px-4">
             <div class="bg-boloCream rounded-[3rem] p-8 md:p-16 flex flex-col md:flex-row items-center justify-center gap-12 relative cartoon-border border-dashed">
@@ -520,24 +567,21 @@
                     <div class="inline-block bg-boloBlue text-white px-6 py-2 rounded-full font-title text-lg mb-6 cartoon-border transform -rotate-3">
                         Espacio Pet Friendly 🐕
                     </div>
-                    <h2 class="text-5xl lg:text-6xl mb-6 text-boloDarkBlue font-title leading-tight" style="text-shadow: 2px 2px 0 #FFF, 4px 4px 0 #A8E6CF;">El Guardián <br>del Sabor</h2>
+                    <h2 class="text-5xl lg:text-6xl mb-6 font-title leading-tight cute-text-pink">El Guardián <br>del Sabor</h2>
                     <p class="text-xl text-gray-700 mb-6 font-bold bg-white p-6 rounded-2xl cartoon-border">
                         Detrás de cada gran helado, hay un perrito experto supervisando la calidad. Conoce a nuestra mascota oficial. ¡Trae a tu mejor amigo, aquí los consentimos!
                     </p>
                 </div>
                 
-                <!-- Contenedor 9:16 para mascota.jpg -->
                 <div class="md:w-1/2 z-10 flex justify-center">
                     <div class="relative w-64 aspect-[9/16] cartoon-border rounded-3xl bg-white p-3 transform rotate-3 hover:rotate-0 transition-transform duration-300">
                         <div class="w-full h-full rounded-2xl overflow-hidden bg-gray-200 relative border-4 border-boloDarkBlue">
-                            <!-- Imagen 9:16 -->
                             <img src="mascota.jpg" alt="Firulais" class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
                             <div class="absolute inset-0 flex flex-col items-center justify-center bg-boloYellow hidden p-4 text-center">
                                 <span class="text-6xl mb-2">🐕</span>
                                 <span class="text-sm font-bold text-boloDarkBlue font-title">Falta 'mascota.jpg' (9:16) en la raíz.</span>
                             </div>
                         </div>
-                        <!-- Placa perro -->
                         <div class="absolute -bottom-6 left-1/2 transform -translate-x-1/2 bg-boloPink text-white font-title text-2xl px-6 py-2 rounded-full cartoon-border z-20 whitespace-nowrap">
                             Firulais 🦴
                         </div>
@@ -549,18 +593,8 @@
 
     <!-- Club Tío Bolo (Ticket de Cumpleaños Avanzado) -->
     <section id="club" class="py-20 bg-boloPink text-white relative border-t-8 border-boloDarkBlue overflow-hidden">
-        
-        <!-- Decoración abstracta fondo -->
-        <div class="absolute top-0 left-0 w-full h-full opacity-30">
-            <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
-                <circle cx="20" cy="20" r="10" fill="#FFF"/>
-                <circle cx="80" cy="80" r="15" fill="#FFF"/>
-                <polygon points="50,10 60,30 40,30" fill="#FFF"/>
-            </svg>
-        </div>
-
         <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
-            <h2 class="text-5xl lg:text-7xl mb-4 text-white font-title" style="text-shadow: 5px 5px 0 #0A3D62;">Pase Oro de Cumpleaños 🎟️</h2>
+            <h2 class="text-5xl lg:text-7xl mb-4 font-title cute-text-yellow">Pase Oro de Cumpleaños 🎟️</h2>
             <p class="text-2xl text-boloDarkBlue font-bold mb-10 bg-white/50 inline-block px-6 py-2 rounded-xl cartoon-border">Genera tu pase y obtén una sorpresa el día de tu cumple.</p>
 
             <div class="bg-white p-8 rounded-[2rem] cartoon-border max-w-2xl mx-auto">
@@ -572,13 +606,10 @@
                     Generar Pase Mágico ✨
                 </button>
 
-                <!-- Contenedor del Ticket Generado -->
+                <!-- Contenedor del Ticket -->
                 <div id="cupon-container" class="hidden flex flex-col items-center bg-gray-50 p-6 rounded-2xl border-4 border-dashed border-gray-300">
                     <p class="text-lg text-ticketRed mb-4 font-bold"><i class="fas fa-exclamation-circle"></i> Recuerda: Válido ÚNICAMENTE el día exacto de tu cumpleaños.</p>
-                    
-                    <!-- Canvas Ticket Mejorado -->
                     <canvas id="ticketCanvas" width="800" height="300" class="w-full h-auto max-w-[700px] drop-shadow-2xl mb-6"></canvas>
-                    
                     <button onclick="descargarTicket()" class="bg-boloBlue text-white font-title text-xl py-4 px-10 rounded-full cartoon-btn flex items-center gap-3">
                         <i class="fas fa-download text-2xl"></i> Guardar Imagen
                     </button>
@@ -589,12 +620,12 @@
 
     <!-- Footer -->
     <footer class="bg-white pt-16 pb-8 border-t-8 border-boloDarkBlue">
-        <div class="max-w-6xl mx-auto px-4 text-center">
+        <div class="max-w-6xl mx-auto px-4 text-center flex flex-col items-center">
             
-            <!-- Logo Footer Animado -->
-            <img src="logo.png" alt="Tío Bolo Logo" class="w-40 h-auto mx-auto mb-6 hover:animate-bounce cursor-pointer drop-shadow-lg" onclick="window.scrollTo(0,0)">
+            <!-- Logo Footer Animado Constantemente -->
+            <img src="logo.png" alt="Tío Bolo Logo" class="w-40 h-auto mb-6 animate-bounce cursor-pointer drop-shadow-lg" onclick="window.scrollTo(0,0)" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2240%22 fill=%22%234AD3F5%22/><text x=%2250%22 y=%2265%22 font-size=%2240%22 text-anchor=%22middle%22>🐻‍❄️</text></svg>'">
             
-            <h3 class="font-title text-4xl text-boloDarkBlue mb-2">El Tío Bolo</h3>
+            <h3 class="font-title text-4xl mb-2 cute-text-blue">El Tío Bolo</h3>
             <p class="text-gray-600 font-bold mb-8 text-lg">Naturalmente irresistible.</p>
             
             <div class="flex justify-center gap-6 mb-10">
@@ -607,20 +638,19 @@
             </div>
             
             <p class="text-sm text-gray-400 font-bold">© 2026 El Tío Bolo. Hecho con ❤️ y mucho helado.</p>
+            
+            <!-- CRÉDITOS AÑADIDOS -->
+            <p class="text-lg font-title text-boloPink mt-4">Desarrollado con mucha frescura por <a href="https://estudio.xidito.com/" target="_blank" class="text-boloBlue hover:text-cyan-300 underline transition-colors">https://estudio.xidito.com/</a></p>
         </div>
     </footer>
 
-    <!-- Botón Flotante WhatsApp -->
     <a href="https://wa.me/521234567890?text=¡Hola%20Tío%20Bolo!%20Tengo%20un%20antojo%20gigante...%20🍦" target="_blank" class="fixed bottom-6 right-6 z-50 bg-green-500 text-white w-20 h-20 rounded-full flex items-center justify-center text-4xl cartoon-btn group">
         <i class="fab fa-whatsapp"></i>
-        <span class="absolute right-24 bg-white text-boloDarkBlue text-lg font-title py-2 px-6 rounded-xl cartoon-border opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
-            ¡Pide aquí!
-        </span>
     </a>
 
     <!-- SCRIPTS -->
     <script>
-        // --- 1. Chispas Parallax ---
+        // --- Chispas Parallax ---
         function createSprinkles() {
             const container = document.getElementById('sprinkles-container');
             const colors = ['#FF9FF3', '#4AD3F5', '#FFEAA7', '#A8E6CF', '#FF6B6B'];
@@ -634,12 +664,12 @@
                 sprinkle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
                 sprinkle.style.animationDelay = `${Math.random() * 15}s`;
                 sprinkle.style.animationDuration = `${Math.random() * 8 + 8}s`;
-                sprinkle.style.border = "2px solid #000"; // Estilo cartoon a las chispas
+                sprinkle.style.border = "2px solid #000";
                 container.appendChild(sprinkle);
             }
         }
 
-        // --- 2. Estado ---
+        // --- Estado ---
         function checkOpenStatus() {
             const statusBadge = document.getElementById('status-badge');
             const statusText = document.getElementById('status-text');
@@ -657,36 +687,19 @@
             }
         }
 
-        // --- 3. Armador de Helados Gamificado ---
+        // --- Armador de Helados Gamificado ---
         let armadorState = {
             base: 'Cono',
             flavorName: 'Aguacate',
             flavorColor: '#A8E6CF',
-            flavorShadow: '#55A68B',
             toppingName: 'Sin Topping',
             toppingEmoji: ''
         };
 
-        const svgCono = `
-            <svg width="100%" height="100%" viewBox="0 0 100 120">
-                <path d="M10 0 L90 0 L55 110 Q50 120 45 110 L10 0 Z" fill="#F3CA76" stroke="#0A3D62" stroke-width="4" stroke-linejoin="round"/>
-                <!-- Waffle Lines -->
-                <path d="M20 0 L55 90 M30 0 L60 70 M40 0 L65 50 M50 0 L70 30 M60 0 L75 10 M80 0 L45 90 M70 0 L40 70 M60 0 L35 50 M50 0 L30 30 M40 0 L25 10" stroke="#D39E46" stroke-width="2"/>
-            </svg>`;
-            
-        const svgTarro = `
-            <svg width="100%" height="100%" viewBox="0 0 100 120">
-                <path d="M15 20 L85 20 C90 20 95 25 95 30 L95 100 C95 110 85 115 75 115 L25 115 C15 115 5 110 5 100 L5 30 C5 25 10 20 15 20 Z" fill="#E0F6FF" stroke="#0A3D62" stroke-width="4"/>
-                <rect x="0" y="5" width="100" height="15" rx="5" fill="#FFF" stroke="#0A3D62" stroke-width="4"/>
-                <!-- Etiqueta -->
-                <rect x="25" y="45" width="50" height="35" rx="5" fill="#4AD3F5" stroke="#0A3D62" stroke-width="3"/>
-                <text x="50" y="67" font-family="'Fredoka One', cursive" font-size="12" fill="white" text-anchor="middle" style="stroke: #0A3D62; stroke-width: 2px; paint-order: stroke;">BOLO</text>
-                <!-- Reflejo Vidrio -->
-                <path d="M 15 30 L 15 90 C 15 95 20 95 20 95 L 20 30 Z" fill="#FFFFFF" opacity="0.6"/>
-            </svg>`;
+        const pathCono = `<path d="M10 0 L90 0 L55 110 Q50 120 45 110 L10 0 Z" fill="#F3CA76" stroke="#0A3D62" stroke-width="4" stroke-linejoin="round"/><path d="M20 0 L55 90 M30 0 L60 70 M40 0 L65 50 M50 0 L70 30 M60 0 L75 10 M80 0 L45 90 M70 0 L40 70 M60 0 L35 50 M50 0 L30 30 M40 0 L25 10" stroke="#D39E46" stroke-width="2"/>`;
+        const pathTarro = `<path d="M15 20 L85 20 C90 20 95 25 95 30 L95 100 C95 110 85 115 75 115 L25 115 C15 115 5 110 5 100 L5 30 C5 25 10 20 15 20 Z" fill="#E0F6FF" stroke="#0A3D62" stroke-width="4"/><rect x="0" y="5" width="100" height="15" rx="5" fill="#FFF" stroke="#0A3D62" stroke-width="4"/><rect x="25" y="45" width="50" height="35" rx="5" fill="#4AD3F5" stroke="#0A3D62" stroke-width="3"/><text x="50" y="67" font-family="'Fredoka One', cursive" font-size="12" fill="white" text-anchor="middle" style="stroke: #0A3D62; stroke-width: 2px; paint-order: stroke;">BOLO</text><path d="M 15 30 L 15 90 C 15 95 20 95 20 95 L 20 30 Z" fill="#FFFFFF" opacity="0.6"/>`;
 
         function updateArmadorUI() {
-            // Actualizar Base SVG
             const baseDiv = document.getElementById('preview-base');
             const btnCono = document.getElementById('btn-cono');
             const btnTarro = document.getElementById('btn-tarro');
@@ -696,40 +709,30 @@
                 btnCono.classList.remove('bg-white', 'text-boloDarkBlue');
                 btnTarro.classList.remove('bg-boloBlue', 'text-white', 'active');
                 btnTarro.classList.add('bg-white', 'text-boloDarkBlue');
-                baseDiv.innerHTML = svgCono;
+                baseDiv.innerHTML = `<svg width="100%" height="100%" viewBox="0 0 100 120">${pathCono}</svg>`;
             } else {
                 btnTarro.classList.add('bg-boloBlue', 'text-white', 'active');
                 btnTarro.classList.remove('bg-white', 'text-boloDarkBlue');
                 btnCono.classList.remove('bg-boloBlue', 'text-white', 'active');
                 btnCono.classList.add('bg-white', 'text-boloDarkBlue');
-                baseDiv.innerHTML = svgTarro;
+                baseDiv.innerHTML = `<svg width="100%" height="100%" viewBox="0 0 100 120">${pathTarro}</svg>`;
             }
 
-            // Actualizar SVG Gradiente Bola
-            document.getElementById('stopColor1').setAttribute('stop-color', armadorState.flavorColor);
-            document.getElementById('stopColor2').setAttribute('stop-color', armadorState.flavorShadow);
+            document.getElementById('preview-flavor-path').setAttribute('fill', armadorState.flavorColor);
 
-            // Actualizar Botones Activos Sabor
-            document.querySelectorAll('.flavor-btn').forEach(b => {
-                b.classList.remove('active');
-                b.style.transform = 'scale(1)';
-            });
+            document.querySelectorAll('.flavor-btn').forEach(b => { b.classList.remove('active'); b.style.transform = 'scale(1)'; });
             const aBtn = document.getElementById('fl-' + armadorState.flavorName);
-            if(aBtn) {
-                aBtn.classList.add('active');
-            }
+            if(aBtn) aBtn.classList.add('active');
 
-            // Actualizar Topping
             document.getElementById('preview-topping').innerText = armadorState.toppingEmoji;
 
-            // Animación Pop
             const ic = document.getElementById('preview-icecream');
             ic.style.transform = 'scale(1.1) translateY(-10px)';
             setTimeout(() => ic.style.transform = 'scale(1) translateY(0)', 250);
         }
 
         function setBase(t) { armadorState.base = t; updateArmadorUI(); }
-        function setFlavor(n, c, s) { armadorState.flavorName = n; armadorState.flavorColor = c; armadorState.flavorShadow = s; updateArmadorUI(); }
+        function setFlavor(n, c) { armadorState.flavorName = n; armadorState.flavorColor = c; updateArmadorUI(); }
         function setTopping(n, e) { armadorState.toppingName = n; armadorState.toppingEmoji = e; updateArmadorUI(); }
 
         function pedirHeladoArmado() {
@@ -738,55 +741,7 @@
             window.open(`https://wa.me/521234567890?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
-        function descargarHelado() {
-            const c = document.createElement('canvas');
-            c.width = 500; c.height = 600;
-            const ctx = c.getContext('2d');
-            
-            // Fondo pop-art
-            ctx.fillStyle = '#FFEAA7'; ctx.fillRect(0,0,500,600);
-            
-            // Circulo de fondo
-            ctx.fillStyle = '#FF9FF3'; ctx.beginPath(); ctx.arc(250, 300, 200, 0, Math.PI*2); ctx.fill();
-            
-            // Borde estilo cartoon de toda la imagen
-            ctx.strokeStyle = '#0A3D62'; ctx.lineWidth = 10; ctx.strokeRect(5,5,490,590);
-
-            // Titulo
-            ctx.textAlign = 'center'; ctx.fillStyle = '#0A3D62';
-            ctx.font = '40px "Fredoka One", sans-serif';
-            ctx.fillText('¡MI CREACIÓN BOLO!', 250, 80);
-
-            // Dibujar Bola Simple
-            ctx.fillStyle = armadorState.flavorColor;
-            ctx.strokeStyle = '#0A3D62'; ctx.lineWidth = 6;
-            ctx.beginPath(); ctx.arc(250, 260, 100, 0, Math.PI*2); ctx.fill(); ctx.stroke();
-
-            // Topping
-            if(armadorState.toppingEmoji) {
-                ctx.font = '80px sans-serif'; ctx.fillText(armadorState.toppingEmoji, 250, 180);
-            }
-
-            // Dibujar Base
-            if(armadorState.base === 'Cono') {
-                ctx.fillStyle = '#F3CA76';
-                ctx.beginPath(); ctx.moveTo(150, 320); ctx.lineTo(350, 320); ctx.lineTo(250, 520); ctx.closePath();
-                ctx.fill(); ctx.stroke();
-            } else {
-                ctx.fillStyle = '#E0F6FF';
-                ctx.beginPath(); ctx.roundRect(160, 320, 180, 160, 10); ctx.fill(); ctx.stroke();
-                ctx.fillStyle = '#4AD3F5'; ctx.fillRect(200, 380, 100, 50); ctx.strokeRect(200,380,100,50);
-                ctx.fillStyle = '#FFF'; ctx.font = 'bold 24px "Fredoka One"'; ctx.fillText('BOLO', 250, 415);
-            }
-
-            // Descargar
-            const link = document.createElement('a');
-            link.download = `Helado_${armadorState.flavorName}.png`;
-            link.href = c.toDataURL();
-            link.click();
-        }
-
-        // --- 4. Ticket Dorado Cumpleaños ---
+        // --- Ticket Dorado Cumpleaños ---
         function generarTicket() {
             const nombre = document.getElementById('cumple-nombre').value.trim().toUpperCase();
             const fechaRaw = document.getElementById('cumple-fecha').value;
@@ -798,8 +753,6 @@
 
             const [year, month, day] = fechaRaw.split('-');
             const fFormat = `${day}/${month}/${year}`;
-            
-            // Generar Serial Aleatorio
             const serial = 'BOLO-' + Math.random().toString(36).substring(2,8).toUpperCase();
 
             document.getElementById('cupon-container').classList.remove('hidden');
@@ -807,22 +760,16 @@
             const ctx = canvas.getContext('2d');
             ctx.clearRect(0,0, canvas.width, canvas.height);
 
-            // ================= FONDO TICKET =================
-            // Sombra
-            ctx.shadowColor = 'rgba(10, 61, 98, 0.4)'; ctx.shadowBlur = 0; ctx.shadowOffsetX = 10; ctx.shadowOffsetY = 10;
-            
-            // Forma principal
+            // Fondo principal dorado
             const grad = ctx.createLinearGradient(0,0,800,300);
-            grad.addColorStop(0, '#FFEAA7'); grad.addColorStop(1, '#FFDF73'); // Dorado
+            grad.addColorStop(0, '#FFEAA7'); grad.addColorStop(1, '#FFDF73');
             ctx.fillStyle = grad;
             ctx.beginPath(); ctx.roundRect(20, 20, 760, 260, 20); ctx.fill();
             
-            // Borde Cartoon
-            ctx.shadowColor = 'transparent';
             ctx.strokeStyle = '#0A3D62'; ctx.lineWidth = 6; ctx.stroke();
 
-            // Recortes de Ticket Laterales
-            ctx.fillStyle = '#0A3D62'; // Borde recorte
+            // Recortes
+            ctx.fillStyle = '#0A3D62';
             ctx.globalCompositeOperation = 'destination-out';
             for(let y=50; y<260; y+=30) {
                 ctx.beginPath(); ctx.arc(20, y, 12, 0, Math.PI*2); ctx.fill();
@@ -830,19 +777,18 @@
             }
             ctx.globalCompositeOperation = 'source-over';
             
-            // Dibujar bordes de los recortes
             ctx.strokeStyle = '#0A3D62'; ctx.lineWidth = 6;
             for(let y=50; y<260; y+=30) {
                 ctx.beginPath(); ctx.arc(20, y, 12, -Math.PI/2, Math.PI/2, false); ctx.stroke();
                 ctx.beginPath(); ctx.arc(780, y, 12, Math.PI/2, -Math.PI/2, false); ctx.stroke();
             }
 
-            // Línea punteada corte
+            // Línea punteada
             ctx.strokeStyle = '#0A3D62'; ctx.lineWidth = 4; ctx.setLineDash([12, 12]);
             ctx.beginPath(); ctx.moveTo(220, 20); ctx.lineTo(220, 280); ctx.stroke();
             ctx.setLineDash([]);
 
-            // ================= LADO IZQUIERDO (Stub) =================
+            // ================= LADO IZQUIERDO =================
             ctx.save();
             ctx.translate(180, 150); ctx.rotate(-Math.PI / 2);
             ctx.fillStyle = '#FF4757'; ctx.font = 'bold 50px "Fredoka One"'; ctx.textAlign = 'center';
@@ -850,33 +796,26 @@
             ctx.strokeStyle = '#FFF'; ctx.lineWidth = 2; ctx.strokeText('PASE ORO', 0, 0);
             ctx.restore();
 
-            // Código Barras Falso
             ctx.fillStyle = '#0A3D62';
             const widths = [6,3,8,3,4,6,3,5,3,3,8,4,3,5,3,4,6,3];
             let cX = 60;
             for(let w of widths) { ctx.fillRect(cX, 60, w, 180); cX += w + 4; }
 
             // ================= LADO DERECHO =================
-            // Marco interno
             ctx.strokeStyle = '#FF4757'; ctx.lineWidth = 4; ctx.strokeRect(240, 40, 520, 220);
 
-            // Gráficos Festivos
             ctx.font = '40px sans-serif'; ctx.fillText('🎉', 260, 90); ctx.fillText('🎈', 700, 90); ctx.fillText('🎁', 700, 230);
             
-            // Titulo "FELIZ CUMPLEAÑOS"
             ctx.fillStyle = '#FF4757'; ctx.textAlign = 'center';
             ctx.font = 'bold 45px "Fredoka One"'; ctx.fillText('¡FELIZ CUMPLEAÑOS!', 500, 110);
             
-            // Nombre
             ctx.fillStyle = '#0A3D62'; ctx.font = 'bold 36px "Nunito"'; ctx.fillText(nombre, 500, 160);
 
-            // Leyenda Importante
             ctx.fillStyle = '#FFFFFF';
             ctx.fillRect(260, 180, 480, 35);
             ctx.fillStyle = '#0A3D62'; ctx.font = 'bold 16px "Nunito"';
             ctx.fillText('⚠️ VÁLIDO ÚNICAMENTE EL DÍA DE TU CUMPLEAÑOS', 500, 203);
 
-            // Fecha y Serial
             ctx.fillStyle = '#FF4757'; ctx.font = 'bold 14px "Fredoka One"'; ctx.textAlign = 'left';
             ctx.fillText('FECHA DE NACIMIENTO', 260, 245);
             ctx.fillStyle = '#0A3D62'; ctx.font = 'bold 20px "Nunito"'; ctx.fillText(fFormat, 260, 265);
@@ -893,57 +832,89 @@
             link.click();
         }
 
-        // --- 5. Juego Arcade CN-Style ---
+        // --- 5. Juego Arcade CN-Style Mejorado ---
         const gCanvas = document.getElementById('gameCanvas');
         const gCtx = gCanvas.getContext('2d');
         const gOverlay = document.getElementById('game-overlay');
         const gOverScreen = document.getElementById('game-over');
         
         let gLoopId, gPlaying = false, gScore = 0, gDiff = 1;
+        let gTime = 60, gTimerId;
         let playerImg = new Image();
-        playerImg.src = 'logo.png'; // USAMOS EL LOGO COMO JUGADOR
+        let imgLoaded = false;
+        playerImg.onload = () => { imgLoaded = true; };
+        playerImg.src = 'logo.png'; 
 
         let gPlayer = { x: 400, y: 380, w: 100, h: 100 };
         let gScoops = [], floatTexts = [];
         const scColors = ['#A8E6CF', '#FF9FF3', '#FFB07C', '#FFFACD', '#FF6B6B'];
         const encouragements = ['¡BOLO!', '¡RICO!', '¡ÉPICO!', '¡COMBO!', '¡WOW!'];
 
-        // Dibujar Fondo Montañas Vector Cartoon
+        // Variables animación fondo parallax
+        let bgOffset = 0;
+
         function drawCartoonBg() {
-            // Cielo
             gCtx.fillStyle = '#E0F6FF'; gCtx.fillRect(0,0,gCanvas.width,gCanvas.height);
-            // Nubes
-            gCtx.fillStyle = '#FFF';
-            gCtx.beginPath(); gCtx.arc(100, 100, 40, 0, Math.PI*2); gCtx.arc(150, 100, 50, 0, Math.PI*2); gCtx.arc(200, 100, 40, 0, Math.PI*2); gCtx.fill();
-            gCtx.beginPath(); gCtx.arc(600, 80, 30, 0, Math.PI*2); gCtx.arc(650, 80, 40, 0, Math.PI*2); gCtx.arc(700, 80, 30, 0, Math.PI*2); gCtx.fill();
             
-            // Montañas Hielo Atrás
-            gCtx.fillStyle = '#B3E5FC'; gCtx.strokeStyle = '#0A3D62'; gCtx.lineWidth = 4;
-            gCtx.beginPath(); gCtx.moveTo(0, 500); gCtx.lineTo(200, 200); gCtx.lineTo(400, 500); gCtx.fill(); gCtx.stroke();
-            gCtx.beginPath(); gCtx.moveTo(400, 500); gCtx.lineTo(600, 150); gCtx.lineTo(800, 500); gCtx.fill(); gCtx.stroke();
-            // Montañas Frente
-            gCtx.fillStyle = '#FFFFFF';
-            gCtx.beginPath(); gCtx.moveTo(-100, 500); gCtx.lineTo(100, 300); gCtx.lineTo(300, 500); gCtx.fill(); gCtx.stroke();
-            gCtx.beginPath(); gCtx.moveTo(200, 500); gCtx.lineTo(450, 250); gCtx.lineTo(700, 500); gCtx.fill(); gCtx.stroke();
-            gCtx.beginPath(); gCtx.moveTo(500, 500); gCtx.lineTo(700, 350); gCtx.lineTo(900, 500); gCtx.fill(); gCtx.stroke();
+            bgOffset -= 1;
+            if(bgOffset <= -800) bgOffset = 0;
+
+            // Dibujar fondo doble para crear loop infinito
+            for(let i=0; i<2; i++) {
+                let xOff = bgOffset + (i * 800);
+                
+                // Nubes
+                gCtx.fillStyle = '#FFF';
+                gCtx.beginPath(); gCtx.arc(xOff+100, 100, 40, 0, Math.PI*2); gCtx.arc(xOff+150, 100, 50, 0, Math.PI*2); gCtx.arc(xOff+200, 100, 40, 0, Math.PI*2); gCtx.fill();
+                gCtx.beginPath(); gCtx.arc(xOff+600, 80, 30, 0, Math.PI*2); gCtx.arc(xOff+650, 80, 40, 0, Math.PI*2); gCtx.arc(xOff+700, 80, 30, 0, Math.PI*2); gCtx.fill();
+                
+                // Montañas Atrás
+                gCtx.fillStyle = '#B3E5FC'; gCtx.strokeStyle = '#0A3D62'; gCtx.lineWidth = 4;
+                gCtx.beginPath(); gCtx.moveTo(xOff, 500); gCtx.lineTo(xOff+200, 200); gCtx.lineTo(xOff+400, 500); gCtx.fill(); gCtx.stroke();
+                gCtx.beginPath(); gCtx.moveTo(xOff+400, 500); gCtx.lineTo(xOff+600, 150); gCtx.lineTo(xOff+800, 500); gCtx.fill(); gCtx.stroke();
+                
+                // Montañas Frente
+                gCtx.fillStyle = '#FFFFFF';
+                gCtx.beginPath(); gCtx.moveTo(xOff-100, 500); gCtx.lineTo(xOff+100, 300); gCtx.lineTo(xOff+300, 500); gCtx.fill(); gCtx.stroke();
+                gCtx.beginPath(); gCtx.moveTo(xOff+200, 500); gCtx.lineTo(xOff+450, 250); gCtx.lineTo(xOff+700, 500); gCtx.fill(); gCtx.stroke();
+                gCtx.beginPath(); gCtx.moveTo(xOff+500, 500); gCtx.lineTo(xOff+700, 350); gCtx.lineTo(xOff+900, 500); gCtx.fill(); gCtx.stroke();
+            }
         }
 
         function startGame(dificultad) {
             gOverlay.classList.add('hidden'); gOverScreen.classList.add('hidden');
-            gScore = 0; gScoops = []; floatTexts = [];
+            gScore = 0; gTime = 60; gScoops = []; floatTexts = [];
             document.getElementById('game-score').innerText = gScore;
+            document.getElementById('game-timer').innerText = gTime;
             
             if(dificultad === 'facil') { gDiff = 0.8; gPlayer.w = 120; gPlayer.h = 120; }
             else if(dificultad === 'normal') { gDiff = 1.2; gPlayer.w = 100; gPlayer.h = 100; }
             else { gDiff = 1.8; gPlayer.w = 80; gPlayer.h = 80; }
             
-            gPlaying = true; gameLoop();
+            gPlaying = true;
+            
+            // Reloj
+            gTimerId = setInterval(() => {
+                gTime--;
+                document.getElementById('game-timer').innerText = gTime;
+                if(gTime <= 0) {
+                    stopGame(true); // Gano por tiempo
+                }
+            }, 1000);
+            
+            gameLoop();
         }
 
         function showGameMenu() { gOverScreen.classList.add('hidden'); gOverlay.classList.remove('hidden'); }
-        function stopGame() {
-            gPlaying = false; cancelAnimationFrame(gLoopId);
+        
+        function stopGame(timeUp = false) {
+            gPlaying = false; 
+            cancelAnimationFrame(gLoopId);
+            clearInterval(gTimerId);
+            
             document.getElementById('final-score').innerText = gScore;
+            document.getElementById('go-title').innerText = timeUp ? '¡TIEMPO! ⏱️' : '¡PLAF! 🍦';
+            
             gOverScreen.classList.remove('hidden');
         }
 
@@ -970,26 +941,27 @@
                 });
             }
 
-            // Dibujar Jugador (LOGO)
-            if(playerImg.complete && playerImg.naturalHeight !== 0) {
+            if(imgLoaded && playerImg.naturalHeight !== 0) {
                 gCtx.drawImage(playerImg, gPlayer.x - gPlayer.w/2, gPlayer.y, gPlayer.w, gPlayer.h);
-            } else { // Fallback si logo.png no carga
-                gCtx.fillStyle = '#0A3D62'; gCtx.fillRect(gPlayer.x - gPlayer.w/2, gPlayer.y, gPlayer.w, gPlayer.h);
+            } else {
+                gCtx.font = `${gPlayer.w * 0.8}px sans-serif`;
+                gCtx.textAlign = 'center';
+                gCtx.textBaseline = 'middle';
+                gCtx.fillText('🐻‍❄️', gPlayer.x, gPlayer.y + gPlayer.h/2);
             }
 
-            // Lógica Bolas 3D
+            // Lógica Bolas 3D Brillo Cartoon
             for(let i=0; i<gScoops.length; i++) {
                 let s = gScoops[i]; s.y += s.speed;
                 
-                // Bola con Gradiente y borde cartoon
-                const rg = gCtx.createRadialGradient(s.x-5, s.y-5, 2, s.x, s.y, s.r);
-                rg.addColorStop(0, '#FFF'); rg.addColorStop(0.3, s.color); rg.addColorStop(1, '#000');
-                
                 gCtx.beginPath(); gCtx.arc(s.x, s.y, s.r, 0, Math.PI*2);
-                gCtx.fillStyle = rg; gCtx.fill();
-                gCtx.lineWidth = 3; gCtx.strokeStyle = '#0A3D62'; gCtx.stroke();
+                gCtx.fillStyle = s.color; gCtx.fill();
+                gCtx.lineWidth = 4; gCtx.strokeStyle = '#0A3D62'; gCtx.stroke();
+                
+                // Brillo blanco cartoon
+                gCtx.beginPath(); gCtx.arc(s.x - 6, s.y - 6, s.r/3, 0, Math.PI*2);
+                gCtx.fillStyle = 'rgba(255,255,255,0.7)'; gCtx.fill();
 
-                // Colision (Hitbox ajustada al centro de la imagen)
                 if(s.y + s.r > gPlayer.y + 20 && s.y - s.r < gPlayer.y + gPlayer.h &&
                    s.x + s.r > gPlayer.x - gPlayer.w/2 && s.x - s.r < gPlayer.x + gPlayer.w/2) {
                     
@@ -997,13 +969,13 @@
                     if(gScore % 3 === 0) floatTexts.push({ txt: encouragements[Math.floor(Math.random()*encouragements.length)], x: s.x, y: gPlayer.y-10, a: 1.0 });
                     gScoops.splice(i, 1); i--; continue;
                 }
-                if(s.y > gCanvas.height + s.r) { stopGame(); return; }
+                
+                if(s.y > gCanvas.height + s.r) { stopGame(false); return; }
             }
 
-            // Textos Flotantes
             for(let i=0; i<floatTexts.length; i++) {
                 let f = floatTexts[i];
-                gCtx.fillStyle = `rgba(255, 71, 87, ${f.a})`; // ticketRed
+                gCtx.fillStyle = `rgba(255, 71, 87, ${f.a})`;
                 gCtx.strokeStyle = `rgba(255, 255, 255, ${f.a})`; gCtx.lineWidth = 4;
                 gCtx.font = 'bold 36px "Fredoka One"'; gCtx.textAlign = 'center';
                 gCtx.strokeText(f.txt, f.x, f.y); gCtx.fillText(f.txt, f.x, f.y);
@@ -1014,8 +986,12 @@
             gLoopId = requestAnimationFrame(gameLoop);
         }
 
-        function descargarScore() {
-            const c = document.createElement('canvas'); c.width = 500; c.height = 500; const ctx = c.getContext('2d');
+        // Descarga nativa que evita errores de Cross-Origin (Tainted Canvas) dibujando Vectores
+        function descargarScoreNativo() {
+            const c = document.createElement('canvas'); 
+            c.width = 500; c.height = 500; 
+            const ctx = c.getContext('2d');
+            
             ctx.fillStyle = '#4AD3F5'; ctx.fillRect(0,0,500,500);
             ctx.fillStyle = '#FFEAA7'; ctx.beginPath(); ctx.arc(250, 250, 220, 0, Math.PI*2); ctx.fill();
             ctx.strokeStyle = '#0A3D62'; ctx.lineWidth = 10; ctx.strokeRect(5,5,490,490);
@@ -1023,23 +999,36 @@
             ctx.textAlign = 'center'; ctx.fillStyle = '#0A3D62'; ctx.font = 'bold 45px "Fredoka One"';
             ctx.fillText('¡RÉCORD ARCADE!', 250, 80);
             
-            if(playerImg.complete && playerImg.naturalHeight !== 0) ctx.drawImage(playerImg, 150, 120, 200, 200);
-            else { ctx.font = '120px sans-serif'; ctx.fillText('🐻‍❄️', 250, 280); }
+            // Dibujamos un emoji grande por defecto para evitar que el canvas se manche por policies CORS de imágenes locales
+            ctx.font = '120px sans-serif'; ctx.fillText('🐻‍❄️', 250, 240);
             
             ctx.fillStyle = '#FF4757'; ctx.font = 'bold 40px "Fredoka One"';
-            ctx.fillText(`ATRAPÉ: ${gScore} 🍦`, 250, 380);
+            ctx.fillText(`ATRAPÉ: ${gScore} 🍦`, 250, 350);
             ctx.fillStyle = '#0A3D62'; ctx.font = '24px "Nunito"';
-            ctx.fillText('Supera mi récord en la web del Tío Bolo.', 250, 440);
+            ctx.fillText('Supera mi récord en la web del Tío Bolo.', 250, 420);
 
-            const l = document.createElement('a'); l.download = `Record_Bolo_${gScore}pts.png`;
-            l.href = c.toDataURL(); l.click();
+            try {
+                const l = document.createElement('a'); 
+                l.download = `Record_Bolo_${gScore}pts.png`;
+                l.href = c.toDataURL('image/png'); 
+                l.click();
+            } catch (error) {
+                alert("Tu navegador bloqueó la descarga automática, pero puedes guardar la imagen haciendo click derecho en el lienzo del juego.");
+            }
         }
 
         window.onload = () => {
             createSprinkles(); checkOpenStatus(); setInterval(checkOpenStatus, 60000); updateArmadorUI();
-            // Poster Inicial Juego
             drawCartoonBg();
-            if(playerImg.complete && playerImg.naturalHeight !== 0) gCtx.drawImage(playerImg, gCanvas.width/2 - 60, gPlayer.y, 120, 120);
+            
+            // Dibuja imagen estatica inicial
+            if(imgLoaded && playerImg.naturalHeight !== 0) {
+                gCtx.drawImage(playerImg, gCanvas.width/2 - 60, 380, 120, 120);
+            } else if (!imgLoaded) {
+                playerImg.addEventListener('load', () => {
+                    gCtx.drawImage(playerImg, gCanvas.width/2 - 60, 380, 120, 120);
+                });
+            }
         };
     </script>
 </body>
