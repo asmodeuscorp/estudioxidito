@@ -4,8 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Caro's Pool Party! | Mirador del Sol</title>
-    <!-- Optimización de carga: Tailwind, fuentes y scripts diferidos -->
+    <!-- Optimización de carga: Tailwind con paleta de colores extendida -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'hot-pink': '#ff006e',
+                        'deep-ocean': '#0077b6',
+                        'electric-blue': '#00b4d8',
+                        'sand-light': '#fefae0',
+                        'tropical-orange': '#fb8500',
+                    }
+                }
+            }
+        }
+    </script>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&family=Caveat:wght@700&family=Pacifico&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -132,7 +147,7 @@
 
     <!-- Hero Section -->
     <section class="min-h-screen flex flex-col items-center justify-center relative px-6 text-center overflow-hidden">
-        <!-- Emojis animados flotantes corregidos de forma limpia -->
+        <!-- Emojis animados flotantes corregidos de forma limpia, sin "Parrot" -->
         <div class="absolute top-10 left-10 text-7xl floating-emoji">🦜</div>
         <div class="absolute top-20 right-10 text-8xl floating-emoji" style="animation-delay: 1s;">🦩</div>
         
@@ -213,7 +228,7 @@
         </div>
     </section>
 
-    <!-- DRESS CODE SECTION -->
+    <!-- DRESS CODE SECTION CON PALETA PANTONE COMPLETA (9 COLORES) -->
     <section class="py-24 px-6 bg-white/30 backdrop-blur-sm relative overflow-hidden">
         <div class="max-w-6xl mx-auto text-center">
             <div class="reveal mb-12">
@@ -298,7 +313,7 @@
                             <span class="text-3xl">🏙️</span>
                             <h4 class="text-2xl font-black text-deep-ocean">Desde Ciudad de México (CDMX)</h4>
                         </div>
-                        <p class="text-gray-600 text-sm">Ruta rápida trazada por autopista hacia el acceso principal de **El Mirador / Mirador del Sol**.</p>
+                        <p class="text-gray-600 text-sm">Ruta directa trazada por autopista hacia el acceso principal de **El Mirador / Mirador del Sol**.</p>
                     </div>
                     <div class="mt-6 flex justify-end w-full">
                         <a href="https://maps.app.goo.gl/FX3eM8C6RzLmu2Vf7" target="_blank" class="bg-hot-pink text-white px-5 py-3 rounded-full text-xs font-black hover:scale-105 transition-transform flex items-center gap-1 shadow-md">
@@ -427,7 +442,7 @@
                     </div>
                     <div class="glass-card border-l-8 border-tropical-orange">
                         <div>
-                            <h4 class="text-2xl font-black text-deep-ocean mb-2">Tequisquiapan</h4>
+                            <h4 class="text-2xl font-black text-deep-ocean mb-3">Tequisquiapan</h4>
                             <p class="text-sm font-bold text-tropical-orange mb-3">📍 50 min • Mirador del Sol</p>
                             <p class="text-gray-600 text-sm mb-4">Pueblo Mágico famoso por sus calles coloridas, aguas termales, vuelo en globo y mercados de artesanías de mimbre.</p>
                         </div>
@@ -444,7 +459,7 @@
                 </div>
             </div>
 
-            <!-- CATEGORÍA: RUTA VITIVINÍCOLA (11 Puntos) -->
+            <!-- CATEGORÍA: RUTA VITIVINÍCOLA (10 Puntos) -->
             <div class="reveal">
                 <div class="flex items-center gap-4 mb-12 border-b-4 border-[#800e13] pb-4">
                     <span class="text-5xl">🍷</span>
@@ -474,14 +489,6 @@
                             <p class="text-gray-600 text-sm mb-4">El primer viñedo boutique del estado, famoso por sus recorridos en tractor y arquitectura de autor galardonada.</p>
                         </div>
                         <a href="https://maps.google.com/?q=Vinedo+Cuna+de+Tierra+Guanajuato" target="_blank" class="text-[#800e13] font-black flex items-center gap-2 mt-4 hover:translate-x-2 transition-transform"><i data-lucide="external-link"></i> EXPLORAR</a>
-                    </div>
-                    <div class="glass-card border-l-8 border-[#800e13]">
-                        <div>
-                            <h4 class="text-2xl font-black text-deep-ocean mb-2">Viñedo Toyán</h4>
-                            <p class="text-sm font-bold text-tropical-orange mb-4">📍 1h 15 min • Mirador del Sol</p>
-                            <p class="text-gray-600 text-sm mb-4">Famoso por su mística cava subterránea custodiada por monjes de piedra y su producción totalmente orgánica.</p>
-                        </div>
-                        <a href="https://maps.google.com/?q=Vinedo+Toyan+San+Miguel+de+Allende" target="_blank" class="text-[#800e13] font-black flex items-center gap-2 mt-4 hover:translate-x-2 transition-transform"><i data-lucide="external-link"></i> EXPLORAR</a>
                     </div>
                     <div class="glass-card border-l-8 border-[#800e13]">
                         <div>
@@ -610,6 +617,7 @@
         <div class="max-w-2xl mx-auto bg-white p-12 rounded-[60px] shadow-2xl text-gray-900 border-8 border-sky-300">
             <input type="text" id="guestName" placeholder="TU NOMBRE..." class="w-full px-8 py-5 rounded-3xl bg-gray-50 border-4 border-transparent focus:border-hot-pink outline-none text-center text-2xl font-black mb-6 uppercase">
             <textarea id="guestMsg" placeholder="UN MENSAJE PARA CARO..." class="w-full px-8 py-5 rounded-3xl bg-gray-50 border-4 border-transparent focus:border-hot-pink outline-none text-center text-xl font-bold h-40 mb-6"></textarea>
+            <p class="text-xs text-gray-400 mb-6 text-left">💡 Al confirmar, podrás descargar la postal vertical tipo Story y presionar el botón verde para enviarla directamente al WhatsApp de Caro con tus datos pre-llenados.</p>
             <button onclick="generatePostcard()" class="btn-beach w-full text-white py-8 rounded-3xl font-black text-3xl shadow-2xl">GENERAR POSTAL ✨</button>
             <div id="resultArea" class="hidden mt-10 pt-10 border-t-4 border-gray-100">
                 <canvas id="postcardCanvas" width="1080" height="1920" class="hidden"></canvas>
@@ -700,7 +708,6 @@
             { n: "Viñedo Tres Raíces 🍷", lat: 20.9542, lng: -100.8385, url: "https://maps.app.goo.gl/A4NKPR5Tw2dTddFT8" },
             { n: "Viñedo San José Lavista 🍷", lat: 20.8985, lng: -100.6582, url: "https://maps.app.goo.gl/8W3WNLQPLn1iE9KRA" },
             { n: "Cuna de Tierra 🍷", lat: 21.0425, lng: -100.7681, url: "https://maps.app.goo.gl/UGU9pcS763suaJY38" },
-            { n: "Viñedo Toyán 🍷", lat: 20.8654, lng: -100.7102, url: "https://maps.app.goo.gl/qwAMKVbdrGydQPdc6" },
             { n: "Viñedo San Lucas 🍷", lat: 20.8447, lng: -100.6789, url: "https://maps.app.goo.gl/gedgCMCoXAwbQJWA7" },
             { n: "Viñedo San Francisco 🍷", lat: 20.8982, lng: -100.6750, url: "https://maps.app.goo.gl/cxrUYAa8kTG8HkvB7" },
             { n: "Viñedo Dos Búhos 🍷", lat: 20.9415, lng: -100.6724, url: "https://maps.app.goo.gl/CD6mx2rXMkVog58R6" },
@@ -756,7 +763,7 @@
                 ctx.fillText(l, x, y);
             }
             if(msg) wrap(`"${msg}"`, 540, 1550, 750, 50);
-            ctx.font = '160px Arial'; ctx.fillText("🐚  🍹 🦀", 540, 1850);
+            ctx.font = '160px Arial'; ctx.fillText("🐚  🍹 ⛓️", 540, 1850);
             document.getElementById('postcardPreview').src = canvas.toDataURL();
             document.getElementById('resultArea').classList.remove('hidden');
             const wa = encodeURIComponent(`¡Hola Caro! Soy ${name} ✨ Confirmo mi asistencia al cumple. Mensaje: "${msg}" 🌴🐬`);
