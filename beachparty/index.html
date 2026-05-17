@@ -132,7 +132,7 @@
 
     <!-- Hero Section -->
     <section class="min-h-screen flex flex-col items-center justify-center relative px-6 text-center overflow-hidden">
-        <!-- Emojis animados flotantes de arriba corregidos sin texto "Parrot" -->
+        <!-- Emojis animados flotantes corregidos de forma limpia -->
         <div class="absolute top-10 left-10 text-7xl floating-emoji">🦜</div>
         <div class="absolute top-20 right-10 text-8xl floating-emoji" style="animation-delay: 1s;">🦩</div>
         
@@ -213,7 +213,7 @@
         </div>
     </section>
 
-    <!-- DRESS CODE SECTION CON PALETA PANTONE COMPLETA (9 COLORES) -->
+    <!-- DRESS CODE SECTION -->
     <section class="py-24 px-6 bg-white/30 backdrop-blur-sm relative overflow-hidden">
         <div class="max-w-6xl mx-auto text-center">
             <div class="reveal mb-12">
@@ -287,44 +287,40 @@
             <div class="text-center mb-12 reveal">
                 <span class="text-6xl mb-4 block">🚗</span>
                 <h2 class="text-5xl font-pacifico text-deep-ocean mb-4">¿Cómo llegar al Evento?</h2>
-                <p class="text-2xl font-caveat text-gray-700">Guía paso a paso para tus invitados foráneos</p>
+                <p class="text-2xl font-caveat text-gray-700">Rutas de navegación directa para tus invitados foráneos</p>
             </div>
             
             <div class="grid md:grid-cols-2 gap-8">
                 <!-- Ruta desde CDMX -->
-                <div class="glass-card border-l-8 border-hot-pink p-8">
-                    <div>
+                <div class="glass-card border-l-8 border-hot-pink p-8 flex flex-col justify-between">
+                    <div class="mb-6">
                         <div class="flex items-center gap-3 mb-4">
                             <span class="text-3xl">🏙️</span>
                             <h4 class="text-2xl font-black text-deep-ocean">Desde Ciudad de México (CDMX)</h4>
                         </div>
-                        <ul class="space-y-3 text-gray-700 text-sm list-decimal list-inside">
-                            <li>Toma la Autopista **México - Querétaro (Federal 57D)** rumbo al norte.</li>
-                            <li>Cruza la caseta de Tepotzotlán y continúa directo por aproximadamente 170 km.</li>
-                            <li>Al aproximarte a la entrada de Querétaro (pasando Conín), incorpórate al carril de la lateral derecha.</li>
-                            <li>Toma la desviación hacia **Prolongación Constituyentes Oriente** siguiendo los señalamientos de **El Mirador**.</li>
-                            <li>Sube el distribuidor vial, continúa recto por la avenida principal de El Mirador y accede a **Mirador del Sol, Av. de la Cantera 2888**.</li>
-                        </ul>
+                        <p class="text-gray-600 text-sm">Ruta rápida trazada por autopista hacia el acceso principal de **El Mirador / Mirador del Sol**.</p>
                     </div>
-                    <p class="text-xs font-bold text-tropical-orange mt-6">⏰ Tiempo estimado: ~2 horas con 15 minutos.</p>
+                    <div class="mt-6 flex justify-end w-full">
+                        <a href="https://maps.app.goo.gl/FX3eM8C6RzLmu2Vf7" target="_blank" class="bg-hot-pink text-white px-5 py-3 rounded-full text-xs font-black hover:scale-105 transition-transform flex items-center gap-1 shadow-md">
+                            <i data-lucide="navigation-2" class="w-4 h-4"></i> ABRIR RUTA GPS
+                        </a>
+                    </div>
                 </div>
                 
                 <!-- Ruta desde Toluca -->
-                <div class="glass-card border-l-8 border-electric-blue p-8">
-                    <div>
+                <div class="glass-card border-l-8 border-electric-blue p-8 flex flex-col justify-between">
+                    <div class="mb-6">
                         <div class="flex items-center gap-3 mb-4">
                             <span class="text-3xl">⛰️</span>
                             <h4 class="text-2xl font-black text-deep-ocean">Desde Toluca</h4>
                         </div>
-                        <ul class="space-y-3 text-gray-700 text-sm list-decimal list-inside">
-                            <li>Sal por la Autopista **Toluca - Atlacomulco (Federal 55D)**.</li>
-                            <li>Sigue recto sobre el tramo Atlacomulco - Palmillas para conectar directamente con la autopista México-Querétaro.</li>
-                            <li>Incorpórate a la **Federal 57D** rumbo a Querétaro.</li>
-                            <li>Antes de llegar al centro metropolitano, toma la desviación lateral derecha hacia **Prolongación Constituyentes Oriente**.</li>
-                            <li>Sigue recto por la avenida principal hasta el fraccionamiento **El Mirador / Mirador del Sol**.</li>
-                        </ul>
+                        <p class="text-gray-600 text-sm">Ruta óptima conectando directo hacia la entrada del fraccionamiento **El Mirador / Mirador del Sol**.</p>
                     </div>
-                    <p class="text-xs font-bold text-tropical-orange mt-6">⏰ Tiempo estimado: ~2 horas con 05 minutos.</p>
+                    <div class="mt-6 flex justify-end w-full">
+                        <a href="https://maps.app.goo.gl/NbzsM2XLQPjTxXjYA" target="_blank" class="bg-electric-blue text-white px-5 py-3 rounded-full text-xs font-black hover:scale-105 transition-transform flex items-center gap-1 shadow-md">
+                            <i data-lucide="navigation-2" class="w-4 h-4"></i> ABRIR RUTA GPS
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -344,7 +340,7 @@
         </div>
     </section>
 
-    <!-- Listados COMPLETOS (Todos los puntos del PDF + Audios de Caro sin recortes con tiempos calculados reales) -->
+    <!-- Listados COMPLETOS -->
     <section class="py-24 px-6 bg-white/40 backdrop-blur-xl">
         <div class="max-w-7xl mx-auto space-y-32">
             
@@ -473,7 +469,7 @@
                     </div>
                     <div class="glass-card border-l-8 border-[#800e13]">
                         <div>
-                            <h4 class="text-2xl font-black text-deep-ocean mb-2">Cuna de Tierra</h4>
+                            <h4 class="text-2xl font-black text-deep-ocean mb-4">Cuna de Tierra</h4>
                             <p class="text-sm font-bold text-tropical-orange mb-4">📍 1h 25 min • Mirador del Sol</p>
                             <p class="text-gray-600 text-sm mb-4">El primer viñedo boutique del estado, famoso por sus recorridos en tractor y arquitectura de autor galardonada.</p>
                         </div>
@@ -513,7 +509,7 @@
                     </div>
                     <div class="glass-card border-l-8 border-[#800e13]">
                         <div>
-                            <h4 class="text-2xl font-black text-deep-ocean mb-2">Viñedo San Miguel</h4>
+                            <h4 class="text-2xl font-black text-deep-ocean mb-4">Viñedo San Miguel</h4>
                             <p class="text-sm font-bold text-tropical-orange mb-4">📍 1h 10 min • Mirador del Sol</p>
                             <p class="text-gray-600 text-sm mb-4">Vistas inmejorables al valle y degustaciones exclusivas en un ambiente sofisticado.</p>
                         </div>
