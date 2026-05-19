@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Etiquetas SEO Optimizadas -->
+    <meta name="description" content="VetVal: MVZ Valeria Campos. Veterinaria a domicilio en Juriquilla, Querétaro. Vacunación, desparasitación y medicina preventiva para perros y gatos.">
+    <meta name="keywords" content="veterinaria a domicilio, Juriquilla, Querétaro, MVZ Valeria Campos, VetVal, veterinario perros, veterinario gatos, consulta veterinaria">
+    <meta property="og:title" content="VetVal | Veterinaria a Domicilio en Juriquilla">
+    <meta property="og:description" content="Cuidamos a tu mascota en la comodidad de su hogar. Menos estrés, más bienestar.">
+    <meta property="og:type" content="website">
+    
+    <title>VetVal | Veterinaria a Domicilio en Juriquilla</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- AOS Animation CSS para animaciones fluidas -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Google Fonts: Quicksand para un toque "cute" y amigable -->
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Quicksand', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            pink: '#F8C8D4',    /* Rosa suave del flyer */
+                            pinkDark: '#D46A8B', /* Rosa oscuro para mejor contraste tipográfico */
+                            blue: '#B5D5E5',    /* Azul suave del flyer */
+                            blueDark: '#4A85A3', /* Azul oscuro para contraste */
+                            text: '#1A202C',    /* Texto oscuro mucho más fuerte para accesibilidad */
+                            light: '#FFF5F7'    /* Fondo ultra claro */
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #FAFAFA;
+            color: #4A4A4A;
+        }
+        /* Animación para el botón flotante */
+        @keyframes pulse-soft {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        .animate-float {
+            animation: pulse-soft 2.5s infinite ease-in-out;
+        }
+        /* Decoración de fondo */
+        .bg-paws {
+            background-image: radial-gradient(#F8C8D4 2px, transparent 2px);
+            background-size: 30px 30px;
+            opacity: 0.3;
+        }
+    </style>
+</head>
+<body class="antialiased scroll-smooth font-sans">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full bg-white/90 backdrop-blur-md z-50 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer">
+                    <!-- Logo Simulado -->
+                    <div class="w-10 h-10 bg-brand-blue rounded-full flex items-center justify-center text-white text-xl shadow-md">
+                        <i class="fa-solid fa-paw"></i>
+                    </div>
+                    <span class="font-bold text-2xl text-brand-pinkDark tracking-wide">Vet<span class="text-brand-blueDark">Val</span></span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#inicio" class="text-brand-text hover:text-brand-pinkDark font-semibold transition">Inicio</a>
+                    <a href="#nosotros" class="text-brand-text hover:text-brand-pinkDark font-semibold transition">La Doc</a>
+                    <a href="#servicios" class="text-brand-text hover:text-brand-pinkDark font-semibold transition">Servicios</a>
+                </div>
+                <div>
+                    <a href="#contacto" class="hidden md:inline-flex bg-brand-pink text-white px-6 py-2 rounded-full font-bold shadow-md hover:bg-pink-300 transition transform hover:-translate-y-1">
+                        Agendar Cita
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="relative pt-28 pb-20 lg:pt-40 lg:pb-28 overflow-hidden bg-brand-light">
+        <div class="absolute inset-0 bg-paws pointer-events-none"></div>
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="w-full lg:w-1/2 text-center lg:text-left" data-aos="fade-right">
+                    <div class="inline-block bg-white text-brand-blueDark font-bold px-4 py-2 rounded-full shadow-sm mb-6 text-sm border border-brand-blue/20">
+                        <i class="fa-solid fa-house-chimney-medical mr-2"></i> Veterinaria a Domicilio en Juriquilla
+                    </div>
+                    <h1 class="text-4xl lg:text-5xl font-extrabold text-brand-text leading-tight mb-6">
+                        Cuidamos a tu mascota en la <span class="text-brand-pinkDark">comodidad</span> de su hogar <i class="fa-solid fa-heart text-brand-pinkDark"></i>
+                    </h1>
+                    <p class="text-lg text-gray-700 font-medium mb-8 max-w-lg mx-auto lg:mx-0">
+                        Menos estrés, más bienestar. Porque su tranquilidad y la tuya son nuestra prioridad. Servicios preventivos profesionales sin salir de casa.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="https://wa.me/524420000000?text=Hola%20Dra.%20Valeria,%20me%20gustar%C3%ADa%20agendar%20una%20cita%20a%20domicilio%20en%20Juriquilla." target="_blank" class="bg-brand-blue text-white px-8 py-3 rounded-full font-bold shadow-lg hover:bg-blue-400 transition flex items-center justify-center gap-2">
+                            <i class="fa-brands fa-whatsapp text-xl"></i> ¡Vamos a tu domicilio!
+                        </a>
+                        <a href="#servicios" class="bg-white text-brand-text px-8 py-3 rounded-full font-bold shadow-md border border-gray-200 hover:bg-gray-50 transition">
+                            Ver Servicios
+                        </a>
+                    </div>
+                <div class="w-full lg:w-1/2" data-aos="fade-left" data-aos-delay="200">
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-brand-pink rounded-full blur-3xl opacity-30 transform translate-x-10 translate-y-10"></div>
+                        <img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Perros felices" class="rounded-[2rem] shadow-2xl relative z-10 border-4 border-white object-cover h-[400px] w-full">
+                        
+                        <!-- Floating Badge -->
+                        <div class="absolute -bottom-6 -left-6 bg-white p-4 rounded-2xl shadow-xl z-20 flex items-center gap-4 border border-gray-100 animate-float">
+                            <div class="w-12 h-12 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-xl">
+                                <i class="fa-solid fa-shield-cat"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500 font-bold uppercase">Garantía de</p>
+                                <p class="text-brand-text font-extrabold">Cero Estrés</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Acerca de Mí (Generador de Confianza) -->
+    <section id="nosotros" class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center gap-12 bg-brand-light rounded-[3rem] p-8 md:p-12 shadow-sm" data-aos="fade-up">
+                <div class="w-full md:w-1/3" data-aos="zoom-in" data-aos-delay="200">
+                    <!-- Simulamos una foto de ella o algo profesional -->
+                    <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="MVZ Valeria Campos" class="rounded-full w-48 h-48 md:w-64 md:h-64 object-cover mx-auto shadow-lg border-4 border-white">
+                </div>
+                <div class="w-full md:w-2/3 text-center md:text-left">
+                    <h2 class="text-3xl font-extrabold mb-4 text-brand-text">Hola <i class="fa-solid fa-heart text-brand-pinkDark"></i> Soy la MVZ Valeria Campos</h2>
+                    <p class="text-gray-700 font-medium mb-6 text-lg">
+                        Creadora de <strong>VetVal</strong>. Entiendo que las visitas a la clínica pueden ser aterradoras para nuestros mejores amigos de cuatro patas. Mi misión es llevar la mejor medicina preventiva veterinaria directo a tu sala en la zona de Juriquilla.
+                    </p>
+                    <div class="flex flex-wrap justify-center md:justify-start gap-4">
+                        <div class="flex items-center gap-2 text-brand-blueDark font-bold bg-white px-4 py-2 rounded-full shadow-sm">
+                            <i class="fa-solid fa-check-circle"></i> Cédula Profesional
+                        </div>
+                        <div class="flex items-center gap-2 text-brand-pinkDark font-bold bg-white px-4 py-2 rounded-full shadow-sm">
+                            <i class="fa-solid fa-check-circle"></i> Trato Amoroso
+                        </div>
+                        <div class="flex items-center gap-2 text-yellow-600 font-bold bg-white px-4 py-2 rounded-full shadow-sm">
+                            <i class="fa-solid fa-star"></i> Atención Personalizada
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Servicios Section (Basado en el Flyer) -->
+    <section id="servicios" class="py-20 bg-gray-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl lg:text-4xl font-extrabold text-brand-text mb-4">Servicios de Medicina Preventiva</h2>
+                <p class="text-gray-700 font-medium max-w-2xl mx-auto">Todo lo que tu mascota necesita para mantenerse sana y feliz, sin salir de la comodidad de su hogar.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Servicio 1 -->
+                <div class="bg-white p-8 rounded-3xl shadow-sm hover:shadow-xl transition duration-300 border border-gray-100 group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-14 h-14 bg-blue-100 text-brand-blueDark rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-syringe"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-brand-text">Vacunación</h3>
+                    <p class="text-gray-700">Esenciales y refuerzos anuales para proteger su salud contra enfermedades comunes.</p>
+                </div>
+                <!-- Servicio 2 -->
+                <div class="bg-white p-8 rounded-3xl shadow-sm hover:shadow-xl transition duration-300 border border-gray-100 group" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-14 h-14 bg-pink-100 text-brand-pinkDark rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-bug-slash"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-brand-text">Desparasitación</h3>
+                    <p class="text-gray-700">Interna y externa. Indispensable para mantenerlos sanos, felices y libres de molestias.</p>
+                </div>
+                <!-- Servicio 3 -->
+                <div class="bg-white p-8 rounded-3xl shadow-sm hover:shadow-xl transition duration-300 border border-gray-100 group" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-14 h-14 bg-purple-100 text-purple-600 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-stethoscope"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-brand-text">Revisión Preventiva</h3>
+                    <p class="text-gray-700">Evaluamos su estado general de salud de pies a cabeza para detectar anomalías a tiempo.</p>
+                </div>
+                <!-- Servicio 4 -->
+                <div class="bg-white p-8 rounded-3xl shadow-sm hover:shadow-xl transition duration-300 border border-gray-100 group" data-aos="fade-up" data-aos-delay="400">
+                    <div class="w-14 h-14 bg-yellow-100 text-yellow-600 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-dog"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-brand-text">Cachorros y Gatitos</h3>
+                    <p class="text-gray-700">Protocolos y esquemas especiales para asegurar un crecimiento fuerte en sus primeros meses.</p>
+                </div>
+                <!-- Servicio 5 -->
+                <div class="bg-white p-8 rounded-3xl shadow-sm hover:shadow-xl transition duration-300 border border-gray-100 group" data-aos="fade-up" data-aos-delay="500">
+                    <div class="w-14 h-14 bg-green-100 text-green-600 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-book-medical"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-brand-text">Cartilla y Seguimiento</h3>
+                    <p class="text-gray-700">Llevamos el control riguroso de su salud en cada etapa de su vida de manera ordenada.</p>
+                </div>
+                <!-- Servicio 6 -->
+                <div class="bg-white p-8 rounded-3xl shadow-sm hover:shadow-xl transition duration-300 border border-gray-100 group" data-aos="fade-up" data-aos-delay="600">
+                    <div class="w-14 h-14 bg-orange-100 text-orange-500 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-comments-medical"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-brand-text">Asesoría Preventiva</h3>
+                    <p class="text-gray-700">Te acompañamos y resolvemos dudas para que tomes las mejores decisiones nutricionales y de cuidado.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust / Values Banner -->
+    <section class="py-12 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-wrap justify-center gap-8 md:gap-16 text-center" data-aos="zoom-in" data-aos-duration="1000">
+                <div class="flex flex-col items-center">
+                    <i class="fa-solid fa-heart-pulse text-3xl text-brand-pinkDark mb-2"></i>
+                    <span class="font-bold uppercase tracking-wider text-sm text-gray-700">Salud</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <i class="fa-solid fa-hand-holding-heart text-3xl text-brand-blueDark mb-2"></i>
+                    <span class="font-bold uppercase tracking-wider text-sm text-gray-700">Amor</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <i class="fa-solid fa-shield-halved text-3xl text-yellow-500 mb-2"></i>
+                    <span class="font-bold uppercase tracking-wider text-sm text-gray-700">Confianza</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <i class="fa-solid fa-spa text-3xl text-green-500 mb-2"></i>
+                    <span class="font-bold uppercase tracking-wider text-sm text-gray-700">Cuidado</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer / Contacto (Simulado) -->
+    <footer id="contacto" class="bg-brand-text text-white pt-16 pb-8 rounded-t-[3rem]">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center md:text-left">
+                
+                <div>
+                    <div class="flex items-center justify-center md:justify-start gap-2 mb-6">
+                        <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-brand-text text-xl">
+                            <i class="fa-solid fa-paw"></i>
+                        </div>
+                        <span class="font-bold text-2xl tracking-wide">VetVal</span>
+                    </div>
+                    <p class="text-gray-300 text-sm mb-6">
+                        ¡Juntos por su bienestar! Tu tranquilidad y la de tu mascota es nuestro compromiso.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-bold mb-6 text-brand-pink">Atención</h4>
+                    <ul class="space-y-3 text-gray-300">
+                        <li><i class="fa-solid fa-location-dot mr-2"></i> Exclusivo en <strong>Juriquilla, Qro.</strong></li>
+                        <li><i class="fa-solid fa-clock mr-2"></i> Previa Cita</li>
+                        <li><i class="fa-solid fa-house mr-2"></i> Servicio 100% a Domicilio</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-bold mb-6 text-brand-blue">Conecta con nosotros</h4>
+                    <div class="flex justify-center md:justify-start gap-4 mb-6">
+                        <!-- Redes simuladas -->
+                        <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-brand-pink transition">
+                            <i class="fa-brands fa-instagram text-xl"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-brand-blue transition">
+                            <i class="fa-brands fa-facebook-f text-xl"></i>
+                        </a>
+                        <a href="https://wa.me/524420000000" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-green-500 transition">
+                            <i class="fa-brands fa-whatsapp text-xl"></i>
+                        </a>
+                    </div>
+                    <p class="text-sm text-gray-400">Síguenos para tips de salud.</p>
+                </div>
+
+            </div>
+            <div class="border-t border-gray-700 mt-12 pt-8 text-center text-sm text-gray-400 flex flex-col items-center justify-center gap-4">
+                <!-- Perrito Animado -->
+                <div class="text-brand-pink text-4xl animate-bounce mt-2">
+                    <i class="fa-solid fa-dog"></i>
+                </div>
+                <!-- Créditos Centrados -->
+                <div class="flex flex-col items-center gap-1">
+                    <p>Diseñado con <i class="fa-solid fa-heart text-brand-pink"></i> para los peludos.</p>
+                    <p>Dummy creado por <a href="https://estudio.xidito.com/" target="_blank" rel="noopener noreferrer" class="text-brand-blue hover:text-white transition font-semibold">estudio xidito.com</a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button (CRUCIAL PARA VENTAS) -->
+    <a href="https://wa.me/524420000000?text=Hola,%20vengo%20de%20su%20sitio%20web%20y%20quiero%20información." target="_blank" class="fixed bottom-6 right-6 bg-[#25D366] text-white w-14 h-14 rounded-full flex items-center justify-center text-3xl shadow-2xl hover:scale-110 transition-transform duration-300 z-50 animate-float" title="Agendar por WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- Scripts para Animaciones AOS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800, // duración de la animación en ms
+            once: true, // si la animación debe ocurrir solo una vez
+            offset: 50, // desplazamiento en px antes de animar
+        });
+    </script>
+</body>
+</html>
