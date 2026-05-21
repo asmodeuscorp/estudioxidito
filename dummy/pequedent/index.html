@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peque Dent & Family | Súper Dentistas para Niños</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Quicksand:wght@500;700;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'pd-cyan': '#00B4D8',
+                        'pd-cyan-light': '#90E0EF',
+                        'pd-blue': '#03045E',
+                        'pd-yellow': '#FFD166',
+                        'pd-pink': '#EF476F',
+                        'pd-green': '#06D6A0',
+                    },
+                    fontFamily: {
+                        'title': ['"Lilita One"', 'cursive'],
+                        'body': ['Quicksand', 'sans-serif'],
+                    },
+                    animation: {
+                        'bounce-slow': 'bounce 3s infinite',
+                        'wiggle': 'wiggle 1s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        wiggle: {
+                            '0%, 100%': { transform: 'rotate(-3deg)' },
+                            '50%': { transform: 'rotate(3deg)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Quicksand', sans-serif; background-color: #F8FDFE; overflow-x: hidden; }
+        h1, h2, h3, .font-title { font-family: 'Lilita One', cursive; letter-spacing: 1px; }
+        
+        /* Efecto Sticker Cartoon */
+        .text-sticker {
+            color: white;
+            text-shadow: -3px -3px 0 #03045E, 3px -3px 0 #03045E, -3px 3px 0 #03045E, 3px 3px 0 #03045E, 5px 5px 0px rgba(0,0,0,0.3);
+        }
+        .text-sticker-yellow {
+            color: #FFD166;
+            text-shadow: -3px -3px 0 #03045E, 3px -3px 0 #03045E, -3px 3px 0 #03045E, 3px 3px 0 #03045E;
+        }
+
+        /* Botones 3D Jugosos */
+        .btn-3d {
+            border: 4px solid #03045E;
+            box-shadow: 0 8px 0 #03045E, 0 15px 10px rgba(0,0,0,0.2);
+            transition: all 0.1s;
+        }
+        .btn-3d:active {
+            transform: translateY(8px);
+            box-shadow: 0 0px 0 #03045E, 0 2px 2px rgba(0,0,0,0.2);
+        }
+        .bg-pd-yellow-btn { background-color: #FFD166; color: #03045E; }
+        .bg-pd-cyan-btn { background-color: #00B4D8; color: white; }
+        .bg-pd-pink-btn { background-color: #EF476F; color: white; }
+        .bg-pd-green-btn { background-color: #06D6A0; color: #03045E; }
+
+        /* Contenedores de Juego */
+        .game-container {
+            border: 8px solid #03045E;
+            border-radius: 2rem;
+            overflow: hidden;
+            box-shadow: 0 12px 0 #03045E;
+            background: #0077B6; /* Color sólido y fuerte para alto contraste */
+            position: relative;
+        }
+        canvas { display: block; touch-action: none; cursor: crosshair; }
+
+        /* Memorama Cards */
+        .memory-card {
+            aspect-ratio: 1;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+        .memory-card-inner {
+            width: 100%; height: 100%;
+            transition: transform 0.5s;
+            transform-style: preserve-3d;
+            border: 4px solid #03045E;
+            border-radius: 1rem;
+            box-shadow: 0 6px 0 #03045E;
+        }
+        .memory-card.flipped .memory-card-inner { transform: rotateY(180deg); box-shadow: 0 -6px 0 #03045E; transform: rotateY(180deg) translateY(6px); }
+        .memory-card-front, .memory-card-back {
+            position: absolute; width: 100%; height: 100%;
+            backface-visibility: hidden;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 3rem; border-radius: 0.75rem;
+        }
+        .memory-card-front { background-color: #90E0EF; background-image: radial-gradient(#00B4D8 2px, transparent 2px); background-size: 10px 10px; }
+        .memory-card-back { background-color: white; transform: rotateY(180deg); }
+
+        /* Dientes flotantes en el fondo */
+        #bg-animations {
+            position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none;
+        }
+        .floating-tooth {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.15;
+            animation: floatUp linear infinite;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(110vh) rotate(0deg); }
+            100% { transform: translateY(-10vh) rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="text-pd-blue">
+
+    <!-- Capa de Fondo Animado -->
+    <div id="bg-animations"></div>
+
+    <!-- Navegación -->
+    <div class="fixed w-full top-4 z-50 flex justify-center px-4">
+        <nav class="bg-white/95 backdrop-blur-sm border-4 border-pd-blue shadow-[0_6px_0_#03045E] rounded-full w-full max-w-6xl px-6 py-2 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="bg-pd-pink text-white w-12 h-12 rounded-full flex items-center justify-center border-4 border-pd-blue shadow-[0_4px_0_#03045E] text-2xl animate-wiggle">
+                    <i class="fa-solid fa-tooth"></i>
+                </div>
+                <span class="font-title text-3xl tracking-wide text-pd-cyan">Peque<span class="text-pd-blue">Dent</span></span>
+            </div>
+            
+            <div class="hidden lg:flex gap-6 items-center font-bold text-xl">
+                <a href="#servicios" class="hover:text-pd-cyan transition">Servicios</a>
+                <a href="#dentistas" class="hover:text-pd-pink transition">Doctores</a>
+                <a href="#arcade" class="hover:text-pd-yellow transition">Arcade</a>
+                <a href="#descargables" class="hover:text-pd-green transition">Regalos</a>
+                <a href="#ubicaciones" class="hover:text-pd-cyan transition">Ubicaciones</a>
+            </div>
+
+            <a href="#ubicaciones" class="btn-3d bg-pd-yellow-btn font-title px-6 py-2 rounded-full text-xl hidden sm:block">
+                ¡Agendar Cita!
+            </a>
+        </nav>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="relative pt-40 pb-24 overflow-hidden bg-gradient-to-b from-[#E0F7FA] to-[#90E0EF]">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col items-center text-center relative z-10">
+            <div class="inline-block bg-white border-4 border-pd-blue shadow-[0_4px_0_#03045E] rounded-full px-6 py-2 mb-8 font-bold text-pd-pink uppercase tracking-widest text-lg animate-bounce-slow">
+                ¡Clínica para Chicos y Grandes!
+            </div>
+            
+            <h1 class="text-6xl md:text-8xl mb-6 leading-tight">
+                <span class="text-sticker block mb-2">¡VEN AL DENTISTA!</span>
+                <span class="text-sticker-yellow text-4xl md:text-6xl">Y DILE ADIÓS A LAS CARIES</span>
+            </h1>
+            
+            <p class="text-2xl font-bold max-w-3xl text-pd-blue mb-10 bg-white/50 p-4 rounded-3xl border-2 border-dashed border-pd-blue">
+                Atención odontopediátrica llena de juegos, súper héroes y sin miedo. ¡Lleva a tu bebé desde que le sale su primer diente!
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-6">
+                <a href="#arcade" class="btn-3d bg-pd-pink-btn font-title text-2xl px-10 py-4 rounded-full flex items-center justify-center gap-3">
+                    🕹️ ¡Jugar Ahora!
+                </a>
+                <a href="#ubicaciones" class="btn-3d bg-pd-cyan-btn font-title text-2xl px-10 py-4 rounded-full flex items-center justify-center gap-3">
+                    📍 Ver Sucursales
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Servicios (NUEVO) -->
+    <section id="servicios" class="py-20 relative bg-white border-t-8 border-b-8 border-pd-blue">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-5xl md:text-6xl text-center mb-16 font-title text-sticker text-pd-cyan">¡PARA TODA LA FAMILIA!</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Servicio 1: Niños -->
+                <div class="bg-[#F8FDFE] rounded-[2rem] p-8 border-4 border-pd-cyan shadow-[8px_8px_0_#03045E] transform hover:-translate-y-2 transition duration-300">
+                    <div class="bg-pd-yellow w-20 h-20 rounded-full flex items-center justify-center text-4xl border-4 border-pd-blue mb-6 mx-auto">
+                        👶
+                    </div>
+                    <h3 class="text-3xl text-center font-title mb-4 text-pd-blue">Odontopediatría</h3>
+                    <p class="text-center font-bold text-slate-600 text-lg">Especialistas en bebés y niños. ¡Tratamientos sin miedo, con paciencia y mucha diversión!</p>
+                </div>
+
+                <!-- Servicio 2: Adultos -->
+                <div class="bg-[#F8FDFE] rounded-[2rem] p-8 border-4 border-pd-pink shadow-[8px_8px_0_#03045E] transform hover:-translate-y-2 transition duration-300">
+                    <div class="bg-pd-cyan w-20 h-20 rounded-full flex items-center justify-center text-4xl border-4 border-pd-blue mb-6 mx-auto text-white">
+                        👨‍👩‍👧
+                    </div>
+                    <h3 class="text-3xl text-center font-title mb-4 text-pd-blue">Adultos y Papás</h3>
+                    <p class="text-center font-bold text-slate-600 text-lg">Atendemos a toda la familia. Odontología general, limpiezas y estética para papás y abuelos.</p>
+                </div>
+
+                <!-- Servicio 3: Ortodoncia -->
+                <div class="bg-[#F8FDFE] rounded-[2rem] p-8 border-4 border-pd-green shadow-[8px_8px_0_#03045E] transform hover:-translate-y-2 transition duration-300">
+                    <div class="bg-pd-pink w-20 h-20 rounded-full flex items-center justify-center text-4xl border-4 border-pd-blue mb-6 mx-auto text-white">
+                        🦸‍♂️
+                    </div>
+                    <h3 class="text-3xl text-center font-title mb-4 text-pd-blue">Ortodoncia</h3>
+                    <p class="text-center font-bold text-slate-600 text-lg">Brackets y alineadores para chicos y grandes. ¡Logra la sonrisa perfecta de súper héroe!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Conoce a tu Dentista (NUEVO) -->
+    <section id="dentistas" class="py-20 relative bg-pd-yellow border-b-8 border-pd-blue">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-5xl md:text-6xl text-center mb-16 font-title text-sticker">¡CONOCE A TUS DOCTORES!</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <!-- Doctor 1 -->
+                <div class="bg-[#F8FDFE] rounded-[3rem] p-8 border-8 border-pd-cyan shadow-[10px_10px_0_#03045E] flex flex-col items-center text-center relative">
+                    <div class="absolute -top-8 -right-8 text-6xl rotate-12">✨</div>
+                    <div class="w-40 h-40 bg-pd-yellow rounded-full border-8 border-pd-blue flex items-center justify-center text-7xl mb-6 shadow-inner overflow-hidden">
+                        👩‍⚕️
+                        <!-- Aquí iría la foto real: <img src="..." class="w-full h-full object-cover"> -->
+                    </div>
+                    <h3 class="font-title text-4xl mb-2 text-pd-blue">Dra. Sonrisas</h3>
+                    <div class="bg-pd-cyan text-white font-bold px-4 py-1 rounded-full text-sm mb-4">Odontopediatra Especialista</div>
+                    <p class="font-bold text-xl text-slate-600">
+                        "¡Me encanta coleccionar stickers y ayudar a los niños a derrotar a los monstruos de azúcar! Mi súper poder es hacer que las limpiezas sean súper divertidas."
+                    </p>
+                </div>
+
+                <!-- Doctor 2 -->
+                <div class="bg-[#F8FDFE] rounded-[3rem] p-8 border-8 border-pd-pink shadow-[10px_10px_0_#03045E] flex flex-col items-center text-center relative">
+                    <div class="absolute -top-8 -left-8 text-6xl -rotate-12">🦸‍♂️</div>
+                    <div class="w-40 h-40 bg-pd-cyan-light rounded-full border-8 border-pd-blue flex items-center justify-center text-7xl mb-6 shadow-inner overflow-hidden">
+                        👨‍⚕️
+                    </div>
+                    <h3 class="font-title text-4xl mb-2 text-pd-blue">Dr. Cepillo</h3>
+                    <div class="bg-pd-pink text-white font-bold px-4 py-1 rounded-full text-sm mb-4">Ortodoncia y Familiar</div>
+                    <p class="font-bold text-xl text-slate-600">
+                        "Experto en brackets de colores y en dejar los dientes más brillantes que un diamante. Si traes a tus papás, ¡también los atiendo a ellos!"
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ZONA ARCADE (Multi-Juegos Gamificados) -->
+    <section id="arcade" class="py-24 bg-pd-blue relative">
+        <!-- Patrón de fondo Arcade -->
+        <div class="absolute inset-0 opacity-20" style="background-image: repeating-linear-gradient(45deg, #03045E 25%, transparent 25%, transparent 75%, #03045E 75%, #03045E), repeating-linear-gradient(45deg, #03045E 25%, #00B4D8 25%, #00B4D8 75%, #03045E 75%, #03045E); background-position: 0 0, 20px 20px; background-size: 40px 40px;"></div>
+        
+        <div class="max-w-6xl mx-auto px-4 relative z-10">
+            
+            <div class="text-center mb-12">
+                <span class="inline-block bg-pd-yellow text-pd-blue font-title text-2xl px-6 py-2 rounded-full border-4 border-white shadow-[0_4px_0_white] mb-4 rotate-2">
+                    🕹️ ZONA ARCADE KIDS 🕹️
+                </span>
+                <h2 class="text-5xl md:text-7xl font-title text-sticker-yellow block">¡JUEGA Y GANA!</h2>
+                <p class="text-2xl font-bold text-white mt-4">Elige tu juego favorito y prepárate para la consulta.</p>
+            </div>
+
+            <!-- Selector de Juegos -->
+            <div class="flex flex-wrap justify-center gap-4 mb-10">
+                <button onclick="switchGame('game1')" id="tab-game1" class="btn-3d bg-pd-pink-btn font-title text-2xl px-8 py-3 rounded-2xl transform scale-105 opacity-100">🦠 Atrapa Caries</button>
+                <button onclick="switchGame('game2')" id="tab-game2" class="btn-3d bg-pd-cyan-btn font-title text-2xl px-8 py-3 rounded-2xl opacity-70">🃏 Memorama</button>
+                <button onclick="switchGame('game3')" id="tab-game3" class="btn-3d bg-pd-green-btn font-title text-2xl px-8 py-3 rounded-2xl opacity-70">🍎 Lluvia Sana</button>
+            </div>
+
+            <!-- CONTENEDOR CENTRAL DE JUEGOS -->
+            <div class="max-w-3xl mx-auto bg-white p-6 rounded-[3rem] border-8 border-pd-cyan shadow-[0_15px_0_#00B4D8]">
+                
+                <!-- PANTALLA JUEGO 1: Atrapa Caries -->
+                <div id="screen-game1" class="game-screen block">
+                    <div class="flex justify-between items-center mb-4 bg-pd-blue p-4 rounded-2xl text-white border-4 border-pd-yellow">
+                        <div class="font-title text-2xl">PUNTOS: <span id="score1" class="text-pd-yellow text-3xl">0</span></div>
+                        <div class="font-title text-2xl">TIEMPO: <span id="time1" class="text-pd-pink text-3xl">30</span></div>
+                    </div>
+                    <div class="game-container w-full aspect-square max-h-[500px] mx-auto bg-[#0077B6]">
+                        <canvas id="canvas1" class="w-full h-full"></canvas>
+                        <!-- Overlay G1 -->
+                        <div id="overlay1" class="absolute inset-0 bg-pd-blue/80 flex flex-col items-center justify-center p-6 text-center z-10 backdrop-blur-sm">
+                            <h3 class="font-title text-4xl text-white mb-2 text-sticker">¡APLASTA LAS CARIES!</h3>
+                            <p class="font-bold text-white text-xl mb-6">Toca los monstruos antes de que toquen el diente.</p>
+                            <button onclick="startGame1()" class="btn-3d bg-pd-yellow-btn font-title text-3xl px-10 py-4 rounded-full animate-bounce">
+                                ▶️ JUGAR
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PANTALLA JUEGO 2: Memorama -->
+                <div id="screen-game2" class="game-screen hidden">
+                    <div class="flex justify-between items-center mb-4 bg-pd-blue p-4 rounded-2xl text-white border-4 border-pd-cyan">
+                        <div class="font-title text-2xl">PARES: <span id="score2" class="text-pd-cyan text-3xl">0/6</span></div>
+                        <div class="font-title text-2xl">INTENTOS: <span id="time2" class="text-pd-pink text-3xl">0</span></div>
+                    </div>
+                    <div class="game-container w-full aspect-square max-h-[500px] mx-auto bg-[#90E0EF] p-4 flex flex-col justify-center">
+                        <div id="memory-grid" class="grid grid-cols-4 gap-2 md:gap-4 w-full h-full">
+                            <!-- JS inyecta tarjetas -->
+                        </div>
+                        <!-- Overlay G2 -->
+                        <div id="overlay2" class="absolute inset-0 bg-pd-blue/80 flex flex-col items-center justify-center p-6 text-center z-10 backdrop-blur-sm">
+                            <h3 class="font-title text-5xl text-white mb-2 text-sticker">MEMORAMA</h3>
+                            <p class="font-bold text-white text-xl mb-6">Encuentra todos los pares saludables.</p>
+                            <button onclick="startGame2()" class="btn-3d bg-pd-yellow-btn font-title text-3xl px-10 py-4 rounded-full animate-bounce">
+                                ▶️ JUGAR
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PANTALLA JUEGO 3: Lluvia Sana -->
+                <div id="screen-game3" class="game-screen hidden">
+                    <div class="flex justify-between items-center mb-4 bg-pd-blue p-4 rounded-2xl text-white border-4 border-pd-green">
+                        <div class="font-title text-2xl">SALUD: <span id="score3" class="text-pd-green text-3xl">0</span></div>
+                        <div class="font-title text-2xl">TIEMPO: <span id="time3" class="text-pd-pink text-3xl">30</span></div>
+                    </div>
+                    <div class="game-container w-full aspect-square max-h-[500px] mx-auto bg-[#87CEEB]">
+                        <canvas id="canvas3" class="w-full h-full"></canvas>
+                        <!-- Overlay G3 -->
+                        <div id="overlay3" class="absolute inset-0 bg-pd-blue/80 flex flex-col items-center justify-center p-6 text-center z-10 backdrop-blur-sm">
+                            <h3 class="font-title text-4xl text-white mb-2 text-sticker">ATRAPA LO SANO</h3>
+                            <p class="font-bold text-white text-xl mb-6">Mueve el diente (desliza o ratón) para atrapar manzanas 🍎 y esquivar dulces 🍬.</p>
+                            <button onclick="startGame3()" class="btn-3d bg-pd-yellow-btn font-title text-3xl px-10 py-4 rounded-full animate-bounce">
+                                ▶️ JUGAR
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Regalos y Lead Magnet (NUEVO) -->
+    <section id="descargables" class="py-20 bg-pd-yellow relative border-b-8 border-pd-blue">
+        <div class="max-w-5xl mx-auto px-4 flex flex-col md:flex-row items-center gap-12">
+            <div class="w-full md:w-1/2 text-center md:text-left">
+                <h2 class="text-5xl md:text-6xl font-title mb-6 text-sticker-yellow">¡REGALOS PARA TU PEQUE!</h2>
+                <p class="text-2xl font-bold text-pd-blue mb-8">
+                    Motiva a tus hijos a lavarse los dientes todos los días con nuestro calendario interactivo y dales su certificado oficial.
+                </p>
+                <div class="flex flex-col gap-4">
+                    <a href="https://wa.me/524422815152?text=Hola,%20visité%20la%20página%20y%20quiero%20mis%20descargables%20gratuitos%20por%20favor" target="_blank" class="btn-3d bg-white font-title text-pd-blue text-2xl px-6 py-4 rounded-2xl flex items-center justify-center gap-4">
+                        📅 Calendario de Cepillado
+                    </a>
+                    <a href="https://wa.me/524422815152?text=Hola,%20visité%20la%20página%20y%20quiero%20mis%20descargables%20gratuitos%20por%20favor" target="_blank" class="btn-3d bg-pd-cyan-btn font-title text-2xl px-6 py-4 rounded-2xl flex items-center justify-center gap-4">
+                        🏆 Certificado de Valentía
+                    </a>
+                </div>
+                <p class="mt-4 font-bold text-pd-blue/70">*Pídelos por WhatsApp y te enviamos el PDF gratis.</p>
+            </div>
+            
+            <div class="w-full md:w-1/2 relative">
+                <!-- Gráfico de certificado simulado -->
+                <div class="bg-white border-8 border-pd-blue rounded-3xl p-6 shadow-[10px_10px_0_#03045E] transform rotate-3">
+                    <div class="border-4 border-dashed border-pd-pink p-8 text-center rounded-xl">
+                        <div class="text-6xl mb-4">👑</div>
+                        <h3 class="font-title text-3xl text-pd-blue mb-2">CERTIFICADO</h3>
+                        <p class="font-bold text-pd-cyan text-xl">De Súper Valentía Dental</p>
+                        <div class="mt-6 border-b-4 border-pd-blue w-3/4 mx-auto pb-2 text-slate-300 font-title text-xl">Nombre de tu Peque</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ubicaciones -->
+    <section id="ubicaciones" class="py-24 bg-[#F8FDFE]">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-5xl md:text-6xl text-center mb-16 font-title text-pd-blue">ELIGE TU SUCURSAL 📍</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <!-- Sucursal Jardines -->
+                <div class="bg-white rounded-[3rem] p-8 border-8 border-pd-blue shadow-[10px_10px_0_#03045E] flex flex-col">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="bg-pd-cyan text-white w-16 h-16 rounded-3xl flex items-center justify-center text-3xl border-4 border-pd-blue shadow-[0_4px_0_#03045E]">
+                            🏪
+                        </div>
+                        <h3 class="font-title text-4xl text-pd-blue">Plaza Jardines</h3>
+                    </div>
+                    <p class="font-bold text-slate-600 mb-6 text-xl flex-grow">
+                        Prolongación Zaragoza #99 Int 20g,<br>Col. Jardines de la Hacienda.
+                    </p>
+                    <div class="flex flex-col gap-4 mt-auto">
+                        <a href="https://maps.google.com/?q=Prolongacion+Zaragoza+99+Jardines+de+la+Hacienda" target="_blank" class="bg-slate-100 hover:bg-slate-200 border-4 border-slate-300 font-bold text-slate-600 text-xl py-3 rounded-2xl text-center transition">
+                            🗺️ Ver en Mapa
+                        </a>
+                        <!-- WhatsApp pre-llenado para Jardines -->
+                        <a href="https://wa.me/524422815152?text=Hola%20PequeDent,%20vengo%20del%20sitio%20web%20y%20quiero%20agendar%20una%20cita%20en%20PLAZA%20JARDINES" target="_blank" class="btn-3d bg-[#25D366] text-white font-title text-2xl py-4 rounded-2xl text-center flex justify-center items-center gap-3">
+                            <i class="fa-brands fa-whatsapp text-3xl"></i> Agendar Aquí
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Sucursal Moscati -->
+                <div class="bg-white rounded-[3rem] p-8 border-8 border-pd-blue shadow-[10px_10px_0_#03045E] flex flex-col">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="bg-pd-pink text-white w-16 h-16 rounded-3xl flex items-center justify-center text-3xl border-4 border-pd-blue shadow-[0_4px_0_#03045E]">
+                            🏥
+                        </div>
+                        <h3 class="font-title text-4xl text-pd-blue">Hospital Moscati</h3>
+                    </div>
+                    <p class="font-bold text-slate-600 mb-6 text-xl flex-grow">
+                        Avenida de las Ciencias 2058,<br>Int 2311, Juriquilla, Querétaro.
+                    </p>
+                    <div class="flex flex-col gap-4 mt-auto">
+                        <a href="https://maps.google.com/?q=Hospital+Moscati+Juriquilla" target="_blank" class="bg-slate-100 hover:bg-slate-200 border-4 border-slate-300 font-bold text-slate-600 text-xl py-3 rounded-2xl text-center transition">
+                            🗺️ Ver en Mapa
+                        </a>
+                        <!-- WhatsApp pre-llenado para Moscati -->
+                        <a href="https://wa.me/524421364599?text=Hola%20PequeDent,%20vengo%20del%20sitio%20web%20y%20quiero%20agendar%20una%20cita%20en%20HOSPITAL%20MOSCATI" target="_blank" class="btn-3d bg-[#25D366] text-white font-title text-2xl py-4 rounded-2xl text-center flex justify-center items-center gap-3">
+                            <i class="fa-brands fa-whatsapp text-3xl"></i> Agendar Aquí
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Moderno -->
+    <footer class="bg-pd-blue pt-12 pb-12 text-white">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="flex items-center gap-3">
+                <div class="bg-white text-pd-blue w-14 h-14 rounded-full flex items-center justify-center text-3xl">
+                    <i class="fa-solid fa-tooth"></i>
+                </div>
+                <span class="font-title text-4xl tracking-wide text-pd-cyan">Peque<span class="text-white">Dent</span></span>
+            </div>
+            
+            <div class="flex gap-6">
+                <a href="https://www.facebook.com/pequedent" target="_blank" class="bg-pd-cyan w-14 h-14 rounded-full flex items-center justify-center text-3xl border-4 border-pd-blue shadow-[0_4px_0_white] hover:translate-y-1 hover:shadow-none transition"><i class="fa-brands fa-facebook"></i></a>
+                <a href="https://www.instagram.com/pequedentfamily_oficial" target="_blank" class="bg-pd-pink w-14 h-14 rounded-full flex items-center justify-center text-3xl border-4 border-pd-blue shadow-[0_4px_0_white] hover:translate-y-1 hover:shadow-none transition"><i class="fa-brands fa-instagram"></i></a>
+            </div>
+            
+            <div class="text-center md:text-right font-bold text-pd-cyan-light text-lg">
+                <p>Odontología Chicos y Grandes</p>
+                <p>© 2026 Querétaro, México.</p>
+            </div>
+        </div>
+        
+        <div class="max-w-6xl mx-auto px-4 mt-8 pt-8 border-t-2 border-pd-blue/30 text-center text-pd-cyan-light text-sm font-bold">
+            Realizado por <a href="https://estudio.xidito.com/" target="_blank" class="text-pd-yellow hover:text-white transition">https://estudio.xidito.com/</a>
+        </div>
+    </footer>
+
+    <!-- LÓGICA DE JUEGOS Y ANIMACIONES -->
+    <script>
+        /* ---------------------------------------------------
+           MOTOR DE AUDIO (Sintetizador Web Audio API)
+           --------------------------------------------------- */
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        let audioCtx = null;
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new AudioContext();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
+        function playSound(type) {
+            initAudio();
+            if (!audioCtx) return;
+            
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            
+            const now = audioCtx.currentTime;
+            
+            switch(type) {
+                case 'pop': // Puntos positivos
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(600, now);
+                    osc.frequency.exponentialRampToValueAtTime(1200, now + 0.1);
+                    gain.gain.setValueAtTime(0.2, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
+                    osc.start(now);
+                    osc.stop(now + 0.1);
+                    break;
+                case 'error': // Perder puntos
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(150, now);
+                    osc.frequency.linearRampToValueAtTime(100, now + 0.3);
+                    gain.gain.setValueAtTime(0.2, now);
+                    gain.gain.linearRampToValueAtTime(0.01, now + 0.3);
+                    osc.start(now);
+                    osc.stop(now + 0.3);
+                    break;
+                case 'click': // Botones y UI
+                    osc.type = 'square';
+                    osc.frequency.setValueAtTime(400, now);
+                    gain.gain.setValueAtTime(0.1, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.05);
+                    osc.start(now);
+                    osc.stop(now + 0.05);
+                    break;
+                case 'flip': // Memorama
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(300, now);
+                    osc.frequency.linearRampToValueAtTime(400, now + 0.1);
+                    gain.gain.setValueAtTime(0.1, now);
+                    gain.gain.linearRampToValueAtTime(0.01, now + 0.1);
+                    osc.start(now);
+                    osc.stop(now + 0.1);
+                    break;
+                case 'win': // Ganar o fin de tiempo
+                    [523.25, 659.25, 783.99, 1046.50].forEach((freq, i) => {
+                        const o = audioCtx.createOscillator();
+                        const g = audioCtx.createGain();
+                        o.type = 'square';
+                        o.frequency.value = freq;
+                        o.connect(g);
+                        g.connect(audioCtx.destination);
+                        g.gain.setValueAtTime(0.15, now + (i * 0.1));
+                        g.gain.linearRampToValueAtTime(0.01, now + (i * 0.1) + 0.1);
+                        o.start(now + (i * 0.1));
+                        o.stop(now + (i * 0.1) + 0.1);
+                    });
+                    break;
+            }
+        }
+
+        // Habilitar audio con el primer toque (Requisito de navegadores)
+        document.body.addEventListener('pointerdown', initAudio, { once: true });
+
+        /* ---------------------------------------------------
+           FONDO ANIMADO DE DIENTITOS (Efecto Cartoon)
+           --------------------------------------------------- */
+        function initFloatingTeeth() {
+            const container = document.getElementById('bg-animations');
+            const colors = ['text-pd-cyan', 'text-pd-pink', 'text-pd-yellow', 'text-blue-300'];
+            const amount = 15; // Cantidad de dientitos flotando
+
+            for (let i = 0; i < amount; i++) {
+                const tooth = document.createElement('i');
+                tooth.className = `fa-solid fa-tooth floating-tooth ${colors[Math.floor(Math.random() * colors.length)]}`;
+                
+                // Posición horizontal aleatoria
+                tooth.style.left = `${Math.random() * 100}vw`;
+                
+                // Tamaños aleatorios
+                const size = 1 + Math.random() * 3;
+                tooth.style.fontSize = `${size}rem`;
+                
+                // Velocidad y retraso aleatorios
+                const duration = 10 + Math.random() * 20; // Entre 10s y 30s
+                const delay = Math.random() * -30; // Iniciar en tiempos distintos
+                
+                tooth.style.animationDuration = `${duration}s`;
+                tooth.style.animationDelay = `${delay}s`;
+                
+                container.appendChild(tooth);
+            }
+        }
+        initFloatingTeeth();
+
+        /* ---------------------------------------------------
+           SISTEMA DE PESTAÑAS (TABS) PARA LOS JUEGOS
+           --------------------------------------------------- */
+        let activeGame = 'game1';
+        
+        function switchGame(gameId) {
+            playSound('click');
+            // Reset de loops
+            isPlaying1 = false;
+            isPlaying3 = false;
+
+            // Actualizar botones UI
+            ['game1', 'game2', 'game3'].forEach(id => {
+                const btn = document.getElementById(`tab-${id}`);
+                const screen = document.getElementById(`screen-${id}`);
+                
+                if (id === gameId) {
+                    btn.classList.replace('opacity-70', 'opacity-100');
+                    btn.classList.add('transform', 'scale-105');
+                    screen.classList.remove('hidden');
+                    screen.classList.add('block');
+                } else {
+                    btn.classList.replace('opacity-100', 'opacity-70');
+                    btn.classList.remove('transform', 'scale-105');
+                    screen.classList.add('hidden');
+                    screen.classList.remove('block');
+                }
+            });
+
+            activeGame = gameId;
+            
+            // Re-dimensionar canvas al cambiar de pestaña
+            if(gameId === 'game1') resizeC1();
+            if(gameId === 'game3') resizeC3();
+        }
+
+        /* ---------------------------------------------------
+           JUEGO 1: ATRAPA LA CARIES (Mejorado con Puntos Visuales)
+           --------------------------------------------------- */
+        const c1 = document.getElementById('canvas1');
+        const ctx1 = c1.getContext('2d');
+        
+        let score1 = 0, time1 = 30, isPlaying1 = false, bugs1 = [], floatingTexts1 = [], timer1;
+        const bugEmojis = ['🦠', '👾', '👽'];
+
+        function resizeC1() {
+            c1.width = c1.parentElement.clientWidth;
+            c1.height = c1.parentElement.clientHeight;
+        }
+        window.addEventListener('resize', resizeC1);
+        setTimeout(resizeC1, 100);
+
+        class Bug1 {
+            constructor() {
+                this.size = 40; // Más grandes
+                if (Math.random() > 0.5) {
+                    this.x = Math.random() > 0.5 ? -this.size : c1.width + this.size;
+                    this.y = Math.random() * c1.height;
+                } else {
+                    this.x = Math.random() * c1.width;
+                    this.y = Math.random() > 0.5 ? -this.size : c1.height + this.size;
+                }
+                this.targetX = c1.width / 2;
+                this.targetY = c1.height / 2;
+                const speed = 1 + Math.random() * 1.5; // Más rápidos
+                const angle = Math.atan2(this.targetY - this.y, this.targetX - this.x);
+                this.vx = Math.cos(angle) * speed;
+                this.vy = Math.sin(angle) * speed;
+                this.emoji = bugEmojis[Math.floor(Math.random() * bugEmojis.length)];
+                this.scale = 0; // Para animación pop-in
+            }
+            update() {
+                this.x += this.vx; this.y += this.vy;
+                if(this.scale < 1) this.scale += 0.1;
+            }
+            draw() {
+                ctx1.save();
+                ctx1.translate(this.x, this.y);
+                ctx1.scale(this.scale, this.scale);
+                ctx1.font = '50px Arial';
+                ctx1.textAlign = 'center'; ctx1.textBaseline = 'middle';
+                ctx1.fillText(this.emoji, 0, 0);
+                ctx1.restore();
+            }
+        }
+
+        // Sistema para mostrar "+10" flotante
+        class FloatingText {
+            constructor(x, y, text, color) {
+                this.x = x; this.y = y; this.text = text;
+                this.color = color; this.life = 1.0;
+            }
+            update() {
+                this.y -= 2; this.life -= 0.03;
+            }
+            draw() {
+                ctx1.save();
+                ctx1.globalAlpha = Math.max(0, this.life);
+                ctx1.font = 'bold 30px "Lilita One", sans-serif';
+                ctx1.fillStyle = this.color;
+                ctx1.strokeStyle = 'white';
+                ctx1.lineWidth = 4;
+                ctx1.strokeText(this.text, this.x, this.y);
+                ctx1.fillText(this.text, this.x, this.y);
+                ctx1.restore();
+            }
+        }
+
+        function loop1() {
+            if (!isPlaying1 || activeGame !== 'game1') return;
+            
+            // Fondo súper sólido azul
+            ctx1.fillStyle = '#0077B6';
+            ctx1.fillRect(0, 0, c1.width, c1.height);
+
+            // Diente Central (Blanco brillante y sólido)
+            ctx1.beginPath();
+            ctx1.arc(c1.width/2, c1.height/2, 60, 0, Math.PI * 2);
+            ctx1.fillStyle = '#E0F7FA'; // Halo suave
+            ctx1.fill();
+            
+            ctx1.font = '90px Arial';
+            ctx1.textAlign = 'center'; ctx1.textBaseline = 'middle';
+            ctx1.fillText('🦷', c1.width / 2, c1.height / 2);
+
+            // Generar Bichos
+            if (Math.random() < 0.04 + (score1/2000)) bugs1.push(new Bug1());
+
+            for (let i = bugs1.length - 1; i >= 0; i--) {
+                bugs1[i].update(); bugs1[i].draw();
+                if (Math.hypot(c1.width/2 - bugs1[i].x, c1.height/2 - bugs1[i].y) < 50) {
+                    bugs1.splice(i, 1);
+                    // Efecto daño (Flash rojo)
+                    ctx1.fillStyle = 'rgba(239, 71, 111, 0.4)';
+                    ctx1.fillRect(0,0, c1.width, c1.height);
+                }
+            }
+
+            // Actualizar y dibujar textos flotantes (+10)
+            for(let i = floatingTexts1.length - 1; i>=0; i--) {
+                floatingTexts1[i].update();
+                floatingTexts1[i].draw();
+                if(floatingTexts1[i].life <= 0) floatingTexts1.splice(i, 1);
+            }
+
+            requestAnimationFrame(loop1);
+        }
+
+        function startGame1() {
+            playSound('click');
+            document.getElementById('overlay1').style.display = 'none';
+            score1 = 0; time1 = 30; bugs1 = []; floatingTexts1 = []; isPlaying1 = true;
+            document.getElementById('score1').innerText = score1;
+            document.getElementById('time1').innerText = time1;
+            resizeC1();
+            loop1();
+            clearInterval(timer1);
+            timer1 = setInterval(() => {
+                time1--; document.getElementById('time1').innerText = time1;
+                if (time1 <= 0) {
+                    playSound('win');
+                    isPlaying1 = false; clearInterval(timer1);
+                    document.getElementById('overlay1').style.display = 'flex';
+                    document.getElementById('overlay1').innerHTML = `
+                        <h3 class="font-title text-5xl text-pd-yellow mb-2 text-sticker">¡TIEMPO!</h3>
+                        <p class="font-bold text-white text-3xl mb-6">Puntos: ${score1}</p>
+                        <button onclick="startGame1()" class="btn-3d bg-pd-cyan-btn font-title text-3xl px-10 py-4 rounded-full">🔄 JUGAR OTRA VEZ</button>
+                    `;
+                }
+            }, 1000);
+        }
+
+        c1.addEventListener('pointerdown', (e) => {
+            if (!isPlaying1) return;
+            e.preventDefault();
+            const rect = c1.getBoundingClientRect();
+            const x = (e.clientX - rect.left) * (c1.width / rect.width);
+            const y = (e.clientY - rect.top) * (c1.height / rect.height);
+
+            for (let i = bugs1.length - 1; i >= 0; i--) {
+                if (Math.hypot(bugs1[i].x - x, bugs1[i].y - y) < bugs1[i].size + 20) {
+                    playSound('pop');
+                    bugs1.splice(i, 1);
+                    score1 += 10;
+                    document.getElementById('score1').innerText = score1;
+                    // Agregar el efecto +10 visual
+                    floatingTexts1.push(new FloatingText(x, y, '+10', '#FFD166'));
+                    // Partícula simple
+                    floatingTexts1.push(new FloatingText(x + 20, y - 20, '✨', '#FFF'));
+                    break; 
+                }
+            }
+        });
+
+        /* ---------------------------------------------------
+           JUEGO 2: MEMORAMA DENTAL (Nuevo)
+           --------------------------------------------------- */
+        const items2 = ['🍎','🍎','🪥','🪥','🦷','🦷','🦸‍♂️','🦸‍♂️','💧','💧','😁','😁'];
+        let cards2 = [];
+        let flippedCards = [];
+        let matchedPairs = 0;
+        let moves2 = 0;
+        
+        function initMemorama() {
+            const grid = document.getElementById('memory-grid');
+            grid.innerHTML = '';
+            // Shuffle
+            cards2 = [...items2].sort(() => Math.random() - 0.5);
+            
+            cards2.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = 'memory-card';
+                card.innerHTML = `
+                    <div class="memory-card-inner" data-index="${index}">
+                        <div class="memory-card-front">❓</div>
+                        <div class="memory-card-back">${item}</div>
+                    </div>
+                `;
+                card.addEventListener('click', () => flipCard(card.querySelector('.memory-card-inner'), item));
+                grid.appendChild(card);
+            });
+        }
+
+        function flipCard(innerElem, item) {
+            if (flippedCards.length === 2 || innerElem.parentElement.classList.contains('flipped') || matchedPairs === 6) return;
+            
+            playSound('flip');
+            innerElem.parentElement.classList.add('flipped');
+            flippedCards.push({elem: innerElem.parentElement, item: item});
+
+            if (flippedCards.length === 2) {
+                moves2++;
+                document.getElementById('time2').innerText = moves2;
+                
+                if (flippedCards[0].item === flippedCards[1].item) {
+                    // Match!
+                    playSound('pop');
+                    matchedPairs++;
+                    document.getElementById('score2').innerText = `${matchedPairs}/6`;
+                    flippedCards = [];
+                    if (matchedPairs === 6) {
+                        setTimeout(() => {
+                            playSound('win');
+                            document.getElementById('overlay2').style.display = 'flex';
+                            document.getElementById('overlay2').innerHTML = `
+                                <h3 class="font-title text-5xl text-pd-yellow mb-2 text-sticker">¡GANASTE!</h3>
+                                <p class="font-bold text-white text-3xl mb-6">Intentos: ${moves2}</p>
+                                <button onclick="startGame2()" class="btn-3d bg-pd-pink-btn font-title text-3xl px-10 py-4 rounded-full">🔄 REPETIR</button>
+                            `;
+                        }, 500);
+                    }
+                } else {
+                    // No match
+                    playSound('error');
+                    setTimeout(() => {
+                        flippedCards[0].elem.classList.remove('flipped');
+                        flippedCards[1].elem.classList.remove('flipped');
+                        flippedCards = [];
+                    }, 1000);
+                }
+            }
+        }
+
+        function startGame2() {
+            playSound('click');
+            document.getElementById('overlay2').style.display = 'none';
+            matchedPairs = 0; moves2 = 0; flippedCards = [];
+            document.getElementById('score2').innerText = '0/6';
+            document.getElementById('time2').innerText = '0';
+            initMemorama();
+        }
+        initMemorama(); // Dibujar inicial
+
+        /* ---------------------------------------------------
+           JUEGO 3: LLUVIA SANA (Nuevo Canvas Game)
+           --------------------------------------------------- */
+        const c3 = document.getElementById('canvas3');
+        const ctx3 = c3.getContext('2d');
+        
+        let score3 = 0, time3 = 30, isPlaying3 = false, timer3;
+        let playerX = 200;
+        let fallingItems = [];
+        let floatTexts3 = [];
+        const goodItems = ['🍎', '🦷', '💧', '🥕'];
+        const badItems = ['🍬', '🍭', '🍫', '🍩'];
+
+        function resizeC3() {
+            c3.width = c3.parentElement.clientWidth;
+            c3.height = c3.parentElement.clientHeight;
+            playerX = c3.width / 2;
+        }
+        window.addEventListener('resize', resizeC3);
+        setTimeout(resizeC3, 100);
+
+        class FallingItem {
+            constructor() {
+                this.x = Math.random() * (c3.width - 40) + 20;
+                this.y = -50;
+                this.speed = 2 + Math.random() * 3;
+                this.isGood = Math.random() > 0.4; // 60% chance de ser bueno
+                this.emoji = this.isGood ? goodItems[Math.floor(Math.random()*goodItems.length)] : badItems[Math.floor(Math.random()*badItems.length)];
+            }
+            update() { this.y += this.speed; }
+            draw() {
+                ctx3.font = '45px Arial';
+                ctx3.textAlign = 'center'; ctx3.textBaseline = 'middle';
+                ctx3.fillText(this.emoji, this.x, this.y);
+            }
+        }
+
+        function loop3() {
+            if (!isPlaying3 || activeGame !== 'game3') return;
+            
+            // Fondo cielo
+            ctx3.fillStyle = '#87CEEB';
+            ctx3.fillRect(0, 0, c3.width, c3.height);
+
+            // Generar items
+            if (Math.random() < 0.05) fallingItems.push(new FallingItem());
+
+            // Jugador (Diente canasta)
+            ctx3.font = '60px Arial';
+            ctx3.fillText('🦷', playerX, c3.height - 40);
+
+            // Actualizar items
+            for (let i = fallingItems.length - 1; i >= 0; i--) {
+                let item = fallingItems[i];
+                item.update(); item.draw();
+                
+                // Colisión con el jugador (en la base)
+                if (item.y > c3.height - 80 && item.y < c3.height && Math.abs(item.x - playerX) < 40) {
+                    if (item.isGood) {
+                        playSound('pop');
+                        score3 += 15;
+                        floatTexts3.push(new FloatingText(item.x, item.y, '+15', '#06D6A0'));
+                    } else {
+                        playSound('error');
+                        score3 -= 10;
+                        ctx3.fillStyle = 'rgba(239, 71, 111, 0.5)';
+                        ctx3.fillRect(0,0,c3.width, c3.height); // Flash rojo
+                        floatTexts3.push(new FloatingText(item.x, item.y, '-10', '#EF476F'));
+                    }
+                    document.getElementById('score3').innerText = score3;
+                    fallingItems.splice(i, 1);
+                } 
+                // Eliminar si sale de pantalla
+                else if (item.y > c3.height + 50) {
+                    fallingItems.splice(i, 1);
+                }
+            }
+
+            // Dibujar textos flotantes
+            for(let i = floatTexts3.length - 1; i>=0; i--) {
+                floatTexts3[i].update(); floatTexts3[i].draw();
+                if(floatTexts3[i].life <= 0) floatTexts3.splice(i, 1);
+            }
+
+            requestAnimationFrame(loop3);
+        }
+
+        function startGame3() {
+            playSound('click');
+            document.getElementById('overlay3').style.display = 'none';
+            score3 = 0; time3 = 30; fallingItems = []; floatTexts3 = []; isPlaying3 = true;
+            document.getElementById('score3').innerText = score3;
+            document.getElementById('time3').innerText = time3;
+            resizeC3();
+            loop3();
+            clearInterval(timer3);
+            timer3 = setInterval(() => {
+                time3--; document.getElementById('time3').innerText = time3;
+                if (time3 <= 0) {
+                    playSound('win');
+                    isPlaying3 = false; clearInterval(timer3);
+                    document.getElementById('overlay3').style.display = 'flex';
+                    document.getElementById('overlay3').innerHTML = `
+                        <h3 class="font-title text-5xl text-pd-yellow mb-2 text-sticker">¡TIEMPO!</h3>
+                        <p class="font-bold text-white text-3xl mb-6">Puntos: ${score3}</p>
+                        <button onclick="startGame3()" class="btn-3d bg-pd-green-btn font-title text-3xl px-10 py-4 rounded-full">🔄 VOLVER A JUGAR</button>
+                    `;
+                }
+            }, 1000);
+        }
+
+        // Movimiento Jugador 3 (Mouse y Touch)
+        c3.addEventListener('pointermove', (e) => {
+            if (!isPlaying3) return;
+            const rect = c3.getBoundingClientRect();
+            playerX = (e.clientX - rect.left) * (c3.width / rect.width);
+        });
+
+    </script>
+</body>
+</html>
