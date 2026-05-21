@@ -318,7 +318,7 @@
                         </div>
                         <span class="font-heading font-bold text-white text-xl tracking-wider uppercase">Grupo E.G.</span>
                     </div>
-                    <p class="text-gray-500 text-sm font-light leading-relaxed">Redefiniendo los estándares de construcción y acabados en zonas residenciales premium.</p>
+                    <p class="text-gray-500 text-sm font-light leading-relaxed">Redefiniendo los estándares de construcción and acabados en zonas residenciales premium.</p>
                 </div>
                 
                 <div>
@@ -361,6 +361,63 @@
             duration: 800, // Valores de 0 a 3000, con pasos de 50ms
             easing: 'ease-out-cubic', // Efecto de suavizado por defecto
         });
+
+        // ==========================================
+        // ESCUDO DE PROTECCIÓN INTEGRADO - ESTUDIO XIDITO
+        // ==========================================
+        (function() {
+            // Define los dominios permitidos para previsualizar esta propuesta
+            const dominiosAutorizados = [
+                'estudio.xidito.com', 
+                'localhost', 
+                '127.0.0.1', 
+                'github.io' // Permite previsualizar en cualquier entorno de GitHub Pages tuyo
+            ];
+            
+            const hostActual = window.location.hostname;
+            
+            // Si el sitio no se ejecuta en un dominio autorizado, bloquea el contenido
+            if (hostActual && !dominiosAutorizados.some(dom => hostActual.includes(dom))) {
+                document.body.innerHTML = `
+                    <div style="background:#0A0A0A; color:#f5f5f5; height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; font-family:'Inter', sans-serif; text-align:center; padding:20px; box-sizing:border-box;">
+                        <div style="border: 2px solid #D4AF37; padding: 40px; max-width: 600px; background: #141414; border-radius: 4px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+                            <div style="font-size: 50px; color: #D4AF37; margin-bottom: 20px;">
+                                <i class="fa-solid fa-lock"></i>
+                            </div>
+                            <h1 style="font-family:'Montserrat', sans-serif; font-weight:900; letter-spacing: 2px; text-transform:uppercase; font-size:1.8rem; margin-bottom:15px; color:#fff;">Vista Previa Restringida</h1>
+                            <p style="color:#a3a3a3; font-size:1rem; line-height:1.6; margin-bottom:25px;">
+                                Esta es una propuesta exclusiva de diseño y desarrollo web creada por <strong>estudio.xidito.com</strong> para su cliente. 
+                                La ejecución local o la clonación de este sitio en servidores no autorizados está desactivada.
+                            </p>
+                            <a href="https://estudio.xidito.com/" target="_blank" style="display:inline-block; background:#D4AF37; color:#0A0A0A; text-decoration:none; font-family:'Montserrat', sans-serif; font-weight:bold; font-size:12px; letter-spacing:2px; text-transform:uppercase; padding:15px 30px; border-radius:2px; transition: all 0.3s;">
+                                Contactar a Estudio Xidito
+                            </a>
+                        </div>
+                    </div>
+                `;
+                // Detener cualquier otra ejecución de scripts
+                throw new Error("Ejecución detenida: Dominio no autorizado.");
+            }
+
+            // Desactivar clic derecho
+            document.addEventListener('contextmenu', e => e.preventDefault());
+
+            // Desactivar atajos de teclado clásicos de inspección (F12, Ctrl+U, Ctrl+Shift+I, etc.)
+            document.onkeydown = function(e) {
+                // F12
+                if (e.keyCode == 123) return false;
+                // Ctrl+Shift+I (Inspect)
+                if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false;
+                // Ctrl+Shift+C (Inspect Element)
+                if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) return false;
+                // Ctrl+Shift+J (Console)
+                if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) return false;
+                // Ctrl+U (View Source)
+                if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false;
+                // Ctrl+S (Save Page)
+                if (e.ctrlKey && e.keyCode == 'S'.charCodeAt(0)) return false;
+            };
+        })();
     </script>
 </body>
 </html>
