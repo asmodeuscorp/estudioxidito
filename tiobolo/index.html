@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Tío Bolo | Helados Artesanales</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        boloBlue: '#4AD3F5',
+                        boloDarkBlue: '#0A3D62',
+                        boloYellow: '#FFEAA7',
+                        boloPink: '#FF9FF3',
+                        boloGreen: '#A8E6CF',
+                        boloCream: '#FFFDF9',
+                        ticketRed: '#FF4757',
+                        ticketGold: '#FFA502'
+                    },
+                    fontFamily: {
+                        'fredoka': ['"Fredoka"', 'sans-serif'],
+                        'nunito': ['Nunito', 'sans-serif'],
+                    },
+                    animation: {
+                        'fall': 'fall linear infinite',
+                        'bounce-slow': 'bounce 3s infinite',
+                        'pulse-fast': 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        fall: {
+                            '0%': { transform: 'translateY(-10vh) rotate(0deg)', opacity: 1 },
+                            '100%': { transform: 'translateY(110vh) rotate(360deg)', opacity: 0.2 },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #FFFDF9;
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="%234AD3F5"><path d="M12 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-5 3c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-5 6c-3.3 0-6 2.7-6 6s2.7 6 6 6 6-2.7 6-6-2.7-6-6-6z"/></svg>'), auto;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, .font-title {
+            font-family: 'Fredoka', sans-serif;
+            letter-spacing: 1px;
+            color: #0A3D62;
+        }
+
+        .text-outline-shadow {
+            color: #0A3D62;
+            text-shadow: 
+                -2px -2px 0 #FFF,  
+                 2px -2px 0 #FFF,
+                -2px  2px 0 #FFF,
+                 2px  2px 0 #FFF,
+                 6px  6px 0 #4AD3F5;
+        }
+
+        .cartoon-border {
+            border: 4px solid #0A3D62;
+            box-shadow: 8px 8px 0px #0A3D62;
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .cartoon-border:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 10px 10px 0px #0A3D62;
+        }
+        
+        .cartoon-btn {
+            border: 4px solid #0A3D62;
+            box-shadow: 4px 6px 0px #0A3D62;
+            transition: all 0.1s ease;
+            position: relative;
+            top: 0;
+        }
+        .cartoon-btn:active, .cartoon-btn.active {
+            top: 6px;
+            box-shadow: 0px 0px 0px #0A3D62 !important;
+            transform: translateY(0);
+        }
+        .cartoon-btn:hover:not(:active) {
+            top: -2px;
+            box-shadow: 6px 8px 0px #0A3D62;
+        }
+
+        .melt-divider {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+        }
+        .melt-divider svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 60px;
+        }
+
+        .sprinkle {
+            position: fixed;
+            z-index: -1;
+            border-radius: 10px;
+        }
+
+        .ice-cream-jar {
+            background: white;
+            border-radius: 20px 20px 30px 30px;
+            position: relative;
+        }
+        .jar-lid {
+            background: #ffffff;
+            height: 25px;
+            width: 105%;
+            margin-left: -2.5%;
+            border-radius: 10px 10px 5px 5px;
+            border: 3px solid #0A3D62;
+            border-bottom: 5px solid #0A3D62;
+            position: absolute;
+            top: -8px;
+            z-index: 10;
+            background-image: repeating-linear-gradient(90deg, transparent, transparent 5px, rgba(0,0,0,0.05) 5px, rgba(0,0,0,0.05) 10px);
+        }
+
+        #gameCanvas {
+            cursor: none;
+        }
+
+        .flavor-tab.active {
+            background: #4AD3F5;
+            color: white;
+        }
+
+        .base-badge {
+            background: #4AD3F5;
+            color: white;
+        }
+
+        .season-badge {
+            background: #FFEAA7;
+            color: #0A3D62;
+        }
+        
+        ::-webkit-scrollbar { width: 12px; }
+        ::-webkit-scrollbar-track { background: #FFFDF9; border-left: 2px solid #0A3D62; }
+        ::-webkit-scrollbar-thumb { background: #4AD3F5; border-radius: 6px; border: 2px solid #0A3D62; }
+        ::-webkit-scrollbar-thumb:hover { background: #FF9FF3; }
+    </style>
+</head>
+<body class="relative">
+
+    <div id="sprinkles-container"></div>
+
+    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-md shadow-sm transition-all duration-300 rounded-b-3xl border-b-4 border-boloDarkBlue">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between items-center h-20">
+                <a href="#" class="flex items-center gap-3 group">
+                    <img src="logo.png" alt="Logo Tío Bolo" class="w-14 h-14 object-contain animate-bounce drop-shadow-md" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2240%22 fill=%22%234AD3F5%22/><text x=%2250%22 y=%2265%22 font-size=%2240%22 text-anchor=%22middle%22>🍦</text></svg>'">
+                    <span class="font-title text-3xl text-boloDarkBlue tracking-wider">Tío Bolo</span>
+                </a>
+                <div class="hidden md:flex space-x-8 text-lg font-bold text-gray-600">
+                    <a href="#sabores" class="hover:text-boloBlue transition-colors hover:-translate-y-1 transform inline-block">Sabores</a>
+                    <a href="#armador" class="hover:text-boloBlue transition-colors hover:-translate-y-1 transform inline-block">Armador Mágico</a>
+                    <a href="#kids" class="hover:text-boloBlue transition-colors hover:-translate-y-1 transform inline-block">Zona Kids</a>
+                    <a href="#club" class="hover:text-boloPink transition-colors hover:-translate-y-1 transform inline-block">Cupón Gratis</a>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div id="status-badge" class="hidden sm:flex items-center gap-2 px-4 py-2 rounded-full font-bold text-sm cartoon-border transition-colors">
+                        <span class="w-3 h-3 rounded-full animate-pulse"></span>
+                        <span id="status-text">Calculando...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="relative pt-32 pb-16 overflow-hidden flex flex-col items-center min-h-screen justify-center text-center px-4">
+        <div class="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center">
+            <div class="inline-block bg-boloYellow text-orange-600 px-6 py-2 rounded-full font-title text-sm md:text-lg mb-6 transform -rotate-2 cartoon-border z-20 shadow-lg mt-10">
+                ⭐ Naturalmente Irresistible
+            </div>
+            
+            <h1 class="text-4xl md:text-6xl lg:text-7xl mb-8 text-boloDarkBlue leading-tight drop-shadow-lg font-title text-outline-shadow">
+                ¡El Sabor que te <span class="text-boloPink">Abraza!</span>
+            </h1>
+
+            <div class="w-full aspect-video cartoon-border rounded-[2rem] bg-boloDarkBlue overflow-hidden relative shadow-[15px_15px_0px_#0A3D62] group mb-10">
+                <div class="absolute top-4 right-6 w-4 h-4 rounded-full bg-red-500 animate-pulse z-20 border-2 border-white"></div>
+                <div class="absolute bottom-4 left-4 w-1/3 h-4 bg-white/20 z-20 rounded-full"></div>
+                <video id="hero-video" class="absolute inset-0 w-full h-full object-cover z-10" autoplay loop muted playsinline>
+                    <source src="video-oso.mp4" type="video/mp4">
+                    Tu navegador no soporta el video.
+                </video>
+                <div class="absolute inset-0 flex items-center justify-center bg-boloBlue z-0">
+                    <span class="text-white font-title text-2xl">Cargando la magia...</span>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-6 justify-center">
+                <a href="#sabores" class="bg-boloBlue text-white font-title text-2xl py-4 px-10 rounded-full cartoon-btn flex items-center justify-center gap-2">
+                    Ver Menú 🍦
+                </a>
+                <a href="#armador" class="bg-boloYellow text-orange-600 font-title text-2xl py-4 px-10 rounded-full cartoon-btn flex items-center justify-center gap-2">
+                    Crea tu Helado ✨
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="melt-divider bg-boloBlue mt-10">
+        <svg viewBox="0 0 1200 120" preserveAspectRatio="none" style="fill: #FFFDF9;">
+            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V0C73.81,29.35,156.4,49.52,214.34,56.44Z"></path>
+        </svg>
+    </div>
+
+    <section id="sabores" class="py-20 bg-boloBlue relative">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-12 relative">
+                <h2 class="text-5xl text-white mb-4 font-title" style="text-shadow: 4px 4px 0 #0A3D62;">Nuestros Sabores</h2>
+                <p class="text-xl text-white font-bold bg-boloDarkBlue/30 inline-block px-6 py-2 rounded-full cartoon-border">13 sabores base + sabores de temporada.</p>
+            </div>
+
+            <div class="flex flex-wrap justify-center gap-3 mb-6">
+                <span class="px-4 py-2 rounded-full bg-white text-boloDarkBlue font-title cartoon-border">📍 Tláhuac</span>
+                <span class="px-4 py-2 rounded-full bg-white text-boloDarkBlue font-title cartoon-border">📍 Taxqueña</span>
+                <span class="px-4 py-2 rounded-full bg-white text-boloDarkBlue font-title cartoon-border">📍 Del Valle</span>
+            </div>
+
+            <div class="flex flex-wrap justify-center gap-4 mb-8">
+                <button class="flavor-tab active cartoon-btn bg-boloBlue text-white font-title text-lg py-3 px-8 rounded-full" data-tab="base">Sabores Base</button>
+                <button class="flavor-tab cartoon-btn bg-boloYellow text-boloDarkBlue font-title text-lg py-3 px-8 rounded-full" data-tab="temporada">Temporada</button>
+            </div>
+
+            <div class="text-center mb-8">
+                <p id="flavor-subtitle" class="text-lg text-white font-bold bg-boloDarkBlue/30 inline-block px-6 py-2 rounded-full cartoon-border">Delicias Tradicionales</p>
+            </div>
+
+            <div id="flavor-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6"></div>
+        </div>
+    </section>
+
+    <div class="melt-divider bg-boloBlue transform rotate-180">
+        <svg viewBox="0 0 1200 120" preserveAspectRatio="none" style="fill: #FFFDF9;">
+            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V0C73.81,29.35,156.4,49.52,214.34,56.44Z"></path>
+        </svg>
+    </div>
+
+    <section id="armador" class="py-16">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-10 relative">
+                <h2 class="text-5xl text-boloDarkBlue mb-4 font-title">Armador Mágico</h2>
+                <p class="text-xl text-gray-700 font-bold">Laboratorio Oficial de Sabores del Tío Bolo.</p>
+            </div>
+            <div class="bg-white rounded-[2rem] cartoon-border flex flex-col lg:flex-row overflow-hidden">
+                <div class="lg:w-2/5 bg-[#ffeaa7] p-8 flex flex-col items-center justify-center relative min-h-[450px] border-b-4 lg:border-b-0 lg:border-r-4 border-boloDarkBlue bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+PGNpcmNsZSBjeD0iMTAiIGN5PSIxMCIgcj0iMiIgZmlsbD0iI2QyYjk3OCIgb3BhY2l0eT0iMC41Ii8+PC9zdmc+')]">
+                    <div class="absolute top-4 left-4 bg-white px-4 py-2 rounded-full font-title text-boloDarkBlue cartoon-border z-40">
+                        <i class="fas fa-magic text-boloPink"></i> Tu Helado
+                    </div>
+                    <div id="icecream-capture-area" class="relative w-full h-full flex items-center justify-center py-10">
+                        <div id="preview-icecream" class="relative w-64 h-80 transition-transform duration-300">
+                            <div id="preview-topping" class="absolute -top-4 left-0 w-full z-30 text-center text-[70px] leading-none filter drop-shadow-xl transform -rotate-6"></div>
+                            <div class="absolute top-12 left-1/2 transform -translate-x-1/2 z-20 w-48 h-48 drop-shadow-2xl">
+                                <svg viewBox="0 0 100 100" class="w-full h-full">
+                                    <path d="M50 5 C20 5 10 30 10 50 C10 65 15 75 25 75 C28 85 35 88 40 80 C45 85 55 85 60 80 C65 90 75 85 75 75 C85 75 90 65 90 50 C90 30 80 5 50 5 Z" id="preview-flavor-path" fill="#A8E6CF" stroke="#0A3D62" stroke-width="3" stroke-linejoin="round"/>
+                                    <path d="M30 15 Q40 10 50 15 Q40 20 30 15 Z" fill="#FFFFFF" opacity="0.8"/>
+                                </svg>
+                            </div>
+                            <div id="preview-base" class="absolute bottom-0 left-1/2 transform -translate-x-1/2 z-10 transition-all duration-300 w-32 h-40"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:w-3/5 p-8 bg-[#F0F8FF]">
+                    <div class="mb-8 bg-white p-6 rounded-2xl cartoon-border">
+                        <h4 class="font-title text-boloDarkBlue text-xl mb-4"><i class="fas fa-caret-right text-boloPink"></i> 1. El Envase</h4>
+                        <div class="flex gap-4">
+                            <button onclick="setBase('Cono')" class="flex-1 py-3 cartoon-btn bg-boloBlue text-white font-title text-lg rounded-xl active" id="btn-cono">
+                                <i class="fas fa-ice-cream"></i> Cono Clásico
+                            </button>
+                            <button onclick="setBase('Tarro')" class="flex-1 py-3 cartoon-btn bg-white text-boloDarkBlue font-title text-lg rounded-xl" id="btn-tarro">
+                                <i class="fas fa-jar"></i> Tarrito
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="mb-8 bg-white p-6 rounded-2xl cartoon-border">
+                        <h4 class="font-title text-boloDarkBlue text-xl mb-4"><i class="fas fa-caret-right text-boloPink"></i> 2. Sabor Principal</h4>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                            <button onclick="setFlavor('Aguacate', '#A8E6CF')" class="flavor-btn cartoon-btn active bg-[#A8E6CF] p-2 rounded-xl flex flex-col items-center" id="fl-Aguacate"><span class="font-title text-boloDarkBlue text-sm mt-1">Aguacate</span></button>
+                            <button onclick="setFlavor('Queso', '#FFF7A1')" class="flavor-btn cartoon-btn bg-[#FFF7A1] p-2 rounded-xl flex flex-col items-center" id="fl-Queso"><span class="font-title text-boloDarkBlue text-sm mt-1">Queso</span></button>
+                            <button onclick="setFlavor('Taro', '#DDA0DD')" class="flavor-btn cartoon-btn bg-[#DDA0DD] p-2 rounded-xl flex flex-col items-center" id="fl-Taro"><span class="font-title text-boloDarkBlue text-sm mt-1">Taro</span></button>
+                            <button onclick="setFlavor('Maracuyá', '#FFB07C')" class="flavor-btn cartoon-btn bg-[#FFB07C] p-2 rounded-xl flex flex-col items-center" id="fl-Maracuyá"><span class="font-title text-boloDarkBlue text-sm mt-1">Maracuyá</span></button>
+                            <button onclick="setFlavor('Nutella', '#C58B5B')" class="flavor-btn cartoon-btn bg-[#C58B5B] p-2 rounded-xl flex flex-col items-center" id="fl-Nutella"><span class="font-title text-boloDarkBlue text-sm mt-1">Nutella</span></button>
+                            <button onclick="setFlavor('Danonino', '#FF86B7')" class="flavor-btn cartoon-btn bg-[#FF86B7] p-2 rounded-xl flex flex-col items-center" id="fl-Danonino"><span class="font-title text-boloDarkBlue text-sm mt-1">Danonino</span></button>
+                            <button onclick="setFlavor('Limón', '#B8F28F')" class="flavor-btn cartoon-btn bg-[#B8F28F] p-2 rounded-xl flex flex-col items-center" id="fl-Limón"><span class="font-title text-boloDarkBlue text-sm mt-1">Limón</span></button>
+                            <button onclick="setFlavor('Chocolate Abuelita', '#B9805D')" class="flavor-btn cartoon-btn bg-[#B9805D] p-2 rounded-xl flex flex-col items-center" id="fl-Chocolate Abuelita"><span class="font-title text-boloDarkBlue text-sm mt-1">Chocolate Abuelita</span></button>
+                        </div>
+                    </div>
+
+                    <div class="mb-8 bg-white p-6 rounded-2xl cartoon-border overflow-hidden">
+                        <h4 class="font-title text-boloDarkBlue text-xl mb-4"><i class="fas fa-caret-right text-boloPink"></i> 3. Topping Mágico</h4>
+                        <div class="flex gap-4 overflow-x-auto pb-4 pt-2 px-2 -mx-2">
+                            <button onclick="setTopping('Sin Topping', '')" class="cartoon-btn px-6 py-2 bg-gray-200 rounded-full font-title text-gray-700 flex-shrink-0">Ninguno</button>
+                            <button onclick="setTopping('Chispas', '✨')" class="cartoon-btn px-6 py-2 bg-boloPink text-white rounded-full font-title flex-shrink-0">Chispas ✨</button>
+                            <button onclick="setTopping('Fresa', '🍓')" class="cartoon-btn px-6 py-2 bg-ticketRed text-white rounded-full font-title flex-shrink-0">Fresa 🍓</button>
+                            <button onclick="setTopping('Chocolate', '🍫')" class="cartoon-btn px-6 py-2 bg-[#8B4513] text-white rounded-full font-title flex-shrink-0">Chocolate 🍫</button>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                        <button class="flex-1 py-4 cartoon-btn bg-ticketGold text-boloDarkBlue font-title text-2xl rounded-xl" onclick="pedirHeladoArmado()">
+                            <i class="fab fa-whatsapp"></i> ¡Lo Quiero!
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="kids" class="py-20 bg-boloBlue relative overflow-hidden cartoon-border border-x-0 border-t-8 border-b-8">
+        <div class="max-w-5xl mx-auto px-4 text-center relative z-10">
+            <div class="inline-block bg-boloYellow text-boloDarkBlue px-8 py-2 rounded-full font-title text-2xl mb-6 cartoon-border shadow-md transform -rotate-2">
+                🎮 Bolo Arcade
+            </div>
+            <h2 class="text-5xl text-white mb-2 font-title" style="text-shadow: 4px 4px 0 #0A3D62;">Atrapa la Bola</h2>
+            <p class="text-xl text-white font-bold mb-8 drop-shadow-md">Tienes 60 segundos. ¡Que no se caiga ningún helado!</p>
+            <div class="relative bg-white rounded-3xl cartoon-border mx-auto p-2" style="max-width: 800px; box-shadow: 12px 12px 0 #0A3D62;">
+                <div class="absolute top-4 left-4 z-10 flex gap-4 items-center w-full pr-8">
+                    <div class="bg-boloDarkBlue text-white px-6 py-2 rounded-xl font-title text-xl border-4 border-boloYellow shadow-lg">
+                        PUNTOS: <span id="game-score" class="text-boloPink text-2xl ml-2">0</span>
+                    </div>
+                    <div class="bg-ticketRed text-white px-6 py-2 rounded-xl font-title text-xl border-4 border-white shadow-lg ml-auto">
+                        ⏳ <span id="game-timer">60</span>s
+                    </div>
+                </div>
+                <canvas id="gameCanvas" width="800" height="500" class="w-full h-auto rounded-2xl bg-[#E0F6FF]"></canvas>
+                <div id="game-overlay" class="absolute inset-0 bg-[#E0F6FF]/95 backdrop-blur-sm rounded-2xl flex flex-col items-center justify-center z-20 cartoon-border border-0 m-2">
+                    <img src="logo.png" alt="Tío Bolo" class="w-40 h-40 object-contain mb-4 animate-bounce drop-shadow-2xl" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2240%22 fill=%22%234AD3F5%22/><text x=%2250%22 y=%2265%22 font-size=%2240%22 text-anchor=%22middle%22>🍦</text></svg>'">
+                    <h3 class="font-title text-5xl mb-6 text-boloDarkBlue" style="text-shadow: 3px 3px 0 #FFF;">¿Listo para jugar?</h3>
+                    <div class="flex gap-4 mb-6">
+                        <button onclick="startGame('facil')" class="cartoon-btn bg-[#A8E6CF] text-boloDarkBlue font-title text-xl py-3 px-8 rounded-xl">Fácil</button>
+                        <button onclick="startGame('normal')" class="cartoon-btn bg-[#FF9FF3] text-boloDarkBlue font-title text-xl py-3 px-8 rounded-xl">Normal</button>
+                        <button onclick="startGame('dificil')" class="cartoon-btn bg-[#FF6B6B] text-white font-title text-xl py-3 px-8 rounded-xl">Difícil</button>
+                    </div>
+                </div>
+                <div id="game-over" class="hidden absolute inset-0 bg-boloDarkBlue/95 backdrop-blur-md rounded-2xl flex flex-col items-center justify-center z-20 p-6 text-center m-2 cartoon-border border-boloPink border-4">
+                    <h3 id="go-title" class="font-title text-6xl mb-2 text-boloYellow" style="text-shadow: 4px 4px 0 #D63031;">¡Plaf! 🍦</h3>
+                    <p class="text-2xl mb-8 font-title text-white">Atrapaste <span id="final-score" class="text-5xl text-boloPink">0</span> Bolas</p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button onclick="showGameMenu()" class="cartoon-btn bg-white text-boloDarkBlue font-title text-xl py-3 px-8 rounded-xl"><i class="fas fa-redo"></i> Reintentar</button>
+                        <button onclick="descargarScoreNativo()" class="cartoon-btn bg-boloYellow text-orange-600 font-title text-xl py-3 px-8 rounded-xl"><i class="fas fa-camera"></i> Guardar Récord</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="mascota" class="py-20 relative overflow-hidden bg-white">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="bg-boloCream rounded-[3rem] p-8 md:p-16 flex flex-col md:flex-row items-center justify-center gap-12 relative cartoon-border border-dashed">
+                <div class="absolute top-10 left-10 text-6xl opacity-20 transform -rotate-12">🐾</div>
+                <div class="absolute bottom-10 right-10 text-6xl opacity-20 transform rotate-12">🦴</div>
+                <div class="md:w-1/2 text-center md:text-left z-10">
+                    <div class="inline-block bg-boloBlue text-white px-6 py-2 rounded-full font-title text-lg mb-6 cartoon-border transform -rotate-3">Espacio Pet Friendly 🐕</div>
+                    <h2 class="text-5xl lg:text-6xl mb-6 text-boloDarkBlue font-title leading-tight" style="text-shadow: 2px 2px 0 #FFF, 4px 4px 0 #A8E6CF;">El Guardián <br>del Sabor</h2>
+                    <p class="text-xl text-gray-700 mb-6 font-bold bg-white p-6 rounded-2xl cartoon-border">Detrás de cada gran helado, hay un perrito experto supervisando la calidad. Conoce a nuestra mascota oficial. ¡Trae a tu mejor amigo, aquí los consentimos!</p>
+                </div>
+                <div class="md:w-1/2 z-10 flex justify-center">
+                    <div class="relative w-64 aspect-[9/16] cartoon-border rounded-3xl bg-white p-3 transform rotate-3 hover:rotate-0 transition-transform duration-300">
+                        <div class="w-full h-full rounded-2xl overflow-hidden bg-gray-200 relative border-4 border-boloDarkBlue">
+                            <img src="mascota.jpg" alt="Renata" class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                            <div class="absolute inset-0 flex flex-col items-center justify-center bg-boloYellow hidden p-4 text-center">
+                                <span class="text-6xl mb-2">🐕</span>
+                                <span class="text-sm font-bold text-boloDarkBlue font-title">Falta 'mascota.jpg' (9:16) en la raíz.</span>
+                            </div>
+                        </div>
+                        <div class="absolute -bottom-6 left-1/2 transform -translate-x-1/2 bg-boloPink text-white font-title text-2xl px-6 py-2 rounded-full cartoon-border z-20 whitespace-nowrap">Renata 🦴</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="club" class="py-20 bg-boloPink text-white relative border-t-8 border-boloDarkBlue overflow-hidden">
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
+            <h2 class="text-5xl lg:text-7xl mb-4 text-white font-title" style="text-shadow: 5px 5px 0 #0A3D62;">Pase Oro de Cumpleaños 🎟️</h2>
+            <p class="text-2xl text-boloDarkBlue font-bold mb-10 bg-white/50 inline-block px-6 py-2 rounded-xl cartoon-border">Genera tu pase y obtén una sorpresa el día de tu cumple.</p>
+            <div class="bg-white p-8 rounded-[2rem] cartoon-border max-w-2xl mx-auto">
+                <div class="flex flex-col sm:flex-row gap-4 mb-6">
+                    <input type="text" id="cumple-nombre" placeholder="Nombre del Cumpleañero" class="flex-1 px-6 py-4 rounded-xl text-boloDarkBlue font-bold border-4 border-gray-200 focus:border-boloBlue outline-none text-xl text-center uppercase">
+                    <input type="date" id="cumple-fecha" class="flex-1 px-6 py-4 rounded-xl text-boloDarkBlue font-bold border-4 border-gray-200 focus:border-boloBlue outline-none text-xl text-center cursor-pointer">
+                </div>
+                <button onclick="generarTicket()" class="w-full bg-ticketGold hover:bg-yellow-400 text-boloDarkBlue font-title text-3xl py-5 px-8 rounded-xl cartoon-btn transition-all mb-8 uppercase tracking-wide">Generar Pase Mágico ✨</button>
+                <div id="cupon-container" class="hidden flex flex-col items-center bg-gray-50 p-6 rounded-2xl border-4 border-dashed border-gray-300">
+                    <p class="text-lg text-ticketRed mb-4 font-bold"><i class="fas fa-exclamation-circle"></i> Recuerda: Válido ÚNICAMENTE el día exacto de tu cumpleaños.</p>
+                    <canvas id="ticketCanvas" width="800" height="300" class="w-full h-auto max-w-[700px] drop-shadow-2xl mb-6"></canvas>
+                    <button onclick="descargarTicket()" class="bg-boloBlue text-white font-title text-xl py-4 px-10 rounded-full cartoon-btn flex items-center gap-3"><i class="fas fa-download text-2xl"></i> Guardar Imagen</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-white pt-16 pb-8 border-t-8 border-boloDarkBlue">
+        <div class="max-w-6xl mx-auto px-4 text-center flex flex-col items-center">
+            <img src="logo.png" alt="Tío Bolo Logo" class="w-40 h-auto mb-6 animate-bounce cursor-pointer drop-shadow-lg" onclick="window.scrollTo(0,0)" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2240%22 fill=%22%234AD3F5%22/><text x=%2250%22 y=%2265%22 font-size=%2240%22 text-anchor=%22middle%22>🍦</text></svg>'">
+            <h3 class="font-title text-4xl text-boloDarkBlue mb-2">El Tío Bolo</h3>
+            <p class="text-gray-600 font-bold mb-8 text-lg">Naturalmente irresistible.</p>
+            <div class="flex justify-center gap-6 mb-10">
+                <a href="https://www.facebook.com/eltiobolo" target="_blank" rel="noopener noreferrer" class="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center text-3xl cartoon-btn"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/tio.bolo" target="_blank" rel="noopener noreferrer" class="w-16 h-16 bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-500 text-white rounded-full flex items-center justify-center text-3xl cartoon-btn"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p class="text-sm text-gray-400 font-bold">© 2026 El Tío Bolo. Hecho con ❤️ y mucho helado.</p>
+<p class="text-lg font-title text-boloPink mt-4">Desarrollado con mucha frescura por <a href="https://estudio.xidito.com/" target="_blank" class="text-boloBlue hover:text-cyan-300 underline transition-colors">https://estudio.xidito.com/</a></p>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/521234567890?text=Hola%20Tío%20Bolo!%20Tengo%20un%20antojo%20gigante...🍦" target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 z-50 bg-green-500 text-white w-20 h-20 rounded-full flex items-center justify-center text-4xl cartoon-btn group"><i class="fab fa-whatsapp"></i></a>
+
+    <script>
+        const flavorData = {
+            base: [
+                { name: 'Queso', desc: 'Un toque salado.', color: '#FFF7A1', emoji: '🧀' },
+                { name: 'Limón', desc: 'Cítrico ideal.', color: '#B8F28F', emoji: '🍋' },
+                { name: 'Aguacate', desc: 'Cremoso y natural.', color: '#A8E6CF', emoji: '🥑' },
+                { name: 'Samborns', desc: 'Un clásico especial.', color: '#D7C6A0', emoji: '🍨' },
+                { name: 'Crema de Mango', desc: 'Dulce y tropical.', color: '#FFD08A', emoji: '🥭' },
+                { name: 'Crema de Guayaba', desc: 'Suave y frutal.', color: '#FFB6D9', emoji: '🌸' },
+                { name: 'Mousse de Limón', desc: 'Fresco y ligero.', color: '#D9FF8C', emoji: '🍋' },
+                { name: 'Mousse de Maracuyá', desc: 'Pasión frutal.', color: '#FFCC80', emoji: '✨' },
+                { name: 'Galaxya', desc: 'Color espectacular.', color: '#A0C4FF', emoji: '🌌' },
+                { name: 'Taro', desc: 'Vibrante y cremoso.', color: '#DDA0DD', emoji: '💜' },
+                { name: 'Nutella', desc: 'Chocolate irresistible.', color: '#C58B5B', emoji: '🍫' },
+                { name: 'Chocolate Abuelita', desc: 'Sabor caserito.', color: '#B9805D', emoji: '☕' },
+                { name: 'Chocolate Amargo', desc: 'Intenso y elegante.', color: '#6B4F4F', emoji: '🍫' }
+            ],
+            temporada: [
+                { name: 'Coco', desc: 'Toque playero.', color: '#FFFDF7', emoji: '🥥' },
+                { name: 'Bubalo Plátano', desc: 'Dulce y divertido.', color: '#FFE680', emoji: '🍌' },
+                { name: 'Pelón Pelorico', desc: 'Picocito y loco.', color: '#FFB36B', emoji: '🍭' },
+                { name: 'Ice Mora Azul', desc: 'Refrescante.', color: '#9DC7FF', emoji: '🫐' },
+                { name: 'Ice Cereza', desc: 'Muy juguetón.', color: '#FF96A6', emoji: '🍒' },
+                { name: 'Maracuyá', desc: 'Tropical favorito.', color: '#FFB07C', emoji: '🟠' },
+                { name: 'Chocolate Nesquik', desc: 'Sabor divertido.', color: '#D8A47F', emoji: '🥛' },
+                { name: 'Mamey', desc: 'Cremoso y suave.', color: '#FF9E8A', emoji: '🍑' },
+                { name: 'Pistache', desc: 'Suave y elegante.', color: '#CDEB9D', emoji: '💚' },
+                { name: 'Nuez', desc: 'Clásico casero.', color: '#C89B6D', emoji: '🌰' },
+                { name: 'Frutos Rojos', desc: 'Refrescante.', color: '#FF8FA3', emoji: '🍓' },
+                { name: 'Beso de Ángel', desc: 'Dulce antojito.', color: '#FAD0FF', emoji: '😇' },
+                { name: 'Cascanuez', desc: 'Nuez y arándano.', color: '#CFA77B', emoji: '🥜' },
+                { name: 'Queso Filadelfia', desc: 'Cremoso total.', color: '#FFF1CC', emoji: '🧁' },
+                { name: 'Magnum', desc: 'Muy chocolatudo.', color: '#B57C57', emoji: '🍫' },
+                { name: 'Guanábana', desc: 'Fruta tropical.', color: '#D8F3C8', emoji: '🍃' },
+                { name: 'Chongos Zamoranos', desc: 'Tradición mexicana.', color: '#F6D58E', emoji: '🍮' },
+                { name: 'Piñón', desc: 'Suave y especial.', color: '#F4C97A', emoji: '🌰' },
+                { name: 'Fresas con Crema', desc: 'Clásico consentido.', color: '#FFC4D6', emoji: '🍓' },
+                { name: 'Queso con Zarzamora', desc: 'Dulce y cremoso.', color: '#D7B4FF', emoji: '🫐' },
+                { name: 'Baileys', desc: 'Sabor adulto.', color: '#D6B18B', emoji: '🥃' },
+                { name: 'Capuchino con Arándanos', desc: 'Original y rico.', color: '#C7B0E8', emoji: '🫐' },
+                { name: 'Magnum', desc: 'Edición especial.', color: '#B57C57', emoji: '🍫' },
+                { name: 'Chocochips', desc: 'Con trocitos.', color: '#D3B08C', emoji: '🍪' },
+                { name: 'Chocomenta', desc: 'Fresco y dulce.', color: '#AEE5D8', emoji: '🌿' },
+                { name: 'Danonino', desc: 'Favorito de niños.', color: '#FF86B7', emoji: '🦕' },
+                { name: 'Selva Negra', desc: 'Chocolate y cereza.', color: '#7A4A4A', emoji: '🍒' }
+            ]
+        };
+
+        function renderFlavors(tab = 'base') {
+            const grid = document.getElementById('flavor-grid');
+            const subtitle = document.getElementById('flavor-subtitle');
+            const flavors = flavorData[tab];
+            subtitle.textContent = tab === 'base' ? 'Delicias Tradicionales' : 'Estos sabores van rotando por temporada.';
+            grid.innerHTML = flavors.map(flavor => `
+                <div class="ice-cream-jar p-4 pt-8 text-center cartoon-border" style="background:${flavor.color}">
+                    <div class="jar-lid"></div>
+                    <div class="w-20 h-20 mx-auto mb-3 cartoon-border rounded-full bg-white drop-shadow-md flex items-center justify-center text-4xl">${flavor.emoji}</div>
+                    <h3 class="text-xl mb-1 text-boloDarkBlue font-title">${flavor.name}</h3>
+                    <p class="text-gray-700 font-bold text-sm">${flavor.desc}</p>
+                    <div class="mt-3">
+                        <span class="${tab === 'base' ? 'base-badge' : 'season-badge'} inline-block px-3 py-1 rounded-full text-xs font-bold cartoon-border">${tab === 'base' ? 'Base' : 'Temporada'}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        document.querySelectorAll('.flavor-tab').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.flavor-tab').forEach(b => {
+                    b.classList.remove('active');
+                    if (b.dataset.tab === 'base') {
+                        b.classList.add('bg-boloBlue', 'text-white');
+                        if (btn.dataset.tab !== 'base') b.classList.remove('active');
+                    } else {
+                        b.classList.add('bg-boloYellow', 'text-boloDarkBlue');
+                    }
+                });
+                btn.classList.add('active');
+                renderFlavors(btn.dataset.tab);
+            });
+        });
+
+        renderFlavors('base');
+
+        function createSprinkles() {
+            const container = document.getElementById('sprinkles-container');
+            const colors = ['#FF9FF3', '#4AD3F5', '#FFEAA7', '#A8E6CF', '#FF6B6B'];
+            for (let i = 0; i < 25; i++) {
+                const sprinkle = document.createElement('div');
+                sprinkle.classList.add('sprinkle', 'animate-fall');
+                let size = Math.random() * 8 + 6;
+                sprinkle.style.width = `${size}px`;
+                sprinkle.style.height = `${size * 2.5}px`;
+                sprinkle.style.left = `${Math.random() * 100}vw`;
+                sprinkle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                sprinkle.style.animationDelay = `${Math.random() * 15}s`;
+                sprinkle.style.animationDuration = `${Math.random() * 8 + 8}s`;
+                sprinkle.style.border = '2px solid #000';
+                container.appendChild(sprinkle);
+            }
+        }
+
+        function checkOpenStatus() {
+            const statusBadge = document.getElementById('status-badge');
+            const statusText = document.getElementById('status-text');
+            const dot = statusBadge.querySelector('span');
+            const hour = new Date().getHours();
+            if (hour >= 11 && hour < 20) {
+                statusBadge.className = 'hidden sm:flex items-center gap-2 px-4 py-2 rounded-full font-bold text-sm cartoon-border transition-colors bg-boloGreen text-boloDarkBlue';
+                dot.className = 'w-3 h-3 rounded-full animate-pulse bg-white border-2 border-boloDarkBlue';
+                statusText.innerText = '¡ESTAMOS ABIERTOS!';
+            } else {
+                statusBadge.className = 'hidden sm:flex items-center gap-2 px-4 py-2 rounded-full font-bold text-sm cartoon-border transition-colors bg-ticketRed text-white';
+                dot.className = 'w-3 h-3 rounded-full animate-pulse bg-white border-2 border-boloDarkBlue';
+                statusText.innerText = 'CERRADO POR AHORA';
+            }
+        }
+
+        let armadorState = { base: 'Cono', flavorName: 'Aguacate', flavorColor: '#A8E6CF', toppingName: 'Sin Topping', toppingEmoji: '' };
+        const pathCono = `<path d="M10 0 L90 0 L55 110 Q50 120 45 110 L10 0 Z" fill="#F3CA76" stroke="#0A3D62" stroke-width="4" stroke-linejoin="round"/><path d="M20 0 L55 90 M30 0 L60 70 M40 0 L65 50 M50 0 L70 30 M60 0 L75 10 M80 0 L45 90 M70 0 L40 70 M60 0 L35 50 M50 0 L30 30 M40 0 L25 10" stroke="#D39E46" stroke-width="2"/>`;
+        const pathTarro = `<path d="M15 20 L85 20 C90 20 95 25 95 30 L95 100 C95 110 85 115 75 115 L25 115 C15 115 5 110 5 100 L5 30 C5 25 10 20 15 20 Z" fill="#E0F6FF" stroke="#0A3D62" stroke-width="4"/><rect x="0" y="5" width="100" height="15" rx="5" fill="#FFF" stroke="#0A3D62" stroke-width="4"/><rect x="25" y="45" width="50" height="35" rx="5" fill="#4AD3F5" stroke="#0A3D62" stroke-width="3"/><text x="50" y="67" font-size="12" fill="white" text-anchor="middle" style="stroke:#0A3D62;stroke-width:2px;paint-order:stroke;">BOLO</text><path d="M 15 30 L 15 90 C 15 95 20 95 20 95 L 20 30 Z" fill="#FFFFFF" opacity="0.6"/>`;
+
+        function updateArmadorUI() {
+            const baseDiv = document.getElementById('preview-base');
+            const btnCono = document.getElementById('btn-cono');
+            const btnTarro = document.getElementById('btn-tarro');
+            if (armadorState.base === 'Cono') {
+                btnCono.classList.add('bg-boloBlue', 'text-white', 'active');
+                btnCono.classList.remove('bg-white', 'text-boloDarkBlue');
+                btnTarro.classList.remove('bg-boloBlue', 'text-white', 'active');
+                btnTarro.classList.add('bg-white', 'text-boloDarkBlue');
+                baseDiv.innerHTML = `<svg width="100" height="120" viewBox="0 0 100 120">${pathCono}</svg>`;
+            } else {
+                btnTarro.classList.add('bg-boloBlue', 'text-white', 'active');
+                btnTarro.classList.remove('bg-white', 'text-boloDarkBlue');
+                btnCono.classList.remove('bg-boloBlue', 'text-white', 'active');
+                btnCono.classList.add('bg-white', 'text-boloDarkBlue');
+                baseDiv.innerHTML = `<svg width="100" height="120" viewBox="0 0 100 120">${pathTarro}</svg>`;
+            }
+            document.getElementById('preview-flavor-path').setAttribute('fill', armadorState.flavorColor);
+            document.querySelectorAll('.flavor-btn').forEach(b => b.classList.remove('active'));
+            const aBtn = document.getElementById(`fl-${armadorState.flavorName}`);
+            if (aBtn) aBtn.classList.add('active');
+            document.getElementById('preview-topping').innerText = armadorState.toppingEmoji;
+            const ic = document.getElementById('preview-icecream');
+            ic.style.transform = 'scale(1.1) translateY(-10px)';
+            setTimeout(() => ic.style.transform = 'scale(1) translateY(0)', 250);
+        }
+
+        function setBase(t) { armadorState.base = t; updateArmadorUI(); }
+        function setFlavor(n, c) { armadorState.flavorName = n; armadorState.flavorColor = c; updateArmadorUI(); }
+        function setTopping(n, e) { armadorState.toppingName = n; armadorState.toppingEmoji = e; updateArmadorUI(); }
+        function pedirHeladoArmado() {
+            let top = armadorState.toppingName !== 'Sin Topping' ? ` con ${armadorState.toppingName}` : '';
+            const msg = `Hola Tío Bolo! Acabo de diseñar mi helado en la web: Un ${armadorState.base} sabor ${armadorState.flavorName}${top}. ¿Podrían prepararlo?`;
+            window.open(`https://wa.me/521234567890?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        function generarTicket() {
+            const nombre = document.getElementById('cumple-nombre').value.trim().toUpperCase();
+            const fechaRaw = document.getElementById('cumple-fecha').value;
+            if (!nombre || !fechaRaw) {
+                alert('Tío Bolo necesita tu nombre y fecha de cumpleaños para la magia!');
+                return;
+            }
+            const [year, month, day] = fechaRaw.split('-');
+            const fFormat = `${day}/${month}/${year}`;
+            const serial = `BOLO-${Math.random().toString(36).substring(2,8).toUpperCase()}`;
+            document.getElementById('cupon-container').classList.remove('hidden');
+            const canvas = document.getElementById('ticketCanvas');
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const grad = ctx.createLinearGradient(0,0,800,300);
+            grad.addColorStop(0, '#FFEAA7');
+            grad.addColorStop(1, '#FFDF73');
+            ctx.fillStyle = grad;
+            ctx.beginPath();
+            ctx.roundRect(20, 20, 760, 260, 20);
+            ctx.fill();
+            ctx.strokeStyle = '#0A3D62';
+            ctx.lineWidth = 6;
+            ctx.stroke();
+            ctx.fillStyle = '#FF4757';
+            ctx.font = 'bold 45px Fredoka';
+            ctx.textAlign = 'center';
+            ctx.fillText('¡FELIZ CUMPLEAÑOS!', 500, 110);
+            ctx.fillStyle = '#0A3D62';
+            ctx.font = 'bold 36px Nunito';
+            ctx.fillText(nombre, 500, 160);
+            ctx.font = 'bold 20px Nunito';
+            ctx.fillText(fFormat, 320, 245);
+            ctx.fillText(serial, 650, 245);
+            ctx.font = '80px sans-serif';
+            ctx.fillText('🎟️', 120, 165);
+        }
+
+        function descargarTicket() {
+            const link = document.createElement('a');
+            link.download = 'PaseCumpleañosTioBolo.png';
+            link.href = document.getElementById('ticketCanvas').toDataURL();
+            link.click();
+        }
+
+        const gCanvas = document.getElementById('gameCanvas');
+        const gCtx = gCanvas.getContext('2d');
+        const gOverlay = document.getElementById('game-overlay');
+        const gOverScreen = document.getElementById('game-over');
+        let gLoopId, gPlaying = false, gScore = 0, gDiff = 1;
+        let gTime = 60, gTimerId;
+        let playerImg = new Image();
+        let imgLoaded = false;
+        playerImg.onload = () => imgLoaded = true;
+        playerImg.src = 'logo.png';
+        let gPlayer = { x: 400, y: 380, w: 100, h: 100 };
+        let gScoops = [], floatTexts = [];
+        const scColors = ['#A8E6CF', '#FF9FF3', '#FFB07C', '#FFFACD', '#FF6B6B'];
+        const encouragements = ['¡BOLO!', '¡RICO!', '¡ÉPICO!', '¡COMBO!', '¡WOW!'];
+        let bgOffset = 0;
+
+        function drawCartoonBg() {
+            gCtx.fillStyle = '#E0F6FF';
+            gCtx.fillRect(0, 0, gCanvas.width, gCanvas.height);
+            bgOffset -= 1;
+            if (bgOffset <= -800) bgOffset = 0;
+            for (let i = 0; i < 2; i++) {
+                let xOff = bgOffset + i * 800;
+                gCtx.fillStyle = '#FFF';
+                gCtx.beginPath(); gCtx.arc(xOff+100, 100, 40, 0, Math.PI*2); gCtx.arc(xOff+150, 100, 50, 0, Math.PI*2); gCtx.arc(xOff+200, 100, 40, 0, Math.PI*2); gCtx.fill();
+                gCtx.fillStyle = '#B3E5FC'; gCtx.strokeStyle = '#0A3D62'; gCtx.lineWidth = 4;
+                gCtx.beginPath(); gCtx.moveTo(xOff, 500); gCtx.lineTo(xOff+200, 200); gCtx.lineTo(xOff+400, 500); gCtx.fill(); gCtx.stroke();
+            }
+        }
+
+        function startGame(dificultad) {
+            gOverlay.classList.add('hidden');
+            gOverScreen.classList.add('hidden');
+            gScore = 0; gTime = 60; gScoops = []; floatTexts = [];
+            document.getElementById('game-score').innerText = gScore;
+            document.getElementById('game-timer').innerText = gTime;
+            if (dificultad === 'facil') { gDiff = 0.8; gPlayer.w = 120; gPlayer.h = 120; }
+            else if (dificultad === 'normal') { gDiff = 1.2; gPlayer.w = 100; gPlayer.h = 100; }
+            else { gDiff = 1.8; gPlayer.w = 80; gPlayer.h = 80; }
+            gPlaying = true;
+            gTimerId = setInterval(() => {
+                gTime--;
+                document.getElementById('game-timer').innerText = gTime;
+                if (gTime <= 0) stopGame(true);
+            }, 1000);
+            gameLoop();
+        }
+
+        function showGameMenu() {
+            gOverScreen.classList.add('hidden');
+            gOverlay.classList.remove('hidden');
+        }
+
+        function stopGame(timeUp = false) {
+            gPlaying = false;
+            cancelAnimationFrame(gLoopId);
+            clearInterval(gTimerId);
+            document.getElementById('final-score').innerText = gScore;
+            document.getElementById('go-title').innerText = timeUp ? '¡TIEMPO!' : '¡PLAF!';
+            gOverScreen.classList.remove('hidden');
+        }
+
+        function movePlayer(clientX) {
+            if (!gPlaying) return;
+            const r = gCanvas.getBoundingClientRect();
+            const sX = gCanvas.width / r.width;
+            gPlayer.x = (clientX - r.left) * sX;
+            if (gPlayer.x < gPlayer.w/2) gPlayer.x = gPlayer.w/2;
+            if (gPlayer.x > gCanvas.width - gPlayer.w/2) gPlayer.x = gCanvas.width - gPlayer.w/2;
+        }
+
+        gCanvas.addEventListener('mousemove', e => movePlayer(e.clientX));
+        gCanvas.addEventListener('touchmove', e => { e.preventDefault(); movePlayer(e.touches[0].clientX); }, { passive: false });
+
+        function gameLoop() {
+            if (!gPlaying) return;
+            drawCartoonBg();
+            if (Math.random() < 0.02 * gDiff + gScore * 0.0005) {
+                gScoops.push({ x: Math.random() * (gCanvas.width - 60) + 30, y: -30, r: 25, color: scColors[Math.floor(Math.random() * scColors.length)], speed: 3.5 * gDiff + gScore * 0.05 });
+            }
+            if (imgLoaded && playerImg.naturalHeight !== 0) gCtx.drawImage(playerImg, gPlayer.x - gPlayer.w/2, gPlayer.y, gPlayer.w, gPlayer.h);
+            else { gCtx.font = `${gPlayer.w * 0.8}px sans-serif`; gCtx.textAlign = 'center'; gCtx.textBaseline = 'middle'; gCtx.fillText('🍦', gPlayer.x, gPlayer.y + gPlayer.h/2); }
+            for (let i = 0; i < gScoops.length; i++) {
+                let s = gScoops[i];
+                s.y += s.speed;
+                gCtx.beginPath(); gCtx.arc(s.x, s.y, s.r, 0, Math.PI*2); gCtx.fillStyle = s.color; gCtx.fill(); gCtx.lineWidth = 4; gCtx.strokeStyle = '#0A3D62'; gCtx.stroke();
+                gCtx.beginPath(); gCtx.arc(s.x - 6, s.y - 6, s.r/3, 0, Math.PI*2); gCtx.fillStyle = 'rgba(255,255,255,0.7)'; gCtx.fill();
+                if (s.y + s.r > gPlayer.y + 20 && s.y - s.r < gPlayer.y + gPlayer.h && s.x + s.r > gPlayer.x - gPlayer.w/2 && s.x - s.r < gPlayer.x + gPlayer.w/2) {
+                    gScore++;
+                    document.getElementById('game-score').innerText = gScore;
+                    if (gScore % 3 === 0) floatTexts.push({ txt: encouragements[Math.floor(Math.random()*encouragements.length)], x: s.x, y: gPlayer.y-10, a: 1.0 });
+                    gScoops.splice(i, 1); i--; continue;
+                }
+                if (s.y > gCanvas.height + s.r) { stopGame(false); return; }
+            }
+            for (let i = 0; i < floatTexts.length; i++) {
+                let f = floatTexts[i];
+                gCtx.fillStyle = `rgba(255, 71, 87, ${f.a})`;
+                gCtx.strokeStyle = `rgba(255, 255, 255, ${f.a})`;
+                gCtx.lineWidth = 4;
+                gCtx.font = 'bold 36px Fredoka';
+                gCtx.textAlign = 'center';
+                gCtx.strokeText(f.txt, f.x, f.y);
+                gCtx.fillText(f.txt, f.x, f.y);
+                f.y -= 3; f.a -= 0.03;
+                if (f.a <= 0) { floatTexts.splice(i, 1); i--; }
+            }
+            gLoopId = requestAnimationFrame(gameLoop);
+        }
+
+        function descargarScoreNativo() {
+            const c = document.createElement('canvas'); c.width = 500; c.height = 500;
+            const ctx = c.getContext('2d');
+            ctx.fillStyle = '#4AD3F5'; ctx.fillRect(0,0,500,500);
+            ctx.fillStyle = '#FFEAA7'; ctx.beginPath(); ctx.arc(250, 250, 220, 0, Math.PI*2); ctx.fill();
+            ctx.strokeStyle = '#0A3D62'; ctx.lineWidth = 10; ctx.strokeRect(5,5,490,490);
+            ctx.textAlign = 'center'; ctx.fillStyle = '#0A3D62'; ctx.font = 'bold 45px Fredoka'; ctx.fillText('RÉCORD ARCADE!', 250, 80);
+            ctx.font = '120px sans-serif'; ctx.fillText('🍦', 250, 240);
+            ctx.fillStyle = '#FF4757'; ctx.font = 'bold 40px Fredoka'; ctx.fillText(`ATRAPÉ ${gScore}`, 250, 350);
+            const l = document.createElement('a'); l.download = `RecordBolo-${gScore}pts.png`; l.href = c.toDataURL('image/png'); l.click();
+        }
+
+        window.onload = () => {
+            createSprinkles();
+            checkOpenStatus();
+            setInterval(checkOpenStatus, 60000);
+            updateArmadorUI();
+            drawCartoonBg();
+        };
+    </script>
+</body>
+</html>
