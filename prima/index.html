@@ -18,7 +18,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
-            darkMode: 'class', // Habilitar modo oscuro por clase
+            darkMode: 'class',
             theme: {
                 extend: {
                     fontFamily: {
@@ -26,8 +26,8 @@
                     },
                     colors: {
                         prima: {
-                            dark: '#0a1c2b',   /* Azul marino oscuro corporativo */
-                            teal: '#118a8c',   /* Color principal - Turquesa/Teal */
+                            dark: '#0a1c2b',
+                            teal: '#118a8c',
                             tealHover: '#0d6b6d',
                             gray: '#f3f4f6',
                             text: '#334155'
@@ -39,10 +39,8 @@
     </script>
     
     <style>
-        /* Custom Styles for optimizations */
         body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
         
-        /* Hero Video Overlay Gradient */
         .hero-gradient {
             background: linear-gradient(90deg, rgba(10, 28, 43, 0.95) 0%, rgba(10, 28, 43, 0.7) 50%, rgba(10, 28, 43, 0.4) 100%);
         }
@@ -51,11 +49,9 @@
             background: linear-gradient(90deg, rgba(2, 6, 23, 0.98) 0%, rgba(2, 6, 23, 0.8) 50%, rgba(2, 6, 23, 0.6) 100%);
         }
         
-        /* Ocultar barra de scroll en móviles si es necesario */
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         
-        /* Helper para el logo en modo oscuro */
         .dark-logo-bg { transition: all 0.3s ease; }
         .dark .dark-logo-bg { background-color: rgba(255, 255, 255, 0.9); padding: 4px 8px; border-radius: 8px; }
     </style>
@@ -67,7 +63,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 
-                <!-- Logo PNG -->
+                <!-- Logo -->
                 <a href="#" class="flex items-center group dark-logo-bg">
                     <img src="logo.png" alt="Prima Soluciones" class="h-10 md:h-12 object-contain" onerror="this.src='https://via.placeholder.com/150x50/0a1c2b/ffffff?text=PRIMA+LOGO'">
                 </a>
@@ -80,10 +76,8 @@
                     
                     <!-- Toggle Dark Mode -->
                     <button id="theme-toggle" class="text-gray-500 dark:text-slate-400 hover:text-prima-teal focus:outline-none transition-colors" aria-label="Cambiar modo oscuro">
-                        <!-- Sun Icon (Hidden in Light Mode) -->
-                        <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
-                        <!-- Moon Icon (Hidden in Dark Mode) -->
-                        <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                        <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                        <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
                     </button>
 
                     <a href="#contacto" class="bg-prima-teal text-white px-6 py-2.5 rounded-md text-sm font-semibold hover:bg-prima-tealHover transition-colors shadow-md">
@@ -119,12 +113,10 @@
         </div>
     </header>
 
-    <!-- Hero Section with Video Background -->
+    <!-- Hero Section -->
     <section class="relative h-screen min-h-[600px] flex items-center mt-10 md:mt-0">
-        <!-- Video Background -->
         <div class="absolute inset-0 w-full h-full overflow-hidden z-0 bg-prima-dark">
             <video autoplay loop muted playsinline class="absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto object-cover -translate-x-1/2 -translate-y-1/2 opacity-60">
-                <!-- Video actualizado como solicitaste -->
                 <source src="intro.mp4" type="video/mp4">
             </video>
             <div class="absolute inset-0 hero-gradient"></div>
@@ -153,14 +145,13 @@
         </div>
     </section>
 
-    <!-- Trust Badge / Clientes -->
+    <!-- Trust Badge -->
     <section class="bg-white dark:bg-slate-900 border-b border-gray-200 dark:border-slate-800 py-8 transition-colors">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12" data-aos="fade-in" data-aos-delay="300">
                 <p class="text-sm font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-wider text-center">Con la confianza de la industria exigente:</p>
                 
                 <div class="flex items-center gap-8 md:gap-16 opacity-80 grayscale hover:grayscale-0 transition-all duration-300">
-                    <!-- Toyotetsu Badge -->
                     <div class="flex items-center gap-3">
                         <svg class="w-8 h-8 text-gray-800 dark:text-slate-300" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
@@ -170,20 +161,12 @@
                             <p class="text-[0.65rem] text-prima-teal font-semibold mt-1 uppercase tracking-wide">Proveedor de Excelencia '24-'25</p>
                         </div>
                     </div>
-                    
-                    <!-- Placeholder Industrial Logo -->
-                    <div class="flex items-center gap-2">
-                        <svg class="w-8 h-8 text-gray-600 dark:text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M3 21h18M5 21V7l8-4v18M13 3l8 4v14M9 11v6M17 11v6"/>
-                        </svg>
-                        <p class="font-bold text-gray-600 dark:text-slate-400 text-lg tracking-tight">AUTO<span class="font-light">PARK</span></p>
-                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Catálogo de Soluciones (Nuestros Servicios) -->
+    <!-- Catálogo de Soluciones -->
     <section id="servicios" class="py-20 bg-gray-50 dark:bg-slate-800 transition-colors">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
@@ -201,18 +184,9 @@
                     </div>
                     <h3 class="text-xl font-bold text-prima-dark dark:text-white mb-3">Materiales Indirectos</h3>
                     <ul class="space-y-2 text-sm text-gray-600 dark:text-slate-400">
-                        <li class="flex items-start gap-2">
-                            <svg class="w-4 h-4 text-prima-teal mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                            Consumibles de producción
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <svg class="w-4 h-4 text-prima-teal mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                            Empaque y embalaje logístico
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <svg class="w-4 h-4 text-prima-teal mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                            Insumos de limpieza industrial
-                        </li>
+                        <li class="flex items-start gap-2"><svg class="w-4 h-4 text-prima-teal mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Consumibles de producción</li>
+                        <li class="flex items-start gap-2"><svg class="w-4 h-4 text-prima-teal mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Empaque y embalaje</li>
+                        <li class="flex items-start gap-2"><svg class="w-4 h-4 text-prima-teal mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Insumos de limpieza</li>
                     </ul>
                 </div>
 
@@ -225,18 +199,9 @@
                     </div>
                     <h3 class="text-xl font-bold text-prima-dark dark:text-white mb-3">Equipo de Protección</h3>
                     <ul class="space-y-2 text-sm text-gray-600 dark:text-slate-400">
-                        <li class="flex items-start gap-2">
-                            <svg class="w-4 h-4 text-prima-teal mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                            Protección visual y auditiva
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <svg class="w-4 h-4 text-prima-teal mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                            Guantes especializados y calzado
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <svg class="w-4 h-4 text-prima-teal mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                            Cumplimiento normativo NOM
-                        </li>
+                        <li class="flex items-start gap-2"><svg class="w-4 h-4 text-prima-teal mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Protección visual y auditiva</li>
+                        <li class="flex items-start gap-2"><svg class="w-4 h-4 text-prima-teal mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Guantes y calzado</li>
+                        <li class="flex items-start gap-2"><svg class="w-4 h-4 text-prima-teal mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Cumplimiento normativo</li>
                     </ul>
                 </div>
 
@@ -250,18 +215,9 @@
                     </div>
                     <h3 class="text-xl font-bold text-prima-dark dark:text-white mb-3">Herramientas</h3>
                     <ul class="space-y-2 text-sm text-gray-600 dark:text-slate-400">
-                        <li class="flex items-start gap-2">
-                            <svg class="w-4 h-4 text-prima-teal mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                            Manuales y neumáticas
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <svg class="w-4 h-4 text-prima-teal mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                            Medición y calibración
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <svg class="w-4 h-4 text-prima-teal mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                            Consumibles de soldadura
-                        </li>
+                        <li class="flex items-start gap-2"><svg class="w-4 h-4 text-prima-teal mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Manuales y neumáticas</li>
+                        <li class="flex items-start gap-2"><svg class="w-4 h-4 text-prima-teal mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Medición y calibración</li>
+                        <li class="flex items-start gap-2"><svg class="w-4 h-4 text-prima-teal mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Consumibles de soldadura</li>
                     </ul>
                 </div>
 
@@ -274,38 +230,26 @@
                     </div>
                     <h3 class="text-xl font-bold text-prima-dark dark:text-white mb-3">Mantenimiento</h3>
                     <ul class="space-y-2 text-sm text-gray-600 dark:text-slate-400">
-                        <li class="flex items-start gap-2">
-                            <svg class="w-4 h-4 text-prima-teal mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                            Aceites y químicos
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <svg class="w-4 h-4 text-prima-teal mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                            Refacciones menores
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <svg class="w-4 h-4 text-prima-teal mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                            Eléctrico e iluminación
-                        </li>
+                        <li class="flex items-start gap-2"><svg class="w-4 h-4 text-prima-teal mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Aceites y químicos</li>
+                        <li class="flex items-start gap-2"><svg class="w-4 h-4 text-prima-teal mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Refacciones menores</li>
+                        <li class="flex items-start gap-2"><svg class="w-4 h-4 text-prima-teal mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Eléctrico e iluminación</li>
                     </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Ventaja Competitiva (Por qué Prima) -->
+    <!-- Ventaja Competitiva -->
     <section id="por-que-prima" class="py-20 bg-white dark:bg-slate-900 transition-colors">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col lg:flex-row items-center gap-16">
                 
-                <!-- Imagen Reconocimiento Toyotetsu -->
                 <div class="w-full lg:w-1/2 relative" data-aos="fade-right">
                     <div class="relative rounded-2xl overflow-hidden shadow-2xl aspect-[4/3] bg-gray-100 dark:bg-slate-800">
-                        <!-- Integración de la imagen del reconocimiento -->
                         <img src="proveedor toyotestu.png" alt="Reconocimiento Toyotetsu Excelencia" class="object-cover w-full h-full" onerror="this.src='https://images.unsplash.com/photo-1586528116311-ad8ed7c50a63?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'">
                     </div>
                 </div>
 
-                <!-- Checklist -->
                 <div class="w-full lg:w-1/2 mt-10 lg:mt-0" data-aos="fade-left">
                     <h2 class="text-3xl md:text-4xl font-bold text-prima-dark dark:text-white mb-6">Operamos a la velocidad de la industria automotriz.</h2>
                     <p class="text-gray-600 dark:text-slate-300 mb-8 text-lg">Entendemos que un paro de línea no es una opción. Nuestra estructura está diseñada para plantas de alta demanda en el Bajío.</p>
@@ -346,7 +290,7 @@
         </div>
     </section>
 
-    <!-- Lead Magnet Banner -->
+    <!-- Lead Magnet Banner (EmailJS Form 1) -->
     <section id="lead-magnet" class="py-16 bg-prima-dark relative overflow-hidden">
         <div class="absolute inset-0 opacity-10">
             <svg class="h-full w-full" xmlns="http://www.w3.org/2000/svg">
@@ -364,34 +308,37 @@
                     </p>
                 </div>
                 <div class="w-full md:w-2/5">
-                    <!-- Formulario preparado para Script (ej. Formspree o Google Apps Script) -->
-                    <form action="https://formspree.io/f/TU_ID_AQUI" method="POST" class="flex flex-col gap-3">
-                        <input type="email" name="email" placeholder="Tu correo corporativo" required
+                    
+                    <!-- FORMULARIO 1: DESCARGA PDF -->
+                    <form id="lead-form" class="flex flex-col gap-3">
+                        <input type="email" name="email" id="lead_email" placeholder="Tu correo corporativo" required
                             class="w-full px-4 py-3 rounded-md bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-prima-teal focus:border-transparent transition-all">
-                        <button type="submit" class="w-full bg-prima-teal hover:bg-prima-tealHover text-white font-bold py-3 px-4 rounded-md transition-colors shadow-lg flex justify-center items-center gap-2">
-                            Descargar Catálogo
+                        <button type="submit" id="btn-lead" class="w-full bg-prima-teal hover:bg-prima-tealHover text-white font-bold py-3 px-4 rounded-md transition-colors shadow-lg flex justify-center items-center gap-2">
+                            <span>Descargar Catálogo</span>
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                         </button>
+                        <!-- Mensaje de Éxito -->
+                        <p id="lead-msg" class="hidden text-sm text-green-400 font-semibold text-center mt-2">¡Catálogo enviado a tu correo!</p>
                     </form>
-                    <p class="text-xs text-gray-400 mt-3 text-center">* El script automatizado enviará el PDF a tu bandeja.</p>
+
+                    <p class="text-xs text-gray-400 mt-3 text-center">* El sistema enviará el PDF a tu bandeja.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Formulario de Contacto B2B -->
+    <!-- Formulario de Contacto B2B (EmailJS Form 2) -->
     <section id="contacto" class="py-20 bg-gray-50 dark:bg-slate-800 transition-colors">
         <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8" data-aos="fade-up">
             <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-gray-100 dark:border-slate-700 overflow-hidden transition-colors">
                 <div class="p-8 md:p-12">
                     <div class="text-center mb-8">
                         <h2 class="text-3xl font-bold text-prima-dark dark:text-white mb-3">Habla con un Especialista</h2>
-                        <!-- Texto actualizado según solicitud -->
                         <p class="text-gray-600 dark:text-slate-400">Completa el formulario y un asesor asignado a cuentas corporativas te contactará en menos de 2 hrs hábiles, o en el horario que tú nos indiques.</p>
                     </div>
 
-                    <!-- Configurar aquí el Action hacia Formspree o Google Apps Script -->
-                    <form action="https://formspree.io/f/TU_ID_AQUI" method="POST" class="space-y-6">
+                    <!-- FORMULARIO 2: CONTACTO GENERAL -->
+                    <form id="contact-form" class="space-y-6">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <label for="nombre" class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Nombre completo *</label>
@@ -427,7 +374,6 @@
                             </div>
                         </div>
 
-                        <!-- Campo nuevo: Horario de preferencia -->
                         <div>
                             <label for="horario" class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Horario de preferencia para contacto</label>
                             <input type="text" id="horario" name="horario" placeholder="Ej. Lunes a Viernes de 10:00 AM a 1:00 PM"
@@ -440,9 +386,14 @@
                                 class="w-full px-4 py-2.5 bg-gray-50 dark:bg-slate-800 border border-gray-300 dark:border-slate-600 rounded-md focus:outline-none focus:ring-2 focus:ring-prima-teal text-gray-900 dark:text-white transition-colors resize-none"></textarea>
                         </div>
 
-                        <button type="submit" class="w-full bg-prima-dark hover:bg-black dark:bg-prima-teal dark:hover:bg-prima-tealHover text-white font-bold py-3.5 px-4 rounded-md transition-colors shadow-md text-lg">
-                            Solicitar Contacto Comercial
+                        <button type="submit" id="btn-contact" class="w-full bg-prima-dark hover:bg-black dark:bg-prima-teal dark:hover:bg-prima-tealHover text-white font-bold py-3.5 px-4 rounded-md transition-colors shadow-md text-lg flex justify-center items-center">
+                            <span>Solicitar Contacto Comercial</span>
                         </button>
+
+                        <!-- Mensaje de Éxito -->
+                        <div id="contact-msg" class="hidden p-4 rounded-md bg-green-50 border border-green-200 text-green-700 text-center text-sm font-medium mt-4">
+                            ¡Gracias! Tu solicitud ha sido enviada. Un especialista te contactará pronto.
+                        </div>
                     </form>
                 </div>
             </div>
@@ -453,7 +404,6 @@
     <footer class="bg-prima-dark text-gray-300 pt-16 pb-8 border-t-4 border-prima-teal">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
-                <!-- Branding & About -->
                 <div class="col-span-1">
                     <div class="mb-6 bg-white/90 inline-block p-2 rounded-lg">
                         <img src="logo.png" alt="Prima Soluciones" class="h-10 object-contain" onerror="this.src='https://via.placeholder.com/150x50/0a1c2b/ffffff?text=PRIMA'">
@@ -461,14 +411,8 @@
                     <p class="text-sm text-gray-400 leading-relaxed mb-6">
                         Soluciones integrales en suministro de materiales indirectos. Generamos excelencia operativa para la industria en Querétaro y el Bajío.
                     </p>
-                    <div class="flex gap-4">
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                        </a>
-                    </div>
                 </div>
 
-                <!-- Links Rápidos -->
                 <div>
                     <h4 class="text-white font-bold mb-6 uppercase tracking-wider text-sm">Enlaces Rápidos</h4>
                     <ul class="space-y-3 text-sm">
@@ -478,7 +422,6 @@
                     </ul>
                 </div>
 
-                <!-- Contacto Físico (Actualizado) -->
                 <div>
                     <h4 class="text-white font-bold mb-6 uppercase tracking-wider text-sm">Oficinas y Almacenes</h4>
                     <ul class="space-y-4 text-sm">
@@ -509,7 +452,7 @@
         </div>
     </footer>
 
-    <!-- Botón Flotante WhatsApp (Número actualizado) -->
+    <!-- Botón Flotante WhatsApp -->
     <a href="https://wa.me/524427980334?text=Hola%2C%20requiero%20atenci%C3%B3n%20inmediata%20para%20suministros%20en%20planta." target="_blank" rel="noopener noreferrer" 
        class="fixed bottom-6 right-6 bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:bg-[#20b858] hover:-translate-y-1 transition-all duration-300 z-50 flex items-center justify-center group"
        data-aos="zoom-in" data-aos-delay="500">
@@ -523,6 +466,17 @@
 
     <!-- Scripts: AOS Animations & UI logic -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+       (function(){
+          emailjs.init({
+            publicKey: "A_yXBKNeaKHQwszFh", // Tu Public Key confirmada
+          });
+       })();
+    </script>
+
     <script>
         // Inicializar Animaciones
         AOS.init({
@@ -556,7 +510,6 @@
         const darkIconMobile = document.getElementById('theme-toggle-dark-icon-mobile');
         const lightIconMobile = document.getElementById('theme-toggle-light-icon-mobile');
 
-        // Check LocalStorage or OS preference
         if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
             lightIcon.classList.remove('hidden');
@@ -567,13 +520,11 @@
         }
 
         function toggleTheme() {
-            // Toggle Icons
             darkIcon.classList.toggle('hidden');
             lightIcon.classList.toggle('hidden');
             darkIconMobile.classList.toggle('hidden');
             lightIconMobile.classList.toggle('hidden');
 
-            // Toggle HTML class and save preference
             if (document.documentElement.classList.contains('dark')) {
                 document.documentElement.classList.remove('dark');
                 localStorage.setItem('color-theme', 'light');
@@ -585,6 +536,71 @@
 
         themeToggleBtn.addEventListener('click', toggleTheme);
         themeToggleBtnMobile.addEventListener('click', toggleTheme);
+
+        // --- LÓGICA DE ENVÍO DE FORMULARIOS (EMAILJS) ---
+        
+        // IDs verificados e insertados
+        const EMAILJS_SERVICE_ID = 'service_ga1wdnj'; 
+        const EMAILJS_TEMPLATE_LEAD = 'template_k8x9p2z'; 
+        const EMAILJS_TEMPLATE_CONTACT = 'contactoweb';   
+
+        // Formulario 1: Lead Magnet (PDF)
+        const leadForm = document.getElementById('lead-form');
+        if(leadForm) {
+            leadForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                
+                const btn = document.getElementById('btn-lead');
+                const btnText = btn.querySelector('span');
+                const msg = document.getElementById('lead-msg');
+                
+                const originalText = btnText.innerText;
+                btnText.innerText = 'Enviando PDF...';
+                btn.disabled = true;
+
+                emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_LEAD, this)
+                    .then(() => {
+                        btnText.innerText = originalText;
+                        btn.disabled = false;
+                        leadForm.reset();
+                        msg.classList.remove('hidden');
+                        setTimeout(() => msg.classList.add('hidden'), 5000);
+                    }, (error) => {
+                        btnText.innerText = 'Error de conexión';
+                        console.error('FAILED...', error);
+                        setTimeout(() => { btnText.innerText = originalText; btn.disabled = false; }, 3000);
+                    });
+            });
+        }
+
+        // Formulario 2: Contacto Corporativo
+        const contactForm = document.getElementById('contact-form');
+        if(contactForm) {
+            contactForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                
+                const btn = document.getElementById('btn-contact');
+                const btnText = btn.querySelector('span');
+                const msg = document.getElementById('contact-msg');
+                
+                const originalText = btnText.innerText;
+                btnText.innerText = 'Procesando solicitud...';
+                btn.disabled = true;
+
+                emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_CONTACT, this)
+                    .then(() => {
+                        btnText.innerText = originalText;
+                        btn.disabled = false;
+                        contactForm.reset();
+                        msg.classList.remove('hidden');
+                        setTimeout(() => msg.classList.add('hidden'), 8000);
+                    }, (error) => {
+                        btnText.innerText = 'Error al procesar';
+                        console.error('FAILED...', error);
+                        setTimeout(() => { btnText.innerText = originalText; btn.disabled = false; }, 3000);
+                    });
+            });
+        }
     </script>
 </body>
 </html>
