@@ -3,9 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0a1c2b">
+    
+    <!-- SEO Básico -->
     <title>Prima Soluciones | Abastecimiento Industrial y Materiales Indirectos</title>
     <meta name="description" content="Suministro de materiales indirectos y abastecimiento industrial en Querétaro y el Bajío. Evita cuellos de botella en tu planta de producción.">
+    <meta name="keywords" content="proveedor industrial, materiales indirectos, abastecimiento B2B, Querétaro, Bajío, EPP, refacciones industriales, Toyotetsu, outsourcing logístico">
+    <meta name="author" content="Prima Soluciones">
     
+    <!-- Etiquetas Multi-idioma (SEO) -->
+    <link rel="alternate" hreflang="es" href="https://primasoluciones.com/" />
+    <link rel="alternate" hreflang="en" href="https://primasoluciones.com/?lang=en" />
+    <link rel="alternate" hreflang="de" href="https://primasoluciones.com/?lang=de" />
+    <link rel="alternate" hreflang="ja" href="https://primasoluciones.com/?lang=ja" />
+    <link rel="alternate" hreflang="x-default" href="https://primasoluciones.com/" />
+
+    <!-- Open Graph / Redes Sociales -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://primasoluciones.com/">
+    <meta property="og:title" content="Prima Soluciones | Abastecimiento Industrial Sin Cuellos de Botella">
+    <meta property="og:description" content="Absorbemos la carga logística de tu planta en Querétaro y el Bajío para que te enfoques 100% en la producción.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1586528116311-ad8ed7c50a63?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80">
+
+    <!-- Schema Markup (JSON-LD) para SEO Local B2B -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Prima Soluciones",
+      "image": "https://primasoluciones.com/logo.png",
+      "description": "Especialistas en suministro de materiales indirectos y soluciones de abastecimiento (Outsourcing de compras) para la industria automotriz y manufacturera.",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Parque Industrial",
+        "addressLocality": "Juriquilla",
+        "addressRegion": "QRO",
+        "postalCode": "76000",
+        "addressCountry": "MX"
+      },
+      "telephone": "+524427980334",
+      "priceRange": "$$",
+      "award": "Proveedor de Excelencia Toyotetsu 2024-2025"
+    }
+    </script>
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -54,6 +95,15 @@
         
         .dark-logo-bg { transition: all 0.3s ease; }
         .dark .dark-logo-bg { background-color: rgba(255, 255, 255, 0.9); padding: 4px 8px; border-radius: 8px; }
+
+        /* Estilo para el selector de idiomas */
+        select.lang-selector {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23118a8c%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.7rem top 50%;
+            background-size: 0.65rem auto;
+        }
     </style>
 </head>
 <body class="bg-gray-50 dark:bg-slate-900 text-prima-text dark:text-slate-300 antialiased transition-colors duration-300">
@@ -65,33 +115,48 @@
                 
                 <!-- Logo -->
                 <a href="#" class="flex items-center group dark-logo-bg">
-                    <img src="logo.png" alt="Prima Soluciones" class="h-10 md:h-12 object-contain" onerror="this.src='https://via.placeholder.com/150x50/0a1c2b/ffffff?text=PRIMA+LOGO'">
+                    <img src="logo.png" alt="Logo Prima Soluciones" width="200" height="48" class="h-10 md:h-12 object-contain w-auto" onerror="this.src='https://via.placeholder.com/150x50/0a1c2b/ffffff?text=PRIMA'">
                 </a>
 
                 <!-- Desktop Navigation -->
-                <nav class="hidden md:flex items-center gap-8">
-                    <a href="#servicios" class="text-sm font-medium text-gray-600 dark:text-slate-300 hover:text-prima-teal dark:hover:text-prima-teal transition-colors">Servicios</a>
-                    <a href="#por-que-prima" class="text-sm font-medium text-gray-600 dark:text-slate-300 hover:text-prima-teal dark:hover:text-prima-teal transition-colors">Por qué Nosotros</a>
-                    <a href="#contacto" class="text-sm font-medium text-gray-600 dark:text-slate-300 hover:text-prima-teal dark:hover:text-prima-teal transition-colors">Contacto</a>
+                <nav class="hidden md:flex items-center gap-6">
+                    <a href="#servicios" data-i18n="nav_services" class="text-sm font-medium text-gray-600 dark:text-slate-300 hover:text-prima-teal dark:hover:text-prima-teal transition-colors">Servicios</a>
+                    <a href="#por-que-prima" data-i18n="nav_why" class="text-sm font-medium text-gray-600 dark:text-slate-300 hover:text-prima-teal dark:hover:text-prima-teal transition-colors">Por qué Nosotros</a>
+                    <a href="#contacto" data-i18n="nav_contact" class="text-sm font-medium text-gray-600 dark:text-slate-300 hover:text-prima-teal dark:hover:text-prima-teal transition-colors">Contacto</a>
                     
+                    <!-- Language Selector -->
+                    <select id="lang-switch-desktop" class="lang-selector bg-gray-50 dark:bg-slate-800 border border-gray-200 dark:border-slate-700 text-gray-700 dark:text-slate-300 text-sm rounded-md focus:ring-prima-teal focus:border-prima-teal block px-3 py-1.5 pr-8 cursor-pointer outline-none transition-colors">
+                        <option value="es">🇪🇸 ES</option>
+                        <option value="en">🇺🇸 EN</option>
+                        <option value="de">🇩🇪 DE</option>
+                        <option value="ja">🇯🇵 JA</option>
+                    </select>
+
                     <!-- Toggle Dark Mode -->
                     <button id="theme-toggle" class="text-gray-500 dark:text-slate-400 hover:text-prima-teal focus:outline-none transition-colors" aria-label="Cambiar modo oscuro">
                         <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
                         <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
                     </button>
 
-                    <a href="#contacto" class="bg-prima-teal text-white px-6 py-2.5 rounded-md text-sm font-semibold hover:bg-prima-tealHover transition-colors shadow-md">
+                    <a href="#contacto" data-i18n="nav_quote" class="bg-prima-teal text-white px-6 py-2.5 rounded-md text-sm font-semibold hover:bg-prima-tealHover transition-colors shadow-md">
                         Cotizar Proyecto
                     </a>
                 </nav>
 
-                <!-- Mobile Menu and Theme Buttons -->
-                <div class="md:hidden flex items-center gap-4">
-                    <button id="theme-toggle-mobile" class="text-gray-500 dark:text-slate-400 hover:text-prima-teal focus:outline-none">
+                <!-- Mobile Menu Buttons -->
+                <div class="md:hidden flex items-center gap-3">
+                    <select id="lang-switch-mobile" class="lang-selector bg-gray-50 dark:bg-slate-800 border border-gray-200 dark:border-slate-700 text-gray-700 dark:text-slate-300 text-xs rounded-md focus:ring-prima-teal focus:border-prima-teal block px-2 py-1 pr-6 cursor-pointer outline-none">
+                        <option value="es">ES</option>
+                        <option value="en">EN</option>
+                        <option value="de">DE</option>
+                        <option value="ja">JA</option>
+                    </select>
+
+                    <button id="theme-toggle-mobile" class="text-gray-500 dark:text-slate-400 hover:text-prima-teal focus:outline-none" aria-label="Toggle Theme Mobile">
                         <svg id="theme-toggle-light-icon-mobile" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
                         <svg id="theme-toggle-dark-icon-mobile" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
                     </button>
-                    <button id="mobile-menu-btn" class="text-gray-600 dark:text-slate-300 focus:outline-none">
+                    <button id="mobile-menu-btn" class="text-gray-600 dark:text-slate-300 focus:outline-none" aria-label="Menu Mobile">
                         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                         </svg>
@@ -103,10 +168,10 @@
         <!-- Mobile Navigation Panel -->
         <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-slate-900 border-t border-gray-100 dark:border-slate-800">
             <div class="px-4 pt-2 pb-6 space-y-1 shadow-lg">
-                <a href="#servicios" class="block px-3 py-3 text-base font-medium text-gray-700 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-800 hover:text-prima-teal rounded-md">Servicios</a>
-                <a href="#por-que-prima" class="block px-3 py-3 text-base font-medium text-gray-700 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-800 hover:text-prima-teal rounded-md">Por qué Nosotros</a>
-                <a href="#contacto" class="block px-3 py-3 text-base font-medium text-gray-700 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-800 hover:text-prima-teal rounded-md">Contacto</a>
-                <a href="#contacto" class="block w-full text-center mt-4 bg-prima-teal text-white px-6 py-3 rounded-md text-base font-semibold hover:bg-prima-tealHover transition-colors">
+                <a href="#servicios" data-i18n="nav_services" class="block px-3 py-3 text-base font-medium text-gray-700 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-800 hover:text-prima-teal rounded-md">Servicios</a>
+                <a href="#por-que-prima" data-i18n="nav_why" class="block px-3 py-3 text-base font-medium text-gray-700 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-800 hover:text-prima-teal rounded-md">Por qué Nosotros</a>
+                <a href="#contacto" data-i18n="nav_contact" class="block px-3 py-3 text-base font-medium text-gray-700 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-800 hover:text-prima-teal rounded-md">Contacto</a>
+                <a href="#contacto" data-i18n="nav_quote" class="block w-full text-center mt-4 bg-prima-teal text-white px-6 py-3 rounded-md text-base font-semibold hover:bg-prima-tealHover transition-colors">
                     Cotizar Proyecto
                 </a>
             </div>
@@ -116,7 +181,7 @@
     <!-- Hero Section -->
     <section class="relative h-screen min-h-[600px] flex items-center mt-10 md:mt-0">
         <div class="absolute inset-0 w-full h-full overflow-hidden z-0 bg-prima-dark">
-            <video autoplay loop muted playsinline class="absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto object-cover -translate-x-1/2 -translate-y-1/2 opacity-60">
+            <video autoplay loop muted playsinline poster="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto object-cover -translate-x-1/2 -translate-y-1/2 opacity-60">
                 <source src="intro.mp4" type="video/mp4">
             </video>
             <div class="absolute inset-0 hero-gradient"></div>
@@ -124,20 +189,20 @@
 
         <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
             <div class="max-w-3xl" data-aos="fade-up" data-aos-duration="1000">
-                <span class="inline-block py-1 px-3 rounded-full bg-prima-teal/20 text-prima-teal border border-prima-teal/30 text-sm font-semibold tracking-wide mb-6 backdrop-blur-sm">
+                <span data-i18n="hero_badge" class="inline-block py-1 px-3 rounded-full bg-prima-teal/20 text-prima-teal border border-prima-teal/30 text-sm font-semibold tracking-wide mb-6 backdrop-blur-sm">
                     Especialistas en B2B Industrial
                 </span>
-                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+                <h1 data-i18n="hero_h1" class="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
                     Suministro de Materiales Indirectos sin Cuellos de Botella.
                 </h1>
-                <p class="text-lg md:text-xl text-gray-300 mb-10 max-w-2xl leading-relaxed">
+                <p data-i18n="hero_p" class="text-lg md:text-xl text-gray-300 mb-10 max-w-2xl leading-relaxed">
                     Absorbemos la carga logística de tu planta en Querétaro y el Bajío para que te enfoques 100% en la producción.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4">
-                    <a href="#contacto" class="bg-prima-teal text-white text-center px-8 py-4 rounded-md text-base font-semibold hover:bg-prima-tealHover transition-colors shadow-lg">
+                    <a href="#contacto" data-i18n="hero_btn1" class="bg-prima-teal text-white text-center px-8 py-4 rounded-md text-base font-semibold hover:bg-prima-tealHover transition-colors shadow-lg">
                         Solicitar Propuesta
                     </a>
-                    <a href="#lead-magnet" class="bg-white/10 text-white border border-white/30 text-center px-8 py-4 rounded-md text-base font-semibold hover:bg-white/20 transition-colors backdrop-blur-sm">
+                    <a href="#lead-magnet" data-i18n="hero_btn2" class="bg-white/10 text-white border border-white/30 text-center px-8 py-4 rounded-md text-base font-semibold hover:bg-white/20 transition-colors backdrop-blur-sm">
                         Descargar Dossier Corporativo
                     </a>
                 </div>
@@ -153,7 +218,7 @@
                 
                 <div class="flex items-center gap-8 md:gap-16 opacity-80 grayscale hover:grayscale-0 transition-all duration-300">
                     <div class="flex items-center gap-3">
-                        <svg class="w-8 h-8 text-gray-800 dark:text-slate-300" viewBox="0 0 24 24" fill="currentColor">
+                        <svg class="w-8 h-8 text-gray-800 dark:text-slate-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
                         </svg>
                         <div>
@@ -178,9 +243,7 @@
                 <!-- Card 1 -->
                 <div class="bg-white dark:bg-slate-900 rounded-xl p-8 shadow-sm border border-gray-100 dark:border-slate-700 hover:shadow-md transition-all group" data-aos="fade-up" data-aos-delay="100">
                     <div class="w-14 h-14 bg-prima-teal/10 rounded-lg flex items-center justify-center mb-6 text-prima-teal group-hover:bg-prima-teal group-hover:text-white transition-colors">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-                        </svg>
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" /></svg>
                     </div>
                     <h3 class="text-xl font-bold text-prima-dark dark:text-white mb-3">Materiales Indirectos</h3>
                     <ul class="space-y-2 text-sm text-gray-600 dark:text-slate-400">
@@ -193,9 +256,7 @@
                 <!-- Card 2 -->
                 <div class="bg-white dark:bg-slate-900 rounded-xl p-8 shadow-sm border border-gray-100 dark:border-slate-700 hover:shadow-md transition-all group" data-aos="fade-up" data-aos-delay="200">
                     <div class="w-14 h-14 bg-prima-teal/10 rounded-lg flex items-center justify-center mb-6 text-prima-teal group-hover:bg-prima-teal group-hover:text-white transition-colors">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                        </svg>
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
                     </div>
                     <h3 class="text-xl font-bold text-prima-dark dark:text-white mb-3">Equipo de Protección</h3>
                     <ul class="space-y-2 text-sm text-gray-600 dark:text-slate-400">
@@ -208,10 +269,7 @@
                 <!-- Card 3 -->
                 <div class="bg-white dark:bg-slate-900 rounded-xl p-8 shadow-sm border border-gray-100 dark:border-slate-700 hover:shadow-md transition-all group" data-aos="fade-up" data-aos-delay="300">
                     <div class="w-14 h-14 bg-prima-teal/10 rounded-lg flex items-center justify-center mb-6 text-prima-teal group-hover:bg-prima-teal group-hover:text-white transition-colors">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                        </svg>
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
                     </div>
                     <h3 class="text-xl font-bold text-prima-dark dark:text-white mb-3">Herramientas</h3>
                     <ul class="space-y-2 text-sm text-gray-600 dark:text-slate-400">
@@ -224,9 +282,7 @@
                 <!-- Card 4 -->
                 <div class="bg-white dark:bg-slate-900 rounded-xl p-8 shadow-sm border border-gray-100 dark:border-slate-700 hover:shadow-md transition-all group" data-aos="fade-up" data-aos-delay="400">
                     <div class="w-14 h-14 bg-prima-teal/10 rounded-lg flex items-center justify-center mb-6 text-prima-teal group-hover:bg-prima-teal group-hover:text-white transition-colors">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
-                        </svg>
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg>
                     </div>
                     <h3 class="text-xl font-bold text-prima-dark dark:text-white mb-3">Mantenimiento</h3>
                     <ul class="space-y-2 text-sm text-gray-600 dark:text-slate-400">
@@ -246,7 +302,8 @@
                 
                 <div class="w-full lg:w-1/2 relative" data-aos="fade-right">
                     <div class="relative rounded-2xl overflow-hidden shadow-2xl aspect-[4/3] bg-gray-100 dark:bg-slate-800">
-                        <img src="proveedor toyotestu.png" alt="Reconocimiento Toyotetsu Excelencia" class="object-cover w-full h-full" onerror="this.src='https://images.unsplash.com/photo-1586528116311-ad8ed7c50a63?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'">
+                        <!-- Lazy loading agregado -->
+                        <img src="proveedor toyotestu.png" alt="Reconocimiento Toyotetsu Excelencia" loading="lazy" width="800" height="600" class="object-cover w-full h-full" onerror="this.src='https://images.unsplash.com/photo-1586528116311-ad8ed7c50a63?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'">
                     </div>
                 </div>
 
@@ -406,7 +463,7 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
                 <div class="col-span-1">
                     <div class="mb-6 bg-white/90 inline-block p-2 rounded-lg">
-                        <img src="logo.png" alt="Prima Soluciones" class="h-10 object-contain" onerror="this.src='https://via.placeholder.com/150x50/0a1c2b/ffffff?text=PRIMA'">
+                        <img src="logo.png" alt="Logo Prima Soluciones" loading="lazy" width="200" height="48" class="h-10 object-contain w-auto" onerror="this.src='https://via.placeholder.com/150x50/0a1c2b/ffffff?text=PRIMA'">
                     </div>
                     <p class="text-sm text-gray-400 leading-relaxed mb-6">
                         Soluciones integrales en suministro de materiales indirectos. Generamos excelencia operativa para la industria en Querétaro y el Bajío.
@@ -464,7 +521,8 @@
         </span>
     </a>
 
-    <!-- Scripts: AOS Animations & UI logic -->
+    <!-- Scripts -->
+    <!-- AOS Animations -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     
     <!-- EmailJS SDK -->
@@ -478,13 +536,73 @@
     </script>
 
     <script>
-        // Inicializar Animaciones
+        // Inicializar Animaciones AOS
         AOS.init({
             once: true,
             offset: 100,
             duration: 800,
             easing: 'ease-out-cubic',
         });
+
+        // --- SISTEMA MULTI-IDIOMA (Nativo Client-Side) ---
+        const translations = {
+            es: {
+                nav_services: "Servicios", nav_why: "Por qué Nosotros", nav_contact: "Contacto", nav_quote: "Cotizar Proyecto",
+                hero_badge: "Especialistas en B2B Industrial",
+                hero_h1: "Suministro de Materiales Indirectos sin Cuellos de Botella.",
+                hero_p: "Absorbemos la carga logística de tu planta en Querétaro y el Bajío para que te enfoques 100% en la producción.",
+                hero_btn1: "Solicitar Propuesta", hero_btn2: "Descargar Dossier Corporativo"
+            },
+            en: {
+                nav_services: "Services", nav_why: "Why Us", nav_contact: "Contact", nav_quote: "Get a Quote",
+                hero_badge: "Industrial B2B Specialists",
+                hero_h1: "Indirect Material Supply without Bottlenecks.",
+                hero_p: "We absorb the logistics burden of your plant in Queretaro and Bajio so you can focus 100% on production.",
+                hero_btn1: "Request Proposal", hero_btn2: "Download Corporate Dossier"
+            },
+            de: {
+                nav_services: "Dienstleistungen", nav_why: "Warum Wir", nav_contact: "Kontakt", nav_quote: "Projekt Anfragen",
+                hero_badge: "Industrielle B2B-Spezialisten",
+                hero_h1: "Beschaffung von Indirektem Material ohne Engpässe.",
+                hero_p: "Wir übernehmen die Logistiklast Ihres Werks in Queretaro und Bajio, damit Sie sich 100% auf die Produktion konzentrieren können.",
+                hero_btn1: "Angebot Anfordern", hero_btn2: "Unternehmensdossier Herunterladen"
+            },
+            ja: {
+                nav_services: "サービス", nav_why: "当社が選ばれる理由", nav_contact: "お問い合わせ", nav_quote: "見積もり依頼",
+                hero_badge: "産業用B2Bスペシャリスト",
+                hero_h1: "ボトルネックのない間接資材の供給。",
+                hero_p: "ケレタロとバヒオにある貴社工場の物流負担を当社が吸収し、生産に100％集中できるようにします。",
+                hero_btn1: "提案を依頼する", hero_btn2: "企業資料をダウンロード"
+            }
+        };
+
+        const langSwitchDesktop = document.getElementById('lang-switch-desktop');
+        const langSwitchMobile = document.getElementById('lang-switch-mobile');
+
+        function changeLanguage(lang) {
+            document.documentElement.lang = lang;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if(translations[lang][key]) {
+                    // Update Text but keep possible nested spans/icons if any (basic implementation)
+                    if(el.tagName === 'A' && el.querySelector('span')) {
+                        el.querySelector('span').innerText = translations[lang][key];
+                    } else {
+                        el.innerText = translations[lang][key];
+                    }
+                }
+            });
+            // Sincronizar selectores
+            langSwitchDesktop.value = lang;
+            langSwitchMobile.value = lang;
+        }
+
+        langSwitchDesktop.addEventListener('change', (e) => changeLanguage(e.target.value));
+        langSwitchMobile.addEventListener('change', (e) => changeLanguage(e.target.value));
+
+        // Detectar idioma del navegador por defecto (Opcional, desactivado por defecto en ES)
+        // const userLang = navigator.language || navigator.userLanguage; 
+        // if(userLang.startsWith('en')) changeLanguage('en');
 
         // Menú Móvil
         const btn = document.getElementById('mobile-menu-btn');
@@ -494,7 +612,7 @@
             menu.classList.toggle('hidden');
         });
 
-        const mobileLinks = menu.querySelectorAll('a');
+        const mobileLinks = menu.querySelectorAll('#mobile-menu a');
         mobileLinks.forEach(link => {
             link.addEventListener('click', () => {
                 menu.classList.add('hidden');
@@ -538,8 +656,6 @@
         themeToggleBtnMobile.addEventListener('click', toggleTheme);
 
         // --- LÓGICA DE ENVÍO DE FORMULARIOS (EMAILJS) ---
-        
-        // IDs verificados e insertados
         const EMAILJS_SERVICE_ID = 'service_ga1wdnj'; 
         const EMAILJS_TEMPLATE_LEAD = 'template_k8x9p2z'; 
         const EMAILJS_TEMPLATE_CONTACT = 'contactoweb';   
