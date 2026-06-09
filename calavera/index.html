@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Ositos Incomoditos | Arcade Oscuro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        // ¡Te estoy viendo! Cierra la consola y no seas metiche jajajaja
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#030005',
+                        neonPink: '#ff007f',
+                        neonCyan: '#00f0ff',
+                        neonGreen: '#39ff14',
+                        neonPurple: '#b026ff',
+                        neonOrange: '#ff5e00',
+                        darkCard: '#0f0a14',
+                    },
+                    fontFamily: {
+                        creep: ['"Creepster"', 'cursive'],
+                        mono: ['"Space Mono"', 'monospace'],
+                        syne: ['"Syne"', 'sans-serif'],
+                    },
+                    animation: {
+                        'spin-slow': 'spin 8s linear infinite',
+                        'pulse-fast': 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* ¡QUÉ HACES AQUÍ LEYENDO MIS ESTILOS! NO SEAS METICHE JAJAJAJA 🦇 */
+        :root {
+            --cursor-x: 50%;
+            --cursor-y: 50%;
+        }
+        
+        body {
+            background-color: #030005;
+            color: #fff;
+            overflow-x: hidden;
+            cursor: none; 
+        }
+
+        /* ¡Saca tus narices de mi optimización móvil, programador chismoso! */
+        @media (pointer: coarse) {
+            body { cursor: auto; }
+            .custom-cursor { display: none !important; }
+            .interactive { touch-action: manipulation; }
+        }
+
+        /* ¡Deja de inspeccionar mi cursor! jajajaja */
+        .custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #00f0ff;
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(calc(var(--cursor-x) - 10px), calc(var(--cursor-y) - 10px));
+            z-index: 9999;
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+            box-shadow: 0 0 10px #00f0ff;
+        }
+        .custom-cursor.hovering {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 0, 127, 0.2);
+            border-color: #ff007f;
+            box-shadow: 0 0 15px #ff007f;
+            transform: translate(calc(var(--cursor-x) - 20px), calc(var(--cursor-y) - 20px));
+        }
+
+        /* ¡El fondo es mío, búscate el tuyo, metiche! */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -2;
+            background: radial-gradient(circle at 20% 30%, rgba(176, 38, 255, 0.15) 0%, transparent 40%),
+                        radial-gradient(circle at 80% 70%, rgba(0, 240, 255, 0.1) 0%, transparent 40%),
+                        radial-gradient(circle at 50% 50%, rgba(255, 0, 127, 0.1) 0%, transparent 60%);
+            animation: bgShift 15s ease-in-out infinite alternate;
+        }
+        @keyframes bgShift {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.2); }
+        }
+
+        /* ¡A ti qué te importa cómo hago el efecto Glitch! Fuera de aquí jajajaja */
+        .glitch-color {
+            position: relative;
+            display: inline-block;
+            text-shadow: 2px 2px 0px #ff007f, -2px -2px 0px #00f0ff;
+            animation: glitch-anim-2 3s infinite linear alternate-reverse;
+        }
+        @keyframes glitch-anim-2 {
+            0% { text-shadow: 2px 2px 0px #ff007f, -2px -2px 0px #00f0ff; }
+            25% { text-shadow: -2px 2px 0px #39ff14, 2px -2px 0px #b026ff; }
+            50% { text-shadow: 2px -2px 0px #ff5e00, -2px 2px 0px #00f0ff; }
+            75% { text-shadow: -2px -2px 0px #ff007f, 2px 2px 0px #39ff14; }
+            100% { text-shadow: 2px 2px 0px #b026ff, -2px -2px 0px #ff5e00; }
+        }
+
+        /* ¡Mis tarjetas 3D tienen copyright espiritual, metiche! */
+        .tilt-card {
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        @media (hover: hover) {
+            .tilt-card:hover {
+                transform: perspective(1000px) rotateX(5deg) rotateY(-5deg) scale(1.02);
+                box-shadow: -10px 10px 30px rgba(0, 240, 255, 0.2), 10px -10px 30px rgba(255, 0, 127, 0.2);
+                z-index: 10;
+            }
+        }
+        .tilt-content {
+            transform: translateZ(30px);
+        }
+
+        /* ¡Botones robados a los aliens, no los toques! */
+        .btn-neon {
+            position: relative;
+            background: transparent;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .btn-neon::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s;
+            z-index: -1;
+        }
+        .btn-neon:hover::before {
+            left: 100%;
+        }
+
+        /* ¡El memorama maldito, si lo copias te cae maldición! jajajaja */
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        .memory-card {
+            aspect-ratio: 1;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+        .memory-card-inner {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        .memory-card.flipped .memory-card-inner,
+        .memory-card.matched .memory-card-inner {
+            transform: rotateY(180deg);
+        }
+        .memory-card-front, .memory-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-size: 2rem;
+            border: 2px solid;
+        }
+        .memory-card-front {
+            background: #111;
+            border-color: #ff007f;
+            color: #ff007f;
+            background-image: repeating-linear-gradient(45deg, #111 25%, transparent 25%, transparent 75%, #111 75%, #111), repeating-linear-gradient(45deg, #111 25%, #1a1a1a 25%, #1a1a1a 75%, #111 75%, #111);
+            background-position: 0 0, 10px 10px;
+            background-size: 20px 20px;
+        }
+        .memory-card-back {
+            background: #0f0a14;
+            transform: rotateY(180deg);
+            border-color: #00f0ff;
+            box-shadow: inset 0 0 15px rgba(0, 240, 255, 0.3);
+        }
+        
+        /* ¡No le muevas a los hoyos del oso metiche! */
+        .hole {
+            background: radial-gradient(circle, #1a1a1a 0%, #000 100%);
+            border: 2px solid #333;
+            box-shadow: inset 0 0 20px #000;
+        }
+        .hole.active {
+            border-color: #39ff14;
+            box-shadow: 0 0 20px #39ff14, inset 0 0 20px rgba(57, 255, 20, 0.5);
+            animation: pulse-border 0.5s infinite;
+        }
+        @keyframes pulse-border {
+            0% { box-shadow: 0 0 10px #39ff14; }
+            50% { box-shadow: 0 0 30px #39ff14; }
+            100% { box-shadow: 0 0 10px #39ff14; }
+        }
+
+        /* ¡Bichos voladores para asustar programadores chismosos! jajajaja */
+        .flying-creep {
+            position: fixed;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.25;
+            animation: floatCreep linear infinite;
+        }
+        @keyframes floatCreep {
+            0% { transform: translateY(110vh) translateX(-10vw) rotate(0deg) scale(0.8); opacity: 0; }
+            10% { opacity: 0.25; }
+            90% { opacity: 0.25; }
+            100% { transform: translateY(-10vh) translateX(10vw) rotate(360deg) scale(1.2); opacity: 0; }
+        }
+
+        /* ¡Mi scrollbar, mis reglas! Lárgate. */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #030005; }
+        ::-webkit-scrollbar-thumb { background: #ff007f; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #b026ff; }
+    </style>
+</head>
+<body class="font-mono text-gray-300 antialiased">
+
+    <!-- ¡Ni se te ocurra robarte mi HTML, metiche asqueroso! jajajaja -->
+    <div class="custom-cursor" id="cursor"></div>
+    <div class="animated-bg"></div>
+    
+    <!-- ¡Aquí nacen los bichos voladores, no los mates! -->
+    <div id="creep-container"></div>
+
+    <nav class="p-4 md:p-6 flex justify-between items-center border-b border-white/10 bg-darkBg/60 backdrop-blur-md sticky top-0 z-50">
+        <div class="flex items-center gap-3 md:gap-4 interactive">
+            <!-- ¡Mi logo brilla más que tu futuro, programador chismoso! -->
+            <div class="relative group">
+                <div class="absolute -inset-1 bg-gradient-to-r from-neonPink via-neonPurple to-neonCyan rounded-full blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-spin-slow"></div>
+                <img src="https://ositosincomoditos.com/sources/logo.jpg" alt="Ositos Incomoditos Logo" class="relative h-10 w-10 md:h-16 md:w-16 rounded-full object-cover border-2 border-darkBg">
+            </div>
+            <div class="font-syne font-bold text-lg md:text-2xl text-white">
+                <span class="text-neonCyan">OSITOS</span><span class="text-neonPink hidden sm:inline">INCOMODITOS</span>
+            </div>
+        </div>
+        <div>
+            <a href="#contacto" class="interactive px-3 py-2 md:px-4 md:py-2 border border-neonPink text-neonPink hover:bg-neonPink hover:text-white font-bold uppercase tracking-wider text-xs md:text-sm transition-all shadow-[0_0_10px_#ff007f] rounded-sm flex items-center gap-2">
+                <i class="fa-brands fa-instagram text-lg"></i> <span class="hidden sm:inline">DM</span>
+            </a>
+        </div>
+    </nav>
+
+    <header class="min-h-[80vh] flex flex-col items-center justify-center text-center px-4 relative overflow-hidden">
+        <!-- ¡Lucesitas raras, no les muevas! -->
+        <div class="absolute top-1/4 left-1/4 w-32 h-32 bg-neonPurple/20 rounded-full blur-3xl animate-pulse"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-40 h-40 bg-neonCyan/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+
+        <h1 class="font-creep text-5xl sm:text-6xl md:text-8xl text-white mb-2 glitch-color tracking-widest mt-10">LADO OSCURO</h1>
+        <h2 class="font-syne font-bold text-xl sm:text-2xl md:text-4xl text-transparent bg-clip-text bg-gradient-to-r from-neonPink to-neonOrange mb-8">
+            ROPA, ACCESORIOS & RAREZAS
+        </h2>
+        <p class="text-base md:text-xl text-gray-400 mb-10 max-w-2xl font-mono leading-relaxed px-2">
+            Explora el bazar alternativo. Lo tierno murió, bienvenida la incomodidad.<br>
+            <span class="text-neonGreen block mt-2">Envíanos un DM para invocar tu pedido.</span>
+        </p>
+        <div class="flex flex-col sm:flex-row justify-center gap-4 w-full px-6 md:w-auto">
+            <a href="#productos" class="interactive btn-neon px-8 py-4 bg-white/5 border border-neonCyan text-neonCyan hover:bg-neonCyan hover:text-black font-bold uppercase tracking-widest transition-all rounded w-full sm:w-auto">
+                Explorar Bazar
+            </a>
+            <a href="#arcade" class="interactive btn-neon px-8 py-4 bg-white/5 border border-neonPurple text-neonPurple hover:bg-neonPurple hover:text-white font-bold uppercase tracking-widest transition-all rounded flex items-center justify-center gap-2 w-full sm:w-auto">
+                <i class="fa-solid fa-gamepad"></i> Zona Arcade
+            </a>
+        </div>
+    </header>
+
+    <section id="productos" class="py-20 px-4 sm:px-6 max-w-7xl mx-auto relative z-10">
+        <div class="flex items-center gap-2 sm:gap-4 mb-16 justify-center">
+            <div class="h-[1px] w-8 sm:w-12 bg-neonPink"></div>
+            <h2 class="font-syne text-2xl sm:text-4xl font-extrabold text-white tracking-widest uppercase">Nuevos <span class="text-neonPink">Drops</span></h2>
+            <div class="h-[1px] w-8 sm:w-12 bg-neonPink"></div>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- ¡La playera de los antisociales! -->
+            <div class="tilt-card interactive bg-darkCard border border-white/10 rounded-xl p-5 group">
+                <div class="tilt-content">
+                    <div class="h-64 sm:h-72 bg-black rounded-lg flex items-center justify-center mb-6 relative overflow-hidden border border-white/5 group-hover:border-neonCyan transition-colors">
+                        <div class="absolute inset-0 bg-gradient-to-t from-neonCyan/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        <i class="fa-solid fa-shirt text-7xl sm:text-8xl text-gray-800 group-hover:text-neonCyan transition-colors duration-500 group-hover:scale-110"></i>
+                        
+                        <div class="absolute bottom-4 right-4 bg-neonCyan text-black font-bold px-3 py-1 text-xs uppercase rounded shadow-[0_0_10px_#00f0ff]">
+                            Agotándose
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="font-syne text-xl sm:text-2xl font-bold text-white group-hover:text-neonCyan transition-colors">Playera "Odio Aquí"</h3>
+                        <span class="text-neonPink font-bold text-lg sm:text-xl">$350</span>
+                    </div>
+                    <p class="text-gray-400 text-xs sm:text-sm mb-6 h-10">Algodón negro. Oversize. Perfecta para evadir interacciones sociales.</p>
+                    <a href="#contacto" class="block text-center w-full py-3 border border-gray-700 hover:border-neonCyan hover:bg-neonCyan/10 text-white font-bold uppercase text-sm rounded transition-all">
+                        Pedir en IG
+                    </a>
+                </div>
+            </div>
+
+            <!-- ¡El collar de los picosos! -->
+            <div class="tilt-card interactive bg-darkCard border border-white/10 rounded-xl p-5 group">
+                <div class="tilt-content">
+                    <div class="h-64 sm:h-72 bg-black rounded-lg flex items-center justify-center mb-6 relative overflow-hidden border border-white/5 group-hover:border-neonPurple transition-colors">
+                        <div class="absolute inset-0 bg-gradient-to-t from-neonPurple/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        <i class="fa-solid fa-gem text-7xl sm:text-8xl text-gray-800 group-hover:text-neonPurple transition-colors duration-500 group-hover:scale-110"></i>
+                    </div>
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="font-syne text-xl sm:text-2xl font-bold text-white group-hover:text-neonPurple transition-colors">Choker Tornasol</h3>
+                        <span class="text-neonPink font-bold text-lg sm:text-xl">$220</span>
+                    </div>
+                    <p class="text-gray-400 text-xs sm:text-sm mb-6 h-10">Piel sintética con picos y dije holográfico. Edición estrictamente limitada.</p>
+                    <a href="#contacto" class="block text-center w-full py-3 border border-gray-700 hover:border-neonPurple hover:bg-neonPurple/10 text-white font-bold uppercase text-sm rounded transition-all">
+                        Pedir en IG
+                    </a>
+                </div>
+            </div>
+
+            <!-- ¡El oso que te va a comer en la noche! -->
+            <div class="tilt-card interactive bg-darkCard border border-white/10 rounded-xl p-5 group">
+                <div class="tilt-content">
+                    <div class="h-64 sm:h-72 bg-black rounded-lg flex items-center justify-center mb-6 relative overflow-hidden border border-white/5 group-hover:border-neonGreen transition-colors">
+                        <div class="absolute inset-0 bg-gradient-to-t from-neonGreen/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        <i class="fa-solid fa-ghost text-7xl sm:text-8xl text-gray-800 group-hover:text-neonGreen transition-colors duration-500 group-hover:scale-110 animate-bounce"></i>
+                    </div>
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="font-syne text-xl sm:text-2xl font-bold text-white group-hover:text-neonGreen transition-colors">Peluche Maldito</h3>
+                        <span class="text-neonPink font-bold text-lg sm:text-xl">$400</span>
+                    </div>
+                    <p class="text-gray-400 text-xs sm:text-sm mb-6 h-10">Oso negro con ojos de botón invertidos. Te mira mientras duermes.</p>
+                    <a href="#contacto" class="block text-center w-full py-3 border border-gray-700 hover:border-neonGreen hover:bg-neonGreen/10 text-white font-bold uppercase text-sm rounded transition-all">
+                        Pedir en IG
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="arcade" class="py-20 bg-black/80 border-y border-white/10 relative backdrop-blur-sm z-10">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="text-center mb-12 sm:mb-16">
+                <h2 class="font-creep text-4xl sm:text-5xl text-neonCyan mb-4 drop-shadow-[0_0_15px_rgba(0,240,255,0.5)]">ARCADE CLANDESTINO</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto text-sm sm:text-base">Juega para ganar códigos secretos de descuento. Si ganas, toma captura y envíala por DM.</p>
+            </div>
+
+            <div class="grid grid-cols-1 xl:grid-cols-2 gap-8 sm:gap-12">
+                
+                <!-- ¡JUEGO 1: NO HAGAS TRAMPA METICHE! -->
+                <div class="bg-darkCard border border-neonGreen/30 p-5 sm:p-8 rounded-2xl shadow-[0_0_30px_rgba(57,255,20,0.1)]">
+                    <h3 class="font-syne text-xl sm:text-2xl text-white font-bold mb-2 flex justify-between items-center">
+                        Caza al Demonio
+                        <i class="fa-solid fa-crosshairs text-neonGreen"></i>
+                    </h3>
+                    <p class="text-xs sm:text-sm text-gray-500 mb-6">Atrapa 15 demonios en 15s. Recompensa: Envío Gratis.</p>
+                    
+                    <div class="flex justify-between font-mono text-base sm:text-lg mb-6 bg-black p-3 rounded border border-white/10">
+                        <div class="text-neonGreen">Score: <span id="score1">0</span></div>
+                        <div class="text-red-500">Timer: <span id="timer1">15</span>s</div>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-3 max-w-[260px] sm:max-w-[280px] mx-auto mb-6" id="grid1">
+                        <!-- ¡Yo genero mis cosas por JS, sal de aquí! -->
+                    </div>
+
+                    <button id="btnPlay1" class="interactive w-full py-3 sm:py-4 bg-neonGreen/20 border border-neonGreen text-neonGreen hover:bg-neonGreen hover:text-black font-bold transition-all rounded uppercase text-sm sm:text-base">
+                        INICIAR CACERÍA
+                    </button>
+
+                    <div id="result1" class="hidden mt-4 p-4 border border-neonGreen bg-neonGreen/10 text-center rounded">
+                        <p class="text-neonGreen font-bold mb-1">¡VICTORIA!</p>
+                        <p class="text-xs text-gray-300">Código: <span class="font-bold text-white text-lg">ENVIODEMONIO</span></p>
+                    </div>
+                </div>
+
+                <!-- ¡JUEGO 2: NO VEAS MIS VARIABLES PARA ADIVINAR EL MEMORAMA, CHISMOSO! -->
+                <div class="bg-darkCard border border-neonPink/30 p-5 sm:p-8 rounded-2xl shadow-[0_0_30px_rgba(255,0,127,0.1)]">
+                    <h3 class="font-syne text-xl sm:text-2xl text-white font-bold mb-2 flex justify-between items-center">
+                        Tarot del Caos
+                        <i class="fa-solid fa-cards-blank text-neonPink"></i>
+                    </h3>
+                    <p class="text-xs sm:text-sm text-gray-500 mb-6">Encuentra los pares oscuros. Menos de 12 intentos. Recompensa: -20%.</p>
+                    
+                    <div class="flex justify-between font-mono text-base sm:text-lg mb-6 bg-black p-3 rounded border border-white/10">
+                        <div class="text-neonPink">Pares: <span id="matches2">0</span>/4</div>
+                        <div class="text-blue-400">Intentos: <span id="moves2">0</span></div>
+                    </div>
+
+                    <div class="memory-grid mb-6" id="grid2">
+                        <!-- ¡Aléjate de mi DOM, no seas metiche! -->
+                    </div>
+
+                    <button id="btnPlay2" class="interactive w-full py-3 sm:py-4 bg-neonPink/20 border border-neonPink text-neonPink hover:bg-neonPink hover:text-white font-bold transition-all rounded uppercase text-sm sm:text-base">
+                        REPARTIR CARTAS
+                    </button>
+
+                    <div id="result2" class="hidden mt-4 p-4 border border-neonPink bg-neonPink/10 text-center rounded">
+                        <p class="text-neonPink font-bold mb-1">¡VISIÓN DESBLOQUEADA!</p>
+                        <p class="text-xs text-gray-300">Código: <span class="font-bold text-white text-lg">CAOS20</span></p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 px-4 sm:px-6 max-w-3xl mx-auto z-10 relative">
+        <h2 class="font-syne text-2xl sm:text-3xl font-bold mb-10 text-center text-white">REDES & <span class="text-neonCyan">PORTALES</span></h2>
+        
+        <div class="flex flex-col gap-4 sm:gap-5">
+            <!-- ¡No espiés mis links de Twitch, sígueme! -->
+            <a href="https://www.twitch.tv/calavera_tornasol" target="_blank" class="interactive group relative overflow-hidden rounded-lg p-[2px]">
+                <span class="absolute inset-0 bg-gradient-to-r from-neonPurple via-neonPink to-neonPurple animate-pulse-fast opacity-70"></span>
+                <div class="relative bg-darkBg px-4 sm:px-6 py-4 sm:py-5 rounded-lg flex items-center justify-between group-hover:bg-darkBg/80 transition-all">
+                    <div class="flex items-center gap-3 sm:gap-4">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 bg-neonPurple/20 rounded-full flex items-center justify-center border border-neonPurple text-neonPurple group-hover:scale-110 transition-transform">
+                            <i class="fa-brands fa-twitch text-lg sm:text-xl"></i>
+                        </div>
+                        <span class="font-syne font-bold text-lg sm:text-xl text-white group-hover:text-neonPurple transition-colors">TWITCH</span>
+                    </div>
+                    <span class="text-gray-500 font-mono text-xs sm:text-sm hidden md:inline">@calavera_tornasol</span>
+                    <i class="fa-solid fa-arrow-right text-neonPurple opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transform sm:-translate-x-4 sm:group-hover:translate-x-0 transition-all"></i>
+                </div>
+            </a>
+
+            <!-- ¡Link 2, no fisgues! -->
+            <a href="https://maps.app.goo.gl/8EAEgQSeDgQDMK1i9" target="_blank" class="interactive group bg-darkCard border border-white/10 hover:border-red-500 px-4 sm:px-6 py-4 sm:py-5 rounded-lg flex items-center justify-between transition-all hover:shadow-[0_0_20px_rgba(239,68,68,0.2)]">
+                <div class="flex items-center gap-3 sm:gap-4">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 bg-red-500/10 rounded-full flex items-center justify-center border border-red-500 text-red-500">
+                        <i class="fa-solid fa-location-dot text-lg sm:text-xl"></i>
+                    </div>
+                    <span class="font-syne font-bold text-lg sm:text-xl text-white">CÓMO LLEGAR</span>
+                </div>
+                <i class="fa-solid fa-arrow-right text-red-500 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transform sm:-translate-x-4 sm:group-hover:translate-x-0 transition-all"></i>
+            </a>
+
+            <!-- ¡Link 3, vete! -->
+            <a href="https://ositosincomoditos.com" target="_blank" class="interactive group bg-darkCard border border-white/10 hover:border-neonCyan px-4 sm:px-6 py-4 sm:py-5 rounded-lg flex items-center justify-between transition-all hover:shadow-[0_0_20px_rgba(0,240,255,0.2)]">
+                <div class="flex items-center gap-3 sm:gap-4">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 bg-neonCyan/10 rounded-full flex items-center justify-center border border-neonCyan text-neonCyan">
+                        <i class="fa-solid fa-globe text-lg sm:text-xl"></i>
+                    </div>
+                    <span class="font-syne font-bold text-lg sm:text-xl text-white">WEB CLÁSICA</span>
+                </div>
+                <i class="fa-solid fa-arrow-right text-neonCyan opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transform sm:-translate-x-4 sm:group-hover:translate-x-0 transition-all"></i>
+            </a>
+
+            <!-- ¡Link 4, no seas metiche! -->
+            <a href="https://www.amazon.com.mx/hz/wishlist/ls/30YWT9INQ45CL?ref_=wl_share" target="_blank" class="interactive group bg-darkCard border border-white/10 hover:border-yellow-400 px-4 sm:px-6 py-4 sm:py-5 rounded-lg flex items-center justify-between transition-all hover:shadow-[0_0_20px_rgba(250,204,21,0.2)]">
+                <div class="flex items-center gap-3 sm:gap-4">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 bg-yellow-400/10 rounded-full flex items-center justify-center border border-yellow-400 text-yellow-400">
+                        <i class="fa-solid fa-gift text-lg sm:text-xl"></i>
+                    </div>
+                    <span class="font-syne font-bold text-lg sm:text-xl text-white">WISHLIST</span>
+                </div>
+                <i class="fa-solid fa-arrow-right text-yellow-400 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transform sm:-translate-x-4 sm:group-hover:translate-x-0 transition-all"></i>
+            </a>
+
+            <!-- ¡Link 5, déjame en paz! -->
+            <a href="https://youtu.be/LYEPztJR1IA?si=q60-yMGITjfOenRn" target="_blank" class="interactive group bg-darkCard border border-white/10 hover:border-red-600 px-4 sm:px-6 py-4 sm:py-5 rounded-lg flex items-center justify-between transition-all hover:shadow-[0_0_20px_rgba(220,38,38,0.2)]">
+                <div class="flex items-center gap-3 sm:gap-4">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 bg-red-600/10 rounded-full flex items-center justify-center border border-red-600 text-red-600">
+                        <i class="fa-brands fa-youtube text-lg sm:text-xl"></i>
+                    </div>
+                    <span class="font-syne font-bold text-lg sm:text-xl text-white">YOUTUBE</span>
+                </div>
+                <i class="fa-solid fa-arrow-right text-red-600 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transform sm:-translate-x-4 sm:group-hover:translate-x-0 transition-all"></i>
+            </a>
+        </div>
+    </section>
+
+    <footer id="contacto" class="py-16 border-t border-white/5 bg-gradient-to-b from-transparent to-neonPink/5 text-center relative overflow-hidden z-10">
+        <h2 class="font-syne text-2xl sm:text-3xl font-bold mb-8 text-white relative z-10">¿Listo para el pacto?</h2>
+        <a href="https://instagram.com/ositosincomoditos" target="_blank" class="interactive inline-flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-tr from-yellow-400 via-neonPink to-neonPurple rounded-full hover:scale-110 hover:rotate-12 transition-all shadow-[0_0_30px_#ff007f] relative z-10">
+            <i class="fa-brands fa-instagram text-3xl sm:text-4xl text-white"></i>
+        </a>
+        <p class="mt-8 text-gray-500 text-xs sm:text-sm font-mono relative z-10">
+            © 2024 Ositos Incomoditos. Creado en las sombras.<br>
+            <span class="mt-2 inline-block text-gray-400">Realizado por <a href="https://estudio.xidito.com/" target="_blank" class="text-neonPink hover:text-neonCyan transition-colors underline decoration-neonPink/50">https://estudio.xidito.com/</a></span>
+        </p>
+        
+        <!-- ¡El adorno es mío, no lo mires, copión! -->
+        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-full max-w-2xl h-64 bg-neonPink/10 rounded-full blur-[100px] pointer-events-none"></div>
+    </footer>
+
+    <script>
+        /* --- ¡LÁRGATE DE MI JAVASCRIPT! NO SEAS METICHE JAJAJAJA --- */
+        const cursor = document.getElementById('cursor');
+        const interactives = document.querySelectorAll('.interactive, a, button');
+
+        // ¡Deja de rastrear mi mouse, hacker de pacotilla!
+        document.addEventListener('mousemove', (e) => {
+            document.documentElement.style.setProperty('--cursor-x', e.clientX + 'px');
+            document.documentElement.style.setProperty('--cursor-y', e.clientY + 'px');
+        });
+
+        // ¡Ni se te ocurra tocar mis eventos hover, metiche!
+        interactives.forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
+        });
+
+        /* --- ¡GENERADOR DE BICHOS Y MURCIÉLAGOS! (No le muevas aquí compa) --- */
+        function spawnCreeps() {
+            const container = document.getElementById('creep-container');
+            const creeps = ['🦇', '🕷️', '💀', '👻', '🖤', '👽'];
+            
+            // ¡Magia oscura que no vas a entender, chismoso!
+            setInterval(() => {
+                const creep = document.createElement('div');
+                creep.className = 'flying-creep font-mono';
+                creep.innerText = creeps[Math.floor(Math.random() * creeps.length)];
+                
+                const startX = Math.random() * 100; 
+                const duration = 10 + Math.random() * 15; 
+                const size = 1.5 + Math.random() * 2.5; 
+                
+                creep.style.left = `${startX}vw`;
+                creep.style.animationDuration = `${duration}s`;
+                creep.style.fontSize = `${size}rem`;
+                
+                container.appendChild(creep);
+                
+                // ¡Borrando rastro para que no robes memoria, metiche!
+                setTimeout(() => { creep.remove(); }, duration * 1000);
+            }, 1800); 
+        }
+        spawnCreeps(); // ¡Invocación!
+
+        /* --- ¡JUEGO 1: TE ESTOY VIENDO HACKER DE QUINTA! --- */
+        const grid1 = document.getElementById('grid1');
+        const scoreUI1 = document.getElementById('score1');
+        const timerUI1 = document.getElementById('timer1');
+        const btnPlay1 = document.getElementById('btnPlay1');
+        const res1 = document.getElementById('result1');
+        
+        let score1 = 0;
+        let time1 = 15;
+        let intGame1, intTime1;
+        let playing1 = false;
+
+        // ¡Armando la cuadrícula, cierra los ojos metiche!
+        for(let i=0; i<9; i++){
+            let h = document.createElement('div');
+            h.className = 'hole aspect-square rounded-lg flex items-center justify-center text-3xl sm:text-4xl cursor-pointer transition-transform active:scale-95';
+            
+            h.addEventListener('click', () => {
+                if(!playing1) return;
+                if(h.classList.contains('active')){
+                    score1++;
+                    scoreUI1.innerText = score1;
+                    h.classList.remove('active');
+                    h.innerHTML = '💥';
+                    setTimeout(() => h.innerHTML = '', 200);
+                }
+            });
+            grid1.appendChild(h);
+        }
+
+        // ¡Invocando demonios, no revises esta función!
+        function popDemon() {
+            const holes = grid1.querySelectorAll('.hole');
+            holes.forEach(h => { h.classList.remove('active'); h.innerHTML = ''; });
+            const icons = ['💀', '🦇', '👹', '👁️'];
+            const randomHole = holes[Math.floor(Math.random() * 9)];
+            randomHole.classList.add('active');
+            randomHole.innerHTML = icons[Math.floor(Math.random() * icons.length)];
+        }
+
+        btnPlay1.addEventListener('click', () => {
+            if(playing1) return;
+            playing1 = true;
+            score1 = 0; time1 = 15;
+            scoreUI1.innerText = score1; timerUI1.innerText = time1;
+            res1.classList.add('hidden');
+            btnPlay1.innerText = 'CAZANDO...';
+            btnPlay1.classList.add('opacity-50');
+
+            intTime1 = setInterval(() => {
+                time1--;
+                timerUI1.innerText = time1;
+                if(time1 <= 0) endGame1();
+            }, 1000);
+
+            intGame1 = setInterval(popDemon, 600);
+        });
+
+        // ¡Fin del juego, si perdiste no cambies el código fuente, perdedor! jajajaja
+        function endGame1() {
+            playing1 = false;
+            clearInterval(intTime1); clearInterval(intGame1);
+            grid1.querySelectorAll('.hole').forEach(h => { h.classList.remove('active'); h.innerHTML = ''; });
+            btnPlay1.innerText = 'REINTENTAR';
+            btnPlay1.classList.remove('opacity-50');
+            
+            if(score1 >= 15) {
+                res1.classList.remove('hidden');
+                res1.innerHTML = `<p class="text-neonGreen font-bold mb-1">¡VICTORIA! (${score1} pts)</p><p class="text-xs text-gray-300">Código: <span class="font-bold text-white text-lg">ENVIODEMONIO</span></p>`;
+            } else {
+                res1.classList.remove('hidden');
+                res1.classList.replace('border-neonGreen', 'border-red-500');
+                res1.classList.replace('bg-neonGreen/10', 'bg-red-500/10');
+                res1.innerHTML = `<p class="text-red-500 font-bold">Derrota. Solo ${score1} pts.</p><p class="text-sm text-gray-400">Necesitas 15. Intenta de nuevo.</p>`;
+            }
+        }
+
+        /* --- ¡JUEGO 2: NO HAGAS TRAMPA EN EL MEMORAMA, METICHE! --- */
+        const grid2 = document.getElementById('grid2');
+        const movesUI2 = document.getElementById('moves2');
+        const matchUI2 = document.getElementById('matches2');
+        const btnPlay2 = document.getElementById('btnPlay2');
+        const res2 = document.getElementById('result2');
+        
+        const cardIcons = ['🕷️', '🔮', '🗡️', '🖤'];
+        let cardsArr = [...cardIcons, ...cardIcons];
+        let flippedCards = [];
+        let matchedPairs = 0;
+        let moves = 0;
+        let playing2 = false;
+
+        // ¡Revolviendo cartas, no le metas console.log() chismoso!
+        function initMemoryGame() {
+            grid2.innerHTML = '';
+            matchedPairs = 0; moves = 0;
+            movesUI2.innerText = moves; matchUI2.innerText = matchedPairs;
+            res2.classList.add('hidden');
+            
+            cardsArr.sort(() => 0.5 - Math.random());
+
+            cardsArr.forEach((icon, index) => {
+                const card = document.createElement('div');
+                card.className = 'memory-card interactive';
+                card.dataset.val = icon;
+                
+                card.innerHTML = `
+                    <div class="memory-card-inner">
+                        <div class="memory-card-front">?</div>
+                        <div class="memory-card-back">${icon}</div>
+                    </div>
+                `;
+                
+                card.addEventListener('click', () => handleCardClick(card));
+                grid2.appendChild(card);
+            });
+        }
+
+        // ¡No espíes la lógica de volteo, vete de aquí!
+        function handleCardClick(card) {
+            if(!playing2 || card.classList.contains('flipped') || card.classList.contains('matched') || flippedCards.length >= 2) return;
+            
+            card.classList.add('flipped');
+            flippedCards.push(card);
+
+            if(flippedCards.length === 2) {
+                moves++;
+                movesUI2.innerText = moves;
+                checkMatch();
+            }
+        }
+
+        // ¡Revisando si ganaste legalmente, sin hackear el DOM! jajajaja
+        function checkMatch() {
+            const [c1, c2] = flippedCards;
+            if(c1.dataset.val === c2.dataset.val) {
+                c1.classList.add('matched');
+                c2.classList.add('matched');
+                matchedPairs++;
+                matchUI2.innerText = matchedPairs;
+                flippedCards = [];
+                
+                if(matchedPairs === 4) {
+                    setTimeout(endGame2, 500);
+                }
+            } else {
+                setTimeout(() => {
+                    c1.classList.remove('flipped');
+                    c2.classList.remove('flipped');
+                    flippedCards = [];
+                }, 800);
+            }
+        }
+
+        btnPlay2.addEventListener('click', () => {
+            playing2 = true;
+            btnPlay2.innerText = 'REINICIAR TAROT';
+            initMemoryGame();
+        });
+
+        // ¡Fin del memorama, si perdiste mala suerte, metiche!
+        function endGame2() {
+            playing2 = false;
+            res2.classList.remove('hidden');
+            if(moves <= 12) {
+                res2.classList.replace('border-red-500', 'border-neonPink');
+                res2.classList.replace('bg-red-500/10', 'bg-neonPink/10');
+                res2.innerHTML = `<p class="text-neonPink font-bold mb-1">¡VISIÓN DESBLOQUEADA!</p><p class="text-xs text-gray-300">Código: <span class="font-bold text-white text-lg">CAOS20</span></p>`;
+            } else {
+                res2.classList.replace('border-neonPink', 'border-red-500');
+                res2.classList.replace('bg-neonPink/10', 'bg-red-500/10');
+                res2.innerHTML = `<p class="text-red-500 font-bold">Mala fortuna.</p><p class="text-sm text-gray-400">Tomaste ${moves} intentos. Deben ser máximo 12.</p>`;
+            }
+        }
+
+        // ¡Iniciando el tablero, no seas chismoso y ponte a jugar!
+        initMemoryGame();
+    </script>
+</body>
+</html>
