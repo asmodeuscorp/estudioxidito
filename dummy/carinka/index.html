@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carinka ♡ | Lencería y Letras</title>
+    
+    <!-- Fuentes de Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+    
+    <!-- Iconos Phosphor -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <!-- Tailwind CSS por CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a0a;
+            color: white;
+            overflow-x: hidden;
+        }
+        .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+        ::selection {
+            background-color: #d8a7a7;
+            color: black;
+        }
+        /* Clase para el fondo del hero con efecto zoom lento */
+        .hero-bg {
+            background-image: url('https://images.pexels.com/photos/994523/pexels-photo-994523.jpeg?auto=compress&cs=tinysrgb&w=2000');
+            background-size: cover;
+            background-position: center top;
+            background-color: #1a1a1a;
+            animation: slowZoom 20s infinite alternate linear;
+        }
+        @keyframes slowZoom {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
+        /* Ocultar barra de desplazamiento */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #e8b4b8;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- BARRA SUPERIOR ANUNCIO -->
+    <div class="bg-[#f2d8d8] text-black text-[10px] md:text-xs text-center py-2 font-medium tracking-wide flex items-center justify-center">
+        Envío gratis en compras mayores a $899 MXN <i class="ph-fill ph-heart text-red-500 ml-1 text-sm"></i>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 bg-transparent py-4">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Botón Menú Móvil -->
+                <div class="flex lg:hidden items-center z-20">
+                    <button id="mobile-menu-btn" class="text-[#e8b4b8] hover:text-white transition-colors p-2 focus:outline-none">
+                        <i class="ph ph-list text-2xl" id="menu-icon"></i>
+                    </button>
+                </div>
+
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center justify-center lg:justify-start w-full lg:w-auto cursor-pointer absolute lg:static left-0 right-0 pointer-events-none lg:pointer-events-auto">
+                    <span class="font-serif text-3xl md:text-4xl italic tracking-wider text-[#e8b4b8] drop-shadow-md">
+                        Carinka <span class="text-xl font-sans">♡</span>
+                    </span>
+                </div>
+
+                <!-- Menú Desktop -->
+                <div class="hidden lg:flex space-x-8 text-xs uppercase tracking-[0.2em] font-medium text-gray-300">
+                    <a href="#" class="hover:text-[#e8b4b8] transition-colors relative group">Inicio<span class="absolute -bottom-1 left-0 w-0 h-px bg-[#e8b4b8] transition-all group-hover:w-full"></span></a>
+                    <a href="#tienda" class="hover:text-[#e8b4b8] transition-colors relative group">Lencería<span class="absolute -bottom-1 left-0 w-0 h-px bg-[#e8b4b8] transition-all group-hover:w-full"></span></a>
+                    <a href="#experiencias" class="hover:text-[#e8b4b8] transition-colors relative group">Historias<span class="absolute -bottom-1 left-0 w-0 h-px bg-[#e8b4b8] transition-all group-hover:w-full"></span></a>
+                    <a href="#diario" class="hover:text-[#e8b4b8] transition-colors relative group">Diario<span class="absolute -bottom-1 left-0 w-0 h-px bg-[#e8b4b8] transition-all group-hover:w-full"></span></a>
+                </div>
+
+                <!-- Iconos -->
+                <div class="flex items-center space-x-4 md:space-x-6 text-[#e8b4b8] z-20">
+                    <button class="hover:text-white transition-colors hidden sm:block"><i class="ph ph-magnifying-glass text-xl"></i></button>
+                    <button class="hover:text-white transition-colors"><i class="ph ph-user text-xl"></i></button>
+                    <button class="relative hover:text-white transition-colors group">
+                        <i class="ph ph-tote text-xl group-hover:scale-110 transition-transform"></i>
+                        <span class="absolute -top-1 -right-1 bg-[#f2d8d8] text-black text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+                            0
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menú Desplegable Móvil -->
+        <div id="mobile-menu" class="lg:hidden bg-[#0a0a0a] border-b border-[#333] overflow-hidden transition-all duration-300 ease-in-out max-h-0 opacity-0 absolute w-full top-full left-0">
+            <div class="px-4 pt-2 pb-6 space-y-4 flex flex-col text-center">
+                <a href="#" class="text-gray-300 hover:text-[#e8b4b8] uppercase tracking-widest text-sm py-2 mobile-link">Inicio</a>
+                <a href="#tienda" class="text-gray-300 hover:text-[#e8b4b8] uppercase tracking-widest text-sm py-2 mobile-link">Lencería</a>
+                <a href="#experiencias" class="text-gray-300 hover:text-[#e8b4b8] uppercase tracking-widest text-sm py-2 mobile-link">Historias</a>
+                <a href="#diario" class="text-gray-300 hover:text-[#e8b4b8] uppercase tracking-widest text-sm py-2 mobile-link">Diario</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <div class="relative min-h-[90vh] lg:min-h-screen bg-[#1a1a1a] flex items-center overflow-hidden pt-16 lg:pt-0">
+        <!-- Fondo animado -->
+        <div class="absolute inset-0 opacity-40 hero-bg"></div>
+        <!-- Gradientes -->
+        <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/80 to-[#0a0a0a]/30 lg:bg-gradient-to-r lg:from-[#0a0a0a] lg:via-[#0a0a0a]/90 lg:to-transparent"></div>
+
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex flex-col lg:flex-row items-center justify-between z-10 pb-20 lg:pb-0 mt-10 lg:mt-0">
+            <div class="w-full lg:w-1/2 space-y-6 lg:space-y-8 text-center lg:text-left">
+                <p class="uppercase tracking-[0.3em] text-[#e8b4b8] text-xs lg:text-sm font-semibold">
+                    Lencería para vestir tu cuerpo
+                </p>
+                <h1 class="text-4xl md:text-5xl lg:text-7xl font-serif text-white leading-tight">
+                    Historias para <br/>
+                    <span class="italic text-[#e8b4b8]">vestir tu imaginación ♡</span>
+                </h1>
+                <p class="text-gray-300 max-w-md mx-auto lg:mx-0 text-base lg:text-lg font-light">
+                    En Carinka creamos experiencias que se sienten como una historia.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-4 pt-4">
+                    <a href="#tienda" class="inline-block text-center bg-[#e8b4b8] text-black hover:bg-[#d8a7a7] hover:scale-105 transition-all duration-300 px-8 py-4 rounded-sm uppercase tracking-widest text-xs font-bold w-full sm:w-auto">
+                        Comprar Lencería
+                    </a>
+                    <a href="#experiencias" class="inline-block text-center border border-[#e8b4b8] text-[#e8b4b8] hover:bg-[#e8b4b8] hover:text-black hover:scale-105 transition-all duration-300 px-8 py-4 rounded-sm uppercase tracking-widest text-xs font-bold w-full sm:w-auto">
+                        Pedir una Historia
+                    </a>
+                </div>
+            </div>
+
+            <!-- Nota Decorativa -->
+            <div class="hidden lg:flex lg:w-1/2 justify-end pr-10">
+                <div class="bg-[#fcf8f8] text-black p-8 shadow-2xl w-72 mt-10 transform rotate-3 hover:rotate-0 transition-transform duration-500 cursor-default">
+                    <h3 class="font-serif italic text-2xl mb-4 text-center text-[#b76e79]">Querida tú:</h3>
+                    <p class="text-center font-serif text-lg leading-relaxed text-gray-700">
+                        La protagonista <br/> de tu historia <br/> siempre eres tú.
+                    </p>
+                    <div class="text-right mt-4 text-[#e8b4b8] text-xl font-sans">♡</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECCIÓN DUAL: LENCERÍA & HISTORIAS -->
+    <div id="tienda" class="bg-[#fcf8f8] text-[#0a0a0a] py-16 lg:py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-12">
+                
+                <!-- Columna Lencería -->
+                <div class="flex flex-col items-center hover:-translate-y-2 transition-transform duration-500">
+                    <h2 class="text-2xl lg:text-3xl font-serif tracking-widest mb-2 uppercase text-center">Lencería <span class="text-[#e8b4b8] font-sans">♡</span></h2>
+                    <p class="text-gray-500 mb-8 lg:mb-10 italic text-sm text-center">Siéntete única, siéntete tú.</p>
+                    
+                    <div class="grid grid-cols-2 gap-3 lg:gap-6 w-full mb-8">
+                        <!-- Categoría 1 -->
+                        <div class="group cursor-pointer text-center">
+                            <div class="overflow-hidden mb-3 aspect-[3/4] bg-gray-200 rounded-sm">
+                                <img src="https://images.pexels.com/photos/10041258/pexels-photo-10041258.jpeg?auto=compress&cs=tinysrgb&w=400" onerror="this.src='https://placehold.co/400x600/f2d8d8/b76e79?text=Babydolls'" alt="Babydolls" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out" />
+                            </div>
+                            <h4 class="uppercase tracking-[0.15em] text-[10px] lg:text-xs font-bold text-[#b76e79]">Babydolls</h4>
+                            <p class="text-[9px] text-gray-400 uppercase mt-1 group-hover:text-black transition-colors">Ver más</p>
+                        </div>
+                        <!-- Categoría 2 -->
+                        <div class="group cursor-pointer text-center">
+                            <div class="overflow-hidden mb-3 aspect-[3/4] bg-gray-200 rounded-sm">
+                                <img src="https://images.pexels.com/photos/4055272/pexels-photo-4055272.jpeg?auto=compress&cs=tinysrgb&w=400" onerror="this.src='https://placehold.co/400x600/f2d8d8/b76e79?text=Conjuntos'" alt="Conjuntos" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out" />
+                            </div>
+                            <h4 class="uppercase tracking-[0.15em] text-[10px] lg:text-xs font-bold text-[#b76e79]">Conjuntos</h4>
+                            <p class="text-[9px] text-gray-400 uppercase mt-1 group-hover:text-black transition-colors">Ver más</p>
+                        </div>
+                        <!-- Categoría 3 -->
+                        <div class="group cursor-pointer text-center">
+                            <div class="overflow-hidden mb-3 aspect-[3/4] bg-gray-200 rounded-sm">
+                                <img src="https://images.pexels.com/photos/3389817/pexels-photo-3389817.jpeg?auto=compress&cs=tinysrgb&w=400" onerror="this.src='https://placehold.co/400x600/f2d8d8/b76e79?text=Accesorios'" alt="Accesorios" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out" />
+                            </div>
+                            <h4 class="uppercase tracking-[0.15em] text-[10px] lg:text-xs font-bold text-[#b76e79]">Accesorios</h4>
+                            <p class="text-[9px] text-gray-400 uppercase mt-1 group-hover:text-black transition-colors">Ver más</p>
+                        </div>
+                        <!-- Categoría 4 -->
+                        <div class="group cursor-pointer text-center">
+                            <div class="overflow-hidden mb-3 aspect-[3/4] bg-gray-200 rounded-sm">
+                                <img src="https://images.pexels.com/photos/10393026/pexels-photo-10393026.jpeg?auto=compress&cs=tinysrgb&w=400" onerror="this.src='https://placehold.co/400x600/f2d8d8/b76e79?text=Corsets+y+Bodys'" alt="Corsets y Bodys" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out" />
+                            </div>
+                            <h4 class="uppercase tracking-[0.15em] text-[10px] lg:text-xs font-bold text-[#b76e79]">Corsets y Bodys</h4>
+                            <p class="text-[9px] text-gray-400 uppercase mt-1 group-hover:text-black transition-colors">Ver más</p>
+                        </div>
+                    </div>
+                    <button class="bg-[#0a0a0a] text-white px-8 py-4 rounded-sm uppercase tracking-widest text-[10px] font-bold hover:bg-[#b76e79] hover:shadow-lg transition-all duration-300 w-full sm:w-auto">
+                        Ver toda la colección
+                    </button>
+                </div>
+
+                <!-- Columna Historias -->
+                <div id="experiencias" class="flex flex-col items-center bg-white p-6 lg:p-10 border border-[#f2d8d8] shadow-sm rounded-sm hover:-translate-y-2 transition-transform duration-500">
+                    <h2 class="text-2xl lg:text-3xl font-serif tracking-widest mb-2 uppercase text-center leading-tight">Historias Personalizadas <br class="lg:hidden"/><span class="text-[#e8b4b8] font-sans">♡</span></h2>
+                    <p class="text-gray-500 mb-8 lg:mb-12 italic text-sm text-center">Tú eliges los protagonistas. Yo escribo la historia.</p>
+                    
+                    <div class="flex flex-col space-y-8 lg:space-y-12 w-full mb-8">
+                        <!-- Ítem 1 -->
+                        <div class="flex flex-col sm:flex-row items-center text-center sm:text-left group cursor-pointer">
+                            <div class="w-16 h-16 rounded-full bg-[#fcf8f8] border border-[#f2d8d8] flex-shrink-0 flex items-center justify-center mb-4 sm:mb-0 sm:mr-6 group-hover:scale-110 group-hover:bg-[#f2d8d8] transition-all duration-300">
+                                <i class="ph ph-book-open text-3xl text-[#b76e79]"></i>
+                            </div>
+                            <div>
+                                <h4 class="uppercase tracking-widest text-xs lg:text-sm font-bold text-[#0a0a0a] mb-1 group-hover:text-[#b76e79] transition-colors">Fan Fiction Personalizado</h4>
+                                <p class="text-xs text-gray-500 mb-1 lg:mb-2">Tu historia, tus reglas, tus personajes.</p>
+                                <p class="text-[#b76e79] font-bold text-xs lg:text-sm">Desde $200 MXN</p>
+                            </div>
+                        </div>
+                        <!-- Ítem 2 -->
+                        <div class="flex flex-col sm:flex-row items-center text-center sm:text-left group cursor-pointer">
+                            <div class="w-16 h-16 rounded-full bg-[#fcf8f8] border border-[#f2d8d8] flex-shrink-0 flex items-center justify-center mb-4 sm:mb-0 sm:mr-6 group-hover:scale-110 group-hover:bg-[#f2d8d8] transition-all duration-300">
+                                <i class="ph ph-envelope text-3xl text-[#b76e79]"></i>
+                            </div>
+                            <div>
+                                <h4 class="uppercase tracking-widest text-xs lg:text-sm font-bold text-[#0a0a0a] mb-1 group-hover:text-[#b76e79] transition-colors">Cartas Personalizadas</h4>
+                                <p class="text-xs text-gray-500 mb-1 lg:mb-2">Para decir lo que no siempre se atreve a decir.</p>
+                                <p class="text-[#b76e79] font-bold text-xs lg:text-sm">Desde $150 MXN</p>
+                            </div>
+                        </div>
+                        <!-- Ítem 3 -->
+                        <div class="flex flex-col sm:flex-row items-center text-center sm:text-left group cursor-pointer">
+                            <div class="w-16 h-16 rounded-full bg-[#fcf8f8] border border-[#f2d8d8] flex-shrink-0 flex items-center justify-center mb-4 sm:mb-0 sm:mr-6 group-hover:scale-110 group-hover:bg-[#f2d8d8] transition-all duration-300">
+                                <i class="ph ph-pen-nib text-3xl text-[#b76e79]"></i>
+                            </div>
+                            <div>
+                                <h4 class="uppercase tracking-widest text-xs lg:text-sm font-bold text-[#0a0a0a] mb-1 group-hover:text-[#b76e79] transition-colors">Experiencia Carinka</h4>
+                                <p class="text-xs text-gray-500 mb-1 lg:mb-2">Plática, inspiración y tu historia en PDF.</p>
+                                <p class="text-[#b76e79] font-bold text-xs lg:text-sm">Desde $350 MXN</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="bg-[#0a0a0a] text-white px-8 py-4 rounded-sm uppercase tracking-widest text-[10px] font-bold hover:bg-[#b76e79] hover:shadow-lg transition-all duration-300 w-full sm:w-auto mt-auto">
+                        Conoce las experiencias
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- SECCIÓN PERSÉFONE (QUÉ INCLUYE) -->
+    <div class="bg-[#0f0f0f] text-[#d4af37] py-20 lg:py-32 border-y border-[#333] relative overflow-hidden">
+        <!-- Efectos de luz CSS -->
+        <div class="absolute top-0 right-0 -mt-20 -mr-20 w-64 md:w-96 h-64 md:h-96 bg-[#d4af37] opacity-10 blur-[100px] rounded-full animate-pulse"></div>
+        <div class="absolute bottom-0 left-0 -mb-20 -ml-20 w-64 md:w-96 h-64 md:h-96 bg-[#b76e79] opacity-10 blur-[120px] rounded-full animate-pulse" style="animation-delay: 2s;"></div>
+        
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col md:flex-row items-center justify-between">
+            
+            <!-- Lado Información -->
+            <div class="w-full md:w-1/2 mb-16 md:mb-0 space-y-10">
+                <div class="text-center md:text-left">
+                    <i class="ph-fill ph-sparkle text-3xl mx-auto md:mx-0 mb-4 opacity-70 animate-bounce block w-fit"></i>
+                    <h2 class="text-3xl md:text-5xl lg:text-6xl font-serif tracking-widest uppercase text-white mb-2 leading-tight">
+                        ¿Qué incluye <br/><span class="text-[#d4af37]">Tu Pedido?</span>
+                    </h2>
+                    <div class="w-16 h-px bg-[#d4af37] mx-auto md:mx-0 mt-6 opacity-50"></div>
+                </div>
+
+                <div class="space-y-8 lg:space-y-10">
+                    <div class="flex items-start group">
+                        <div class="flex-shrink-0 w-12 h-12 lg:w-16 lg:h-16 rounded-full border border-[#d4af37]/30 flex items-center justify-center mr-4 lg:mr-6 bg-[#d4af37]/5 group-hover:border-[#d4af37] group-hover:bg-[#d4af37]/20 transition-all">
+                            <i class="ph ph-heart text-2xl text-[#d4af37]"></i>
+                        </div>
+                        <div class="pt-1 lg:pt-2">
+                            <h3 class="text-base lg:text-xl font-serif uppercase tracking-widest text-white mb-1 group-hover:text-[#d4af37] transition-colors">El Modelo de Lencería</h3>
+                            <p class="text-xs lg:text-sm text-gray-400 mb-2">de nuestra línea <span class="text-[#d4af37] tracking-[0.3em] ml-1 text-xs">PERSÉFONE</span></p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start group">
+                        <div class="flex-shrink-0 w-12 h-12 lg:w-16 lg:h-16 rounded-full border border-[#d4af37]/30 flex items-center justify-center mr-4 lg:mr-6 bg-[#d4af37]/5 group-hover:border-[#d4af37] group-hover:bg-[#d4af37]/20 transition-all">
+                            <i class="ph ph-envelope text-2xl text-[#d4af37]"></i>
+                        </div>
+                        <div class="pt-1 lg:pt-2">
+                            <h3 class="text-base lg:text-xl font-serif uppercase tracking-widest text-white mb-1 group-hover:text-[#d4af37] transition-colors">Una Carta Especial</h3>
+                            <p class="text-xs lg:text-sm text-gray-400 mb-2">a elegir:</p>
+                            <ul class="text-xs lg:text-sm text-gray-400 space-y-2 ml-1 mt-3">
+                                <li class="flex items-center"><i class="ph-bold ph-check text-[#d4af37] mr-3"></i> Carta de diosa</li>
+                                <li class="flex items-center"><i class="ph-bold ph-check text-[#d4af37] mr-3"></i> Carta de admirador secreto</li>
+                                <li class="flex items-center"><i class="ph-bold ph-check text-[#d4af37] mr-3"></i> Carta personalizada <span class="text-[#b76e79] ml-1 text-[10px]">(+ costo extra)</span></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start group">
+                        <div class="flex-shrink-0 w-12 h-12 lg:w-16 lg:h-16 rounded-full border border-[#d4af37]/30 flex items-center justify-center mr-4 lg:mr-6 bg-[#d4af37]/5 group-hover:border-[#d4af37] group-hover:bg-[#d4af37]/20 transition-all">
+                            <i class="ph ph-map-pin text-2xl text-[#d4af37]"></i>
+                        </div>
+                        <div class="pt-1 lg:pt-2">
+                            <h3 class="text-base lg:text-xl font-serif uppercase tracking-widest text-white mb-1 group-hover:text-[#d4af37] transition-colors">Entrega Gratis</h3>
+                            <p class="text-xs lg:text-sm text-gray-400 mb-2">en Plaza Satélite</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lado Gráfico -->
+            <div class="w-full md:w-5/12 flex justify-center">
+                <div class="bg-[#111] border border-[#d4af37]/20 rounded-xl p-8 lg:p-12 shadow-2xl max-w-sm w-full relative overflow-hidden group hover:border-[#d4af37]/50 transition-colors duration-500 transform hover:scale-105">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-[#d4af37]/10 to-transparent rounded-bl-full"></div>
+                    <div class="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-[#b76e79]/10 to-transparent rounded-tr-full"></div>
+                    
+                    <i class="ph-fill ph-sparkle text-3xl text-[#d4af37] mx-auto mb-6 lg:mb-8 opacity-80 group-hover:scale-110 transition-transform block w-fit"></i>
+                    <p class="font-serif text-lg lg:text-2xl text-center text-white italic mb-6 lg:mb-8 leading-relaxed">
+                        No es solo lencería... <br/> es un ritual.
+                    </p>
+                    <div class="h-px w-16 bg-[#d4af37]/30 mx-auto mb-6 lg:mb-8"></div>
+                    <p class="font-serif text-base lg:text-lg text-center text-[#d4af37] mb-8 lg:mb-10 leading-loose">
+                        Gracias por elegirte, <br/> por tu misterio, <br/> por tu poder.
+                    </p>
+                    <p class="text-center uppercase tracking-[0.4em] font-bold text-white text-xs lg:text-sm">Perséfone</p>
+                </div>
+            </div>
+
+        </div>
+        
+        <div class="text-center mt-20 font-serif italic text-gray-500 text-base lg:text-xl px-4">
+            No es solo lencería... <span class="text-[#b76e79] font-sans">es una experiencia.</span>
+        </div>
+    </div>
+
+    <!-- ASÍ FUNCIONA -->
+    <div class="bg-[#0a0a0a] text-white py-16 lg:py-24 border-b border-[#333]">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex items-center justify-center mb-12 lg:mb-16">
+                <div class="h-px bg-gray-800 w-8 lg:w-16 mr-4"></div>
+                <h2 class="text-lg lg:text-2xl font-serif tracking-widest uppercase">Así Funciona</h2>
+                <div class="h-px bg-gray-800 w-8 lg:w-16 ml-4"></div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8 text-center relative">
+                <div class="hidden lg:block absolute top-10 left-1/4 right-1/4 h-px bg-gradient-to-r from-transparent via-[#e8b4b8]/30 to-transparent"></div>
+
+                <div class="flex flex-col items-center relative z-10 group">
+                    <div class="w-16 h-16 lg:w-20 lg:h-20 rounded-full border border-[#e8b4b8]/50 bg-[#0a0a0a] flex items-center justify-center mb-6 group-hover:border-[#e8b4b8] group-hover:scale-110 transition-all duration-300">
+                        <i class="ph ph-envelope text-2xl lg:text-3xl text-[#e8b4b8]"></i>
+                    </div>
+                    <h4 class="font-bold text-sm lg:text-base mb-2 tracking-wide uppercase group-hover:text-[#e8b4b8] transition-colors">1. Cuéntame tu idea</h4>
+                    <p class="text-xs text-gray-400 max-w-[200px]">Me cuentas tu historia, tus personajes, tus deseos.</p>
+                </div>
+                
+                <div class="flex flex-col items-center relative z-10 group">
+                    <div class="w-16 h-16 lg:w-20 lg:h-20 rounded-full border border-[#e8b4b8]/50 bg-[#0a0a0a] flex items-center justify-center mb-6 group-hover:border-[#e8b4b8] group-hover:scale-110 transition-all duration-300">
+                        <i class="ph ph-sparkle text-2xl lg:text-3xl text-[#e8b4b8]"></i>
+                    </div>
+                    <h4 class="font-bold text-sm lg:text-base mb-2 tracking-wide uppercase group-hover:text-[#e8b4b8] transition-colors">2. Creamos juntos</h4>
+                    <p class="text-xs text-gray-400 max-w-[200px]">Platicamos, definimos los detalles y el tono.</p>
+                </div>
+
+                <div class="flex flex-col items-center relative z-10 group">
+                    <div class="w-16 h-16 lg:w-20 lg:h-20 rounded-full border border-[#e8b4b8]/50 bg-[#0a0a0a] flex items-center justify-center mb-6 group-hover:border-[#e8b4b8] group-hover:scale-110 transition-all duration-300">
+                        <i class="ph ph-pen-nib text-2xl lg:text-3xl text-[#e8b4b8]"></i>
+                    </div>
+                    <h4 class="font-bold text-sm lg:text-base mb-2 tracking-wide uppercase group-hover:text-[#e8b4b8] transition-colors">3. Escribo tu historia</h4>
+                    <p class="text-xs text-gray-400 max-w-[200px]">Doy vida a tu historia con todo el corazón.</p>
+                </div>
+
+                <div class="flex flex-col items-center relative z-10 group">
+                    <div class="w-16 h-16 lg:w-20 lg:h-20 rounded-full border border-[#e8b4b8]/50 bg-[#0a0a0a] flex items-center justify-center mb-6 group-hover:border-[#e8b4b8] group-hover:scale-110 transition-all duration-300">
+                        <i class="ph ph-book-open text-2xl lg:text-3xl text-[#e8b4b8]"></i>
+                    </div>
+                    <h4 class="font-bold text-sm lg:text-base mb-2 tracking-wide uppercase group-hover:text-[#e8b4b8] transition-colors">4. La recibes</h4>
+                    <p class="text-xs text-gray-400 max-w-[200px]">Recibes tu historia en PDF con portada y dedicatoria.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TESTIMONIOS -->
+    <div class="bg-[#fcf8f8] text-[#0a0a0a] py-16 lg:py-24 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 relative">
+            <h2 class="text-xl lg:text-3xl font-serif tracking-widest mb-12 uppercase text-center">
+                Lo que dicen de Carinka <span class="text-[#e8b4b8] font-sans">♡</span>
+            </h2>
+            
+            <div class="relative max-w-4xl mx-auto flex items-center">
+                <button id="prev-test" class="absolute left-0 lg:-left-12 z-10 p-2 text-gray-400 hover:text-black bg-white/50 rounded-full backdrop-blur-sm lg:bg-transparent transition-colors">
+                    <i class="ph-bold ph-caret-left text-2xl lg:text-4xl"></i>
+                </button>
+                
+                <div class="overflow-hidden w-full px-4 lg:px-12">
+                    <div id="test-track" class="flex transition-transform duration-500 ease-in-out">
+                        <!-- Testimonio 1 -->
+                        <div class="w-full flex-shrink-0 px-2 lg:px-4 test-slide">
+                            <div class="bg-white border border-[#f2d8d8] p-6 lg:p-10 rounded-sm shadow-sm text-center h-full flex flex-col justify-center min-h-[250px]">
+                                <div>
+                                    <div class="flex justify-center mb-6 text-[#0a0a0a]">
+                                        <i class="ph-fill ph-star text-sm mx-0.5"></i><i class="ph-fill ph-star text-sm mx-0.5"></i><i class="ph-fill ph-star text-sm mx-0.5"></i><i class="ph-fill ph-star text-sm mx-0.5"></i><i class="ph-fill ph-star text-sm mx-0.5"></i>
+                                    </div>
+                                    <p class="text-sm lg:text-base text-gray-600 mb-8 italic leading-relaxed md:px-10">"Jamás imaginé que alguien pudiera escribir exactamente lo que tenía en mi cabeza. Me hizo sentir la protagonista de verdad."</p>
+                                </div>
+                                <p class="font-bold text-[10px] lg:text-xs uppercase tracking-widest">- Vale</p>
+                            </div>
+                        </div>
+                        <!-- Testimonio 2 -->
+                        <div class="w-full flex-shrink-0 px-2 lg:px-4 test-slide">
+                            <div class="bg-white border border-[#f2d8d8] p-6 lg:p-10 rounded-sm shadow-sm text-center h-full flex flex-col justify-center min-h-[250px]">
+                                <div>
+                                    <div class="flex justify-center mb-6 text-[#0a0a0a]">
+                                        <i class="ph-fill ph-star text-sm mx-0.5"></i><i class="ph-fill ph-star text-sm mx-0.5"></i><i class="ph-fill ph-star text-sm mx-0.5"></i><i class="ph-fill ph-star text-sm mx-0.5"></i><i class="ph-fill ph-star text-sm mx-0.5"></i>
+                                    </div>
+                                    <p class="text-sm lg:text-base text-gray-600 mb-8 italic leading-relaxed md:px-10">"La experiencia fue increíble, la historia quedó hermosa y cada detalle fue justo lo que pedí."</p>
+                                </div>
+                                <p class="font-bold text-[10px] lg:text-xs uppercase tracking-widest">- Fer</p>
+                            </div>
+                        </div>
+                        <!-- Testimonio 3 -->
+                        <div class="w-full flex-shrink-0 px-2 lg:px-4 test-slide">
+                            <div class="bg-white border border-[#f2d8d8] p-6 lg:p-10 rounded-sm shadow-sm text-center h-full flex flex-col justify-center min-h-[250px]">
+                                <div>
+                                    <div class="flex justify-center mb-6 text-[#0a0a0a]">
+                                        <i class="ph-fill ph-star text-sm mx-0.5"></i><i class="ph-fill ph-star text-sm mx-0.5"></i><i class="ph-fill ph-star text-sm mx-0.5"></i><i class="ph-fill ph-star text-sm mx-0.5"></i><i class="ph-fill ph-star text-sm mx-0.5"></i>
+                                    </div>
+                                    <p class="text-sm lg:text-base text-gray-600 mb-8 italic leading-relaxed md:px-10">"Le regalé una historia a mi novia y lloró de la emoción. 100% recomendado."</p>
+                                </div>
+                                <p class="font-bold text-[10px] lg:text-xs uppercase tracking-widest">- Alan</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="next-test" class="absolute right-0 lg:-right-12 z-10 p-2 text-gray-400 hover:text-black bg-white/50 rounded-full backdrop-blur-sm lg:bg-transparent transition-colors">
+                    <i class="ph-bold ph-caret-right text-2xl lg:text-4xl"></i>
+                </button>
+            </div>
+
+            <!-- Indicadores -->
+            <div class="flex justify-center mt-8 space-x-3" id="test-dots">
+                <div class="w-6 h-2 rounded-full cursor-pointer transition-all duration-300 bg-[#0a0a0a]" data-index="0"></div>
+                <div class="w-2 h-2 rounded-full cursor-pointer transition-all duration-300 bg-[#e8b4b8] opacity-50" data-index="1"></div>
+                <div class="w-2 h-2 rounded-full cursor-pointer transition-all duration-300 bg-[#e8b4b8] opacity-50" data-index="2"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BLOG -->
+    <div id="diario" class="bg-[#f2d8d8] text-[#0a0a0a] py-16 lg:py-24">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-2xl lg:text-3xl font-serif tracking-widest mb-2 uppercase text-center">
+                El Diario de Carinka <span class="text-[#b76e79] font-sans">♡</span>
+            </h2>
+            <p class="text-center text-gray-600 mb-10 lg:mb-16 italic text-sm">Historias, consejos y letras que te acompañan.</p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+                <!-- Blog 1 -->
+                <div class="bg-white shadow-sm overflow-hidden group cursor-pointer rounded-sm hover:-translate-y-2 transition-transform duration-300">
+                    <div class="h-48 lg:h-56 overflow-hidden">
+                        <img src="https://images.pexels.com/photos/3755918/pexels-photo-3755918.jpeg?auto=compress&cs=tinysrgb&w=600" onerror="this.src='https://placehold.co/600x400/f2d8d8/b76e79?text=Diario+1'" alt="Diario 1" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out" />
+                    </div>
+                    <div class="p-6 lg:p-8">
+                        <h4 class="font-bold text-sm lg:text-base mb-4 group-hover:text-[#b76e79] transition-colors line-clamp-2">Querida tú: No te conformes con menos de lo que sueñas</h4>
+                        <a href="#" class="text-[10px] lg:text-xs uppercase tracking-widest border-b border-black pb-1 hover:text-[#b76e79] hover:border-[#b76e79] transition-colors font-bold">Leer más</a>
+                    </div>
+                </div>
+                <!-- Blog 2 -->
+                <div class="bg-white shadow-sm overflow-hidden group cursor-pointer rounded-sm hover:-translate-y-2 transition-transform duration-300">
+                    <div class="h-48 lg:h-56 overflow-hidden">
+                        <img src="https://images.pexels.com/photos/1004014/pexels-photo-1004014.jpeg?auto=compress&cs=tinysrgb&w=600" onerror="this.src='https://placehold.co/600x400/f2d8d8/b76e79?text=Diario+2'" alt="Diario 2" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out" />
+                    </div>
+                    <div class="p-6 lg:p-8">
+                        <h4 class="font-bold text-sm lg:text-base mb-4 group-hover:text-[#b76e79] transition-colors line-clamp-2">3 formas de reconectar contigo misma</h4>
+                        <a href="#" class="text-[10px] lg:text-xs uppercase tracking-widest border-b border-black pb-1 hover:text-[#b76e79] hover:border-[#b76e79] transition-colors font-bold">Leer más</a>
+                    </div>
+                </div>
+                <!-- Blog 3 -->
+                <div class="bg-white shadow-sm overflow-hidden group cursor-pointer rounded-sm hover:-translate-y-2 transition-transform duration-300">
+                    <div class="h-48 lg:h-56 overflow-hidden">
+                        <img src="https://images.pexels.com/photos/317355/pexels-photo-317355.jpeg?auto=compress&cs=tinysrgb&w=600" onerror="this.src='https://placehold.co/600x400/f2d8d8/b76e79?text=Diario+3'" alt="Diario 3" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out" />
+                    </div>
+                    <div class="p-6 lg:p-8">
+                        <h4 class="font-bold text-sm lg:text-base mb-4 group-hover:text-[#b76e79] transition-colors line-clamp-2">Cartas que sanan: cuando escribir es soltar</h4>
+                        <a href="#" class="text-[10px] lg:text-xs uppercase tracking-widest border-b border-black pb-1 hover:text-[#b76e79] hover:border-[#b76e79] transition-colors font-bold">Leer más</a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-12">
+                <button class="bg-[#0a0a0a] text-white px-8 py-4 rounded-sm uppercase tracking-widest text-[10px] font-bold hover:bg-[#b76e79] transition-colors w-full sm:w-auto">
+                    Ir al Diario
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ICONOS FOOTER -->
+    <div class="bg-[#e8b4b8] text-[#0a0a0a] py-8 border-b border-black/10">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-4 text-center">
+            <div class="flex flex-col items-center justify-center p-2 hover:scale-105 transition-transform cursor-default">
+                <i class="ph ph-map-pin text-2xl lg:text-3xl mb-3 opacity-80 text-[#b76e79]"></i>
+                <p class="text-[9px] lg:text-[10px] uppercase font-bold tracking-[0.15em] leading-relaxed max-w-[120px]">Envío seguro<br/>a todo México</p>
+            </div>
+            <div class="flex flex-col items-center justify-center p-2 hover:scale-105 transition-transform cursor-default">
+                <i class="ph ph-tote text-2xl lg:text-3xl mb-3 opacity-80 text-[#b76e79]"></i>
+                <p class="text-[9px] lg:text-[10px] uppercase font-bold tracking-[0.15em] leading-relaxed max-w-[120px]">Pago 100% seguro<br/>Con tu método favorito</p>
+            </div>
+            <div class="flex flex-col items-center justify-center p-2 hover:scale-105 transition-transform cursor-default">
+                <i class="ph ph-heart text-2xl lg:text-3xl mb-3 opacity-80 text-[#b76e79]"></i>
+                <p class="text-[9px] lg:text-[10px] uppercase font-bold tracking-[0.15em] leading-relaxed max-w-[120px]">Hecho con amor<br/>Para ti</p>
+            </div>
+            <div class="flex flex-col items-center justify-center p-2 hover:scale-105 transition-transform cursor-default">
+                <i class="ph ph-user text-2xl lg:text-3xl mb-3 opacity-80 text-[#b76e79]"></i>
+                <p class="text-[9px] lg:text-[10px] uppercase font-bold tracking-[0.15em] leading-relaxed max-w-[120px]">Atención personalizada<br/>Estamos para ti</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER PRINCIPAL -->
+    <footer class="bg-[#0a0a0a] text-white pt-16 lg:pt-20 pb-8 border-t border-[#333]">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+            
+            <div class="text-center sm:text-left">
+                <h3 class="font-serif text-3xl italic tracking-wider text-[#e8b4b8] mb-4">Carinka <span class="font-sans">♡</span></h3>
+                <p class="text-gray-400 text-xs lg:text-sm mb-6 max-w-xs mx-auto sm:mx-0">Lencería y palabras que te hacen sentir única e irresistible.</p>
+            </div>
+
+            <div class="text-center sm:text-left">
+                <h4 class="uppercase tracking-widest font-bold text-[10px] lg:text-xs mb-6 text-[#e8b4b8]">Tienda</h4>
+                <ul class="space-y-3 text-xs lg:text-sm text-gray-400">
+                    <li><a href="#" class="hover:text-white transition-colors">Lencería</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Accesorios</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Corsets y Bodys</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Ofertas</a></li>
+                </ul>
+            </div>
+
+            <div class="text-center sm:text-left">
+                <h4 class="uppercase tracking-widest font-bold text-[10px] lg:text-xs mb-6 text-[#e8b4b8]">Experiencias</h4>
+                <ul class="space-y-3 text-xs lg:text-sm text-gray-400">
+                    <li><a href="#" class="hover:text-white transition-colors">Historias Personalizadas</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Cartas Personalizadas</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Experiencia Carinka</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Preguntas Frecuentes</a></li>
+                </ul>
+            </div>
+
+            <div class="text-center sm:text-left">
+                <h4 class="uppercase tracking-widest font-bold text-[10px] lg:text-xs mb-4 text-[#e8b4b8]">Síguenos</h4>
+                <div class="flex justify-center sm:justify-start space-x-6 mb-8">
+                    <a href="https://www.instagram.com/carinkalingerie/" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-[#e8b4b8] hover:-translate-y-1 transition-all">
+                        <i class="ph-fill ph-instagram-logo text-2xl"></i>
+                    </a>
+                    <a href="https://www.tiktok.com/@carinkalingerie?lang=es-419" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-[#e8b4b8] hover:-translate-y-1 transition-all">
+                        <i class="ph-fill ph-tiktok-logo text-2xl"></i>
+                    </a>
+                    <a href="https://www.facebook.com/groups/246135287235898/user/100090952338546/?locale=es_LA" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-[#e8b4b8] hover:-translate-y-1 transition-all">
+                        <i class="ph-fill ph-facebook-logo text-2xl"></i>
+                    </a>
+                </div>
+                
+                <h4 class="uppercase tracking-widest font-bold text-[10px] lg:text-xs mb-3 text-[#e8b4b8]">Newsletter</h4>
+                <p class="text-[10px] lg:text-xs text-gray-400 mb-4">Recibe letras bonitas y promociones exclusivas.</p>
+                <div class="flex border border-gray-700 rounded-sm overflow-hidden focus-within:border-[#e8b4b8] transition-colors max-w-xs mx-auto sm:mx-0">
+                    <input type="email" placeholder="Tu correo" class="bg-transparent w-full px-4 py-3 text-xs outline-none text-white placeholder-gray-600" />
+                    <button class="bg-[#222] px-4 text-gray-300 hover:text-[#e8b4b8] hover:bg-[#333] transition-colors">
+                        →
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- COPYRIGHT & CRÉDITOS -->
+        <div class="mt-16 lg:mt-20 pt-8 border-t border-[#222] flex flex-col md:flex-row items-center justify-between px-4 max-w-7xl mx-auto text-[10px] lg:text-xs text-gray-600 space-y-4 md:space-y-0">
+            <p>© 2026 Carinka. Todos los derechos reservados. <span class="text-[#e8b4b8] font-sans">♡</span></p>
+            <p class="tracking-wider uppercase">Creado x <a href="https://estudio.xidito.com/" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-[#e8b4b8] transition-colors underline decoration-dotted underline-offset-4">estudio.xidito.com</a></p>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script>
+        // 1. Lógica del Menú Móvil
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        let isMenuOpen = false;
+
+        function toggleMenu() {
+            isMenuOpen = !isMenuOpen;
+            if (isMenuOpen) {
+                mobileMenu.classList.remove('max-h-0', 'opacity-0');
+                mobileMenu.classList.add('max-h-64', 'opacity-100');
+                menuIcon.classList.replace('ph-list', 'ph-x');
+            } else {
+                mobileMenu.classList.add('max-h-0', 'opacity-0');
+                mobileMenu.classList.remove('max-h-64', 'opacity-100');
+                menuIcon.classList.replace('ph-x', 'ph-list');
+            }
+        }
+
+        menuBtn.addEventListener('click', toggleMenu);
+        mobileLinks.forEach(link => link.addEventListener('click', () => {
+            if (isMenuOpen) toggleMenu();
+        }));
+
+        // 2. Lógica del Scroll de la Barra de Navegación
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-[#0a0a0a]/95', 'backdrop-blur-md', 'border-b', 'border-[#333]', 'shadow-lg', 'py-2');
+                navbar.classList.remove('bg-transparent', 'py-4');
+            } else {
+                navbar.classList.remove('bg-[#0a0a0a]/95', 'backdrop-blur-md', 'border-b', 'border-[#333]', 'shadow-lg', 'py-2');
+                navbar.classList.add('bg-transparent', 'py-4');
+            }
+        });
+
+        // 3. Lógica del Carrusel de Testimonios
+        const track = document.getElementById('test-track');
+        const prevBtn = document.getElementById('prev-test');
+        const nextBtn = document.getElementById('next-test');
+        const dots = document.querySelectorAll('#test-dots div');
+        let currentSlide = 0;
+        const totalSlides = 3;
+
+        function updateSlider() {
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            dots.forEach((dot, index) => {
+                if (index === currentSlide) {
+                    dot.classList.replace('w-2', 'w-6');
+                    dot.classList.remove('bg-[#e8b4b8]', 'opacity-50');
+                    dot.classList.add('bg-[#0a0a0a]');
+                } else {
+                    dot.classList.replace('w-6', 'w-2');
+                    dot.classList.add('bg-[#e8b4b8]', 'opacity-50');
+                    dot.classList.remove('bg-[#0a0a0a]');
+                }
+            });
+        }
+
+        nextBtn.addEventListener('click', () => {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateSlider();
+        });
+
+        prevBtn.addEventListener('click', () => {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateSlider();
+        });
+
+        dots.forEach(dot => {
+            dot.addEventListener('click', (e) => {
+                currentSlide = parseInt(e.target.getAttribute('data-index'));
+                updateSlider();
+            });
+        });
+    </script>
+</body>
+</html>
