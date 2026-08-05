@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Smörgåsbord Interactivo & Test AR</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Outfit', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        dark: '#050508',
+                        card: 'rgba(20, 20, 30, 0.5)',
+                        cardHover: 'rgba(30, 30, 45, 0.7)',
+                        brand: {
+                            cyan: '#06b6d4',
+                            purple: '#a855f7',
+                            pink: '#ec4899',
+                            amber: '#f59e0b',
+                            emerald: '#10b981',
+                            rose: '#f43f5e'
+                        }
+                    },
+                    animation: {
+                        'gradient-x': 'gradient-x 15s ease infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'slide-up': 'slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'pop-in': 'popIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards'
+                    },
+                    keyframes: {
+                        'gradient-x': {
+                            '0%, 100%': { 'background-size': '200% 200%', 'background-position': 'left center' },
+                            '50%': { 'background-size': '200% 200%', 'background-position': 'right center' },
+                        },
+                        'float': {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        'slideUp': {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        'popIn': {
+                            '0%': { opacity: '0', transform: 'scale(0.95)' },
+                            '100%': { opacity: '1', transform: 'scale(1)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- html2canvas for Image Export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <style>
+        body {
+            background-color: #050508;
+            color: #f8fafc;
+            overscroll-behavior-y: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Animated Mesh Gradient Background for inclusive, vibrant feel */
+        .mesh-bg {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            z-index: -1;
+            background: linear-gradient(-45deg, #4c1d95, #be123c, #0f766e, #b45309);
+            background-size: 400% 400%;
+            animation: gradient-x 20s ease infinite;
+            opacity: 0.15;
+            filter: blur(40px);
+        }
+
+        /* Glassmorphism Utilities */
+        .glass {
+            background: rgba(20, 20, 30, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .tab-content { display: none; padding-bottom: 90px; }
+        .tab-content.active { display: block; animation: popIn 0.4s ease-out forwards; }
+
+        /* Toast Notifications */
+        #toast-container { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 1000; display: flex; flex-direction: column; gap: 10px; pointer-events: none; }
+        .toast { background: rgba(15, 23, 42, 0.95); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 14px 24px; border-radius: 99px; font-size: 14px; font-weight: 500; backdrop-filter: blur(10px); box-shadow: 0 10px 40px rgba(0,0,0,0.5); transition: all 0.4s ease; opacity: 0; transform: translateY(-20px) scale(0.9); }
+        .toast.show { opacity: 1; transform: translateY(0) scale(1); }
+
+        /* Status Colors for the Menu */
+        .st-0 { border-color: rgba(255,255,255,0.1); background: rgba(255,255,255,0.03); color: #94a3b8; }
+        .st-1 { border-color: #10b981; background: rgba(16, 185, 129, 0.15); color: #34d399; box-shadow: 0 0 15px rgba(16,185,129,0.2); }
+        .st-2 { border-color: #f59e0b; background: rgba(245, 158, 11, 0.15); color: #fbbf24; box-shadow: 0 0 15px rgba(245,158,11,0.2); }
+        .st-3 { border-color: #f43f5e; background: rgba(244, 63, 94, 0.15); color: #fb7185; box-shadow: 0 0 15px rgba(244,63,94,0.2); }
+
+        /* Off-screen canvas container for image rendering */
+        #export-canvas-container {
+            position: absolute;
+            left: -9999px;
+            top: -9999px;
+            width: 800px;
+            background-color: #0b0f19;
+            color: white;
+            padding: 40px;
+        }
+    </style>
+</head>
+<body class="antialiased flex flex-col h-full overflow-x-hidden selection:bg-brand-purple selection:text-white">
+
+    <div class="mesh-bg"></div>
+    <div id="toast-container"></div>
+
+    <div class="relative z-10 w-full max-w-5xl mx-auto flex flex-col h-full min-h-screen">
+        
+        <!-- HEADER -->
+        <header class="pt-6 pb-4 px-5 md:px-8 sticky top-0 glass z-30 border-b border-white/5 flex justify-between items-center rounded-b-3xl">
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-brand-cyan via-brand-purple to-brand-amber p-[2px] shadow-lg animate-float">
+                    <div class="w-full h-full bg-dark rounded-[14px] flex items-center justify-center">
+                        <i class="fa-solid fa-infinity text-xl text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-amber"></i>
+                    </div>
+                </div>
+                <div>
+                    <h1 class="font-serif text-xl font-extrabold tracking-tight text-white leading-none">AR Hub Mobile</h1>
+                    <span class="text-[10px] font-mono text-brand-cyan uppercase tracking-widest block mt-1">Guía • Test • Menú</span>
+                </div>
+            </div>
+        </header>
+
+        <main class="flex-1 overflow-y-auto overflow-x-hidden relative z-10 px-4 md:px-8 pt-6 pb-24">
+
+            <section id="tab-guia" class="tab-content active space-y-6">
+                <div class="glass p-6 md:p-8 rounded-3xl relative overflow-hidden group">
+                    <h2 class="font-serif text-3xl font-extrabold text-white mb-4 leading-tight">
+                        Desaprende el molde,<br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan via-brand-purple to-brand-pink">diseña tus vínculos.</span>
+                    </h2>
+                    <p class="text-sm text-slate-300 leading-relaxed mb-6">
+                        La <strong>Anarquía Relacional (AR)</strong> te invita a bajar de la "Escalera Relacional" obligatoria. En lugar de asumir reglas basadas en etiquetas (como "novio", "amiga", "pareja"), construyes cada relación a medida mediante <strong>acuerdos explícitos</strong>, como si eligieras platos en un buffet (Smörgåsbord).
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-[11px] font-mono"><i class="fa-solid fa-handshake mr-1.5 text-brand-amber"></i>Acuerdos, no reglas</span>
+                        <span class="px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-[11px] font-mono"><i class="fa-solid fa-arrows-left-right mr-1.5 text-brand-cyan"></i>Horizontalidad</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="glass p-5 rounded-3xl border-l-4 border-l-brand-rose">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-8 h-8 rounded-full bg-brand-rose/20 flex items-center justify-center text-brand-rose"><i class="fa-solid fa-stairs"></i></div>
+                            <h3 class="font-serif text-lg font-bold text-white">La Escalera Relacional</h3>
+                        </div>
+                        <p class="text-xs text-slate-400 leading-relaxed">
+                            Es la expectativa social de que un vínculo debe "avanzar" (citas → noviazgo → exclusividad → vivir juntos → matrimonio). Si no subes, "fracasas". La AR rechaza este camino único.
+                        </p>
+                    </div>
+                    <div class="glass p-5 rounded-3xl border-l-4 border-l-brand-emerald">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-8 h-8 rounded-full bg-brand-emerald/20 flex items-center justify-center text-brand-emerald"><i class="fa-solid fa-utensils"></i></div>
+                            <h3 class="font-serif text-lg font-bold text-white">El Smörgåsbord (Buffet)</h3>
+                        </div>
+                        <p class="text-xs text-slate-400 leading-relaxed">
+                            Es una herramienta gráfica. En lugar del "paquete completo" por defecto, desglosa la intimidad en 24 ingredientes. Tú y tus compañerxs eligen libremente qué poner en su plato.
+                        </p>
+                    </div>
+                </div>
+
+                <button onclick="switchTab('test')" class="w-full py-4 rounded-2xl bg-gradient-to-r from-brand-purple to-brand-pink text-white font-bold shadow-[0_0_20px_rgba(168,85,247,0.3)] active:scale-95 transition-transform flex items-center justify-center gap-3">
+                    <i class="fa-solid fa-clipboard-question text-xl"></i> Descubre tu Perfil Relacional
+                </button>
+            </section>
+
+            <section id="tab-test" class="tab-content space-y-6">
+                <div class="text-center space-y-2 mb-6">
+                    <h2 class="font-serif text-2xl font-bold text-white">Test de Perfil Relacional</h2>
+                    <p class="text-xs text-slate-400">Descubre cómo estructuras tus apegos y límites frente a la normatividad social.</p>
+                </div>
+
+                <div id="quiz-container" class="glass p-5 md:p-8 rounded-3xl relative max-w-2xl mx-auto">
+                    <div class="w-full bg-white/5 h-1.5 rounded-full mb-6 overflow-hidden">
+                        <div id="quiz-progress" class="h-full bg-gradient-to-r from-brand-cyan to-brand-purple w-[0%] transition-all duration-500"></div>
+                    </div>
+                    <div id="quiz-question-area" class="space-y-4 min-h-[250px]">
+                        <!-- Rendered by JS -->
+                    </div>
+                </div>
+
+                <div id="quiz-result-area" class="hidden glass p-6 md:p-10 rounded-3xl max-w-2xl mx-auto text-center space-y-5 animate-slide-up">
+                    <div class="inline-flex w-20 h-20 rounded-full bg-dark items-center justify-center border-2 border-brand-purple shadow-[0_0_30px_rgba(168,85,247,0.3)] mb-2">
+                        <i id="result-icon" class="fa-solid fa-meteor text-3xl text-brand-purple"></i>
+                    </div>
+                    <h3 class="text-[10px] font-mono text-brand-cyan tracking-widest uppercase font-bold">Tu Arquetipo</h3>
+                    <h2 id="result-title" class="font-serif text-3xl font-extrabold text-white">--</h2>
+                    <p id="result-description" class="text-sm text-slate-300 leading-relaxed">--</p>
+                    
+                    <div class="grid grid-cols-3 gap-2 py-4" id="result-stats">
+                        <!-- Stats injected via JS -->
+                    </div>
+
+                    <div class="flex gap-3 justify-center pt-2">
+                        <button onclick="resetQuiz()" class="px-4 py-3 bg-white/5 text-white text-xs font-bold rounded-xl active:scale-95 transition-transform"><i class="fa-solid fa-rotate-right"></i> Repetir</button>
+                        <button onclick="switchTab('buffet')" class="flex-1 py-3 bg-brand-purple text-white text-xs font-bold rounded-xl active:scale-95 transition-transform shadow-lg shadow-brand-purple/20">Ir al Menú Relacional <i class="fa-solid fa-arrow-right ml-1"></i></button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="tab-buffet" class="tab-content space-y-6">
+                <div class="text-center space-y-2 mb-4">
+                    <h2 class="font-serif text-2xl font-bold text-white">Tu Smörgåsbord</h2>
+                    <p class="text-xs text-slate-400">Toca las tarjetas para elegir qué elementos deseas incluir en tu relación.</p>
+                </div>
+
+                <!-- Floating Action Bar -->
+                <div class="sticky top-[80px] z-40 glass p-3 rounded-2xl flex justify-between items-center mb-6 shadow-2xl border-t border-white/20">
+                    <div class="flex gap-2">
+                        <button onclick="markAll(0)" class="w-8 h-8 rounded-full bg-white/5 border border-white/10 text-slate-400 flex items-center justify-center text-xs active:scale-90 transition-transform"><i class="fa-solid fa-eraser"></i></button>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <span class="text-xs font-mono text-brand-cyan font-bold"><span id="buffet-count">0</span>/24</span>
+                        <button onclick="generateImage()" class="px-4 py-2 bg-white text-dark text-xs font-bold rounded-xl active:scale-95 transition-transform shadow-[0_0_15px_rgba(255,255,255,0.3)] flex items-center gap-2">
+                            <i class="fa-solid fa-image"></i> Descargar Imagen
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Legend -->
+                <div class="flex flex-wrap justify-center gap-3 px-2 mb-6">
+                    <div class="flex items-center gap-1.5 text-[10px] font-mono"><span class="w-2.5 h-2.5 rounded-full bg-brand-emerald"></span> SÍ (Quiero esto)</div>
+                    <div class="flex items-center gap-1.5 text-[10px] font-mono"><span class="w-2.5 h-2.5 rounded-full bg-brand-amber"></span> TAL VEZ / HABLEMOS</div>
+                    <div class="flex items-center gap-1.5 text-[10px] font-mono"><span class="w-2.5 h-2.5 rounded-full bg-brand-rose"></span> DEFINITIVAMENTE NO</div>
+                </div>
+
+                <!-- Categories Grid (Rendered by JS) -->
+                <div id="buffet-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+                    <!-- JS Injection -->
+                </div>
+            </section>
+
+            <section id="tab-fuentes" class="tab-content space-y-6">
+                <div class="glass p-6 md:p-8 rounded-3xl text-center space-y-3 mb-6">
+                    <div class="inline-block px-3 py-1 rounded-full bg-brand-emerald/20 text-brand-emerald text-[10px] font-mono font-bold border border-brand-emerald/30">
+                        <i class="fa-solid fa-shield-check mr-1.5"></i> ENLACES VERIFICADOS Y ACTIVOS
+                    </div>
+                    <h2 class="font-serif text-2xl font-bold text-white">Fuentes de Investigación</h2>
+                    <p class="text-xs text-slate-400 max-w-xl mx-auto">Para garantizar el rigor académico y cultural, aquí tienes los enlaces exactos a las obras originales, reparados y verificados.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <a href="https://theanarchistlibrary.org/library/andie-nordgren-the-short-instructional-manifesto-for-relationship-anarchy" target="_blank" rel="noopener" class="glass p-5 rounded-2xl border-l-4 border-l-brand-cyan active:scale-[0.98] transition-transform">
+                        <h4 class="text-sm font-bold text-white mb-1"><i class="fa-solid fa-scroll text-brand-cyan mr-2"></i>El Manifiesto Original</h4>
+                        <p class="text-[11px] text-slate-400 mb-3">Andie Nordgren (2006). Preservado en "The Anarchist Library". Texto fundacional de los 8 puntos de la AR.</p>
+                        <span class="text-[10px] font-mono text-brand-cyan break-all">theanarchistlibrary.org <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+                    </a>
+
+                    <a href="https://www.multiamory.com/podcast/339-the-smorgasbord-of-relationships" target="_blank" rel="noopener" class="glass p-5 rounded-2xl border-l-4 border-l-brand-purple active:scale-[0.98] transition-transform">
+                        <h4 class="text-sm font-bold text-white mb-1"><i class="fa-solid fa-podcast text-brand-purple mr-2"></i>Smörgåsbord Original</h4>
+                        <p class="text-[11px] text-slate-400 mb-3">Episodio 339 de Multiamory. Creadoras de la herramienta gráfica original: Lyrica Lawrence & Heather Orr (2016).</p>
+                        <span class="text-[10px] font-mono text-brand-purple break-all">multiamory.com/podcast <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+                    </a>
+
+                    <a href="https://offescalator.com/what-escalator/" target="_blank" rel="noopener" class="glass p-5 rounded-2xl border-l-4 border-l-brand-rose active:scale-[0.98] transition-transform">
+                        <h4 class="text-sm font-bold text-white mb-1"><i class="fa-solid fa-stairs text-brand-rose mr-2"></i>La Escalera Relacional</h4>
+                        <p class="text-[11px] text-slate-400 mb-3">Amy Gahran (2017). Artículo oficial que define los "peldaños" sociales obligatorios y cómo bajarse de ellos.</p>
+                        <span class="text-[10px] font-mono text-brand-rose break-all">offescalator.com <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+                    </a>
+
+                    <a href="https://traficantes.net/libros/anarquia-relacional" target="_blank" rel="noopener" class="glass p-5 rounded-2xl border-l-4 border-l-brand-amber active:scale-[0.98] transition-transform">
+                        <h4 class="text-sm font-bold text-white mb-1"><i class="fa-solid fa-book-open text-brand-amber mr-2"></i>Contexto Hispano y Político</h4>
+                        <p class="text-[11px] text-slate-400 mb-3">Libro fundamental del sociólogo Juan-Carlos Pérez-Cortés (2020) que aborda la AR desde una postura de clase y cuidados. (Ed. Traficantes de Sueños).</p>
+                        <span class="text-[10px] font-mono text-brand-amber break-all">traficantes.net/libros <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+                    </a>
+
+                    <a href="https://www.iis.unam.mx/" target="_blank" rel="noopener" class="glass p-5 rounded-2xl border-l-4 border-l-brand-emerald active:scale-[0.98] transition-transform md:col-span-2">
+                        <h4 class="text-sm font-bold text-white mb-1"><i class="fa-solid fa-university text-brand-emerald mr-2"></i>Demografía y Familia (UNAM)</h4>
+                        <p class="text-[11px] text-slate-400 mb-3">Portal principal del Instituto de Investigaciones Sociales de la UNAM, fuente de estudios demográficos sobre la diversidad familiar en México (ej. Investigaciones de Carlos Welti Chanes).</p>
+                        <span class="text-[10px] font-mono text-brand-emerald break-all">iis.unam.mx <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+                    </a>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <nav class="fixed bottom-0 left-0 right-0 z-40 bg-[#050508]/90 backdrop-blur-xl border-t border-white/10 pb-[env(safe-area-inset-bottom)]">
+        <div class="max-w-md mx-auto flex justify-between items-center p-2 px-6">
+            
+            <button onclick="switchTab('guia')" id="nav-btn-guia" class="flex flex-col items-center p-2 gap-1 text-slate-500 transition-all transform active:scale-90">
+                <i class="fa-solid fa-book-open text-lg nav-icon"></i>
+                <span class="text-[9px] font-semibold tracking-wide nav-text">Guía</span>
+            </button>
+            
+            <button onclick="switchTab('test')" id="nav-btn-test" class="flex flex-col items-center p-2 gap-1 text-slate-500 transition-all transform active:scale-90">
+                <i class="fa-solid fa-clipboard-question text-lg nav-icon"></i>
+                <span class="text-[9px] font-semibold tracking-wide nav-text">Test</span>
+            </button>
+            
+            <button onclick="switchTab('buffet')" id="nav-btn-buffet" class="flex flex-col items-center p-2 gap-1 text-slate-500 transition-all transform active:scale-90">
+                <div class="relative">
+                    <i class="fa-solid fa-utensils text-lg nav-icon"></i>
+                    <span id="nav-badge" class="absolute -top-1 -right-2 w-3 h-3 bg-brand-cyan rounded-full text-[7px] text-dark font-bold flex items-center justify-center hidden">!</span>
+                </div>
+                <span class="text-[9px] font-semibold tracking-wide nav-text">Buffet</span>
+            </button>
+
+            <button onclick="switchTab('fuentes')" id="nav-btn-fuentes" class="flex flex-col items-center p-2 gap-1 text-slate-500 transition-all transform active:scale-90">
+                <i class="fa-solid fa-shield-check text-lg nav-icon"></i>
+                <span class="text-[9px] font-semibold tracking-wide nav-text">Fuentes</span>
+            </button>
+
+        </div>
+    </nav>
+
+    <div id="export-canvas-container">
+        <!-- This DOM will be populated before taking a screenshot, formatted nicely for an image -->
+        <div class="p-8 border-4 border-brand-cyan rounded-3xl" style="background: linear-gradient(145deg, #0f172a, #1e1b4b);">
+            <div class="flex items-center gap-4 mb-8 border-b border-white/20 pb-4">
+                <i class="fa-solid fa-infinity text-4xl text-brand-cyan"></i>
+                <div>
+                    <h1 class="text-3xl font-serif font-bold text-white leading-none">Mi Smörgåsbord Relacional</h1>
+                    <p class="text-sm font-mono text-brand-purple mt-2">Acuerdos explícitos, vínculos libres.</p>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-3 gap-6" id="export-grid">
+                <!-- Data injected here -->
+            </div>
+            
+            <div class="mt-8 pt-4 border-t border-white/20 text-center text-xs text-slate-400 font-mono">
+                Generado con la Herramienta AR Mobile • Creado originalmente por L. Lawrence & H. Orr (2016)
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        // --- NOTIFICATIONS ---
+        function showToast(msg) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast show border-brand-cyan text-white';
+            toast.innerHTML = `<i class="fa-solid fa-circle-check mr-2 text-brand-cyan"></i>${msg}`;
+            container.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 400);
+            }, 3000);
+        }
+
+        // --- NAVIGATION ---
+        const colors = { guia: 'brand-cyan', test: 'brand-purple', buffet: 'brand-amber', fuentes: 'brand-emerald' };
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.getElementById(`tab-${tabId}`).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            document.querySelectorAll('nav button').forEach(btn => {
+                btn.classList.remove('text-white');
+                btn.classList.add('text-slate-500');
+                const icon = btn.querySelector('.nav-icon');
+                icon.className = `fa-solid ${icon.className.split(' ')[1]} text-lg nav-icon transition-colors`;
+            });
+
+            const activeBtn = document.getElementById(`nav-btn-${tabId}`);
+            activeBtn.classList.remove('text-slate-500');
+            activeBtn.classList.add('text-white');
+            
+            const color = colors[tabId];
+            activeBtn.querySelector('.nav-icon').classList.add(`text-${color}`);
+        }
+
+        // --- DIAGNOSTIC TEST DATA ---
+        const quizData = [
+            {
+                q: "Empiezas a salir con alguien y conectan muy bien. ¿Qué haces con tus amistades actuales?",
+                answers: [
+                    { t: "Las veo menos; mi nueva pareja es lógicamente la prioridad ahora.", p: { tr: 2, fl: 0, ar: 0 } },
+                    { t: "Trato de balancear, aunque entiendo que una pareja requiere atención especial.", p: { tr: 1, fl: 1, ar: 0 } },
+                    { t: "No hay jerarquía. Mis amistades son tan importantes como el romance.", p: { tr: 0, fl: 0, ar: 2 } }
+                ]
+            },
+            {
+                q: "¿Qué piensas de la exclusividad sexual y emocional?",
+                answers: [
+                    { t: "Es un pilar innegociable. Si no hay exclusividad, no es una relación seria.", p: { tr: 2, fl: 0, ar: 0 } },
+                    { t: "Es lo común, pero podría renegociarse si ambos estamos muy seguros.", p: { tr: 0, fl: 2, ar: 0 } },
+                    { t: "Es solo una opción más del menú. Se debe acordar explícitamente si se desea.", p: { tr: 0, fl: 0, ar: 2 } }
+                ]
+            },
+            {
+                q: "Llevan un año y todo va bien. ¿Sientes presión por 'dar el siguiente paso' (vivir juntos, casarse)?",
+                answers: [
+                    { t: "Sí, es el objetivo natural. Si no avanzamos, la relación está estancada.", p: { tr: 2, fl: 0, ar: 0 } },
+                    { t: "Un poco, pero prefiero hacerlo a nuestro ritmo sin forzar las cosas.", p: { tr: 0, fl: 2, ar: 0 } },
+                    { t: "No. Podemos estar juntos 10 años en casas separadas y es un éxito igual.", p: { tr: 0, fl: 0, ar: 2 } }
+                ]
+            },
+            {
+                q: "¿Cómo manejas etiquetas como 'mi novia' o 'mi esposo'?",
+                answers: [
+                    { t: "Son necesarias para que el mundo (y nosotros) sepamos dónde están los límites.", p: { tr: 2, fl: 0, ar: 0 } },
+                    { t: "Son útiles, aunque a veces limitan. Las uso por practicidad.", p: { tr: 0, fl: 2, ar: 0 } },
+                    { t: "Suelen traer suposiciones tóxicas. Prefiero describir lo que hacemos juntos.", p: { tr: 0, fl: 0, ar: 2 } }
+                ]
+            },
+            {
+                q: "Si tuvieras una crisis médica o financiera, ¿quién es tu red principal?",
+                answers: [
+                    { t: "Definitivamente mi pareja romántica y mi familia biológica.", p: { tr: 2, fl: 0, ar: 0 } },
+                    { t: "Mi pareja y mis mejores amigos.", p: { tr: 1, fl: 1, ar: 0 } },
+                    { t: "Mi comunidad y 'familia elegida' (amigos, exparejas, vínculos actuales).", p: { tr: 0, fl: 0, ar: 2 } }
+                ]
+            }
+        ];
+
+        let qIndex = 0;
+        let score = { tr: 0, fl: 0, ar: 0 };
+
+        function renderQuiz() {
+            const container = document.getElementById('quiz-question-area');
+            const q = quizData[qIndex];
+            document.getElementById('quiz-progress').style.width = `${((qIndex) / quizData.length) * 100}%`;
+
+            let html = `
+                <div class="mb-4 animate-pop-in">
+                    <span class="text-[10px] font-mono text-brand-purple font-bold tracking-widest uppercase mb-2 block">Pregunta ${qIndex + 1} de ${quizData.length}</span>
+                    <h3 class="font-serif text-lg md:text-xl font-bold text-white leading-snug">${q.q}</h3>
+                </div>
+                <div class="space-y-3">
+            `;
+
+            q.answers.forEach((ans, idx) => {
+                html += `
+                    <button onclick='selectAnswer(${JSON.stringify(ans.p)})' class="w-full text-left p-3 md:p-4 rounded-xl bg-white/5 border border-white/10 hover:border-brand-purple/50 active:scale-[0.98] transition-all flex items-start gap-3">
+                        <span class="w-6 h-6 rounded-full bg-white/10 text-slate-300 text-xs flex items-center justify-center shrink-0 font-mono">${String.fromCharCode(65 + idx)}</span>
+                        <span class="text-xs md:text-sm text-slate-200 leading-relaxed mt-0.5">${ans.t}</span>
+                    </button>
+                `;
+            });
+            container.innerHTML = html + `</div>`;
+        }
+
+        function selectAnswer(pts) {
+            score.tr += pts.tr; score.fl += pts.fl; score.ar += pts.ar;
+            if (qIndex < quizData.length - 1) {
+                qIndex++; renderQuiz();
+            } else {
+                showQuizResult();
+            }
+        }
+
+        function showQuizResult() {
+            document.getElementById('quiz-progress').style.width = '100%';
+            setTimeout(() => {
+                document.getElementById('quiz-container').classList.add('hidden');
+                document.getElementById('quiz-result-area').classList.remove('hidden');
+
+                let title = "", desc = "", icon = "", color = "";
+                
+                if (score.ar >= score.fl && score.ar >= score.tr) {
+                    title = "Anarquista Relacional";
+                    desc = "Vives fuera de la escalera. Valoras la autonomía, los acuerdos explícitos y tratas a tus amistades con el mismo peso que a tus vínculos románticos.";
+                    icon = "fa-solid fa-infinity"; color = "text-brand-cyan";
+                } else if (score.fl >= score.ar && score.fl >= score.tr) {
+                    title = "Explorador/a Flexible";
+                    desc = "Te gusta la seguridad de ciertas estructuras sociales, pero estás abiertx a negociar límites y no asumes que una etiqueta dicta todo tu comportamiento.";
+                    icon = "fa-solid fa-compass"; color = "text-brand-amber";
+                } else {
+                    title = "Estructural Normativo";
+                    desc = "Encuentras paz en la claridad de la 'Escalera Relacional'. La exclusividad y los pasos predecibles son esenciales para que te sientas segurx y amadx.";
+                    icon = "fa-solid fa-cube"; color = "text-brand-rose";
+                }
+
+                document.getElementById('result-icon').className = `${icon} text-4xl ${color}`;
+                document.getElementById('result-title').textContent = title;
+                document.getElementById('result-title').className = `font-serif text-2xl font-extrabold ${color}`;
+                document.getElementById('result-description').textContent = desc;
+
+                const total = score.tr + score.fl + score.ar;
+                const pAr = Math.round((score.ar/total)*100) || 0;
+                const pFl = Math.round((score.fl/total)*100) || 0;
+                const pTr = Math.round((score.tr/total)*100) || 0;
+
+                document.getElementById('result-stats').innerHTML = `
+                    <div class="bg-white/5 p-2 rounded-xl border border-white/10">
+                        <span class="block text-lg text-brand-cyan font-bold">${pAr}%</span>
+                        <span class="text-[8px] text-slate-400 uppercase font-mono">Autonomía</span>
+                    </div>
+                    <div class="bg-white/5 p-2 rounded-xl border border-white/10">
+                        <span class="block text-lg text-brand-amber font-bold">${pFl}%</span>
+                        <span class="text-[8px] text-slate-400 uppercase font-mono">Flexibilidad</span>
+                    </div>
+                    <div class="bg-white/5 p-2 rounded-xl border border-white/10">
+                        <span class="block text-lg text-brand-rose font-bold">${pTr}%</span>
+                        <span class="text-[8px] text-slate-400 uppercase font-mono">Estructura</span>
+                    </div>
+                `;
+            }, 300);
+        }
+
+        function resetQuiz() {
+            score = { tr: 0, fl: 0, ar: 0 }; qIndex = 0;
+            document.getElementById('quiz-result-area').classList.add('hidden');
+            document.getElementById('quiz-container').classList.remove('hidden');
+            renderQuiz();
+        }
+
+        // --- SMÖRGÅSBORD 24 CATEGORIES (From PDF) ---
+        const buffetItems = [
+            { id: 1, name: "Legal", desc: "Poder notarial, socios, matrimonio, adopción.", status: 0, icon: "fa-scale-balanced" },
+            { id: 2, name: "Finanzas", desc: "Dinero, cuentas compartidas, propiedades.", status: 0, icon: "fa-wallet" },
+            { id: 3, name: "Comunicación", desc: "Frecuencia, mensajes, llamadas, presencial.", status: 0, icon: "fa-comments" },
+            { id: 4, name: "Apoyo emocional", desc: "Escuchar, empatía, persona de confianza.", status: 0, icon: "fa-hand-holding-heart" },
+            { id: 5, name: "Afecto en público", desc: "Eventos, familia, redes sociales, verse juntos.", status: 0, icon: "fa-users" },
+            { id: 6, name: "Acompañamiento", desc: "Intereses compartidos, intelectual, amistad.", status: 0, icon: "fa-masks-theater" },
+            { id: 7, name: "Creatividad", desc: "Arte, música, yoga, danza, manualidades.", status: 0, icon: "fa-palette" },
+            { id: 8, name: "Intercambio de poder", desc: "Juego de edades, Pet Play, D/s, M/s.", status: 0, icon: "fa-people-pulling" },
+            { id: 9, name: "Kink", desc: "Sadomasoquismo, fetiches, masoquismo.", status: 0, icon: "fa-link" },
+            { id: 10, name: "Co-cuidadores", desc: "Familia, bebés, animales, mayores, plantas.", status: 0, icon: "fa-seedling" },
+            { id: 11, name: "Alianza", desc: "Metas compartidas, compromiso, rutina.", status: 0, icon: "fa-handshake" },
+            { id: 12, name: "Sistemas de opresión", desc: "Raza, clase, género, influencia económica.", status: 0, icon: "fa-globe" },
+            { id: 13, name: "Sexual", desc: "Besos, genitales, fluidos, contacto corporal.", status: 0, icon: "fa-fire" },
+            { id: 14, name: "Intimidad física", desc: "Acurrucarse, masajes, dormir juntos, desnudez.", status: 0, icon: "fa-bed" },
+            { id: 15, name: "Términos", desc: "Familia elegida, esposos, pareja, amigos.", status: 0, icon: "fa-tags" },
+            { id: 16, name: "Religioso / espiritual", desc: "Rituales, oraciones, creencias compartidas.", status: 0, icon: "fa-om" },
+            { id: 17, name: "Intimidad emocional", desc: "Vulnerabilidad, lenguajes del amor, valores.", status: 0, icon: "fa-heart-pulse" },
+            { id: 18, name: "Doméstica", desc: "Vivir juntos, rutinas, cocinar, tareas.", status: 0, icon: "fa-house" },
+            { id: 19, name: "Romántica", desc: "Atracción emocional, salir en citas.", status: 0, icon: "fa-champagne-glasses" },
+            { id: 20, name: "Exclusividad", desc: "Sexual, emocional, social, estructural.", status: 0, icon: "fa-lock" },
+            { id: 21, name: "Cuidados", desc: "Salud, emergencias, fin de vida, dar cuidado.", status: 0, icon: "fa-suitcase-medical" },
+            { id: 22, name: "Profesional", desc: "Colegas, socios, combinar lo social/laboral.", status: 0, icon: "fa-briefcase" },
+            { id: 23, name: "Colaborativa", desc: "Enseñanza, proyectos, organización.", status: 0, icon: "fa-diagram-project" },
+            { id: 24, name: "Jerarquía", desc: "Jefe/empleado, patrocinador, guía/mentor.", status: 0, icon: "fa-sitemap" }
+        ];
+
+        function renderBuffet() {
+            const container = document.getElementById('buffet-grid');
+            let html = "";
+            let count = 0;
+
+            buffetItems.forEach(item => {
+                if (item.status !== 0) count++;
+                
+                // Status formatting
+                let sClass = "st-0";
+                if(item.status === 1) sClass = "st-1";
+                if(item.status === 2) sClass = "st-2";
+                if(item.status === 3) sClass = "st-3";
+                
+                html += `
+                    <div onclick="cycleStatus(${item.id})" class="p-3 rounded-2xl border transition-all cursor-pointer active:scale-95 flex flex-col justify-between h-[120px] relative overflow-hidden ${sClass}">
+                        <div class="relative z-10 flex flex-col h-full">
+                            <div class="flex items-center gap-2 mb-1 opacity-70">
+                                <i class="fa-solid ${item.icon} text-sm"></i>
+                            </div>
+                            <h4 class="text-[11px] font-bold leading-tight mb-1 uppercase tracking-wider">${item.name}</h4>
+                            <p class="text-[9px] leading-snug line-clamp-2 opacity-80 mt-auto">${item.desc}</p>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+            document.getElementById('buffet-count').textContent = count;
+            
+            const badge = document.getElementById('nav-badge');
+            if(count > 0) badge.classList.remove('hidden'); else badge.classList.add('hidden');
+        }
+
+        function cycleStatus(id) {
+            const item = buffetItems.find(i => i.id === id);
+            if (item) {
+                item.status = (item.status + 1) % 4; // 0, 1, 2, 3
+                renderBuffet();
+            }
+        }
+
+        function markAll(status) {
+            buffetItems.forEach(i => i.status = status);
+            renderBuffet();
+            if(status === 0) showToast("Selección limpiada");
+        }
+
+        // --- IMAGE EXPORT LOGIC WITH HTML2CANVAS ---
+        async function generateImage() {
+            // 1. Check if empty
+            const activeItems = buffetItems.filter(i => i.status !== 0);
+            if (activeItems.length === 0) {
+                showToast("Elige al menos un ingrediente para generar la imagen.");
+                return;
+            }
+
+            showToast("Generando imagen... Espera un momento.");
+
+            // 2. Prepare the hidden DOM export structure
+            const exportGrid = document.getElementById('export-grid');
+            let exportHtml = "";
+
+            const statusColors = {
+                1: { text: "SÍ QUIERO", color: "#10b981", border: "border-emerald-500", bg: "bg-emerald-500/10" },
+                2: { text: "HABLEMOS", color: "#f59e0b", border: "border-amber-500", bg: "bg-amber-500/10" },
+                3: { text: "LÍMITE / NO", color: "#f43f5e", border: "border-rose-500", bg: "bg-rose-500/10" }
+            };
+
+            // Group items by status
+            [1, 2, 3].forEach(statusLevel => {
+                const items = buffetItems.filter(i => i.status === statusLevel);
+                if (items.length > 0) {
+                    exportHtml += `
+                        <div class="p-4 rounded-xl border-2 ${statusColors[statusLevel].border} ${statusColors[statusLevel].bg}">
+                            <h3 class="text-xs font-mono font-bold mb-3" style="color: ${statusColors[statusLevel].color}">${statusColors[statusLevel].text}</h3>
+                            <ul class="space-y-2">
+                    `;
+                    items.forEach(i => {
+                        exportHtml += `<li class="text-sm font-bold text-white"><i class="fa-solid ${i.icon} w-5 mr-1 opacity-70"></i> ${i.name}</li>`;
+                    });
+                    exportHtml += `</ul></div>`;
+                }
+            });
+
+            exportGrid.innerHTML = exportHtml;
+
+            // 3. Render Canvas
+            try {
+                const elementToCapture = document.getElementById('export-canvas-container');
+                // Temporarily bring to view but hidden by z-index/opacity for html2canvas to render reliably
+                elementToCapture.style.left = '0px';
+                elementToCapture.style.top = '0px';
+                elementToCapture.style.zIndex = '-999';
+
+                const canvas = await html2canvas(elementToCapture, {
+                    backgroundColor: '#0a0a0f',
+                    scale: 2, // High resolution
+                    useCORS: true
+                });
+
+                // Re-hide element
+                elementToCapture.style.left = '-9999px';
+
+                // 4. Download Trigger
+                const dataURL = canvas.toDataURL('image/png');
+                const link = document.createElement('a');
+                link.download = 'Mi-Smorgasbord-AR.png';
+                link.href = dataURL;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                showToast("¡Imagen descargada exitosamente!");
+
+            } catch (error) {
+                console.error("Error al generar la imagen:", error);
+                showToast("Hubo un error al generar la imagen. Intenta de nuevo.");
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            renderQuiz();
+            renderBuffet();
+            switchTab('guia'); 
+        });
+
+    </script>
+</body>
+</html>
