@@ -24,7 +24,7 @@
                         'magenta-bright': '#B82361',
                         'rose-gold': '#C59A8E',
                         'sage-green': '#9CAF88',
-                        'taupe': '#5A5551',
+                        'taupe': '#3A3330', /* Color oscurecido para mejor lectura */
                         'beige-nude': '#C2A895'
                     },
                     fontFamily: {
@@ -247,9 +247,8 @@
 
     <!-- B. Presentación -->
     <section class="py-16 px-6 text-center max-w-2xl mx-auto reveal">
-        <h3 class="font-script text-5xl text-gradient mb-6">Fabiola y Miguel</h3>
         
-        <p class="font-serif text-xl md:text-2xl text-taupe leading-relaxed italic mb-10 relative">
+        <p class="font-serif text-xl md:text-2xl text-taupe leading-relaxed italic mb-10 relative font-medium">
             <span class="absolute -top-4 -left-4 text-4xl text-dusty-rose opacity-40">"</span>
             Celebraremos el amor, la vida y la oportunidad de comenzar nuevamente.
             <span class="absolute -bottom-4 -right-4 text-4xl text-dusty-rose opacity-40">"</span>
@@ -266,29 +265,40 @@
             </div>
         </div>
 
-        <p class="font-sans text-sm md:text-base text-taupe tracking-wide font-light">
+        <p class="font-sans text-sm md:text-base text-taupe tracking-wide font-medium">
             Nos encantaría compartir este día tan especial en compañía de las personas que más queremos.
         </p>
     </section>
 
-    <!-- D. Padres -->
-    <section class="py-16 bg-white/60 backdrop-blur-sm border-y border-dusty-rose/20 reveal">
-        <div class="max-w-xl mx-auto px-6 text-center">
-            <h3 class="font-script text-4xl text-magenta-deep mb-8">Con la bendición de nuestros padres</h3>
+    <!-- D. Padres e Hijos -->
+    <section class="py-16 bg-white/80 backdrop-blur-sm border-y border-dusty-rose/20 reveal">
+        <div class="max-w-2xl mx-auto px-6 text-center">
+            <h3 class="font-script text-4xl md:text-5xl text-magenta-deep mb-8">Con la bendición de nuestros padres e hijos</h3>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 mb-10">
                 <div>
-                    <p class="font-sans text-xs uppercase tracking-widest text-taupe mb-2">Padres de la Novia</p>
-                    <p class="font-serif text-xl font-semibold text-taupe">Oralia Ortiz Medina</p>
-                    <p class="font-script text-xl text-dusty-rose my-1">&</p>
-                    <p class="font-serif text-xl font-semibold text-taupe">Julio Vargas</p>
+                    <p class="font-sans text-xs uppercase tracking-widest text-magenta-bright mb-2 font-bold">Padres de la Novia</p>
+                    <p class="font-serif text-xl font-bold text-taupe">Oralia Ortiz Medina</p>
+                    <p class="font-script text-3xl text-dusty-rose my-1">&</p>
+                    <p class="font-serif text-xl font-bold text-taupe">Julio Vargas</p>
                 </div>
                 
                 <div>
-                    <p class="font-sans text-xs uppercase tracking-widest text-taupe mb-2">Padres del Novio</p>
-                    <p class="font-serif text-xl font-semibold text-taupe">Araceli Torres Hernández</p>
-                    <p class="font-script text-xl text-dusty-rose my-1">&</p>
-                    <p class="font-serif text-xl font-semibold text-taupe">Roberto Soto <span class="text-sm font-sans font-light">(finado)</span></p>
+                    <p class="font-sans text-xs uppercase tracking-widest text-magenta-bright mb-2 font-bold">Padres del Novio</p>
+                    <p class="font-serif text-xl font-bold text-taupe">Araceli Torres Hernández</p>
+                    <p class="font-script text-3xl text-dusty-rose my-1">&</p>
+                    <p class="font-serif text-xl font-bold text-taupe">Roberto Soto ✝</p>
+                </div>
+            </div>
+
+            <!-- Hijos -->
+            <div class="mt-8 border-t border-rose-gold/40 pt-10">
+                <p class="font-sans text-xs uppercase tracking-widest text-magenta-bright mb-4 font-bold">Nuestros Hijos</p>
+                <div class="flex flex-col space-y-3 font-serif text-xl font-bold text-taupe">
+                    <p>Camila Espinoza Vargas</p>
+                    <p>Valentina Espinoza Vargas</p>
+                    <p>Miguel Ángel Soto Martínez</p>
+                    <p>Michelle Araceli Soto Gaytan</p>
                 </div>
             </div>
         </div>
@@ -339,9 +349,9 @@
                 <!-- Recepción -->
                 <div class="mb-10 pl-8 md:pl-0 relative w-full md:w-1/2 md:pr-10 md:self-start md:text-right group">
                     <div class="absolute left-[-5px] md:left-auto md:-right-[5px] top-1.5 w-3 h-3 bg-white border-2 border-magenta-bright rounded-full group-hover:bg-magenta-bright transition-colors"></div>
-                    <h4 class="font-serif text-2xl text-magenta-deep mb-1">16:30 h</h4>
-                    <h5 class="font-sans text-sm font-semibold uppercase tracking-wider text-taupe mb-2">Recepción</h5>
-                    <p class="font-sans text-sm text-gray-600 font-light leading-relaxed">
+                    <h4 class="font-serif text-2xl text-magenta-deep mb-1 font-bold">16:30 h</h4>
+                    <h5 class="font-sans text-sm font-bold uppercase tracking-wider text-taupe mb-2">Recepción</h5>
+                    <p class="font-sans text-sm text-gray-900 leading-relaxed font-medium">
                         Comenzamos a recibir a nuestros seres queridos para compartir juntos este día tan especial.
                     </p>
                 </div>
@@ -349,15 +359,15 @@
                 <!-- Ceremonia -->
                 <div class="mb-10 pl-8 md:pl-0 relative w-full md:w-1/2 md:pl-10 md:self-end text-left group">
                     <div class="absolute left-[-5px] top-1.5 w-3 h-3 bg-white border-2 border-magenta-bright rounded-full group-hover:bg-magenta-bright transition-colors"></div>
-                    <h4 class="font-serif text-2xl text-magenta-deep mb-1">17:00 h</h4>
-                    <h5 class="font-sans text-sm font-semibold uppercase tracking-wider text-taupe mb-2">Ceremonia de unión prehispánica</h5>
-                    <p class="font-sans text-sm text-gray-600 font-light leading-relaxed mb-3">
+                    <h4 class="font-serif text-2xl text-magenta-deep mb-1 font-bold">17:00 h</h4>
+                    <h5 class="font-sans text-sm font-bold uppercase tracking-wider text-taupe mb-2">Ceremonia de unión prehispánica</h5>
+                    <p class="font-sans text-sm text-gray-900 leading-relaxed font-medium mb-3">
                         Una ceremonia distinta y profundamente significativa para nosotros, en la que celebraremos el amor, la vida y la oportunidad de comenzar nuevamente.
                     </p>
-                    <p class="font-sans text-sm text-gray-600 font-light leading-relaxed mb-3">
+                    <p class="font-sans text-sm text-gray-900 leading-relaxed font-medium mb-3">
                         A través de los elementos de la naturaleza —tierra, agua, aire y fuego— simbolizaremos los pilares que deseamos llevar siempre en nuestro camino: raíces para permanecer, agua para fluir y renovarnos, aire para acompañarnos con libertad y fuego para mantener encendida la ilusión de elegirnos cada día.
                     </p>
-                    <p class="font-sans text-sm text-gray-600 font-light leading-relaxed">
+                    <p class="font-sans text-sm text-gray-900 leading-relaxed font-medium">
                         Porque nuestra historia nos enseñó que el amor también puede ser una segunda oportunidad; un nuevo comienzo que nace de todo lo vivido, de lo aprendido y de la decisión de caminar juntos.
                     </p>
                 </div>
@@ -365,9 +375,9 @@
                 <!-- Banquete -->
                 <div class="mb-10 pl-8 md:pl-0 relative w-full md:w-1/2 md:pr-10 md:self-start md:text-right group">
                     <div class="absolute left-[-5px] md:left-auto md:-right-[5px] top-1.5 w-3 h-3 bg-white border-2 border-magenta-bright rounded-full group-hover:bg-magenta-bright transition-colors"></div>
-                    <h4 class="font-serif text-2xl text-magenta-deep mb-1">18:00 h</h4>
-                    <h5 class="font-sans text-sm font-semibold uppercase tracking-wider text-taupe mb-2">Banquete</h5>
-                    <p class="font-sans text-sm text-gray-600 font-light leading-relaxed">
+                    <h4 class="font-serif text-2xl text-magenta-deep mb-1 font-bold">18:00 h</h4>
+                    <h5 class="font-sans text-sm font-bold uppercase tracking-wider text-taupe mb-2">Banquete</h5>
+                    <p class="font-sans text-sm text-gray-900 leading-relaxed font-medium">
                         Compartiremos los alimentos y brindaremos por esta nueva etapa, rodeados de las personas que más amamos.
                     </p>
                 </div>
@@ -375,12 +385,12 @@
                 <!-- Baile de los novios -->
                 <div class="mb-10 pl-8 md:pl-0 relative w-full md:w-1/2 md:pl-10 md:self-end text-left group">
                     <div class="absolute left-[-5px] top-1.5 w-3 h-3 bg-white border-2 border-magenta-bright rounded-full group-hover:bg-magenta-bright transition-colors"></div>
-                    <h4 class="font-serif text-2xl text-magenta-deep mb-1">18:50 h</h4>
-                    <h5 class="font-sans text-sm font-semibold uppercase tracking-wider text-taupe mb-2">Baile de los novios</h5>
-                    <p class="font-sans text-sm text-gray-600 font-light leading-relaxed mb-2">
+                    <h4 class="font-serif text-2xl text-magenta-deep mb-1 font-bold">18:50 h</h4>
+                    <h5 class="font-sans text-sm font-bold uppercase tracking-wider text-taupe mb-2">Baile de los novios</h5>
+                    <p class="font-sans text-sm text-gray-900 leading-relaxed font-medium mb-2">
                         Abriremos la pista con nuestro primer baile como esposos.
                     </p>
-                    <p class="font-sans text-sm text-gray-600 font-light leading-relaxed">
+                    <p class="font-sans text-sm text-gray-900 leading-relaxed font-medium">
                         A partir de este momento comienza la celebración: habrá música, alegría y algunas dinámicas para que todos puedan ser parte de esta fiesta.
                     </p>
                 </div>
@@ -388,9 +398,9 @@
                 <!-- Corte del pastel -->
                 <div class="mb-10 pl-8 md:pl-0 relative w-full md:w-1/2 md:pr-10 md:self-start md:text-right group">
                     <div class="absolute left-[-5px] md:left-auto md:-right-[5px] top-1.5 w-3 h-3 bg-white border-2 border-magenta-bright rounded-full group-hover:bg-magenta-bright transition-colors"></div>
-                    <h4 class="font-serif text-2xl text-magenta-deep mb-1">22:00 h</h4>
-                    <h5 class="font-sans text-sm font-semibold uppercase tracking-wider text-taupe mb-2">Corte del pastel</h5>
-                    <p class="font-sans text-sm text-gray-600 font-light leading-relaxed">
+                    <h4 class="font-serif text-2xl text-magenta-deep mb-1 font-bold">22:00 h</h4>
+                    <h5 class="font-sans text-sm font-bold uppercase tracking-wider text-taupe mb-2">Corte del pastel y brindis</h5>
+                    <p class="font-sans text-sm text-gray-900 leading-relaxed font-medium">
                         Un dulce momento para celebrar nuestro amor y compartirlo con todos ustedes.
                     </p>
                 </div>
@@ -398,9 +408,9 @@
                 <!-- Fin de la celebración -->
                 <div class="mb-10 pl-8 md:pl-0 relative w-full md:w-1/2 md:pl-10 md:self-end text-left group">
                     <div class="absolute left-[-5px] top-1.5 w-3 h-3 bg-white border-2 border-magenta-bright rounded-full group-hover:bg-magenta-bright transition-colors"></div>
-                    <h4 class="font-serif text-2xl text-magenta-deep mb-1">00:00 h</h4>
-                    <h5 class="font-sans text-sm font-semibold uppercase tracking-wider text-taupe mb-2">Fin de la celebración</h5>
-                    <p class="font-sans text-sm text-gray-600 font-light leading-relaxed">
+                    <h4 class="font-serif text-2xl text-magenta-deep mb-1 font-bold">00:00 h</h4>
+                    <h5 class="font-sans text-sm font-bold uppercase tracking-wider text-taupe mb-2">Fin de la celebración</h5>
+                    <p class="font-sans text-sm text-gray-900 leading-relaxed font-medium">
                         Con el corazón lleno de gratitud, despedimos esta noche que quedará para siempre en nuestra historia.
                     </p>
                 </div>
@@ -427,40 +437,59 @@
     </div>
 
     <!-- E. Código de Vestimenta -->
-    <section class="py-16 bg-[#FDFBF7] reveal">
+    <section class="py-16 bg-white reveal border-t border-dusty-rose/20">
         <div class="max-w-4xl mx-auto px-6 text-center">
-            <h2 class="font-serif text-3xl uppercase tracking-widest text-taupe mb-4">🌸 Código de Vestimenta</h2>
-            <p class="font-script text-2xl text-dusty-rose mb-12">Nos encantará ver florecer nuestra celebración</p>
+            <h2 class="font-serif text-3xl uppercase tracking-widest text-taupe mb-4 font-bold">🌸 Código de Vestimenta</h2>
+            <p class="font-script text-4xl text-magenta-deep mb-12">Nos encantará ver florecer nuestra celebración</p>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-2xl mx-auto">
                 <!-- Ellas -->
-                <div class="bg-white p-8 rounded-xl shadow-sm border border-rose-gold/20 hover:shadow-md transition-shadow">
-                    <div class="w-16 h-16 mx-auto mb-4 text-magenta-bright">
+                <div class="bg-ivory p-8 rounded-xl shadow-md border-2 border-magenta-bright/30 hover:shadow-lg transition-shadow relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-magenta-bright opacity-10 rounded-bl-full"></div>
+                    <div class="w-16 h-16 mx-auto mb-4 text-magenta-bright relative z-10">
                         <i class="fas fa-female text-5xl"></i>
                     </div>
-                    <h3 class="font-serif text-2xl text-magenta-deep mb-2">Ellas</h3>
-                    <p class="font-sans text-xs font-semibold uppercase tracking-wider text-rose-gold mb-3">De Rosa</p>
-                    <p class="font-sans text-sm text-gray-600 font-light">
+                    <h3 class="font-serif text-2xl text-magenta-deep mb-2 font-bold relative z-10">Ellas</h3>
+                    <p class="font-sans text-sm font-bold uppercase tracking-wider text-magenta-bright mb-3 relative z-10">De Rosa</p>
+                    <p class="font-sans text-sm text-gray-900 font-medium relative z-10">
                         Este color, símbolo de amor, ternura y romanticismo, será parte de la paleta que hemos elegido para este día tan especial.
                     </p>
+                    
+                    <!-- Paleta de Colores Sugerida -->
+                    <div class="mt-6 relative z-10 border-t border-dusty-rose/30 pt-4">
+                        <p class="font-sans text-xs text-taupe font-bold mb-3 uppercase tracking-wider">Tonos Sugeridos:</p>
+                        <div class="flex flex-wrap justify-center gap-2.5">
+                            <div class="w-6 h-6 rounded-full shadow-sm border border-white hover:scale-125 transition-transform duration-300 cursor-help" style="background-color: #7b2241;" title="Mulberry"></div>
+                            <div class="w-6 h-6 rounded-full shadow-sm border border-white hover:scale-125 transition-transform duration-300 cursor-help" style="background-color: #f19bb2;" title="Rose"></div>
+                            <div class="w-6 h-6 rounded-full shadow-sm border border-white hover:scale-125 transition-transform duration-300 cursor-help" style="background-color: #d92569;" title="Azalea"></div>
+                            <div class="w-6 h-6 rounded-full shadow-sm border border-white hover:scale-125 transition-transform duration-300 cursor-help" style="background-color: #6a101f;" title="Burgundy"></div>
+                            <div class="w-6 h-6 rounded-full shadow-sm border border-white hover:scale-125 transition-transform duration-300 cursor-help" style="background-color: #f484a2;" title="Pink"></div>
+                            <div class="w-6 h-6 rounded-full shadow-sm border border-white hover:scale-125 transition-transform duration-300 cursor-help" style="background-color: #c60e57;" title="Magenta"></div>
+                            <div class="w-6 h-6 rounded-full shadow-sm border border-white hover:scale-125 transition-transform duration-300 cursor-help" style="background-color: #ef3369;" title="Fuchsia"></div>
+                            <div class="w-6 h-6 rounded-full shadow-sm border border-white hover:scale-125 transition-transform duration-300 cursor-help" style="background-color: #9f1025;" title="Cranberry"></div>
+                            <div class="w-6 h-6 rounded-full shadow-sm border border-white hover:scale-125 transition-transform duration-300 cursor-help" style="background-color: #f76d8b;" title="Flamingo"></div>
+                            <div class="w-6 h-6 rounded-full shadow-sm border border-white hover:scale-125 transition-transform duration-300 cursor-help" style="background-color: #d35198;" title="Foxglove"></div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Ellos -->
-                <div class="bg-white p-8 rounded-xl shadow-sm border border-rose-gold/20 hover:shadow-md transition-shadow">
-                    <div class="w-16 h-16 mx-auto mb-4 text-taupe">
+                <div class="bg-ivory p-8 rounded-xl shadow-md border-2 border-taupe/30 hover:shadow-lg transition-shadow relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-24 h-24 bg-taupe opacity-10 rounded-br-full"></div>
+                    <div class="w-16 h-16 mx-auto mb-4 text-taupe relative z-10">
                         <i class="fas fa-male text-5xl"></i>
                     </div>
-                    <h3 class="font-serif text-2xl text-magenta-deep mb-2">Ellos</h3>
-                    <p class="font-sans text-xs font-semibold uppercase tracking-wider text-rose-gold mb-3">Formal</p>
-                    <p class="font-sans text-sm text-gray-600 font-light">
+                    <h3 class="font-serif text-2xl text-magenta-deep mb-2 font-bold relative z-10">Ellos</h3>
+                    <p class="font-sans text-sm font-bold uppercase tracking-wider text-taupe mb-3 relative z-10">Formal</p>
+                    <p class="font-sans text-sm text-gray-900 font-medium relative z-10">
                         Traje formal en el color que prefieran. Únicamente les pedimos evitar los tonos arena y beige.
                     </p>
                 </div>
             </div>
             
-            <div class="mt-8 inline-block bg-beige-nude/20 px-6 py-3 rounded-lg border border-beige-nude/30">
-                <p class="font-sans text-sm text-taupe font-medium">
-                    <i class="fas fa-exclamation-circle text-magenta-bright mr-2"></i>
+            <div class="mt-10 inline-block bg-magenta-deep/10 px-8 py-4 rounded-xl border border-magenta-deep/30 shadow-sm">
+                <p class="font-sans text-sm text-magenta-deep font-bold">
+                    <i class="fas fa-exclamation-circle mr-2 text-lg"></i>
                     Tonos arena y beige reservados para la celebración.
                 </p>
             </div>
